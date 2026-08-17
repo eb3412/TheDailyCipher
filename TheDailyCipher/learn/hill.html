@@ -1,328 +1,944 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Hill Cipher | The Daily Cipher
-    </title>
-
-    <meta
-        name="description"
-        content="Learn how the Hill Cipher uses matrices, linear algebra, and modular arithmetic to encrypt messages."
-    >
-<link
-    rel="icon"
-    type="image/png"
-    href="/assets/favicon.png"
->
-
-<link
-    rel="apple-touch-icon"
-    href="/assets/apple-touch-icon.png"
->
-
-<meta
-    name="theme-color"
-    content="#030712"
->
-    <link
-        rel="stylesheet"
-        href="../css/style.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/animations.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/themes.css"
-    >
-
-    <link
-    rel="canonical"
-    href="https://thedailycipher.org/learn/caesar.html"
->
-<script>
-  window.va = window.va || function () {
-    (window.vaq = window.vaq || []).push(arguments);
-  };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-
-
-<body>
-
-<header class="site-header">
-
-    <a
-        href="../index.html"
-        class="logo"
-    >
-
-        <span>THE</span>
-        DAILY CIPHER
-
-    </a>
-
-
-    <nav>
-
-        <a href="../index.html">
-            Daily
-        </a>
-
-        <a href="index.html">
-            Learn
-        </a>
-
-        <a href="../practice/index.html">
-            Practice
-        </a>
-
-    </nav>
-
-</header>
-
-
-<main class="container">
-
-
-    <section class="hero">
-
-        <div class="eyebrow">
-
-            MATRIX CIPHER • ADVANCED
-
-        </div>
-
-
-        <h1>
-
-            Hill
-            <span>Cipher</span>
-
-        </h1>
-
-
-        <p>
-
-            The Hill Cipher encrypts groups
-            of letters using matrix
-            multiplication and modular
-            arithmetic.
-
-        </p>
-
-    </section>
-
-
-    <section class="daily-card">
-
-
-        <h2>
-            What is the Hill Cipher?
-        </h2>
-
-
-        <p>
-
-            The Hill Cipher is a polygraphic
-            substitution cipher. Instead of
-            encrypting one letter at a time,
-            it converts groups of letters into
-            numbers and treats those numbers
-            as vectors.
-
-        </p>
-
-
-        <p>
-
-            A key matrix is multiplied by each
-            plaintext vector. The resulting
-            values are reduced modulo 26 and
-            converted back into letters.
-
-        </p>
-
-
-        <p>
-
-            This makes the Hill Cipher especially
-            useful for understanding how linear
-            algebra can be applied to
-            cryptography.
-
-        </p>
-
-
-        <h2>
-            Basic Process
-        </h2>
-
-
-        <div class="cipher-box">
-
-            LETTERS
-            <br>
-            ↓
-            <br>
-            NUMBERS
-            <br>
-            ↓
-            <br>
-            MATRIX MULTIPLICATION
-            <br>
-            ↓
-            <br>
-            MOD 26
-            <br>
-            ↓
-            <br>
-            CIPHERTEXT
-
-        </div>
-
-
-        <h2>
-            Letter Values
-        </h2>
-
-
-        <p>
-
-            Letters are typically converted
-            into numbers:
-
-        </p>
-
-
-        <div class="cipher-box">
-
-            A = 0
-            &nbsp;
-            B = 1
-            &nbsp;
-            C = 2
-            &nbsp;
-            ...
-            &nbsp;
-            Z = 25
-
-        </div>
-
-
-        <h2>
-            Example Key Matrix
-        </h2>
-
-
-        <div class="cipher-box">
-
-            [ 3&nbsp;&nbsp;3 ]
-            <br>
-            [ 2&nbsp;&nbsp;5 ]
-
-        </div>
-
-
-        <p>
-
-            With a 2×2 key matrix, plaintext
-            is processed two letters at a time.
-
-        </p>
-
-
-        <h2>
-            Why the Key Matters
-        </h2>
-
-
-        <p>
-
-            Not every matrix can be used as a
-            valid Hill Cipher key. The matrix
-            must be invertible modulo 26 so
-            that the ciphertext can later be
-            decrypted.
-
-        </p>
-
-
-        <h2>
-            Interactive Visualizer
-        </h2>
-
-
-        <p>
-
-            Experiment with a 2×2 matrix below
-            and see how changing its values
-            affects its determinant.
-
-        </p>
-
-
-        <iframe
-            src="../visualizers/hill.html"
-            title="Hill Cipher Visualizer"
-            style="
-                width:100%;
-                height:500px;
-                border:0;
-                border-radius:15px;
-            "
-        >
-        </iframe>
-
-
-        <a
-            href="../practice/index.html?cipher=hill"
-            class="primary-button"
-            style="
-                display:block;
-                text-align:center;
-                margin-top:20px;
-            "
-        >
-
-            Practice Hill Cipher
-
-        </a>
-
-
-    </section>
-
-
-</main>
-
-
-<footer class="site-footer">
-
-    <p>
-        THE DAILY CIPHER
-    </p>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Hill Cipher &mdash; Complete Guide | The Daily Cipher
+  </title>
+  <meta content="Learn Hill Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
+  <link href="https://thedailycipher.org/learn/hill.html" rel="canonical"/>
+  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
+  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta content="#030712" name="theme-color"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../css/animations.css" rel="stylesheet"/>
+  <link href="../css/themes.css" rel="stylesheet"/>
+  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
+  <script>
+   window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  </script>
+  <script defer="" src="/_vercel/insights/script.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-header">
+   <a class="logo" href="../index.html">
     <span>
-        Learn. Crack. Repeat.
+     THE
     </span>
+    DAILY CIPHER
+   </a>
+   <nav>
+    <a href="../index.html">
+     Daily
+    </a>
+    <a href="index.html">
+     Learn
+    </a>
+    <a href="../practice/index.html">
+     Practice
+    </a>
+   </nav>
+  </header>
+  <main class="container deep-guide-shell">
+   <section class="deep-hero">
+    <div class="eyebrow">
+     MATRIX CIPHER &bull; ADVANCED
+    </div>
+    <h1>
+     Hill Cipher
+    </h1>
+    <p>
+     Turn blocks of letters into vectors, multiply by an invertible matrix, and reduce modulo 26.
+    </p>
+    <div class="quick-grid">
+     <div class="quick-item">
+      <span>
+       Family
+      </span>
+      <strong>
+       Polygraphic linear substitution
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Key / parameter
+      </span>
+      <strong>
+       Invertible matrix mod 26
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Text structure
+      </span>
+      <strong>
+       Letters are grouped into fixed-size vectors
+      </strong>
+     </div>
+    </div>
+   </section>
+   <div class="deep-layout">
+    <aside aria-label="Guide contents" class="deep-toc">
+     <div class="deep-toc-title">
+      ON THIS PAGE
+     </div>
+     <a href="#overview">
+      What it is
+     </a>
+     <a href="#basics">
+      What you need
+     </a>
+     <a href="#reference">
+      Complete reference
+     </a>
+     <a href="#encrypt">
+      Encrypt
+     </a>
+     <a href="#decrypt">
+      Decrypt
+     </a>
+     <a href="#competition">
+      Codebusters approach
+     </a>
+     <a href="#cryptanalysis">
+      Cryptanalysis
+     </a>
+     <a href="#worked">
+      Worked problem
+     </a>
+     <a href="#mistakes">
+      Common mistakes
+     </a>
+     <a href="#speed">
+      Speed strategies
+     </a>
+     <a href="#quick">
+      Quick reference
+     </a>
+     <a href="#interactive">
+      Visualizer &amp; practice
+     </a>
+     <div class="deep-toc-note">
+      Everything needed for the cipher itself is included here.
+     </div>
+    </aside>
+    <div class="deep-content">
+     <section class="deep-card" id="overview">
+      <div class="section-kicker">
+       01 &bull; OVERVIEW
+      </div>
+      <h2>
+       What is the Hill Cipher?
+      </h2>
+      <p>
+       The Hill cipher uses linear algebra over arithmetic modulo 26. Instead of substituting one letter at a time, it transforms a block of letters together using a key matrix.
+      </p>
+      <p>
+       A valid key matrix must be invertible modulo 26. For a 2&times;2 matrix, its determinant must be relatively prime to 26.
+      </p>
+      <div class="deep-rule-note">
+       <strong>
+        Competition note
+       </strong>
+       <p>
+        The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
+       </p>
+      </div>
+      <div class="beginner-promise">
+       <strong>
+        Starting from zero?
+       </strong>
+       <p>
+        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+       </p>
+      </div>
+     </section>
+     <section class="deep-card" id="basics">
+      <div class="section-kicker">
+       02 &bull; FOUNDATIONS
+      </div>
+      <h2>
+       What you need to know
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Use A=0 through Z=25.
+       </li>
+       <li>
+        For a 2&times;2 key K and plaintext vector p, encryption is
+        <strong>
+         c = Kp mod 26
+        </strong>
+        .
+       </li>
+       <li>
+        Decryption uses the modular inverse matrix:
+        <strong>
+         p = K⁻&sup1;c mod 26
+        </strong>
+        .
+       </li>
+       <li>
+        Pad the plaintext if its length is not a multiple of the matrix size.
+       </li>
+      </ul>
+      <h3>
+       Beginner glossary
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table glossary-table">
+        <thead>
+         <tr>
+          <th>
+           Term
+          </th>
+          <th>
+           Meaning
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Vector
+          </td>
+          <td>
+           An ordered block of letter numbers, usually written as a column.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Matrix
+          </td>
+          <td>
+           A rectangular array of numbers used to mix the vector entries.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Determinant
+          </td>
+          <td>
+           A number computed from the key matrix; it determines whether an inverse exists mod 26.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Invertible
+          </td>
+          <td>
+           A matrix is usable for decryption only if its determinant has a modular inverse mod 26.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Block size
+          </td>
+          <td>
+           The number of letters encrypted together; 2 for a 2&times;2 matrix, 3 for 3&times;3.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="deep-card reference-card" id="reference">
+      <div class="section-kicker">
+       03 &bull; COMPLETE REFERENCE
+      </div>
+      <h2>
+       Keep this beside you while solving
+      </h2>
+      <div class="deep-table-wrap">
+       <table class="deep-table alphabet-table">
+        <thead>
+         <tr>
+          <th>
+           Letter
+          </th>
+          <th>
+           A
+          </th>
+          <th>
+           B
+          </th>
+          <th>
+           C
+          </th>
+          <th>
+           D
+          </th>
+          <th>
+           E
+          </th>
+          <th>
+           F
+          </th>
+          <th>
+           G
+          </th>
+          <th>
+           H
+          </th>
+          <th>
+           I
+          </th>
+          <th>
+           J
+          </th>
+          <th>
+           K
+          </th>
+          <th>
+           L
+          </th>
+          <th>
+           M
+          </th>
+          <th>
+           N
+          </th>
+          <th>
+           O
+          </th>
+          <th>
+           P
+          </th>
+          <th>
+           Q
+          </th>
+          <th>
+           R
+          </th>
+          <th>
+           S
+          </th>
+          <th>
+           T
+          </th>
+          <th>
+           U
+          </th>
+          <th>
+           V
+          </th>
+          <th>
+           W
+          </th>
+          <th>
+           X
+          </th>
+          <th>
+           Y
+          </th>
+          <th>
+           Z
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Value
+          </td>
+          <td>
+           0
+          </td>
+          <td>
+           1
+          </td>
+          <td>
+           2
+          </td>
+          <td>
+           3
+          </td>
+          <td>
+           4
+          </td>
+          <td>
+           5
+          </td>
+          <td>
+           6
+          </td>
+          <td>
+           7
+          </td>
+          <td>
+           8
+          </td>
+          <td>
+           9
+          </td>
+          <td>
+           10
+          </td>
+          <td>
+           11
+          </td>
+          <td>
+           12
+          </td>
+          <td>
+           13
+          </td>
+          <td>
+           14
+          </td>
+          <td>
+           15
+          </td>
+          <td>
+           16
+          </td>
+          <td>
+           17
+          </td>
+          <td>
+           18
+          </td>
+          <td>
+           19
+          </td>
+          <td>
+           20
+          </td>
+          <td>
+           21
+          </td>
+          <td>
+           22
+          </td>
+          <td>
+           23
+          </td>
+          <td>
+           24
+          </td>
+          <td>
+           25
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <h3>
+       Example key
+      </h3>
+      <div class="deep-code">
+       K = [ 3  3 ]
+    [ 2  5 ]
 
-</footer>
+det(K)=3&middot;5&minus;3&middot;2=9; gcd(9,26)=1, so K is invertible.
 
-<script src="/js/navigation.js"></script>
-</body>
-
+K⁻&sup1; mod 26 = [15 17]
+              [20  9]
+      </div>
+      <h3>
+       2&times;2 inverse recipe
+      </h3>
+      <p>
+       For
+       <code>
+        K = [[a,b],[c,d]]
+       </code>
+       , compute
+       <code>
+        det(K)=ad&minus;bc
+       </code>
+       . Find
+       <code>
+        det(K)⁻&sup1; mod 26
+       </code>
+       . Then
+       <code>
+        K⁻&sup1; = det(K)⁻&sup1; &middot; [[d,&minus;b],[&minus;c,a]] mod 26
+       </code>
+       .
+      </p>
+      <div class="deep-note">
+       <strong>
+        Orientation matters:
+       </strong>
+       The Daily Cipher visualizer uses column vectors and computes
+       <code>
+        c = Kp mod 26
+       </code>
+       . Keep the same convention for every block.
+      </div>
+      <h3>
+       Determinant test
+      </h3>
+      <p>
+       A determinant is valid when
+       <code>
+        gcd(det(K),26)=1
+       </code>
+       . That means it is not divisible by 2 or 13.
+      </p>
+      <div class="reference-completeness">
+       <strong>
+        Reference rule:
+       </strong>
+       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
+      </div>
+     </section>
+     <section class="deep-card" id="encrypt">
+      <div class="section-kicker">
+       04 &bull; ENCRYPTION
+      </div>
+      <h2>
+       How encryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Form a vector
+         </h3>
+         <p>
+          HI &rarr; [7,8]ᵀ.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Multiply
+         </h3>
+         <p>
+          [[3,3],[2,5]] &times; [7,8]ᵀ = [45,54]ᵀ.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Reduce mod 26
+         </h3>
+         <p>
+          [45,54] &rarr; [19,2].
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Convert back
+         </h3>
+         <p>
+          19=T and 2=C, so HI encrypts to TC.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="decrypt">
+      <div class="section-kicker">
+       05 &bull; DECRYPTION
+      </div>
+      <h2>
+       How decryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Compute or use K⁻&sup1;
+         </h3>
+         <p>
+          For the example key, K⁻&sup1;=[[15,17],[20,9]] mod 26.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Convert ciphertext
+         </h3>
+         <p>
+          TC &rarr; [19,2]ᵀ.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Multiply by K⁻&sup1;
+         </h3>
+         <p>
+          The result is [7,8] mod 26.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Convert back
+         </h3>
+         <p>
+          [7,8] &rarr; HI.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="competition">
+      <div class="section-kicker">
+       06 &bull; COMPETITION WORKFLOW
+      </div>
+      <h2>
+       How to approach it in Codebusters practice
+      </h2>
+      <ul class="deep-list competition-list">
+       <li>
+        Write the letter-number row and key matrix clearly.
+       </li>
+       <li>
+        Reduce modulo 26 after each multiplication/addition to keep numbers small.
+       </li>
+       <li>
+        Verify invertibility before spending time trying to invert a matrix.
+       </li>
+      </ul>
+      <h3>
+       What the problem gives you vs. what you produce
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table problem-format-table">
+        <thead>
+         <tr>
+          <th>
+           Part
+          </th>
+          <th>
+           What to expect
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           You may be given
+          </td>
+          <td>
+           A key matrix and ciphertext/plaintext.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           You must find
+          </td>
+          <td>
+           Blockwise encryption or decryption using modular matrix arithmetic.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fastest first move
+          </td>
+          <td>
+           Write A=0&hellip;Z=25 and verify the determinant/inverse before processing blocks.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Season note:
+       </strong>
+       use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
+      </div>
+     </section>
+     <section class="deep-card" id="cryptanalysis">
+      <div class="section-kicker">
+       07 &bull; CRYPTANALYSIS
+      </div>
+      <h2>
+       How to attack an unknown or partially known key
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Known plaintext blocks can provide equations for recovering an unknown matrix when enough independent information is available.
+       </li>
+       <li>
+        Because blocks mix letters together, ordinary single-letter frequency analysis is less direct than for monoalphabetic substitution.
+       </li>
+       <li>
+        A candidate inverse matrix should be checked by verifying K&middot;K⁻&sup1; &equiv; I mod 26.
+       </li>
+      </ul>
+     </section>
+     <section class="deep-card" id="worked">
+      <div class="section-kicker">
+       08 &bull; WORKED PROBLEM
+      </div>
+      <h2>
+       Follow one example from start to finish
+      </h2>
+      <div class="worked-box">
+       <div class="worked-row">
+        <span>
+         Plaintext block
+        </span>
+        <div>
+         <code>
+          HI &rarr; [7,8]ᵀ
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Key
+        </span>
+        <div>
+         <code>
+          [[3,3],[2,5]]
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Multiply
+        </span>
+        <div>
+         [45,54]ᵀ
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Reduce
+        </span>
+        <div>
+         [19,2]ᵀ
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Ciphertext
+        </span>
+        <div>
+         <code>
+          TC
+         </code>
+        </div>
+       </div>
+      </div>
+      <div class="beginner-check">
+       <div class="beginner-check-title">
+        BEGINNER SELF-CHECK
+       </div>
+       <p>
+        Before moving on, make sure you can answer these without another site:
+       </p>
+       <ul>
+        <li>
+         Can you explain why an even determinant is invalid mod 26?
+        </li>
+        <li>
+         Can you convert HELP into two 2-letter numeric vectors?
+        </li>
+        <li>
+         Can you distinguish ordinary division from multiplication by a modular inverse?
+        </li>
+       </ul>
+      </div>
+     </section>
+     <section class="deep-card" id="mistakes">
+      <div class="section-kicker">
+       09 &bull; ERROR CHECK
+      </div>
+      <h2>
+       Common mistakes
+      </h2>
+      <div class="mistake-grid">
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Using A=1 instead of A=0.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Multiplying vectors/matrices in the wrong orientation.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Using an ordinary real-number inverse instead of a modular inverse.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Choosing a matrix whose determinant has no inverse mod 26.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="speed">
+      <div class="section-kicker">
+       10 &bull; SPEED
+      </div>
+      <h2>
+       Competition speed strategies
+      </h2>
+      <div class="speed-grid">
+       <div class="speed-item">
+        <span>
+         1
+        </span>
+        <p>
+         Keep values reduced mod 26 after every row calculation.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         2
+        </span>
+        <p>
+         For 2&times;2 matrices, memorize the inverse structure [[d,-b],[-c,a]] times det⁻&sup1;.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         3
+        </span>
+        <p>
+         Write one vector per line and label plaintext/ciphertext to avoid reversing the direction.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="quick">
+      <div class="section-kicker">
+       11 &bull; QUICK REFERENCE
+      </div>
+      <h2>
+       What to remember under time pressure
+      </h2>
+      <div class="quick-grid">
+       <div class="quick-item">
+        <span>
+         Letter values
+        </span>
+        <strong>
+         A=0 &hellip; Z=25
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Encrypt
+        </span>
+        <strong>
+         c=Kp mod 26
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Decrypt
+        </span>
+        <strong>
+         p=K⁻&sup1;c mod 26
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Valid key
+        </span>
+        <strong>
+         gcd(det K,26)=1
+        </strong>
+       </div>
+      </div>
+      <div class="quick-use-note">
+       <strong>
+        How to use this section:
+       </strong>
+       during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
+      </div>
+     </section>
+     <section class="deep-card interactive-card" id="interactive">
+      <div class="section-kicker">
+       12 &bull; INTERACTIVE LAB
+      </div>
+      <h2>
+       See every transformation
+      </h2>
+      <p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+      </p>
+      <div class="lab-actions">
+       <a class="deep-secondary-button" href="../visualizers/hill.html">
+        Open full visualizer
+       </a>
+       <a class="primary-button" href="../practice/index.html?cipher=hill">
+        Practice Hill
+       </a>
+      </div>
+      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/hill.html?embed=1" title="Hill Cipher interactive visualizer">
+      </iframe>
+     </section>
+     <div class="guide-end-nav">
+      <a href="index.html">
+       &larr; All cipher guides
+      </a>
+      <a href="#overview">
+       Back to top &uarr;
+      </a>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <p>
+    THE DAILY CIPHER
+   </p>
+   <span>
+    Learn. Crack. Repeat.
+   </span>
+  </footer>
+  <script src="/js/navigation.js">
+  </script>
+  <script src="../js/learnPage.js">
+  </script>
+ </body>
 </html>

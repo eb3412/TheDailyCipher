@@ -675,14 +675,32 @@ function renderLearnCiphers(
                 "learn-card-button";
 
 
-            practice.href =
-                `../practice/index.html?cipher=${encodeURIComponent(
-                    cipher.id
-                )}`;
+            const practiceId =
+                cipher.practiceId === undefined
+                    ? cipher.id
+                    : cipher.practiceId;
 
 
-            practice.textContent =
-                "Practice";
+            if (practiceId) {
+
+                practice.href =
+                    `../practice/index.html?cipher=${encodeURIComponent(
+                        practiceId
+                    )}`;
+
+
+                practice.textContent =
+                    "Practice";
+
+            } else {
+
+                practice.href =
+                    "../practice/index.html";
+
+
+                practice.textContent =
+                    "Practice Hub";
+            }
 
 
             actions.appendChild(

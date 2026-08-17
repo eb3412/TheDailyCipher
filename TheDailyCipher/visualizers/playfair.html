@@ -1,148 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-
-<title>Playfair Visualizer</title>
-<link
-    rel="icon"
-    type="image/png"
-    href="/assets/favicon.png"
->
-
-<link
-    rel="apple-touch-icon"
-    href="/assets/apple-touch-icon.png"
->
-
-<meta
-    name="theme-color"
-    content="#030712"
->
-<style>
-
-body {
-    background:#030712;
-    color:white;
-
-    font-family:system-ui;
-
-    text-align:center;
-
-    padding:30px;
-}
-
-#grid {
-    display:grid;
-
-    grid-template-columns:
-        repeat(5, 60px);
-
-    justify-content:center;
-
-    gap:5px;
-
-    margin:30px auto;
-}
-
-.cell {
-    height:60px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#1f2937;
-
-    border:1px solid #374151;
-
-    font-size:22px;
-    font-weight:bold;
-
-    transition:.3s;
-}
-
-.cell:hover {
-    background:#6366f1;
-    transform:scale(1.08);
-}
-
-input {
-    padding:12px;
-
-    border-radius:8px;
-    border:1px solid #374151;
-}
-
-</style>
-<script>
-  window.va = window.va || function () {
-    (window.vaq = window.vaq || []).push(arguments);
-  };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playfair Cipher Visualizer | The Daily Cipher</title>
+    <meta name="description" content="Interactive step-by-step Playfair Cipher teaching lab with complete reference material, transformations, and reverse-solving guidance.">
+    <link rel="canonical" href="https://thedailycipher.org/visualizers/playfair.html">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#030712">
+    <link rel="stylesheet" href="../css/codebusters-visualizer.css">
+    <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
-
-<body>
-
-<h2>Playfair Key Square</h2>
-
-<p>
-Key:
-<input id="key" value="MONARCHY">
-<button onclick="generateSquare()">
-Generate
-</button>
-</p>
-
-<div id="grid"></div>
-
-<script>
-
-const alphabet =
-    "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-
-function generateSquare() {
-
-    const key =
-        document.getElementById("key")
-        .value
-        .toUpperCase();
-
-    const letters =
-        [...(key + alphabet)]
-        .filter(
-            letter =>
-                /[A-Z]/.test(letter)
-        );
-
-    const unique =
-        [...new Set(letters)];
-
-    const grid =
-        document.getElementById("grid");
-
-    grid.innerHTML = "";
-
-    unique
-        .slice(0, 25)
-        .forEach(letter => {
-
-            const cell =
-                document.createElement("div");
-
-            cell.className = "cell";
-
-            cell.textContent = letter;
-
-            grid.appendChild(cell);
-        });
-}
-
-generateSquare();
-
-</script>
-
+<body data-cipher="playfair">
+    <main class="viz-shell">
+        <a class="viz-back" href="../learn/playfair.html">← Back to complete guide</a>
+        <header class="viz-top">
+            <div class="viz-eyebrow">INTERACTIVE TEACHING LAB • NO PRIOR KNOWLEDGE REQUIRED</div>
+            <h1 id="viz-title">Playfair Cipher</h1>
+            <p id="viz-description">Encrypt pairs of letters through a keyed 5×5 square using row, column, and rectangle rules.</p>
+            <div class="embed-note">Use the controls, full reference, step highlighter, and reverse-solving panel together.</div>
+        </header>
+        <section id="viz-controls" class="viz-controls" aria-label="Visualizer controls"></section>
+        <div id="viz-output"></div>
+    </main>
+    <script src="../js/cipherEngine.js"></script>
+    <script src="../js/codebustersVisualizer.js"></script>
 </body>
 </html>

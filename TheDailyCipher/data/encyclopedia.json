@@ -1,21 +1,15 @@
 [
   {
     "id": "caesar",
+    "practiceId": "caesar",
     "name": "Caesar Cipher",
     "category": "Substitution",
     "difficulty": "Beginner",
-    "description": "A monoalphabetic substitution cipher in which every plaintext letter is shifted by the same number of alphabet positions.",
-    "example": {
-      "input": "HELLO",
-      "output": "KHOOR",
-      "key": "Shift +3"
-    },
+    "description": "Move every letter by the same fixed amount and learn to reverse the shift without guessing.",
     "keywords": [
       "shift",
       "rotation",
-      "rot",
-      "monoalphabetic",
-      "substitution"
+      "monoalphabetic"
     ],
     "scienceOlympiad": false,
     "guideReady": true,
@@ -24,309 +18,102 @@
   },
   {
     "id": "atbash",
+    "practiceId": "atbash",
     "name": "Atbash Cipher",
     "category": "Substitution",
     "difficulty": "Beginner",
-    "description": "A fixed substitution cipher that reverses the alphabet, pairing A with Z, B with Y, and continuing inward.",
-    "example": {
-      "input": "HELLO",
-      "output": "SVOOL",
-      "key": "Reversed alphabet"
-    },
+    "description": "Pair the alphabet with itself backwards: A with Z, B with Y, and so on.",
     "keywords": [
       "reverse alphabet",
-      "substitution",
-      "mirror"
+      "mirror",
+      "monoalphabetic"
     ],
     "scienceOlympiad": false,
     "guideReady": true,
-    "page": "atbash.html"
+    "page": "atbash.html",
+    "visualizer": "../visualizers/atbash.html"
   },
   {
     "id": "affine",
+    "practiceId": "affine",
     "name": "Affine Cipher",
     "category": "Substitution",
     "difficulty": "Intermediate",
-    "description": "A monoalphabetic substitution cipher that transforms alphabet positions using multiplication, addition, and arithmetic modulo 26.",
-    "example": {
-      "input": "AFFINE CIPHER",
-      "output": "IHHWVC SWFRCP",
-      "key": "a=5, b=8"
-    },
+    "description": "Use multiplication and addition modulo 26 to build a complete substitution alphabet.",
     "keywords": [
       "modular arithmetic",
-      "linear transformation",
-      "substitution",
-      "equation"
+      "linear",
+      "substitution"
     ],
     "scienceOlympiad": false,
     "guideReady": true,
-    "page": "affine.html"
+    "page": "affine.html",
+    "visualizer": "../visualizers/affine.html"
   },
   {
     "id": "railfence",
+    "practiceId": "railfence",
     "name": "Rail Fence Cipher",
     "category": "Transposition",
     "difficulty": "Beginner",
-    "description": "A transposition cipher that writes plaintext in a repeating zigzag across several rails and reads the rails in sequence.",
-    "example": {
-      "input": "WEAREDISCOVERED",
-      "output": "WECRERDSOEEAIVD",
-      "key": "3 rails"
-    },
+    "description": "Write letters diagonally across rails, then read each rail to rearrange the message.",
     "keywords": [
-      "transposition",
       "zigzag",
       "rails",
-      "rearrangement"
+      "transposition"
     ],
     "scienceOlympiad": false,
     "guideReady": true,
-    "page": "railfence.html"
+    "page": "railfence.html",
+    "visualizer": "../visualizers/railfence.html"
   },
   {
-    "id": "baconian",
-    "name": "Baconian Cipher",
-    "category": "Encoding",
-    "difficulty": "Beginner",
-    "description": "An encoding system that represents letters with five-symbol patterns made from two possible symbols, commonly written as A and B.",
-    "example": {
-      "input": "ABC",
-      "output": "AAAAA AAAAB AAABA",
-      "key": "A/B groups"
-    },
-    "keywords": [
-      "binary",
-      "five symbols",
-      "encoding",
-      "bacon"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "baconian.html",
-    "visualizer": "../visualizers/baconian.html"
-  },
-  {
-    "id": "aristocrat",
-    "name": "Aristocrat Cipher",
-    "category": "Substitution",
+    "id": "playfair",
+    "practiceId": null,
+    "name": "Playfair Cipher",
+    "category": "Polygraphic",
     "difficulty": "Intermediate",
-    "description": "A monoalphabetic substitution cryptogram that preserves spaces and word structure while replacing plaintext letters consistently.",
-    "example": {
-      "input": "THE SECRET MESSAGE",
-      "output": "QEB PBZOBQ JBPPXDB",
-      "key": "Random substitution alphabet"
-    },
+    "description": "Encrypt pairs of letters through a keyed 5×5 square using row, column, and rectangle rules.",
     "keywords": [
-      "cryptogram",
-      "frequency analysis",
-      "word patterns",
-      "monoalphabetic",
-      "substitution"
+      "digraph",
+      "5x5 square",
+      "polygraphic"
     ],
-    "scienceOlympiad": true,
+    "scienceOlympiad": false,
     "guideReady": true,
-    "page": "aristocrat.html",
-    "visualizer": "../visualizers/aristocrat.html"
-  },
-  {
-    "id": "patristocrat",
-    "name": "Patristocrat Cipher",
-    "category": "Substitution",
-    "difficulty": "Advanced",
-    "description": "A monoalphabetic substitution cryptogram similar to an Aristocrat, but with original word boundaries removed.",
-    "example": {
-      "input": "HELLO WORLD",
-      "output": "IFMMP XPSME",
-      "key": "Random substitution alphabet"
-    },
-    "keywords": [
-      "cryptogram",
-      "frequency analysis",
-      "no spaces",
-      "substitution",
-      "monoalphabetic"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "patristocrat.html",
-    "visualizer": "../visualizers/patristocrat.html"
-  },
-  {
-    "id": "porta",
-    "name": "Porta Cipher",
-    "category": "Polyalphabetic",
-    "difficulty": "Advanced",
-    "description": "A reciprocal polyalphabetic substitution cipher controlled by a repeating keyword whose letters operate in alphabet pairs.",
-    "example": {
-      "input": "HELLO WORLD",
-      "output": "Varies by keyword",
-      "key": "SECRET"
-    },
-    "keywords": [
-      "polyalphabetic",
-      "reciprocal",
-      "keyword",
-      "porta"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "porta.html",
-    "visualizer": "../visualizers/porta.html"
-  },
-  {
-    "id": "columnar",
-    "name": "Complete Columnar Transposition",
-    "category": "Transposition",
-    "difficulty": "Advanced",
-    "description": "A transposition cipher that writes plaintext into a complete rectangular grid and reads columns in a key-defined order.",
-    "example": {
-      "input": "ATTACKATDAWN",
-      "output": "TKAATNACDTAW",
-      "key": "3-1-4-2"
-    },
-    "keywords": [
-      "columnar",
-      "transposition",
-      "grid",
-      "columns",
-      "permutation"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "columnar.html",
-    "visualizer": "../visualizers/columnar.html"
-  },
-  {
-    "id": "nihilist",
-    "name": "Nihilist Cipher",
-    "category": "Polybius",
-    "difficulty": "Advanced",
-    "description": "A numerical cipher that combines keyed Polybius-square coordinates with values generated from a repeating additive keyword.",
-    "example": {
-      "input": "HELLO",
-      "output": "57 30 44 54 56",
-      "key": "Polybius keyword + additive keyword"
-    },
-    "keywords": [
-      "polybius",
-      "numbers",
-      "addition",
-      "keyword",
-      "coordinates"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "nihilist.html",
-    "visualizer": "../visualizers/nihilist.html"
+    "page": "playfair.html",
+    "visualizer": "../visualizers/playfair.html"
   },
   {
     "id": "hill",
+    "practiceId": "hill",
     "name": "Hill Cipher",
-    "category": "Matrix",
+    "category": "Mathematical",
     "difficulty": "Advanced",
-    "description": "A polygraphic substitution cipher that converts blocks of letters to vectors and transforms them using matrix multiplication modulo 26.",
-    "example": {
-      "input": "HELP",
-      "output": "HIAT",
-      "key": "2×2 matrix"
-    },
+    "description": "Turn blocks of letters into vectors, multiply by an invertible matrix, and reduce modulo 26.",
     "keywords": [
       "matrix",
-      "linear algebra",
-      "modular arithmetic",
-      "vector",
-      "polygraphic"
+      "mod 26",
+      "linear algebra"
     ],
-    "scienceOlympiad": true,
+    "scienceOlympiad": false,
     "guideReady": true,
     "page": "hill.html",
     "visualizer": "../visualizers/hill.html"
   },
   {
-    "id": "fractionatedmorse",
-    "name": "Fractionated Morse Cipher",
-    "category": "Fractionation",
-    "difficulty": "Advanced",
-    "description": "A fractionation cipher that converts plaintext to Morse symbols, groups the resulting stream into trigrams, and substitutes them through a keyed alphabet.",
-    "example": {
-      "input": "HELLO WORLD",
-      "output": "Varies by keyword",
-      "key": "CIPHER"
-    },
-    "keywords": [
-      "morse",
-      "fractionation",
-      "trigrams",
-      "keyword",
-      "dots",
-      "dashes"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "fractionatedmorse.html",
-    "visualizer": "../visualizers/fractionatedmorse.html"
-  },
-  {
     "id": "aristocrat-k1",
-    "name": "Aristocrat — K1",
+    "practiceId": "aristocrat-k1",
+    "name": "Aristocrat Cipher",
     "category": "Substitution",
     "difficulty": "Intermediate",
-    "description": "A monoalphabetic substitution with spaces preserved in which the plaintext alphabet is keyed.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "description": "Solve substitution cryptograms with spaces preserved using patterns, frequencies, and consistent letter mappings.",
     "keywords": [
-      "aristocrat",
-      "k1",
-      "monoalphabetic",
-      "codebusters"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "aristocrat.html",
-    "visualizer": "../visualizers/aristocrat.html"
-  },
-  {
-    "id": "aristocrat-k2",
-    "name": "Aristocrat — K2",
-    "category": "Substitution",
-    "difficulty": "Intermediate",
-    "description": "A monoalphabetic substitution with spaces preserved in which the ciphertext alphabet is keyed.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "aristocrat",
-      "k2",
-      "monoalphabetic",
-      "codebusters"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "aristocrat.html",
-    "visualizer": "../visualizers/aristocrat.html"
-  },
-  {
-    "id": "aristocrat-random",
-    "name": "Aristocrat — Random Alphabet",
-    "category": "Substitution",
-    "difficulty": "Intermediate",
-    "description": "An Aristocrat using a random monoalphabetic substitution alphabet with normal word spacing preserved.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "aristocrat",
-      "random alphabet",
-      "cryptanalysis",
-      "codebusters"
+      "Codebusters",
+      "K1",
+      "K2",
+      "K3",
+      "frequency"
     ],
     "scienceOlympiad": true,
     "guideReady": true,
@@ -335,153 +122,32 @@
   },
   {
     "id": "patristocrat-k1",
-    "name": "Patristocrat — K1",
+    "practiceId": "patristocrat-k1",
+    "name": "Patristocrat Cipher",
     "category": "Substitution",
     "difficulty": "Advanced",
-    "description": "A K1 monoalphabetic substitution with word spacing removed and ciphertext grouped into blocks.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "description": "Solve a monoalphabetic substitution after word boundaries have been removed and ciphertext has been regrouped.",
     "keywords": [
-      "patristocrat",
-      "k1",
-      "no spaces",
-      "codebusters"
+      "Codebusters",
+      "spaceless",
+      "frequency"
     ],
     "scienceOlympiad": true,
     "guideReady": true,
     "page": "patristocrat.html",
     "visualizer": "../visualizers/patristocrat.html"
-  },
-  {
-    "id": "patristocrat-k2",
-    "name": "Patristocrat — K2",
-    "category": "Substitution",
-    "difficulty": "Advanced",
-    "description": "A K2 monoalphabetic substitution with word spacing removed and ciphertext grouped into blocks.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "patristocrat",
-      "k2",
-      "no spaces",
-      "codebusters"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "patristocrat.html",
-    "visualizer": "../visualizers/patristocrat.html"
-  },
-  {
-    "id": "substitution-k3",
-    "name": "Monoalphabetic Substitution — K3",
-    "category": "Substitution",
-    "difficulty": "Advanced",
-    "description": "A Division C keyed substitution in which both alphabet rows are built from the same keyword and shifted relative to one another.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "k3",
-      "division c",
-      "monoalphabetic",
-      "codebusters"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "aristocrat.html",
-    "visualizer": "../visualizers/aristocrat.html"
-  },
-  {
-    "id": "xenocrypt-k1",
-    "name": "Spanish Xenocrypt — K1",
-    "category": "Substitution",
-    "difficulty": "Advanced",
-    "description": "A Spanish monoalphabetic cryptogram using a K1 alphabet constructed from an English keyword.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "xenocrypt",
-      "spanish",
-      "k1",
-      "codebusters"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "xenocrypt.html",
-    "visualizer": "../visualizers/xenocrypt.html"
-  },
-  {
-    "id": "xenocrypt-k2",
-    "name": "Spanish Xenocrypt — K2",
-    "category": "Substitution",
-    "difficulty": "Advanced",
-    "description": "A Spanish monoalphabetic cryptogram using a K2 alphabet constructed from an English keyword.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "xenocrypt",
-      "spanish",
-      "k2",
-      "codebusters"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "xenocrypt.html",
-    "visualizer": "../visualizers/xenocrypt.html"
-  },
-  {
-    "id": "xenocrypt-cryptanalysis",
-    "name": "Spanish Xenocrypt — Cryptanalysis",
-    "category": "Substitution",
-    "difficulty": "Advanced",
-    "description": "A state/national-style Spanish substitution problem solved by cryptanalysis with limited plaintext information.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "xenocrypt",
-      "spanish",
-      "cryptanalysis",
-      "state",
-      "national"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "xenocrypt.html",
-    "visualizer": "../visualizers/xenocrypt.html"
   },
   {
     "id": "baconian-variant",
-    "name": "Baconian — Symbol Variants",
+    "practiceId": "baconian-variant",
+    "name": "Baconian Cipher",
     "category": "Encoding",
-    "difficulty": "Intermediate",
-    "description": "A Baconian problem in which the two binary classes are represented by letters, numbers, or symbols instead of literal A and B.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "difficulty": "Beginner",
+    "description": "Decode every five-symbol group with a complete A/B reference table—without needing another website.",
     "keywords": [
-      "baconian",
-      "symbols",
+      "Codebusters",
       "binary",
-      "codebusters"
+      "five symbols"
     ],
     "scienceOlympiad": true,
     "guideReady": true,
@@ -489,21 +155,35 @@
     "visualizer": "../visualizers/baconian.html"
   },
   {
-    "id": "fractionatedmorse-cryptanalysis",
-    "name": "Fractionated Morse — Cryptanalysis",
+    "id": "xenocrypt-k1",
+    "practiceId": "xenocrypt-k1",
+    "name": "Spanish Xenocrypt",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "description": "Apply monoalphabetic cryptanalysis to Spanish text with Spanish word patterns, Ñ, and keyed substitution alphabets.",
+    "keywords": [
+      "Codebusters",
+      "Spanish",
+      "K1",
+      "K2"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "xenocrypt.html",
+    "visualizer": "../visualizers/xenocrypt.html"
+  },
+  {
+    "id": "fractionatedmorse",
+    "practiceId": "fractionatedmorse",
+    "name": "Fractionated Morse Cipher",
     "category": "Morse / Fractionation",
     "difficulty": "Advanced",
-    "description": "A Fractionated Morse challenge in which a crib is used to recover the keyed Morse fractionation.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "description": "Follow the entire path from plaintext to Morse, separators, trigrams, keyed letters, and back again.",
     "keywords": [
-      "fractionated morse",
-      "crib",
-      "cryptanalysis",
-      "codebusters"
+      "Codebusters",
+      "Morse",
+      "trigrams",
+      "crib"
     ],
     "scienceOlympiad": true,
     "guideReady": true,
@@ -511,44 +191,17 @@
     "visualizer": "../visualizers/fractionatedmorse.html"
   },
   {
-    "id": "porta-cryptanalysis",
-    "name": "Porta — Cryptanalysis",
-    "category": "Polyalphabetic",
-    "difficulty": "Advanced",
-    "description": "A Porta cipher challenge in which the keyword is hidden and a plaintext crib is supplied.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "porta",
-      "crib",
-      "cryptanalysis",
-      "state",
-      "national"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "porta.html",
-    "visualizer": "../visualizers/porta.html"
-  },
-  {
     "id": "cryptarithm",
-    "name": "Cryptarithm — Base 10",
-    "category": "Mathematical",
+    "practiceId": "cryptarithm",
+    "name": "Cryptarithms",
+    "category": "Arithmetic",
     "difficulty": "Advanced",
-    "description": "A decimal letter-to-digit arithmetic puzzle followed by an extraction using the solved mapping.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "description": "Solve base-10 arithmetic where letters stand for digits, track carries, then decode the requested extraction.",
     "keywords": [
-      "cryptarithm",
+      "Codebusters",
       "base 10",
-      "math",
-      "codebusters"
+      "carries",
+      "digits"
     ],
     "scienceOlympiad": true,
     "guideReady": true,
@@ -556,22 +209,34 @@
     "visualizer": "../visualizers/cryptarithm.html"
   },
   {
-    "id": "nihilist-cryptanalysis",
-    "name": "Nihilist — Cryptanalysis",
-    "category": "Polybius / Additive",
-    "difficulty": "Advanced",
-    "description": "A Nihilist substitution problem in which the Polybius and additive keys must be inferred using a crib.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "id": "porta",
+    "practiceId": "porta",
+    "name": "Porta Cipher",
+    "category": "Polyalphabetic",
+    "difficulty": "Intermediate",
+    "description": "Use a repeating keyword and the 13 reciprocal Porta alphabets to encrypt or decrypt with the same substitution rule.",
     "keywords": [
-      "nihilist",
-      "crib",
-      "cryptanalysis",
-      "state",
-      "national"
+      "Codebusters",
+      "reciprocal",
+      "keyword"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "porta.html",
+    "visualizer": "../visualizers/porta.html"
+  },
+  {
+    "id": "nihilist",
+    "practiceId": "nihilist",
+    "name": "Nihilist Cipher",
+    "category": "Polybius / Numeric",
+    "difficulty": "Advanced",
+    "description": "Build a keyed Polybius square, convert plaintext and key letters to coordinates, add them, and reverse the arithmetic to decrypt.",
+    "keywords": [
+      "Codebusters",
+      "Polybius",
+      "addition",
+      "crib"
     ],
     "scienceOlympiad": true,
     "guideReady": true,
@@ -579,21 +244,17 @@
     "visualizer": "../visualizers/nihilist.html"
   },
   {
-    "id": "columnar-cryptanalysis",
-    "name": "Complete Columnar — Cryptanalysis",
+    "id": "columnar",
+    "practiceId": "columnar",
+    "name": "Complete Columnar Cipher",
     "category": "Transposition",
     "difficulty": "Advanced",
-    "description": "A complete columnar transposition with nine columns or fewer and a crib used to reconstruct the column order.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "description": "Reconstruct a complete rectangle, understand the column-number key, and use a crib to attack unknown ordering.",
     "keywords": [
-      "complete columnar",
-      "transposition",
+      "Codebusters",
+      "columns",
       "crib",
-      "codebusters"
+      "permutation"
     ],
     "scienceOlympiad": true,
     "guideReady": true,
@@ -602,43 +263,15 @@
   },
   {
     "id": "checkerboard",
-    "name": "5×5 Checkerboard — Given Polybius Key",
-    "category": "Polybius",
-    "difficulty": "Advanced",
-    "description": "A 5×5 Checkerboard cipher using a keyed Polybius square and letter row and column headers.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "practiceId": "checkerboard",
+    "name": "Checkerboard Cipher",
+    "category": "Polybius / Coordinates",
+    "difficulty": "Intermediate",
+    "description": "Use a complete 5×5 keyed board and row/column headers so every ciphertext pair can be decoded directly.",
     "keywords": [
-      "checkerboard",
-      "polybius",
+      "Codebusters",
       "5x5",
-      "codebusters"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "checkerboard.html",
-    "visualizer": "../visualizers/checkerboard.html"
-  },
-  {
-    "id": "checkerboard-cryptanalysis",
-    "name": "5×5 Checkerboard — Cryptanalysis",
-    "category": "Polybius",
-    "difficulty": "Advanced",
-    "description": "A checkerboard cryptanalysis problem with hidden row, column, and Polybius keywords plus a plaintext crib.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "checkerboard",
-      "cryptanalysis",
-      "crib",
-      "state",
-      "national"
+      "coordinates"
     ],
     "scienceOlympiad": true,
     "guideReady": true,
@@ -647,43 +280,16 @@
   },
   {
     "id": "homophonic",
+    "practiceId": "homophonic",
     "name": "Homophonic Cipher",
     "category": "Substitution",
     "difficulty": "Advanced",
-    "description": "A monoalphabetic homophonic substitution in which one plaintext letter can be represented by several numeric symbols.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
+    "description": "Understand how one plaintext letter can map to several number symbols while every number still identifies only one plaintext letter.",
     "keywords": [
-      "homophonic",
-      "substitution",
-      "numbers",
-      "codebusters"
-    ],
-    "scienceOlympiad": true,
-    "guideReady": true,
-    "page": "homophonic.html",
-    "visualizer": "../visualizers/homophonic.html"
-  },
-  {
-    "id": "homophonic-cryptanalysis",
-    "name": "Homophonic — Cryptanalysis",
-    "category": "Substitution",
-    "difficulty": "Advanced",
-    "description": "A state/national-style homophonic substitution challenge with a supplied plaintext crib.",
-    "example": {
-      "input": "PRACTICE MESSAGE",
-      "output": "Generated in Practice",
-      "key": "Varies by challenge"
-    },
-    "keywords": [
-      "homophonic",
-      "cryptanalysis",
-      "crib",
-      "state",
-      "national"
+      "Codebusters",
+      "homophones",
+      "frequency",
+      "numbers"
     ],
     "scienceOlympiad": true,
     "guideReady": true,

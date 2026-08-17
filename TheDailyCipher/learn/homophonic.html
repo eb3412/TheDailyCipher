@@ -1,45 +1,764 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Homophonic Cipher Guide | The Daily Cipher</title>
-<meta name="description" content="Learn Homophonic Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
-<link rel="canonical" href="https://thedailycipher.org/learn/homophonic.html">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#030712">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/animations.css">
-<link rel="stylesheet" href="../css/themes.css">
-<link rel="stylesheet" href="../css/codebusters-learn.css">
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-<body>
-<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
-<main class="container cb-guide-shell">
-<section class="hero"><div class="eyebrow">HOMOPHONIC SUBSTITUTION • CODEBUSTERS</div><h1>Homophonic<span> Cipher</span></h1><p>See how one plaintext letter can map to several ciphertext numbers while each number stays unambiguous.</p></section>
-<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.</p>
-<p>The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example.</p><div class="cb-note">A monoalphabetic homophonic substitution in which one plaintext letter can be represented by several numeric symbols.</div></section>
-<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>A plaintext letter can have more than one ciphertext number, but a ciphertext number belongs to only one plaintext letter.</p>
-<p>Combine language patterns, repeated words, and aggregated symbol frequencies rather than treating each number as an independent letter.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Choose or generate the required key material.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Apply the cipher rules consistently to the plaintext.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Format the ciphertext in the competition-style form shown in Practice.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.</p>
-<p>Use structural constraints before making free guesses.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Write down the given information and identify what is unknown.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Test a candidate mapping or key against more than one part of the ciphertext.</p></div>
-<div class="cb-step"><div class="cb-step-num">4</div><p>Continue until the entire plaintext is consistent.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Homophonic Cipher</strong><span>2026–27 Codebusters type</span><a class="cb-small-button" href="../practice/index.html?cipher=homophonic">Practice this mode</a></article>
-<article class="cb-mode"><strong>Homophonic Cryptanalysis</strong><span>State/National-style crib</span><a class="cb-small-button" href="../practice/index.html?cipher=homophonic-cryptanalysis">Practice this mode</a></article></div></section>
-<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>PRACTICE MESSAGE</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>Varies by challenge</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>Open Practice to generate a fresh example</strong></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Homophonic Cipher visualizer" loading="lazy" src="../visualizers/homophonic.html"></iframe></section>
-<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Ignoring the exact key type or question format.</div>
-<div class="cb-mistake">Using a mapping that only explains one small part of the message.</div>
-<div class="cb-mistake">Forgetting competition-specific formatting such as removed spaces or grouped ciphertext.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=homophonic">Practice Homophonic Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
-</main>
-<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
-<script src="/js/navigation.js"></script>
-</body>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Homophonic Cipher &mdash; Complete Guide | The Daily Cipher
+  </title>
+  <meta content="Learn Homophonic Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
+  <link href="https://thedailycipher.org/learn/homophonic.html" rel="canonical"/>
+  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
+  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta content="#030712" name="theme-color"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../css/animations.css" rel="stylesheet"/>
+  <link href="../css/themes.css" rel="stylesheet"/>
+  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
+  <script>
+   window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  </script>
+  <script defer="" src="/_vercel/insights/script.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-header">
+   <a class="logo" href="../index.html">
+    <span>
+     THE
+    </span>
+    DAILY CIPHER
+   </a>
+   <nav>
+    <a href="../index.html">
+     Daily
+    </a>
+    <a href="index.html">
+     Learn
+    </a>
+    <a href="../practice/index.html">
+     Practice
+    </a>
+   </nav>
+  </header>
+  <main class="container deep-guide-shell">
+   <section class="deep-hero">
+    <div class="eyebrow">
+     MULTIPLE SYMBOLS PER LETTER &bull; CODEBUSTERS
+    </div>
+    <h1>
+     Homophonic Cipher
+    </h1>
+    <p>
+     Understand how one plaintext letter can map to several number symbols while every number still identifies only one plaintext letter.
+    </p>
+    <div class="quick-grid">
+     <div class="quick-item">
+      <span>
+       Family
+      </span>
+      <strong>
+       Homophonic monoalphabetic substitution
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Key / parameter
+      </span>
+      <strong>
+       Many ciphertext symbols distributed among plaintext letters
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Text structure
+      </span>
+      <strong>
+       Ciphertext often appears as numeric tokens
+      </strong>
+     </div>
+    </div>
+   </section>
+   <div class="deep-layout">
+    <aside aria-label="Guide contents" class="deep-toc">
+     <div class="deep-toc-title">
+      ON THIS PAGE
+     </div>
+     <a href="#overview">
+      What it is
+     </a>
+     <a href="#basics">
+      What you need
+     </a>
+     <a href="#reference">
+      Complete reference
+     </a>
+     <a href="#encrypt">
+      Encrypt
+     </a>
+     <a href="#decrypt">
+      Decrypt
+     </a>
+     <a href="#competition">
+      Codebusters approach
+     </a>
+     <a href="#cryptanalysis">
+      Cryptanalysis
+     </a>
+     <a href="#worked">
+      Worked problem
+     </a>
+     <a href="#mistakes">
+      Common mistakes
+     </a>
+     <a href="#speed">
+      Speed strategies
+     </a>
+     <a href="#quick">
+      Quick reference
+     </a>
+     <a href="#interactive">
+      Visualizer &amp; practice
+     </a>
+     <div class="deep-toc-note">
+      Everything needed for the cipher itself is included here.
+     </div>
+    </aside>
+    <div class="deep-content">
+     <section class="deep-card" id="overview">
+      <div class="section-kicker">
+       01 &bull; OVERVIEW
+      </div>
+      <h2>
+       What is the Homophonic Cipher?
+      </h2>
+      <p>
+       A homophonic cipher gives common plaintext letters multiple possible ciphertext symbols. For example E might encrypt as any of several numbers, while a rare letter might have only one.
+      </p>
+      <p>
+       The important one-way rule is that each ciphertext number decodes to only one plaintext letter. This spreads plaintext frequency across several symbols and makes simple frequency analysis less obvious.
+      </p>
+      <div class="deep-rule-note">
+       <strong>
+        Competition note
+       </strong>
+       <p>
+        The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
+       </p>
+      </div>
+      <div class="beginner-promise">
+       <strong>
+        Starting from zero?
+       </strong>
+       <p>
+        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+       </p>
+      </div>
+     </section>
+     <section class="deep-card" id="basics">
+      <div class="section-kicker">
+       02 &bull; FOUNDATIONS
+      </div>
+      <h2>
+       What you need to know
+      </h2>
+      <ul class="deep-list">
+       <li>
+        One plaintext letter may own multiple ciphertext tokens.
+       </li>
+       <li>
+        One ciphertext token must not decode to multiple plaintext letters in the same mapping.
+       </li>
+       <li>
+        Encryption may choose randomly among a letter&rsquo;s allowed tokens; decryption is deterministic once the mapping is known.
+       </li>
+      </ul>
+      <h3>
+       Beginner glossary
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table glossary-table">
+        <thead>
+         <tr>
+          <th>
+           Term
+          </th>
+          <th>
+           Meaning
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Homophone
+          </td>
+          <td>
+           One of several ciphertext symbols that can represent the same plaintext letter.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Token
+          </td>
+          <td>
+           A ciphertext symbol/number such as 04 or 71.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Reverse mapping
+          </td>
+          <td>
+           A token&rarr;plaintext table used for deterministic decoding.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Frequency flattening
+          </td>
+          <td>
+           Spreading common letters over multiple symbols so no single token is as frequent as the original letter.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="deep-card reference-card" id="reference">
+      <div class="section-kicker">
+       03 &bull; COMPLETE REFERENCE
+      </div>
+      <h2>
+       Keep this beside you while solving
+      </h2>
+      <div class="deep-table-wrap">
+       <table class="deep-table strategy-table">
+        <thead>
+         <tr>
+          <th>
+           Plaintext
+          </th>
+          <th>
+           Possible ciphertext tokens (illustrative)
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           E
+          </td>
+          <td>
+           04, 10, 20, 28, 41, &hellip;
+          </td>
+         </tr>
+         <tr>
+          <td>
+           T
+          </td>
+          <td>
+           11, 14, 17, 44, &hellip;
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Q
+          </td>
+          <td>
+           24
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Z
+          </td>
+          <td>
+           one/few tokens
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       The exact token mapping changes by puzzle. The visualizer below always displays the complete generated mapping so you can learn how the system behaves.
+      </div>
+      <h3>
+       The mapping is many-to-one only in the ciphertext&rarr;plaintext view
+      </h3>
+      <div class="deep-code">
+       plaintext E &rarr; {04, 10, 20, 28}
+plaintext T &rarr; {11, 17, 44}
+
+04 &rarr; E
+10 &rarr; E
+20 &rarr; E
+28 &rarr; E
+11 &rarr; T
+17 &rarr; T
+44 &rarr; T
+      </div>
+      <p>
+       Several tokens may decode to E, but a token such as 20 must not also decode to another plaintext letter in the same mapping.
+      </p>
+      <div class="deep-note">
+       <strong>
+        Cryptanalysis:
+       </strong>
+       equal plaintext letters can appear as different tokens, so ordinary repeated-letter word patterns are weakened. Use cribs, context, token distribution, and combine suspected homophones when doing frequency reasoning.
+      </div>
+      <div class="reference-completeness">
+       <strong>
+        Reference rule:
+       </strong>
+       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
+      </div>
+     </section>
+     <section class="deep-card" id="encrypt">
+      <div class="section-kicker">
+       04 &bull; ENCRYPTION
+      </div>
+      <h2>
+       How encryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Find the plaintext letter
+         </h3>
+         <p>
+          Example: E.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Look at its token set
+         </h3>
+         <p>
+          E may have several assigned numbers.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Choose one allowed token
+         </h3>
+         <p>
+          The encoder can vary the choice each time E appears.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Repeat
+         </h3>
+         <p>
+          Different occurrences of the same plaintext letter may therefore look different in ciphertext.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="decrypt">
+      <div class="section-kicker">
+       05 &bull; DECRYPTION
+      </div>
+      <h2>
+       How decryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Use the number&rarr;letter mapping
+         </h3>
+         <p>
+          Each token belongs to exactly one plaintext letter.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Replace every token
+         </h3>
+         <p>
+          Different numbers may collapse to the same plaintext letter.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Restore spacing if indicated
+         </h3>
+         <p>
+          Token separators make boundaries unambiguous at the symbol level.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Read the result
+         </h3>
+         <p>
+          Check that the full plaintext is coherent.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="competition">
+      <div class="section-kicker">
+       06 &bull; COMPETITION WORKFLOW
+      </div>
+      <h2>
+       How to approach it in Codebusters practice
+      </h2>
+      <ul class="deep-list competition-list">
+       <li>
+        Do not assume repeated plaintext letters produce repeated ciphertext tokens.
+       </li>
+       <li>
+        For cryptanalysis, aggregate symbols that appear to behave like homophones rather than treating every number as an independent simple-substitution letter.
+       </li>
+       <li>
+        Word-pattern clues may be weakened because equal plaintext letters can have different ciphertext tokens.
+       </li>
+      </ul>
+      <h3>
+       What the problem gives you vs. what you produce
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table problem-format-table">
+        <thead>
+         <tr>
+          <th>
+           Part
+          </th>
+          <th>
+           What to expect
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           You may be given
+          </td>
+          <td>
+           Numeric/symbol ciphertext and possibly a crib or partial mapping.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           You must find
+          </td>
+          <td>
+           The plaintext and/or complete mapping.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fastest first move
+          </td>
+          <td>
+           Build a reverse token&rarr;letter table for every proven mapping and never assign one token twice.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Season note:
+       </strong>
+       use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
+      </div>
+     </section>
+     <section class="deep-card" id="cryptanalysis">
+      <div class="section-kicker">
+       07 &bull; CRYPTANALYSIS
+      </div>
+      <h2>
+       How to attack an unknown or partially known key
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Individual token frequency is deliberately flattened compared with ordinary substitution.
+       </li>
+       <li>
+        Context, crib placement, token distributions, and the restriction that each token has one plaintext meaning become important.
+       </li>
+       <li>
+        Once two tokens are proven to represent the same plaintext letter, combine their counts when reasoning about language frequency.
+       </li>
+      </ul>
+     </section>
+     <section class="deep-card" id="worked">
+      <div class="section-kicker">
+       08 &bull; WORKED PROBLEM
+      </div>
+      <h2>
+       Follow one example from start to finish
+      </h2>
+      <div class="worked-box">
+       <div class="worked-row">
+        <span>
+         Mapping fragment
+        </span>
+        <div>
+         <code>
+          E &rarr; {10, 20, 28}; T &rarr; {11, 17}
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Plaintext
+        </span>
+        <div>
+         <code>
+          T E E
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Possible ciphertext
+        </span>
+        <div>
+         <code>
+          17 20 10
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Decrypt
+        </span>
+        <div>
+         17&rarr;T, 20&rarr;E, 10&rarr;E, so different numbers can produce the repeated EE.
+        </div>
+       </div>
+      </div>
+      <div class="beginner-check">
+       <div class="beginner-check-title">
+        BEGINNER SELF-CHECK
+       </div>
+       <p>
+        Before moving on, make sure you can answer these without another site:
+       </p>
+       <ul>
+        <li>
+         Can two different numbers both mean E? Yes. Can one number mean both E and T? No.
+        </li>
+        <li>
+         Can you explain why repeated plaintext letters might not repeat in ciphertext?
+        </li>
+        <li>
+         Can you combine counts of proven E-homophones when estimating E frequency?
+        </li>
+       </ul>
+      </div>
+     </section>
+     <section class="deep-card" id="mistakes">
+      <div class="section-kicker">
+       09 &bull; ERROR CHECK
+      </div>
+      <h2>
+       Common mistakes
+      </h2>
+      <div class="mistake-grid">
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Assuming equal plaintext letters must have equal ciphertext tokens.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Allowing one number to represent two plaintext letters.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Using ordinary one-symbol-per-letter frequency analysis without combining suspected homophones.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Ignoring token boundaries.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="speed">
+      <div class="section-kicker">
+       10 &bull; SPEED
+      </div>
+      <h2>
+       Competition speed strategies
+      </h2>
+      <div class="speed-grid">
+       <div class="speed-item">
+        <span>
+         1
+        </span>
+        <p>
+         Build a reverse number&rarr;letter table as soon as mappings are known.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         2
+        </span>
+        <p>
+         Group suspected homophones by plaintext letter rather than by numeric value.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         3
+        </span>
+        <p>
+         Use cribs/context to establish high-confidence mappings before doing frequency estimates.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="quick">
+      <div class="section-kicker">
+       11 &bull; QUICK REFERENCE
+      </div>
+      <h2>
+       What to remember under time pressure
+      </h2>
+      <div class="quick-grid">
+       <div class="quick-item">
+        <span>
+         Plain letter
+        </span>
+        <strong>
+         May have multiple tokens
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Cipher token
+        </span>
+        <strong>
+         Maps to one plain letter
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Purpose
+        </span>
+        <strong>
+         Flatten frequency
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Decrypt
+        </span>
+        <strong>
+         Token &rarr; unique plaintext letter
+        </strong>
+       </div>
+      </div>
+      <div class="quick-use-note">
+       <strong>
+        How to use this section:
+       </strong>
+       during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
+      </div>
+     </section>
+     <section class="deep-card interactive-card" id="interactive">
+      <div class="section-kicker">
+       12 &bull; INTERACTIVE LAB
+      </div>
+      <h2>
+       See every transformation
+      </h2>
+      <p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+      </p>
+      <div class="lab-actions">
+       <a class="deep-secondary-button" href="../visualizers/homophonic.html">
+        Open full visualizer
+       </a>
+       <a class="primary-button" href="../practice/index.html?cipher=homophonic">
+        Practice Homophonic
+       </a>
+      </div>
+      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/homophonic.html?embed=1" title="Homophonic Cipher interactive visualizer">
+      </iframe>
+     </section>
+     <div class="guide-end-nav">
+      <a href="index.html">
+       &larr; All cipher guides
+      </a>
+      <a href="#overview">
+       Back to top &uarr;
+      </a>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <p>
+    THE DAILY CIPHER
+   </p>
+   <span>
+    Learn. Crack. Repeat.
+   </span>
+  </footer>
+  <script src="/js/navigation.js">
+  </script>
+  <script src="../js/learnPage.js">
+  </script>
+ </body>
 </html>

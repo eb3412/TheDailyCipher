@@ -1,46 +1,997 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spanish Xenocrypt Guide | The Daily Cipher</title>
-<meta name="description" content="Learn Spanish Xenocrypt, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
-<link rel="canonical" href="https://thedailycipher.org/learn/xenocrypt.html">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#030712">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/animations.css">
-<link rel="stylesheet" href="../css/themes.css">
-<link rel="stylesheet" href="../css/codebusters-learn.css">
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-<body>
-<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
-<main class="container cb-guide-shell">
-<section class="hero"><div class="eyebrow">SPANISH SUBSTITUTION • CODEBUSTERS</div><h1>Spanish Xenocrypt<span></span></h1><p>Apply monoalphabetic substitution techniques to Spanish plaintext, including Ñ.</p></section>
-<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.</p>
-<p>The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example.</p><div class="cb-note">A Spanish monoalphabetic cryptogram using a K1 alphabet constructed from an English keyword.</div></section>
-<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.</p>
-<p>Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Choose or generate the required key material.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Apply the cipher rules consistently to the plaintext.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Format the ciphertext in the competition-style form shown in Practice.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.</p>
-<p>Use structural constraints before making free guesses.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Write down the given information and identify what is unknown.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Test a candidate mapping or key against more than one part of the ciphertext.</p></div>
-<div class="cb-step"><div class="cb-step-num">4</div><p>Continue until the entire plaintext is consistent.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Xenocrypt — K1</strong><span>English keyword</span><a class="cb-small-button" href="../practice/index.html?cipher=xenocrypt-k1">Practice this mode</a></article>
-<article class="cb-mode"><strong>Xenocrypt — K2</strong><span>English keyword</span><a class="cb-small-button" href="../practice/index.html?cipher=xenocrypt-k2">Practice this mode</a></article>
-<article class="cb-mode"><strong>Xenocrypt Cryptanalysis</strong><span>State/National-style crib</span><a class="cb-small-button" href="../practice/index.html?cipher=xenocrypt-cryptanalysis">Practice this mode</a></article></div></section>
-<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>PRACTICE MESSAGE</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>Varies by challenge</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>Open Practice to generate a fresh example</strong></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Spanish Xenocrypt visualizer" loading="lazy" src="../visualizers/xenocrypt.html"></iframe></section>
-<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Ignoring the exact key type or question format.</div>
-<div class="cb-mistake">Using a mapping that only explains one small part of the message.</div>
-<div class="cb-mistake">Forgetting competition-specific formatting such as removed spaces or grouped ciphertext.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=xenocrypt-k1">Practice Spanish Xenocrypt</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
-</main>
-<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
-<script src="/js/navigation.js"></script>
-</body>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Spanish Xenocrypt &mdash; Complete Guide | The Daily Cipher
+  </title>
+  <meta content="Learn Spanish Xenocrypt from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
+  <link href="https://thedailycipher.org/learn/xenocrypt.html" rel="canonical"/>
+  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
+  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta content="#030712" name="theme-color"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../css/animations.css" rel="stylesheet"/>
+  <link href="../css/themes.css" rel="stylesheet"/>
+  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
+  <script>
+   window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  </script>
+  <script defer="" src="/_vercel/insights/script.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-header">
+   <a class="logo" href="../index.html">
+    <span>
+     THE
+    </span>
+    DAILY CIPHER
+   </a>
+   <nav>
+    <a href="../index.html">
+     Daily
+    </a>
+    <a href="index.html">
+     Learn
+    </a>
+    <a href="../practice/index.html">
+     Practice
+    </a>
+   </nav>
+  </header>
+  <main class="container deep-guide-shell">
+   <section class="deep-hero">
+    <div class="eyebrow">
+     SPANISH SUBSTITUTION &bull; CODEBUSTERS
+    </div>
+    <h1>
+     Spanish Xenocrypt
+    </h1>
+    <p>
+     Apply monoalphabetic cryptanalysis to Spanish text with Spanish word patterns, &Ntilde;, and keyed substitution alphabets.
+    </p>
+    <div class="quick-grid">
+     <div class="quick-item">
+      <span>
+       Family
+      </span>
+      <strong>
+       Monoalphabetic substitution in Spanish
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Key / parameter
+      </span>
+      <strong>
+       Commonly keyed substitution variants
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Text structure
+      </span>
+      <strong>
+       Spaces usually preserved in Xenocrypt form
+      </strong>
+     </div>
+    </div>
+   </section>
+   <div class="deep-layout">
+    <aside aria-label="Guide contents" class="deep-toc">
+     <div class="deep-toc-title">
+      ON THIS PAGE
+     </div>
+     <a href="#overview">
+      What it is
+     </a>
+     <a href="#basics">
+      What you need
+     </a>
+     <a href="#reference">
+      Complete reference
+     </a>
+     <a href="#encrypt">
+      Encrypt
+     </a>
+     <a href="#decrypt">
+      Decrypt
+     </a>
+     <a href="#competition">
+      Codebusters approach
+     </a>
+     <a href="#cryptanalysis">
+      Cryptanalysis
+     </a>
+     <a href="#worked">
+      Worked problem
+     </a>
+     <a href="#mistakes">
+      Common mistakes
+     </a>
+     <a href="#speed">
+      Speed strategies
+     </a>
+     <a href="#quick">
+      Quick reference
+     </a>
+     <a href="#interactive">
+      Visualizer &amp; practice
+     </a>
+     <div class="deep-toc-note">
+      Everything needed for the cipher itself is included here.
+     </div>
+    </aside>
+    <div class="deep-content">
+     <section class="deep-card" id="overview">
+      <div class="section-kicker">
+       01 &bull; OVERVIEW
+      </div>
+      <h2>
+       What is the Spanish Xenocrypt?
+      </h2>
+      <p>
+       A Xenocrypt is a substitution cryptogram whose plaintext is in a language other than English. In Codebusters-style practice, Spanish is the important case.
+      </p>
+      <p>
+       The cryptographic logic is the same as an Aristocrat, but your language clues must come from Spanish rather than English. The Daily Cipher treats &Ntilde; as a distinct letter in its Spanish alphabet.
+      </p>
+      <div class="deep-rule-note">
+       <strong>
+        Competition note
+       </strong>
+       <p>
+        The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
+       </p>
+      </div>
+      <div class="beginner-promise">
+       <strong>
+        Starting from zero?
+       </strong>
+       <p>
+        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+       </p>
+      </div>
+     </section>
+     <section class="deep-card" id="basics">
+      <div class="section-kicker">
+       02 &bull; FOUNDATIONS
+      </div>
+      <h2>
+       What you need to know
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Spanish alphabet used here:
+        <strong>
+         ABCDEFGHIJKLMN&Ntilde;OPQRSTUVWXYZ
+        </strong>
+        .
+       </li>
+       <li>
+        Accented vowels are normalized in The Daily Cipher practice text, while &Ntilde; remains distinct.
+       </li>
+       <li>
+        Use Spanish common words, endings, and letter frequencies rather than English assumptions.
+       </li>
+      </ul>
+      <h3>
+       Beginner glossary
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table glossary-table">
+        <thead>
+         <tr>
+          <th>
+           Term
+          </th>
+          <th>
+           Meaning
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Xenocrypt
+          </td>
+          <td>
+           A cryptogram whose plaintext language differs from the solver&rsquo;s usual language; this guide focuses on Spanish.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           &Ntilde;
+          </td>
+          <td>
+           A distinct Spanish letter in The Daily Cipher&rsquo;s 27-letter teaching alphabet.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Function word
+          </td>
+          <td>
+           A very common grammatical word such as DE, LA, EL, EN, or QUE.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Agreement
+          </td>
+          <td>
+           Spanish endings that reflect number/gender and can create repeated patterns.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="deep-card reference-card" id="reference">
+      <div class="section-kicker">
+       03 &bull; COMPLETE REFERENCE
+      </div>
+      <h2>
+       Keep this beside you while solving
+      </h2>
+      <div class="deep-table-wrap">
+       <table class="deep-table alphabet-table">
+        <thead>
+         <tr>
+          <th>
+           Plain
+          </th>
+          <th>
+           A
+          </th>
+          <th>
+           B
+          </th>
+          <th>
+           C
+          </th>
+          <th>
+           D
+          </th>
+          <th>
+           E
+          </th>
+          <th>
+           F
+          </th>
+          <th>
+           G
+          </th>
+          <th>
+           H
+          </th>
+          <th>
+           I
+          </th>
+          <th>
+           J
+          </th>
+          <th>
+           K
+          </th>
+          <th>
+           L
+          </th>
+          <th>
+           M
+          </th>
+          <th>
+           N
+          </th>
+          <th>
+           &Ntilde;
+          </th>
+          <th>
+           O
+          </th>
+          <th>
+           P
+          </th>
+          <th>
+           Q
+          </th>
+          <th>
+           R
+          </th>
+          <th>
+           S
+          </th>
+          <th>
+           T
+          </th>
+          <th>
+           U
+          </th>
+          <th>
+           V
+          </th>
+          <th>
+           W
+          </th>
+          <th>
+           X
+          </th>
+          <th>
+           Y
+          </th>
+          <th>
+           Z
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Cipher
+          </td>
+          <td>
+           A
+          </td>
+          <td>
+           B
+          </td>
+          <td>
+           C
+          </td>
+          <td>
+           D
+          </td>
+          <td>
+           E
+          </td>
+          <td>
+           F
+          </td>
+          <td>
+           G
+          </td>
+          <td>
+           H
+          </td>
+          <td>
+           I
+          </td>
+          <td>
+           J
+          </td>
+          <td>
+           K
+          </td>
+          <td>
+           L
+          </td>
+          <td>
+           M
+          </td>
+          <td>
+           N
+          </td>
+          <td>
+           &Ntilde;
+          </td>
+          <td>
+           O
+          </td>
+          <td>
+           P
+          </td>
+          <td>
+           Q
+          </td>
+          <td>
+           R
+          </td>
+          <td>
+           S
+          </td>
+          <td>
+           T
+          </td>
+          <td>
+           U
+          </td>
+          <td>
+           V
+          </td>
+          <td>
+           W
+          </td>
+          <td>
+           X
+          </td>
+          <td>
+           Y
+          </td>
+          <td>
+           Z
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <h3>
+       Spanish cryptanalysis reference
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table strategy-table">
+        <thead>
+         <tr>
+          <th>
+           Useful Spanish patterns
+          </th>
+          <th>
+           Examples
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Common letters
+          </td>
+          <td>
+           E A O S R N I L D T
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Common 2-letter words
+          </td>
+          <td>
+           DE LA EL EN UN ES
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Common 3-letter words
+          </td>
+          <td>
+           QUE LOS LAS DEL POR
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Frequent endings
+          </td>
+          <td>
+           -O -A -OS -AS -ES -CI&Oacute;N
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <h3>
+       Compact Spanish solving sheet
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table">
+        <thead>
+         <tr>
+          <th>
+           Type
+          </th>
+          <th>
+           Useful examples
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Very common letters
+          </td>
+          <td>
+           E A O S R N I L D T
+          </td>
+         </tr>
+         <tr>
+          <td>
+           One-letter words
+          </td>
+          <td>
+           Y, O, A (context-dependent)
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Two-letter words
+          </td>
+          <td>
+           DE, LA, EL, EN, UN, ES, AL, SE, LO
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Three-letter words
+          </td>
+          <td>
+           QUE, LOS, LAS, DEL, POR, CON, UNA
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Frequent endings
+          </td>
+          <td>
+           -O, -A, -OS, -AS, -ES, -CI&Oacute;N, -ADO, -IDO
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Common digraphs
+          </td>
+          <td>
+           DE, ES, EN, LA, EL, UE, QU, RA
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Language warning:
+       </strong>
+       do not force English words or English frequencies onto Spanish plaintext. An English keyword used to build a key alphabet is separate from the plaintext language.
+      </div>
+      <div class="reference-completeness">
+       <strong>
+        Reference rule:
+       </strong>
+       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
+      </div>
+     </section>
+     <section class="deep-card" id="encrypt">
+      <div class="section-kicker">
+       04 &bull; ENCRYPTION
+      </div>
+      <h2>
+       How encryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Normalize the Spanish plaintext
+         </h3>
+         <p>
+          Preserve &Ntilde;; accents may be normalized according to the puzzle format.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Build the substitution rows
+         </h3>
+         <p>
+          Use the selected K1/K2 style and the supplied/constructed keyword.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Substitute consistently
+         </h3>
+         <p>
+          Each Spanish plaintext letter maps to exactly one ciphertext letter.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Keep word boundaries if the mode does
+         </h3>
+         <p>
+          This preserves valuable Spanish word-length clues.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="decrypt">
+      <div class="section-kicker">
+       05 &bull; DECRYPTION
+      </div>
+      <h2>
+       How decryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Identify short Spanish words
+         </h3>
+         <p>
+          DE, LA, EL, EN, UN, ES, Y and similar forms are useful anchors.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Use endings
+         </h3>
+         <p>
+          Plural -S/-ES and endings such as -CI&Oacute;N can reveal structures.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Maintain a one-to-one mapping
+         </h3>
+         <p>
+          Exactly as with an Aristocrat.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Read as Spanish
+         </h3>
+         <p>
+          Do not force English word patterns onto the plaintext.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="competition">
+      <div class="section-kicker">
+       06 &bull; COMPETITION WORKFLOW
+      </div>
+      <h2>
+       How to approach it in Codebusters practice
+      </h2>
+      <ul class="deep-list competition-list">
+       <li>
+        A Spanish vocabulary reference sheet can be more valuable than raw frequency tables.
+       </li>
+       <li>
+        Treat &Ntilde; as its own letter when the problem convention does so.
+       </li>
+       <li>
+        An English keyword used to construct an alphabet is a key-building detail, not evidence that the plaintext is English.
+       </li>
+      </ul>
+      <h3>
+       What the problem gives you vs. what you produce
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table problem-format-table">
+        <thead>
+         <tr>
+          <th>
+           Part
+          </th>
+          <th>
+           What to expect
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           You may be given
+          </td>
+          <td>
+           A Spanish substitution cryptogram, sometimes with K1/K2 construction information or a crib.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           You must find
+          </td>
+          <td>
+           Spanish plaintext and possibly key information.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fastest first move
+          </td>
+          <td>
+           Identify short Spanish function words and endings, then propagate a one-to-one substitution mapping.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Season note:
+       </strong>
+       use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
+      </div>
+     </section>
+     <section class="deep-card" id="cryptanalysis">
+      <div class="section-kicker">
+       07 &bull; CRYPTANALYSIS
+      </div>
+      <h2>
+       How to attack an unknown or partially known key
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Spanish E and A are common, but frequency varies strongly by message.
+       </li>
+       <li>
+        DE and LA are especially useful short words when spaces are present.
+       </li>
+       <li>
+        Look for grammatical agreement: repeated endings can suggest plurals, gender, or verb forms.
+       </li>
+      </ul>
+     </section>
+     <section class="deep-card" id="worked">
+      <div class="section-kicker">
+       08 &bull; WORKED PROBLEM
+      </div>
+      <h2>
+       Follow one example from start to finish
+      </h2>
+      <div class="worked-box">
+       <div class="worked-row">
+        <span>
+         Construction
+        </span>
+        <div>
+         <code>
+          K2 &bull; English keyword SIGNAL &bull; offset 5
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Plaintext
+        </span>
+        <div>
+         <code>
+          LA SE&Ntilde;AL SECRETA
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Ciphertext
+        </span>
+        <div>
+         <code>
+          BV MZEVB MZXKZ&Ntilde;V
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Solve view
+        </span>
+        <div>
+         Use Spanish word patterns and a consistent one-to-one mapping; &Ntilde; remains a distinct letter in this teaching alphabet.
+        </div>
+       </div>
+      </div>
+      <div class="beginner-check">
+       <div class="beginner-check-title">
+        BEGINNER SELF-CHECK
+       </div>
+       <p>
+        Before moving on, make sure you can answer these without another site:
+       </p>
+       <ul>
+        <li>
+         Can you explain why DE/LA/EL are more useful than THE/AND?
+        </li>
+        <li>
+         Can you treat &Ntilde; separately from N when the puzzle convention does?
+        </li>
+        <li>
+         Can you distinguish an English key-building word from Spanish plaintext?
+        </li>
+       </ul>
+      </div>
+     </section>
+     <section class="deep-card" id="mistakes">
+      <div class="section-kicker">
+       09 &bull; ERROR CHECK
+      </div>
+      <h2>
+       Common mistakes
+      </h2>
+      <div class="mistake-grid">
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Using English frequency/word assumptions.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Dropping &Ntilde; or treating it automatically as N.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Assuming an English keyword means English plaintext.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Ignoring Spanish endings and function words.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="speed">
+      <div class="section-kicker">
+       10 &bull; SPEED
+      </div>
+      <h2>
+       Competition speed strategies
+      </h2>
+      <div class="speed-grid">
+       <div class="speed-item">
+        <span>
+         1
+        </span>
+        <p>
+         Keep a compact Spanish common-word list beside the substitution alphabet.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         2
+        </span>
+        <p>
+         Mark recurring -S and -ES patterns once several letters are known.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         3
+        </span>
+        <p>
+         Solve high-frequency two- and three-letter words early, then propagate mappings.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="quick">
+      <div class="section-kicker">
+       11 &bull; QUICK REFERENCE
+      </div>
+      <h2>
+       What to remember under time pressure
+      </h2>
+      <div class="quick-grid">
+       <div class="quick-item">
+        <span>
+         Plaintext language
+        </span>
+        <strong>
+         Spanish
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Alphabet here
+        </span>
+        <strong>
+         27 letters including &Ntilde;
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Core method
+        </span>
+        <strong>
+         Aristocrat-style substitution analysis
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Best clues
+        </span>
+        <strong>
+         Spanish short words + endings + consistency
+        </strong>
+       </div>
+      </div>
+      <div class="quick-use-note">
+       <strong>
+        How to use this section:
+       </strong>
+       during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
+      </div>
+     </section>
+     <section class="deep-card interactive-card" id="interactive">
+      <div class="section-kicker">
+       12 &bull; INTERACTIVE LAB
+      </div>
+      <h2>
+       See every transformation
+      </h2>
+      <p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+      </p>
+      <div class="lab-actions">
+       <a class="deep-secondary-button" href="../visualizers/xenocrypt.html">
+        Open full visualizer
+       </a>
+       <a class="primary-button" href="../practice/index.html?cipher=xenocrypt-k1">
+        Practice Xenocrypt
+       </a>
+      </div>
+      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/xenocrypt.html?embed=1" title="Spanish Xenocrypt interactive visualizer">
+      </iframe>
+     </section>
+     <div class="guide-end-nav">
+      <a href="index.html">
+       &larr; All cipher guides
+      </a>
+      <a href="#overview">
+       Back to top &uarr;
+      </a>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <p>
+    THE DAILY CIPHER
+   </p>
+   <span>
+    Learn. Crack. Repeat.
+   </span>
+  </footer>
+  <script src="/js/navigation.js">
+  </script>
+  <script src="../js/learnPage.js">
+  </script>
+ </body>
 </html>

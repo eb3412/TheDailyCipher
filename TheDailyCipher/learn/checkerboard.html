@@ -1,45 +1,853 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5×5 Checkerboard Cipher Guide | The Daily Cipher</title>
-<meta name="description" content="Learn 5×5 Checkerboard Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
-<link rel="canonical" href="https://thedailycipher.org/learn/checkerboard.html">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#030712">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/animations.css">
-<link rel="stylesheet" href="../css/themes.css">
-<link rel="stylesheet" href="../css/codebusters-learn.css">
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-<body>
-<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
-<main class="container cb-guide-shell">
-<section class="hero"><div class="eyebrow">POLYBIUS CHECKERBOARD • CODEBUSTERS</div><h1>5×5 Checkerboard<span> Cipher</span></h1><p>Use keyed row and column headers to turn Polybius-square coordinates into letter pairs.</p></section>
-<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.</p>
-<p>The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example.</p><div class="cb-note">A 5×5 Checkerboard cipher using a keyed Polybius square and letter row and column headers.</div></section>
-<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Build a keyed 5x5 Polybius square with I/J sharing a cell.</p>
-<p>Ciphertext symbols come in pairs: the first symbol selects a row and the second selects a column.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Choose or generate the required key material.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Apply the cipher rules consistently to the plaintext.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Format the ciphertext in the competition-style form shown in Practice.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.</p>
-<p>Use structural constraints before making free guesses.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Write down the given information and identify what is unknown.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Test a candidate mapping or key against more than one part of the ciphertext.</p></div>
-<div class="cb-step"><div class="cb-step-num">4</div><p>Continue until the entire plaintext is consistent.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Checkerboard — Given Polybius Key</strong><span>Given key</span><a class="cb-small-button" href="../practice/index.html?cipher=checkerboard">Practice this mode</a></article>
-<article class="cb-mode"><strong>Checkerboard Cryptanalysis</strong><span>State/National-style crib</span><a class="cb-small-button" href="../practice/index.html?cipher=checkerboard-cryptanalysis">Practice this mode</a></article></div></section>
-<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>PRACTICE MESSAGE</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>Varies by challenge</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>Open Practice to generate a fresh example</strong></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="5×5 Checkerboard Cipher visualizer" loading="lazy" src="../visualizers/checkerboard.html"></iframe></section>
-<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Ignoring the exact key type or question format.</div>
-<div class="cb-mistake">Using a mapping that only explains one small part of the message.</div>
-<div class="cb-mistake">Forgetting competition-specific formatting such as removed spaces or grouped ciphertext.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=checkerboard">Practice 5×5 Checkerboard Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
-</main>
-<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
-<script src="/js/navigation.js"></script>
-</body>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Checkerboard Cipher &mdash; Complete Guide | The Daily Cipher
+  </title>
+  <meta content="Learn Checkerboard Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
+  <link href="https://thedailycipher.org/learn/checkerboard.html" rel="canonical"/>
+  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
+  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta content="#030712" name="theme-color"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../css/animations.css" rel="stylesheet"/>
+  <link href="../css/themes.css" rel="stylesheet"/>
+  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
+  <script>
+   window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  </script>
+  <script defer="" src="/_vercel/insights/script.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-header">
+   <a class="logo" href="../index.html">
+    <span>
+     THE
+    </span>
+    DAILY CIPHER
+   </a>
+   <nav>
+    <a href="../index.html">
+     Daily
+    </a>
+    <a href="index.html">
+     Learn
+    </a>
+    <a href="../practice/index.html">
+     Practice
+    </a>
+   </nav>
+  </header>
+  <main class="container deep-guide-shell">
+   <section class="deep-hero">
+    <div class="eyebrow">
+     KEYED POLYBIUS COORDINATES &bull; CODEBUSTERS
+    </div>
+    <h1>
+     Checkerboard Cipher
+    </h1>
+    <p>
+     Use a complete 5&times;5 keyed board and row/column headers so every ciphertext pair can be decoded directly.
+    </p>
+    <div class="quick-grid">
+     <div class="quick-item">
+      <span>
+       Family
+      </span>
+      <strong>
+       Polybius coordinate substitution
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Key / parameter
+      </span>
+      <strong>
+       Polybius keyword + row/column header keywords
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Text structure
+      </span>
+      <strong>
+       Each plaintext letter becomes a two-character coordinate pair
+      </strong>
+     </div>
+    </div>
+   </section>
+   <div class="deep-layout">
+    <aside aria-label="Guide contents" class="deep-toc">
+     <div class="deep-toc-title">
+      ON THIS PAGE
+     </div>
+     <a href="#overview">
+      What it is
+     </a>
+     <a href="#basics">
+      What you need
+     </a>
+     <a href="#reference">
+      Complete reference
+     </a>
+     <a href="#encrypt">
+      Encrypt
+     </a>
+     <a href="#decrypt">
+      Decrypt
+     </a>
+     <a href="#competition">
+      Codebusters approach
+     </a>
+     <a href="#cryptanalysis">
+      Cryptanalysis
+     </a>
+     <a href="#worked">
+      Worked problem
+     </a>
+     <a href="#mistakes">
+      Common mistakes
+     </a>
+     <a href="#speed">
+      Speed strategies
+     </a>
+     <a href="#quick">
+      Quick reference
+     </a>
+     <a href="#interactive">
+      Visualizer &amp; practice
+     </a>
+     <div class="deep-toc-note">
+      Everything needed for the cipher itself is included here.
+     </div>
+    </aside>
+    <div class="deep-content">
+     <section class="deep-card" id="overview">
+      <div class="section-kicker">
+       01 &bull; OVERVIEW
+      </div>
+      <h2>
+       What is the Checkerboard Cipher?
+      </h2>
+      <p>
+       The checkerboard mode used by The Daily Cipher places a keyed 5&times;5 Polybius alphabet inside a board whose rows and columns have letter headers. A plaintext letter is encoded as its row-header letter followed by its column-header letter.
+      </p>
+      <p>
+       Decoding is therefore a coordinate lookup: first character chooses the row, second chooses the column.
+      </p>
+      <div class="deep-rule-note">
+       <strong>
+        Competition note
+       </strong>
+       <p>
+        The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
+       </p>
+      </div>
+      <div class="beginner-promise">
+       <strong>
+        Starting from zero?
+       </strong>
+       <p>
+        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+       </p>
+      </div>
+     </section>
+     <section class="deep-card" id="basics">
+      <div class="section-kicker">
+       02 &bull; FOUNDATIONS
+      </div>
+      <h2>
+       What you need to know
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Build the 5&times;5 keyed square first; I/J normally share a cell.
+       </li>
+       <li>
+        Write five row headers and five column headers clearly.
+       </li>
+       <li>
+        Every ciphertext pair has row header first, column header second.
+       </li>
+      </ul>
+      <h3>
+       Beginner glossary
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table glossary-table">
+        <thead>
+         <tr>
+          <th>
+           Term
+          </th>
+          <th>
+           Meaning
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Keyed Polybius square
+          </td>
+          <td>
+           A 5&times;5 grid filled with a keyword then unused letters, usually combining I/J.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Row header
+          </td>
+          <td>
+           The symbol/letter identifying a row.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Column header
+          </td>
+          <td>
+           The symbol/letter identifying a column.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Coordinate pair
+          </td>
+          <td>
+           Two ciphertext symbols: row header first, column header second.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Crib
+          </td>
+          <td>
+           Known plaintext that identifies which cell certain ciphertext pairs must represent.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="deep-card reference-card" id="reference">
+      <div class="section-kicker">
+       03 &bull; COMPLETE REFERENCE
+      </div>
+      <h2>
+       Keep this beside you while solving
+      </h2>
+      <p class="deep-caption">
+       Numeric example square; in an actual checkerboard, row/column headers may be letters from keywords.
+      </p>
+      <div class="poly-grid reference-poly">
+       <div class="poly-head">
+       </div>
+       <div class="poly-head">
+        1
+       </div>
+       <div class="poly-head">
+        2
+       </div>
+       <div class="poly-head">
+        3
+       </div>
+       <div class="poly-head">
+        4
+       </div>
+       <div class="poly-head">
+        5
+       </div>
+       <div class="poly-head">
+        1
+       </div>
+       <div>
+        C
+       </div>
+       <div>
+        I
+       </div>
+       <div>
+        P
+       </div>
+       <div>
+        H
+       </div>
+       <div>
+        E
+       </div>
+       <div class="poly-head">
+        2
+       </div>
+       <div>
+        R
+       </div>
+       <div>
+        A
+       </div>
+       <div>
+        B
+       </div>
+       <div>
+        D
+       </div>
+       <div>
+        F
+       </div>
+       <div class="poly-head">
+        3
+       </div>
+       <div>
+        G
+       </div>
+       <div>
+        K
+       </div>
+       <div>
+        L
+       </div>
+       <div>
+        M
+       </div>
+       <div>
+        N
+       </div>
+       <div class="poly-head">
+        4
+       </div>
+       <div>
+        O
+       </div>
+       <div>
+        Q
+       </div>
+       <div>
+        S
+       </div>
+       <div>
+        T
+       </div>
+       <div>
+        U
+       </div>
+       <div class="poly-head">
+        5
+       </div>
+       <div>
+        V
+       </div>
+       <div>
+        W
+       </div>
+       <div>
+        X
+       </div>
+       <div>
+        Y
+       </div>
+       <div>
+        Z
+       </div>
+      </div>
+      <div class="deep-table-wrap">
+       <table class="deep-table compact-two">
+        <thead>
+         <tr>
+          <th>
+           Pair
+          </th>
+          <th>
+           Interpretation
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           RA
+          </td>
+          <td>
+           row R, column A
+          </td>
+         </tr>
+         <tr>
+          <td>
+           TN
+          </td>
+          <td>
+           row T, column N
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <h3>
+       Reading a checkerboard pair
+      </h3>
+      <div class="deep-code">
+       cipher pair = R C
+R = row-header symbol
+C = column-header symbol
+intersection(row R, column C) = plaintext letter
+      </div>
+      <p>
+       The actual row and column header letters vary with the puzzle. Do not assume they are numeric 1&ndash;5 unless the problem explicitly uses numbers.
+      </p>
+      <div class="reference-completeness">
+       <strong>
+        Reference rule:
+       </strong>
+       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
+      </div>
+     </section>
+     <section class="deep-card" id="encrypt">
+      <div class="section-kicker">
+       04 &bull; ENCRYPTION
+      </div>
+      <h2>
+       How encryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Build the keyed Polybius square
+         </h3>
+         <p>
+          Use the provided Polybius keyword.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Label rows and columns
+         </h3>
+         <p>
+          Use the specified five-letter header sequences.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Locate a plaintext letter
+         </h3>
+         <p>
+          Find its cell.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Output the coordinate pair
+         </h3>
+         <p>
+          Row-header letter first, then column-header letter.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="decrypt">
+      <div class="section-kicker">
+       05 &bull; DECRYPTION
+      </div>
+      <h2>
+       How decryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Split ciphertext into pairs
+         </h3>
+         <p>
+          Treat separators according to the problem format.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Read the first symbol
+         </h3>
+         <p>
+          Select that row header.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Read the second symbol
+         </h3>
+         <p>
+          Select that column header.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Take the intersection
+         </h3>
+         <p>
+          The cell letter is the plaintext.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="competition">
+      <div class="section-kicker">
+       06 &bull; COMPETITION WORKFLOW
+      </div>
+      <h2>
+       How to approach it in Codebusters practice
+      </h2>
+      <ul class="deep-list competition-list">
+       <li>
+        Keep row and column header order visible; swapping them reverses every coordinate.
+       </li>
+       <li>
+        For cryptanalysis variants, a crib can constrain which headers/square placements are possible.
+       </li>
+       <li>
+        Normalize I/J consistently with the provided square.
+       </li>
+      </ul>
+      <h3>
+       What the problem gives you vs. what you produce
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table problem-format-table">
+        <thead>
+         <tr>
+          <th>
+           Part
+          </th>
+          <th>
+           What to expect
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           You may be given
+          </td>
+          <td>
+           Cipher pairs plus a keyed Polybius square/header information, or a cryptanalysis variant with a crib.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           You must find
+          </td>
+          <td>
+           Plaintext by interpreting each pair as a board coordinate.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fastest first move
+          </td>
+          <td>
+           Draw the full board with headers once, then decode pairs directly at intersections.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Season note:
+       </strong>
+       use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
+      </div>
+     </section>
+     <section class="deep-card" id="cryptanalysis">
+      <div class="section-kicker">
+       07 &bull; CRYPTANALYSIS
+      </div>
+      <h2>
+       How to attack an unknown or partially known key
+      </h2>
+      <ul class="deep-list">
+       <li>
+        A crib gives known plaintext cells for specific ciphertext pairs.
+       </li>
+       <li>
+        Repeated pairs always decode to the same plaintext letter under a fixed board.
+       </li>
+       <li>
+        If headers are known but square key is unknown, pair frequencies can provide limited substitution-style clues.
+       </li>
+      </ul>
+     </section>
+     <section class="deep-card" id="worked">
+      <div class="section-kicker">
+       08 &bull; WORKED PROBLEM
+      </div>
+      <h2>
+       Follow one example from start to finish
+      </h2>
+      <div class="worked-box">
+       <div class="worked-row">
+        <span>
+         Keys
+        </span>
+        <div>
+         <code>
+          Polybius=CIPHER &bull; rows=PLANT &bull; columns=NIGHT
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Plaintext
+        </span>
+        <div>
+         <code>
+          SECRET
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Coordinate pairs
+        </span>
+        <div>
+         <code>
+          NG PT PN LN PT NH
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Decrypt
+        </span>
+        <div>
+         For each pair, first character selects a row and second selects a column; the intersection returns the plaintext letter.
+        </div>
+       </div>
+      </div>
+      <div class="beginner-check">
+       <div class="beginner-check-title">
+        BEGINNER SELF-CHECK
+       </div>
+       <p>
+        Before moving on, make sure you can answer these without another site:
+       </p>
+       <ul>
+        <li>
+         Can you explain why RC and CR are generally different cells?
+        </li>
+        <li>
+         Can you locate a plaintext letter and produce its row-then-column pair?
+        </li>
+        <li>
+         Can you handle J consistently when it shares I&rsquo;s cell?
+        </li>
+       </ul>
+      </div>
+     </section>
+     <section class="deep-card" id="mistakes">
+      <div class="section-kicker">
+       09 &bull; ERROR CHECK
+      </div>
+      <h2>
+       Common mistakes
+      </h2>
+      <div class="mistake-grid">
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Reversing row and column order.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Using the keyword itself as the five headers without removing duplicates/using the specified construction.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Forgetting I/J merging.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Reading numeric Polybius coordinates when the ciphertext actually uses letter headers.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="speed">
+      <div class="section-kicker">
+       10 &bull; SPEED
+      </div>
+      <h2>
+       Competition speed strategies
+      </h2>
+      <div class="speed-grid">
+       <div class="speed-item">
+        <span>
+         1
+        </span>
+        <p>
+         Draw a thick line separating headers from the 5&times;5 interior.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         2
+        </span>
+        <p>
+         Decode pairs directly on the board; do not rewrite them as numbers unless that helps you.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         3
+        </span>
+        <p>
+         Mark each used cell lightly so repeated pairs become instant lookups.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="quick">
+      <div class="section-kicker">
+       11 &bull; QUICK REFERENCE
+      </div>
+      <h2>
+       What to remember under time pressure
+      </h2>
+      <div class="quick-grid">
+       <div class="quick-item">
+        <span>
+         Board
+        </span>
+        <strong>
+         5&times;5 keyed Polybius
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Pair order
+        </span>
+        <strong>
+         Row header, then column header
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Decrypt
+        </span>
+        <strong>
+         Intersection lookup
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         I/J
+        </span>
+        <strong>
+         Usually combined
+        </strong>
+       </div>
+      </div>
+      <div class="quick-use-note">
+       <strong>
+        How to use this section:
+       </strong>
+       during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
+      </div>
+     </section>
+     <section class="deep-card interactive-card" id="interactive">
+      <div class="section-kicker">
+       12 &bull; INTERACTIVE LAB
+      </div>
+      <h2>
+       See every transformation
+      </h2>
+      <p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+      </p>
+      <div class="lab-actions">
+       <a class="deep-secondary-button" href="../visualizers/checkerboard.html">
+        Open full visualizer
+       </a>
+       <a class="primary-button" href="../practice/index.html?cipher=checkerboard">
+        Practice Checkerboard
+       </a>
+      </div>
+      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/checkerboard.html?embed=1" title="Checkerboard Cipher interactive visualizer">
+      </iframe>
+     </section>
+     <div class="guide-end-nav">
+      <a href="index.html">
+       &larr; All cipher guides
+      </a>
+      <a href="#overview">
+       Back to top &uarr;
+      </a>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <p>
+    THE DAILY CIPHER
+   </p>
+   <span>
+    Learn. Crack. Repeat.
+   </span>
+  </footer>
+  <script src="/js/navigation.js">
+  </script>
+  <script src="../js/learnPage.js">
+  </script>
+ </body>
 </html>

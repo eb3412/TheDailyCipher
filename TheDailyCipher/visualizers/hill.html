@@ -1,147 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-
-<title>Hill Cipher Visualizer</title>
-<link
-    rel="icon"
-    type="image/png"
-    href="/assets/favicon.png"
->
-
-<link
-    rel="apple-touch-icon"
-    href="/assets/apple-touch-icon.png"
->
-
-<meta
-    name="theme-color"
-    content="#030712"
->
-<style>
-
-body {
-    background:#030712;
-    color:white;
-
-    font-family:system-ui;
-
-    text-align:center;
-
-    padding:30px;
-}
-
-.matrix {
-    display:inline-grid;
-
-    grid-template-columns:
-        repeat(2, 70px);
-
-    gap:5px;
-
-    margin:20px;
-}
-
-.cell {
-    padding:20px;
-
-    background:#1f2937;
-
-    border-radius:8px;
-
-    font-size:20px;
-}
-
-input {
-    width:50px;
-    padding:10px;
-    text-align:center;
-}
-
-button {
-    padding:12px 20px;
-
-    border:0;
-    border-radius:8px;
-
-    background:#6366f1;
-    color:white;
-}
-
-</style>
-<script>
-  window.va = window.va || function () {
-    (window.vaq = window.vaq || []).push(arguments);
-  };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hill Cipher Visualizer | The Daily Cipher</title>
+    <meta name="description" content="Interactive step-by-step Hill Cipher teaching lab with complete reference material, transformations, and reverse-solving guidance.">
+    <link rel="canonical" href="https://thedailycipher.org/visualizers/hill.html">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#030712">
+    <link rel="stylesheet" href="../css/codebusters-visualizer.css">
+    <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
-
-<body>
-
-<h2>Hill Cipher Matrix Visualizer</h2>
-
-<p>
-The Hill Cipher uses matrix multiplication
-and modular arithmetic.
-</p>
-
-<div class="matrix">
-
-    <div class="cell">
-        <input id="a" value="3">
-    </div>
-
-    <div class="cell">
-        <input id="b" value="3">
-    </div>
-
-    <div class="cell">
-        <input id="c" value="2">
-    </div>
-
-    <div class="cell">
-        <input id="d" value="5">
-    </div>
-
-</div>
-
-<br>
-
-<button onclick="showMatrix()">
-Calculate Determinant
-</button>
-
-<h2 id="result">---</h2>
-
-<script>
-
-function showMatrix() {
-
-    const a =
-        Number(document.getElementById("a").value);
-
-    const b =
-        Number(document.getElementById("b").value);
-
-    const c =
-        Number(document.getElementById("c").value);
-
-    const d =
-        Number(document.getElementById("d").value);
-
-    const determinant =
-        a * d - b * c;
-
-    document.getElementById(
-        "result"
-    ).textContent =
-        `Determinant = ${determinant}`;
-}
-
-</script>
-
+<body data-cipher="hill">
+    <main class="viz-shell">
+        <a class="viz-back" href="../learn/hill.html">← Back to complete guide</a>
+        <header class="viz-top">
+            <div class="viz-eyebrow">INTERACTIVE TEACHING LAB • NO PRIOR KNOWLEDGE REQUIRED</div>
+            <h1 id="viz-title">Hill Cipher</h1>
+            <p id="viz-description">Turn blocks of letters into vectors, multiply by an invertible matrix, and reduce modulo 26.</p>
+            <div class="embed-note">Use the controls, full reference, step highlighter, and reverse-solving panel together.</div>
+        </header>
+        <section id="viz-controls" class="viz-controls" aria-label="Visualizer controls"></section>
+        <div id="viz-output"></div>
+    </main>
+    <script src="../js/cipherEngine.js"></script>
+    <script src="../js/codebustersVisualizer.js"></script>
 </body>
 </html>

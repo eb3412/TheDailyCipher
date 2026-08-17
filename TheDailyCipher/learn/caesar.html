@@ -1,104 +1,1072 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Caesar Cipher | The Daily Cipher</title>
-
-    <link rel="stylesheet" href="../css/style.css">
-    <link
-    rel="icon"
-    type="image/png"
-    href="/assets/favicon.png"
->
-
-<link
-    rel="apple-touch-icon"
-    href="/assets/apple-touch-icon.png"
->
-
-<meta
-    name="theme-color"
-    content="#030712"
->
-
-<script>
-  window.va = window.va || function () {
-    (window.vaq = window.vaq || []).push(arguments);
-  };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-
-<body>
-
-<header class="site-header">
-
-    <a href="../index.html" class="logo">
-        <span>THE</span> DAILY CIPHER
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Caesar Cipher &mdash; Complete Guide | The Daily Cipher
+  </title>
+  <meta content="Learn Caesar Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
+  <link href="https://thedailycipher.org/learn/caesar.html" rel="canonical"/>
+  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
+  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta content="#030712" name="theme-color"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../css/animations.css" rel="stylesheet"/>
+  <link href="../css/themes.css" rel="stylesheet"/>
+  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
+  <script>
+   window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  </script>
+  <script defer="" src="/_vercel/insights/script.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-header">
+   <a class="logo" href="../index.html">
+    <span>
+     THE
+    </span>
+    DAILY CIPHER
+   </a>
+   <nav>
+    <a href="../index.html">
+     Daily
     </a>
-
-    <nav>
-        <a href="../index.html">Daily</a>
-        <a href="index.html">Learn</a>
-        <a href="../practice/index.html">Practice</a>
-    </nav>
-
-</header>
-
-<main class="container">
-
-    <section class="hero">
-
-        <div class="eyebrow">
-            SUBSTITUTION CIPHER • BEGINNER
+    <a href="index.html">
+     Learn
+    </a>
+    <a href="../practice/index.html">
+     Practice
+    </a>
+   </nav>
+  </header>
+  <main class="container deep-guide-shell">
+   <section class="deep-hero">
+    <div class="eyebrow">
+     SHIFT CIPHER &bull; BEGINNER
+    </div>
+    <h1>
+     Caesar Cipher
+    </h1>
+    <p>
+     Move every letter by the same fixed amount and learn to reverse the shift without guessing.
+    </p>
+    <div class="quick-grid">
+     <div class="quick-item">
+      <span>
+       Family
+      </span>
+      <strong>
+       Monoalphabetic substitution
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Key / parameter
+      </span>
+      <strong>
+       One shift from 0&ndash;25
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Text structure
+      </span>
+      <strong>
+       Spaces and punctuation normally stay in place
+      </strong>
+     </div>
+    </div>
+   </section>
+   <div class="deep-layout">
+    <aside aria-label="Guide contents" class="deep-toc">
+     <div class="deep-toc-title">
+      ON THIS PAGE
+     </div>
+     <a href="#overview">
+      What it is
+     </a>
+     <a href="#basics">
+      What you need
+     </a>
+     <a href="#reference">
+      Complete reference
+     </a>
+     <a href="#encrypt">
+      Encrypt
+     </a>
+     <a href="#decrypt">
+      Decrypt
+     </a>
+     <a href="#competition">
+      Codebusters approach
+     </a>
+     <a href="#cryptanalysis">
+      Cryptanalysis
+     </a>
+     <a href="#worked">
+      Worked problem
+     </a>
+     <a href="#mistakes">
+      Common mistakes
+     </a>
+     <a href="#speed">
+      Speed strategies
+     </a>
+     <a href="#quick">
+      Quick reference
+     </a>
+     <a href="#interactive">
+      Visualizer &amp; practice
+     </a>
+     <div class="deep-toc-note">
+      Everything needed for the cipher itself is included here.
+     </div>
+    </aside>
+    <div class="deep-content">
+     <section class="deep-card" id="overview">
+      <div class="section-kicker">
+       01 &bull; OVERVIEW
+      </div>
+      <h2>
+       What is the Caesar Cipher?
+      </h2>
+      <p>
+       A Caesar cipher replaces every plaintext letter with a letter a fixed number of positions away in the alphabet. The shift is the same everywhere in the message.
+      </p>
+      <p>
+       Because one plaintext letter always maps to one ciphertext letter, letter patterns are preserved. A doubled plaintext letter stays doubled, and repeated words keep the same pattern.
+      </p>
+      <div class="deep-rule-note">
+       <strong>
+        Competition note
+       </strong>
+       <p>
+        The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
+       </p>
+      </div>
+      <div class="beginner-promise">
+       <strong>
+        Starting from zero?
+       </strong>
+       <p>
+        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+       </p>
+      </div>
+     </section>
+     <section class="deep-card" id="basics">
+      <div class="section-kicker">
+       02 &bull; FOUNDATIONS
+      </div>
+      <h2>
+       What you need to know
+      </h2>
+      <ul class="deep-list">
+       <li>
+        <strong>
+         Plaintext
+        </strong>
+        is the readable message.
+       </li>
+       <li>
+        <strong>
+         Ciphertext
+        </strong>
+        is the shifted message.
+       </li>
+       <li>
+        <strong>
+         Shift
+        </strong>
+        is the number of alphabet positions moved.
+       </li>
+       <li>
+        The alphabet wraps around: after Z comes A.
+       </li>
+      </ul>
+      <h3>
+       Beginner glossary
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table glossary-table">
+        <thead>
+         <tr>
+          <th>
+           Term
+          </th>
+          <th>
+           Meaning
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Shift
+          </td>
+          <td>
+           The fixed number of alphabet positions moved for every letter.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Wraparound
+          </td>
+          <td>
+           Continuing from Z back to A, or from A back to Z.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Modulo 26
+          </td>
+          <td>
+           Arithmetic where values repeat every 26 positions; it handles alphabet wraparound.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Brute force
+          </td>
+          <td>
+           Testing every possible shift systematically.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="deep-card reference-card" id="reference">
+      <div class="section-kicker">
+       03 &bull; COMPLETE REFERENCE
+      </div>
+      <h2>
+       Keep this beside you while solving
+      </h2>
+      <div class="deep-table-wrap">
+       <table class="deep-table alphabet-table">
+        <thead>
+         <tr>
+          <th>
+           Plain
+          </th>
+          <th>
+           A
+          </th>
+          <th>
+           B
+          </th>
+          <th>
+           C
+          </th>
+          <th>
+           D
+          </th>
+          <th>
+           E
+          </th>
+          <th>
+           F
+          </th>
+          <th>
+           G
+          </th>
+          <th>
+           H
+          </th>
+          <th>
+           I
+          </th>
+          <th>
+           J
+          </th>
+          <th>
+           K
+          </th>
+          <th>
+           L
+          </th>
+          <th>
+           M
+          </th>
+          <th>
+           N
+          </th>
+          <th>
+           O
+          </th>
+          <th>
+           P
+          </th>
+          <th>
+           Q
+          </th>
+          <th>
+           R
+          </th>
+          <th>
+           S
+          </th>
+          <th>
+           T
+          </th>
+          <th>
+           U
+          </th>
+          <th>
+           V
+          </th>
+          <th>
+           W
+          </th>
+          <th>
+           X
+          </th>
+          <th>
+           Y
+          </th>
+          <th>
+           Z
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Cipher
+          </td>
+          <td>
+           D
+          </td>
+          <td>
+           E
+          </td>
+          <td>
+           F
+          </td>
+          <td>
+           G
+          </td>
+          <td>
+           H
+          </td>
+          <td>
+           I
+          </td>
+          <td>
+           J
+          </td>
+          <td>
+           K
+          </td>
+          <td>
+           L
+          </td>
+          <td>
+           M
+          </td>
+          <td>
+           N
+          </td>
+          <td>
+           O
+          </td>
+          <td>
+           P
+          </td>
+          <td>
+           Q
+          </td>
+          <td>
+           R
+          </td>
+          <td>
+           S
+          </td>
+          <td>
+           T
+          </td>
+          <td>
+           U
+          </td>
+          <td>
+           V
+          </td>
+          <td>
+           W
+          </td>
+          <td>
+           X
+          </td>
+          <td>
+           Y
+          </td>
+          <td>
+           Z
+          </td>
+          <td>
+           A
+          </td>
+          <td>
+           B
+          </td>
+          <td>
+           C
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p class="deep-caption">
+       Example reference for shift +3. To decrypt, move three positions backward.
+      </p>
+      <h3>
+       Alphabet numbers used in formulas
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table alphabet-table">
+        <thead>
+         <tr>
+          <th>
+           Letter
+          </th>
+          <th>
+           A
+          </th>
+          <th>
+           B
+          </th>
+          <th>
+           C
+          </th>
+          <th>
+           D
+          </th>
+          <th>
+           E
+          </th>
+          <th>
+           F
+          </th>
+          <th>
+           G
+          </th>
+          <th>
+           H
+          </th>
+          <th>
+           I
+          </th>
+          <th>
+           J
+          </th>
+          <th>
+           K
+          </th>
+          <th>
+           L
+          </th>
+          <th>
+           M
+          </th>
+          <th>
+           N
+          </th>
+          <th>
+           O
+          </th>
+          <th>
+           P
+          </th>
+          <th>
+           Q
+          </th>
+          <th>
+           R
+          </th>
+          <th>
+           S
+          </th>
+          <th>
+           T
+          </th>
+          <th>
+           U
+          </th>
+          <th>
+           V
+          </th>
+          <th>
+           W
+          </th>
+          <th>
+           X
+          </th>
+          <th>
+           Y
+          </th>
+          <th>
+           Z
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Value
+          </td>
+          <td>
+           0
+          </td>
+          <td>
+           1
+          </td>
+          <td>
+           2
+          </td>
+          <td>
+           3
+          </td>
+          <td>
+           4
+          </td>
+          <td>
+           5
+          </td>
+          <td>
+           6
+          </td>
+          <td>
+           7
+          </td>
+          <td>
+           8
+          </td>
+          <td>
+           9
+          </td>
+          <td>
+           10
+          </td>
+          <td>
+           11
+          </td>
+          <td>
+           12
+          </td>
+          <td>
+           13
+          </td>
+          <td>
+           14
+          </td>
+          <td>
+           15
+          </td>
+          <td>
+           16
+          </td>
+          <td>
+           17
+          </td>
+          <td>
+           18
+          </td>
+          <td>
+           19
+          </td>
+          <td>
+           20
+          </td>
+          <td>
+           21
+          </td>
+          <td>
+           22
+          </td>
+          <td>
+           23
+          </td>
+          <td>
+           24
+          </td>
+          <td>
+           25
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Direction check:
+       </strong>
+       with shift +3, plaintext X encrypts to A. To decrypt A with the same key, move backward 3 to X.
+      </div>
+      <div class="reference-completeness">
+       <strong>
+        Reference rule:
+       </strong>
+       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
+      </div>
+     </section>
+     <section class="deep-card" id="encrypt">
+      <div class="section-kicker">
+       04 &bull; ENCRYPTION
+      </div>
+      <h2>
+       How encryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
         </div>
-
-        <h1>
-            Caesar <span>Cipher</span>
-        </h1>
-
-        <p>
-            A simple substitution cipher based on shifting
-            letters through the alphabet.
-        </p>
-
-    </section>
-
-    <section class="daily-card">
-
-        <h2>How It Works</h2>
-
-        <p>
-            Each letter is shifted by the same number of
-            positions. A shift of 3 changes A → D,
-            B → E, and so on.
-        </p>
-
-        <h2>Example</h2>
-
-        <div class="cipher-box">
-            HELLO → KHOOR
+        <div>
+         <h3>
+          Choose the shift
+         </h3>
+         <p>
+          For a shift of +3, every plaintext letter moves three places forward.
+         </p>
         </div>
-
-        <h2>Interactive Visualizer</h2>
-
-        <iframe
-            src="../visualizers/caesar.html"
-            style="width:100%;height:500px;border:0;border-radius:15px;">
-        </iframe>
-
-        <a
-            href="../practice/index.html?cipher=caesar"
-            class="primary-button"
-            style="display:block;text-align:center;margin-top:20px;">
-            Practice Caesar
-        </a>
-
-    </section>
-
-</main>
-<script src="/js/navigation.js"></script>
-</body>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Map each letter
+         </h3>
+         <p>
+          A&rarr;D, B&rarr;E, C&rarr;F, and so on.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Wrap at Z
+         </h3>
+         <p>
+          X&rarr;A, Y&rarr;B, Z&rarr;C.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Preserve separators
+         </h3>
+         <p>
+          Keep spaces and punctuation unless a problem explicitly removes them.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="decrypt">
+      <div class="section-kicker">
+       05 &bull; DECRYPTION
+      </div>
+      <h2>
+       How decryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Find or infer the shift
+         </h3>
+         <p>
+          If the shift is given, use it directly. Otherwise test shifts or use recognizable word patterns.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Move backward
+         </h3>
+         <p>
+          Subtract the shift from every ciphertext letter.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Wrap below A
+         </h3>
+         <p>
+          With shift 3, B decrypts to Y.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Read the result
+         </h3>
+         <p>
+          Check that the whole message&mdash;not just one word&mdash;makes sense.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="competition">
+      <div class="section-kicker">
+       06 &bull; COMPETITION WORKFLOW
+      </div>
+      <h2>
+       How to approach it in Codebusters practice
+      </h2>
+      <ul class="deep-list competition-list">
+       <li>
+        If a shift is supplied, this is mainly a speed-and-accuracy task.
+       </li>
+       <li>
+        If it is not supplied, test all 26 possibilities systematically rather than guessing random letters.
+       </li>
+       <li>
+        Use short words and repeated patterns to identify the correct plaintext quickly.
+       </li>
+      </ul>
+      <h3>
+       What the problem gives you vs. what you produce
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table problem-format-table">
+        <thead>
+         <tr>
+          <th>
+           Part
+          </th>
+          <th>
+           What to expect
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           You may be given
+          </td>
+          <td>
+           A ciphertext and a shift, or a ciphertext whose shift must be identified.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           You must find
+          </td>
+          <td>
+           Usually the plaintext; sometimes the shift as well.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fastest first move
+          </td>
+          <td>
+           If the shift is known, write one shifted alphabet row. If unknown, test shifts systematically.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Season note:
+       </strong>
+       use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
+      </div>
+     </section>
+     <section class="deep-card" id="cryptanalysis">
+      <div class="section-kicker">
+       07 &bull; CRYPTANALYSIS
+      </div>
+      <h2>
+       How to attack an unknown or partially known key
+      </h2>
+      <ul class="deep-list">
+       <li>
+        A Caesar cipher has only 26 possible shifts, so exhaustive testing is practical.
+       </li>
+       <li>
+        Frequency analysis can help on longer texts: the most common ciphertext letter may correspond to a common plaintext letter such as E or T, but do not trust one frequency alone.
+       </li>
+       <li>
+        A known plaintext fragment immediately determines the shift.
+       </li>
+      </ul>
+     </section>
+     <section class="deep-card" id="worked">
+      <div class="section-kicker">
+       08 &bull; WORKED PROBLEM
+      </div>
+      <h2>
+       Follow one example from start to finish
+      </h2>
+      <div class="worked-box">
+       <div class="worked-row">
+        <span>
+         Problem
+        </span>
+        <div>
+         Decrypt
+         <code>
+          WKH GDLOB FLSKHU
+         </code>
+         with shift 3.
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Step 1
+        </span>
+        <div>
+         <code>
+          W &rarr; T
+         </code>
+         ,
+         <code>
+          K &rarr; H
+         </code>
+         ,
+         <code>
+          H &rarr; E
+         </code>
+         gives THE.
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Step 2
+        </span>
+        <div>
+         Apply the same -3 shift everywhere.
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Answer
+        </span>
+        <div>
+         <code>
+          THE DAILY CIPHER
+         </code>
+        </div>
+       </div>
+      </div>
+      <div class="beginner-check">
+       <div class="beginner-check-title">
+        BEGINNER SELF-CHECK
+       </div>
+       <p>
+        Before moving on, make sure you can answer these without another site:
+       </p>
+       <ul>
+        <li>
+         Can you explain why Z shifted by +2 becomes B?
+        </li>
+        <li>
+         Can you decrypt D with a shift of +3 without rebuilding the entire alphabet?
+        </li>
+        <li>
+         If the shift is unknown, can you explain why there are only 25 nontrivial shifts to test?
+        </li>
+       </ul>
+      </div>
+     </section>
+     <section class="deep-card" id="mistakes">
+      <div class="section-kicker">
+       09 &bull; ERROR CHECK
+      </div>
+      <h2>
+       Common mistakes
+      </h2>
+      <div class="mistake-grid">
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Shifting in the wrong direction.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Forgetting to wrap around A/Z.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Changing the shift halfway through.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Accepting one plausible word without checking the rest of the message.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="speed">
+      <div class="section-kicker">
+       10 &bull; SPEED
+      </div>
+      <h2>
+       Competition speed strategies
+      </h2>
+      <div class="speed-grid">
+       <div class="speed-item">
+        <span>
+         1
+        </span>
+        <p>
+         Write one shifted alphabet row once and use it for the entire problem.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         2
+        </span>
+        <p>
+         For unknown shifts, test a likely short word against a few shifts first.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         3
+        </span>
+        <p>
+         When a shift is known, work left-to-right and mark each word as soon as it is decoded.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="quick">
+      <div class="section-kicker">
+       11 &bull; QUICK REFERENCE
+      </div>
+      <h2>
+       What to remember under time pressure
+      </h2>
+      <div class="quick-grid">
+       <div class="quick-item">
+        <span>
+         Encrypt
+        </span>
+        <strong>
+         C = P + shift (mod 26)
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Decrypt
+        </span>
+        <strong>
+         P = C &minus; shift (mod 26)
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Key space
+        </span>
+        <strong>
+         26 shifts
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Pattern
+        </span>
+        <strong>
+         Repeated letters stay repeated
+        </strong>
+       </div>
+      </div>
+      <div class="quick-use-note">
+       <strong>
+        How to use this section:
+       </strong>
+       during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
+      </div>
+     </section>
+     <section class="deep-card interactive-card" id="interactive">
+      <div class="section-kicker">
+       12 &bull; INTERACTIVE LAB
+      </div>
+      <h2>
+       See every transformation
+      </h2>
+      <p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+      </p>
+      <div class="lab-actions">
+       <a class="deep-secondary-button" href="../visualizers/caesar.html">
+        Open full visualizer
+       </a>
+       <a class="primary-button" href="../practice/index.html?cipher=caesar">
+        Practice Caesar
+       </a>
+      </div>
+      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/caesar.html?embed=1" title="Caesar Cipher interactive visualizer">
+      </iframe>
+     </section>
+     <div class="guide-end-nav">
+      <a href="index.html">
+       &larr; All cipher guides
+      </a>
+      <a href="#overview">
+       Back to top &uarr;
+      </a>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <p>
+    THE DAILY CIPHER
+   </p>
+   <span>
+    Learn. Crack. Repeat.
+   </span>
+  </footer>
+  <script src="/js/navigation.js">
+  </script>
+  <script src="../js/learnPage.js">
+  </script>
+ </body>
 </html>

@@ -1,62 +1,897 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nihilist Cipher Guide | The Daily Cipher</title>
-<meta name="description" content="Learn Nihilist Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
-<link rel="canonical" href="https://thedailycipher.org/learn/nihilist.html">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#030712">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/animations.css">
-<link rel="stylesheet" href="../css/themes.css">
-<link rel="stylesheet" href="../css/codebusters-learn.css">
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-<body>
-<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
-<main class="container cb-guide-shell">
-<section class="hero"><div class="eyebrow">POLYBIUS + ADDITION • CODEBUSTERS</div><h1>Nihilist<span> Cipher</span></h1><p>Combine a keyed Polybius square with a repeating additive keyword to produce number ciphertext.</p></section>
-<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>The Nihilist cipher is associated with hand-cipher systems used by Russian revolutionary groups in the late nineteenth century. Despite the dramatic name, the important thing for learning the cipher is its structure: it combines a substitution system with numerical addition.</p>
-<p>Unlike a Caesar or Aristocrat cipher, its ciphertext is normally a series of numbers rather than letters. Those numbers are produced in two stages. Understanding those two stages separately makes the cipher much easier to understand.</p>
-<p>The first stage is a Polybius square. The second stage is a repeating numerical key. If you understand both pieces individually, the full Nihilist cipher is mostly just addition.</p><div class="cb-note">A numerical cipher built in layers. First, letters are converted into coordinates using a 5×5 letter grid called a Polybius square. Then numbers from a repeating keyword are added to those coordinates.</div></section>
-<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Start with a 5×5 grid. Because 25 spaces are available but the English alphabet has 26 letters, I and J are commonly combined into one position. Every square in the grid receives a two-digit coordinate. The first digit tells you the row and the second digit tells you the column.</p>
-<p>For example, the top-left square has coordinate 11. The square immediately to its right is 12. The first square in the second row is 21. Therefore a coordinate such as 43 means row 4, column 3.</p>
-<p>A keyed Polybius square does not simply place the alphabet into the grid from A onward. Instead, it begins with the unique letters of a keyword. If the keyword is CIPHER, we first write C, I, P, H, E, R while ignoring repeated letters. Then we fill the remaining empty cells with unused letters of the alphabet.</p>
-<p>That gives every plaintext letter a numerical coordinate. If H happens to occupy row 1, column 4, then H becomes 14. If E occupies row 1, column 5, E becomes 15.</p>
-<p>Now introduce a second keyword called the additive keyword. Suppose the additive keyword is SECRET. Repeat SECRET underneath the plaintext until every plaintext letter has a key letter.</p>
-<p>The key letters are converted into coordinates using the exact same Polybius square. Then, position by position, add the plaintext coordinate and key coordinate together. The sum becomes the ciphertext number.</p>
-<p>So conceptually the cipher is: PLAINTEXT LETTER → POLYBIUS NUMBER, KEYWORD LETTER → POLYBIUS NUMBER, then PLAINTEXT NUMBER + KEY NUMBER = CIPHERTEXT NUMBER.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Build the 5×5 Polybius square. Write the square keyword first, removing repeated letters, and then fill remaining cells with unused alphabet letters.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Label the rows and columns 1 through 5. Every letter now has a two-digit coordinate such as 11, 24, or 53.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Write the plaintext. Convert each plaintext letter into its Polybius coordinate.</p></div>
-<div class="cb-step"><div class="cb-step-num">4</div><p>Write the additive keyword repeatedly underneath the plaintext until it reaches the same number of letters.</p></div>
-<div class="cb-step"><div class="cb-step-num">5</div><p>Convert every additive-keyword letter into a coordinate using the SAME Polybius square.</p></div>
-<div class="cb-step"><div class="cb-step-num">6</div><p>Add each plaintext coordinate to the key coordinate directly beneath it.</p></div>
-<div class="cb-step"><div class="cb-step-num">7</div><p>Write those sums as the ciphertext. This is why Nihilist ciphertext often contains numbers such as 57, 72, or 84 instead of ordinary 11–55 Polybius coordinates.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>To decrypt a Nihilist cipher when both keywords are known, reverse the process. The final encryption operation was addition, so the first decryption operation is subtraction.</p>
-<p>The important idea is that ciphertext numbers themselves are not direct Polybius coordinates. You must first remove the additive-key value. Only then do you get a coordinate that can be looked up in the square.</p>
-<p>Suppose one ciphertext value is 57 and the corresponding repeated-key letter has Polybius value 23. Subtract 23 from 57. The result is 34. You then look at row 3, column 4 of the Polybius square to recover the plaintext letter.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Rebuild the exact keyed Polybius square used for encryption.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Repeat the additive keyword until it lines up with every ciphertext number.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Convert each additive-keyword letter into its Polybius coordinate.</p></div>
-<div class="cb-step"><div class="cb-step-num">4</div><p>Subtract each key coordinate from the ciphertext number above it.</p></div>
-<div class="cb-step"><div class="cb-step-num">5</div><p>The result should be a valid coordinate whose two digits are both between 1 and 5.</p></div>
-<div class="cb-step"><div class="cb-step-num">6</div><p>Look up that coordinate in the Polybius square.</p></div>
-<div class="cb-step"><div class="cb-step-num">7</div><p>Repeat for every number to reconstruct the plaintext.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Nihilist — Given Keys</strong><span>Polybius + additive keys</span><a class="cb-small-button" href="../practice/index.html?cipher=nihilist">Practice this mode</a></article>
-<article class="cb-mode"><strong>Nihilist Cryptanalysis</strong><span>Cryptanalysis mode</span><a class="cb-small-button" href="../practice/index.html?cipher=nihilist-cryptanalysis">Practice this mode</a></article></div></section>
-<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>HELLO</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>Square keyword: CIPHER • Additive keyword: SECRET</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>57 30 44 54 56</strong></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Nihilist Cipher visualizer" loading="lazy" src="../visualizers/nihilist.html"></iframe></section>
-<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Trying to look up ciphertext numbers such as 57 directly in the Polybius square. A 5×5 Polybius coordinate can only contain row and column digits from 1 through 5.</div>
-<div class="cb-mistake">Using a normal alphabetical Polybius square when the puzzle specifies a keyed square.</div>
-<div class="cb-mistake">Using one square for the plaintext and another for the additive keyword. Both must use the same square.</div>
-<div class="cb-mistake">Adding the digits separately. If one coordinate is 24 and another is 31, calculate 24 + 31 = 55. Do not calculate 2+3 and 4+1 as separate operations.</div>
-<div class="cb-mistake">Forgetting the I/J convention when building a 5×5 alphabet.</div>
-<div class="cb-mistake">Failing to repeat the additive keyword correctly across the entire message.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=nihilist">Practice Nihilist Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
-</main>
-<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
-<script src="/js/navigation.js"></script>
-</body>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Nihilist Cipher &mdash; Complete Guide | The Daily Cipher
+  </title>
+  <meta content="Learn Nihilist Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
+  <link href="https://thedailycipher.org/learn/nihilist.html" rel="canonical"/>
+  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
+  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta content="#030712" name="theme-color"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../css/animations.css" rel="stylesheet"/>
+  <link href="../css/themes.css" rel="stylesheet"/>
+  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
+  <script>
+   window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  </script>
+  <script defer="" src="/_vercel/insights/script.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-header">
+   <a class="logo" href="../index.html">
+    <span>
+     THE
+    </span>
+    DAILY CIPHER
+   </a>
+   <nav>
+    <a href="../index.html">
+     Daily
+    </a>
+    <a href="index.html">
+     Learn
+    </a>
+    <a href="../practice/index.html">
+     Practice
+    </a>
+   </nav>
+  </header>
+  <main class="container deep-guide-shell">
+   <section class="deep-hero">
+    <div class="eyebrow">
+     POLYBIUS + ADDITION &bull; CODEBUSTERS
+    </div>
+    <h1>
+     Nihilist Cipher
+    </h1>
+    <p>
+     Build a keyed Polybius square, convert plaintext and key letters to coordinates, add them, and reverse the arithmetic to decrypt.
+    </p>
+    <div class="quick-grid">
+     <div class="quick-item">
+      <span>
+       Family
+      </span>
+      <strong>
+       Polybius-based numeric cipher
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Key / parameter
+      </span>
+      <strong>
+       Polybius keyword + additive keyword
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Text structure
+      </span>
+      <strong>
+       Ciphertext is a sequence of numbers
+      </strong>
+     </div>
+    </div>
+   </section>
+   <div class="deep-layout">
+    <aside aria-label="Guide contents" class="deep-toc">
+     <div class="deep-toc-title">
+      ON THIS PAGE
+     </div>
+     <a href="#overview">
+      What it is
+     </a>
+     <a href="#basics">
+      What you need
+     </a>
+     <a href="#reference">
+      Complete reference
+     </a>
+     <a href="#encrypt">
+      Encrypt
+     </a>
+     <a href="#decrypt">
+      Decrypt
+     </a>
+     <a href="#competition">
+      Codebusters approach
+     </a>
+     <a href="#cryptanalysis">
+      Cryptanalysis
+     </a>
+     <a href="#worked">
+      Worked problem
+     </a>
+     <a href="#mistakes">
+      Common mistakes
+     </a>
+     <a href="#speed">
+      Speed strategies
+     </a>
+     <a href="#quick">
+      Quick reference
+     </a>
+     <a href="#interactive">
+      Visualizer &amp; practice
+     </a>
+     <div class="deep-toc-note">
+      Everything needed for the cipher itself is included here.
+     </div>
+    </aside>
+    <div class="deep-content">
+     <section class="deep-card" id="overview">
+      <div class="section-kicker">
+       01 &bull; OVERVIEW
+      </div>
+      <h2>
+       What is the Nihilist Cipher?
+      </h2>
+      <p>
+       The Nihilist cipher combines a keyed 5&times;5 Polybius square with a repeating additive keyword. Both plaintext letters and key letters become two-digit coordinates such as 11&ndash;55.
+      </p>
+      <p>
+       Encryption adds the plaintext coordinate and the corresponding key coordinate. Decryption subtracts the key coordinate, then converts the remaining Polybius value back to a letter.
+      </p>
+      <div class="deep-rule-note">
+       <strong>
+        Competition note
+       </strong>
+       <p>
+        The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
+       </p>
+      </div>
+      <div class="beginner-promise">
+       <strong>
+        Starting from zero?
+       </strong>
+       <p>
+        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+       </p>
+      </div>
+     </section>
+     <section class="deep-card" id="basics">
+      <div class="section-kicker">
+       02 &bull; FOUNDATIONS
+      </div>
+      <h2>
+       What you need to know
+      </h2>
+      <ul class="deep-list">
+       <li>
+        A 5&times;5 Polybius square normally combines I/J.
+       </li>
+       <li>
+        Coordinate 23 means row 2, column 3&mdash;not the number twenty-three in the square itself.
+       </li>
+       <li>
+        The additive keyword repeats across plaintext letters.
+       </li>
+       <li>
+        Ciphertext values can exceed 55 because two coordinate numbers are added.
+       </li>
+      </ul>
+      <h3>
+       Beginner glossary
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table glossary-table">
+        <thead>
+         <tr>
+          <th>
+           Term
+          </th>
+          <th>
+           Meaning
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Polybius square
+          </td>
+          <td>
+           A 5&times;5 keyed alphabet grid that turns letters into two-digit row/column coordinates.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Square keyword
+          </td>
+          <td>
+           The keyword used to build the Polybius square.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Additive keyword
+          </td>
+          <td>
+           A second word repeated across the plaintext; its letters are also converted to Polybius numbers.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Coordinate
+          </td>
+          <td>
+           A two-digit value such as 24 meaning row 2, column 4.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Crib
+          </td>
+          <td>
+           Known plaintext fragment that can constrain the additive key or square during cryptanalysis.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="deep-card reference-card" id="reference">
+      <div class="section-kicker">
+       03 &bull; COMPLETE REFERENCE
+      </div>
+      <h2>
+       Keep this beside you while solving
+      </h2>
+      <p class="deep-caption">
+       Example keyed Polybius square for keyword CIPHER (I/J combined).
+      </p>
+      <div class="poly-grid reference-poly">
+       <div class="poly-head">
+       </div>
+       <div class="poly-head">
+        1
+       </div>
+       <div class="poly-head">
+        2
+       </div>
+       <div class="poly-head">
+        3
+       </div>
+       <div class="poly-head">
+        4
+       </div>
+       <div class="poly-head">
+        5
+       </div>
+       <div class="poly-head">
+        1
+       </div>
+       <div>
+        C
+       </div>
+       <div>
+        I
+       </div>
+       <div>
+        P
+       </div>
+       <div>
+        H
+       </div>
+       <div>
+        E
+       </div>
+       <div class="poly-head">
+        2
+       </div>
+       <div>
+        R
+       </div>
+       <div>
+        A
+       </div>
+       <div>
+        B
+       </div>
+       <div>
+        D
+       </div>
+       <div>
+        F
+       </div>
+       <div class="poly-head">
+        3
+       </div>
+       <div>
+        G
+       </div>
+       <div>
+        K
+       </div>
+       <div>
+        L
+       </div>
+       <div>
+        M
+       </div>
+       <div>
+        N
+       </div>
+       <div class="poly-head">
+        4
+       </div>
+       <div>
+        O
+       </div>
+       <div>
+        Q
+       </div>
+       <div>
+        S
+       </div>
+       <div>
+        T
+       </div>
+       <div>
+        U
+       </div>
+       <div class="poly-head">
+        5
+       </div>
+       <div>
+        V
+       </div>
+       <div>
+        W
+       </div>
+       <div>
+        X
+       </div>
+       <div>
+        Y
+       </div>
+       <div>
+        Z
+       </div>
+      </div>
+      <div class="deep-table-wrap">
+       <table class="deep-table strategy-table">
+        <thead>
+         <tr>
+          <th>
+           Plain letter
+          </th>
+          <th>
+           Plain coord.
+          </th>
+          <th>
+           Key letter
+          </th>
+          <th>
+           Key coord.
+          </th>
+          <th>
+           Cipher number
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           S
+          </td>
+          <td>
+           34
+          </td>
+          <td>
+           K
+          </td>
+          <td>
+           25
+          </td>
+          <td>
+           59
+          </td>
+         </tr>
+         <tr>
+          <td>
+           E
+          </td>
+          <td>
+           15
+          </td>
+          <td>
+           E
+          </td>
+          <td>
+           15
+          </td>
+          <td>
+           30
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <h3>
+       Arithmetic rule
+      </h3>
+      <div class="deep-code">
+       cipher number = plaintext Polybius number + key-letter Polybius number
+plaintext number = cipher number &minus; key-letter Polybius number
+      </div>
+      <p>
+       After subtraction, the result must be a valid coordinate whose tens and ones digits are each 1&ndash;5. If not, something in the key alignment or square is wrong.
+      </p>
+      <div class="deep-note">
+       <strong>
+        I/J convention:
+       </strong>
+       this site&rsquo;s 5&times;5 square combines I and J. Normalize consistently before coordinate lookup.
+      </div>
+      <div class="reference-completeness">
+       <strong>
+        Reference rule:
+       </strong>
+       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
+      </div>
+     </section>
+     <section class="deep-card" id="encrypt">
+      <div class="section-kicker">
+       04 &bull; ENCRYPTION
+      </div>
+      <h2>
+       How encryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Build the keyed square
+         </h3>
+         <p>
+          Remove duplicate keyword letters, merge I/J, then append unused letters.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Convert plaintext
+         </h3>
+         <p>
+          Look up each plaintext letter&rsquo;s row/column number.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Convert repeated key
+         </h3>
+         <p>
+          Look up each additive-key letter the same way.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Add
+         </h3>
+         <p>
+          Plain coordinate + key coordinate = ciphertext number.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="decrypt">
+      <div class="section-kicker">
+       05 &bull; DECRYPTION
+      </div>
+      <h2>
+       How decryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Repeat the additive key
+         </h3>
+         <p>
+          Align one key letter with each ciphertext number.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Convert key letters to coordinates
+         </h3>
+         <p>
+          Use the same keyed square.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Subtract
+         </h3>
+         <p>
+          Cipher number &minus; key coordinate = plaintext coordinate.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Look up the coordinate
+         </h3>
+         <p>
+          Read the plaintext letter from the square.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="competition">
+      <div class="section-kicker">
+       06 &bull; COMPETITION WORKFLOW
+      </div>
+      <h2>
+       How to approach it in Codebusters practice
+      </h2>
+      <ul class="deep-list competition-list">
+       <li>
+        Write the square and repeated additive key before doing arithmetic.
+       </li>
+       <li>
+        A crib in some modes can help test square/key relationships, but the exact allowed information varies by problem format.
+       </li>
+       <li>
+        Treat I/J according to the square convention supplied.
+       </li>
+      </ul>
+      <h3>
+       What the problem gives you vs. what you produce
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table problem-format-table">
+        <thead>
+         <tr>
+          <th>
+           Part
+          </th>
+          <th>
+           What to expect
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           You may be given
+          </td>
+          <td>
+           Cipher numbers plus the square/additive keys, or a cryptanalysis variant with a crib.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           You must find
+          </td>
+          <td>
+           Plaintext by reversing the additive arithmetic and then the Polybius lookup.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fastest first move
+          </td>
+          <td>
+           Build the square and write the additive key&rsquo;s numeric coordinates before touching the ciphertext.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Season note:
+       </strong>
+       use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
+      </div>
+     </section>
+     <section class="deep-card" id="cryptanalysis">
+      <div class="section-kicker">
+       07 &bull; CRYPTANALYSIS
+      </div>
+      <h2>
+       How to attack an unknown or partially known key
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Cribs provide known plaintext coordinates at specific positions, which constrain the repeated additive key and/or square.
+       </li>
+       <li>
+        Cipher numbers retain modular-looking structure but are sums of two coordinate values, so ordinary letter frequency is obscured.
+       </li>
+       <li>
+        Any candidate key must produce valid Polybius coordinates after subtraction.
+       </li>
+      </ul>
+     </section>
+     <section class="deep-card" id="worked">
+      <div class="section-kicker">
+       08 &bull; WORKED PROBLEM
+      </div>
+      <h2>
+       Follow one example from start to finish
+      </h2>
+      <div class="worked-box">
+       <div class="worked-row">
+        <span>
+         Square keyword
+        </span>
+        <div>
+         <code>
+          CIPHER
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Additive keyword
+        </span>
+        <div>
+         <code>
+          KEY
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Plaintext
+        </span>
+        <div>
+         <code>
+          SECRET
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Ciphertext
+        </span>
+        <div>
+         <code>
+          75 30 65 53 30 98
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Reverse
+        </span>
+        <div>
+         Align KEYKEY, subtract each key coordinate, then look up the remaining Polybius coordinates.
+        </div>
+       </div>
+      </div>
+      <div class="beginner-check">
+       <div class="beginner-check-title">
+        BEGINNER SELF-CHECK
+       </div>
+       <p>
+        Before moving on, make sure you can answer these without another site:
+       </p>
+       <ul>
+        <li>
+         Can you convert a key letter to a Polybius coordinate?
+        </li>
+        <li>
+         Can you subtract a repeated key value from a ciphertext number and validate the resulting coordinate?
+        </li>
+        <li>
+         Can you explain why row/column order matters?
+        </li>
+       </ul>
+      </div>
+     </section>
+     <section class="deep-card" id="mistakes">
+      <div class="section-kicker">
+       09 &bull; ERROR CHECK
+      </div>
+      <h2>
+       Common mistakes
+      </h2>
+      <div class="mistake-grid">
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Adding row and column digits separately instead of adding the two-digit coordinate values.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Building different squares for plaintext and key.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Forgetting I/J merging.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Misaligning the repeating additive keyword.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="speed">
+      <div class="section-kicker">
+       10 &bull; SPEED
+      </div>
+      <h2>
+       Competition speed strategies
+      </h2>
+      <div class="speed-grid">
+       <div class="speed-item">
+        <span>
+         1
+        </span>
+        <p>
+         Write each line as three aligned rows: plaintext coordinate, key coordinate, result.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         2
+        </span>
+        <p>
+         Circle invalid subtraction results during cryptanalysis; valid Polybius coordinates have both digits 1&ndash;5.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         3
+        </span>
+        <p>
+         Memorize square positions only after the square is finalized&mdash;do not rebuild it mid-problem.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="quick">
+      <div class="section-kicker">
+       11 &bull; QUICK REFERENCE
+      </div>
+      <h2>
+       What to remember under time pressure
+      </h2>
+      <div class="quick-grid">
+       <div class="quick-item">
+        <span>
+         Square
+        </span>
+        <strong>
+         Keyed 5&times;5 Polybius
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Encrypt
+        </span>
+        <strong>
+         plain coord + key coord
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Decrypt
+        </span>
+        <strong>
+         cipher &minus; key coord
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Key
+        </span>
+        <strong>
+         Repeating additive keyword
+        </strong>
+       </div>
+      </div>
+      <div class="quick-use-note">
+       <strong>
+        How to use this section:
+       </strong>
+       during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
+      </div>
+     </section>
+     <section class="deep-card interactive-card" id="interactive">
+      <div class="section-kicker">
+       12 &bull; INTERACTIVE LAB
+      </div>
+      <h2>
+       See every transformation
+      </h2>
+      <p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+      </p>
+      <div class="lab-actions">
+       <a class="deep-secondary-button" href="../visualizers/nihilist.html">
+        Open full visualizer
+       </a>
+       <a class="primary-button" href="../practice/index.html?cipher=nihilist">
+        Practice Nihilist
+       </a>
+      </div>
+      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/nihilist.html?embed=1" title="Nihilist Cipher interactive visualizer">
+      </iframe>
+     </section>
+     <div class="guide-end-nav">
+      <a href="index.html">
+       &larr; All cipher guides
+      </a>
+      <a href="#overview">
+       Back to top &uarr;
+      </a>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <p>
+    THE DAILY CIPHER
+   </p>
+   <span>
+    Learn. Crack. Repeat.
+   </span>
+  </footer>
+  <script src="/js/navigation.js">
+  </script>
+  <script src="../js/learnPage.js">
+  </script>
+ </body>
 </html>

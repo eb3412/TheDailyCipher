@@ -1,100 +1,920 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Playfair Cipher | The Daily Cipher</title>
-
-    <link rel="stylesheet" href="../css/style.css">
-
-    <link
-    rel="canonical"
-    href="https://thedailycipher.org/learn/caesar.html"
->
-<link
-    rel="icon"
-    type="image/png"
-    href="/assets/favicon.png"
->
-
-<link
-    rel="apple-touch-icon"
-    href="/assets/apple-touch-icon.png"
->
-
-<meta
-    name="theme-color"
-    content="#030712"
->
-<script>
-  window.va = window.va || function () {
-    (window.vaq = window.vaq || []).push(arguments);
-  };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-
-<body>
-
-<header class="site-header">
-    <a href="../index.html" class="logo">
-        <span>THE</span> DAILY CIPHER
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Playfair Cipher &mdash; Complete Guide | The Daily Cipher
+  </title>
+  <meta content="Learn Playfair Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
+  <link href="https://thedailycipher.org/learn/playfair.html" rel="canonical"/>
+  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
+  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta content="#030712" name="theme-color"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../css/animations.css" rel="stylesheet"/>
+  <link href="../css/themes.css" rel="stylesheet"/>
+  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
+  <script>
+   window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  </script>
+  <script defer="" src="/_vercel/insights/script.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-header">
+   <a class="logo" href="../index.html">
+    <span>
+     THE
+    </span>
+    DAILY CIPHER
+   </a>
+   <nav>
+    <a href="../index.html">
+     Daily
     </a>
-
-    <nav>
-        <a href="../index.html">Daily</a>
-        <a href="index.html">Learn</a>
-        <a href="../practice/index.html">Practice</a>
-    </nav>
-</header>
-
-<main class="container">
-
-    <section class="hero">
-
-        <div class="eyebrow">
-            DIGRAPH SUBSTITUTION
+    <a href="index.html">
+     Learn
+    </a>
+    <a href="../practice/index.html">
+     Practice
+    </a>
+   </nav>
+  </header>
+  <main class="container deep-guide-shell">
+   <section class="deep-hero">
+    <div class="eyebrow">
+     DIGRAPH SUBSTITUTION &bull; INTERMEDIATE
+    </div>
+    <h1>
+     Playfair Cipher
+    </h1>
+    <p>
+     Encrypt pairs of letters through a keyed 5&times;5 square using row, column, and rectangle rules.
+    </p>
+    <div class="quick-grid">
+     <div class="quick-item">
+      <span>
+       Family
+      </span>
+      <strong>
+       Polygraphic substitution
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Key / parameter
+      </span>
+      <strong>
+       Keyword-derived 5&times;5 square
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Text structure
+      </span>
+      <strong>
+       Plaintext is processed in digraphs
+      </strong>
+     </div>
+    </div>
+   </section>
+   <div class="deep-layout">
+    <aside aria-label="Guide contents" class="deep-toc">
+     <div class="deep-toc-title">
+      ON THIS PAGE
+     </div>
+     <a href="#overview">
+      What it is
+     </a>
+     <a href="#basics">
+      What you need
+     </a>
+     <a href="#reference">
+      Complete reference
+     </a>
+     <a href="#encrypt">
+      Encrypt
+     </a>
+     <a href="#decrypt">
+      Decrypt
+     </a>
+     <a href="#competition">
+      Codebusters approach
+     </a>
+     <a href="#cryptanalysis">
+      Cryptanalysis
+     </a>
+     <a href="#worked">
+      Worked problem
+     </a>
+     <a href="#mistakes">
+      Common mistakes
+     </a>
+     <a href="#speed">
+      Speed strategies
+     </a>
+     <a href="#quick">
+      Quick reference
+     </a>
+     <a href="#interactive">
+      Visualizer &amp; practice
+     </a>
+     <div class="deep-toc-note">
+      Everything needed for the cipher itself is included here.
+     </div>
+    </aside>
+    <div class="deep-content">
+     <section class="deep-card" id="overview">
+      <div class="section-kicker">
+       01 &bull; OVERVIEW
+      </div>
+      <h2>
+       What is the Playfair Cipher?
+      </h2>
+      <p>
+       Playfair encrypts two letters at a time instead of one. A keyword builds a 5&times;5 square, normally combining I and J so 25 cells can represent the alphabet.
+      </p>
+      <p>
+       Each pair uses one of three geometric rules: same row, same column, or rectangle corners.
+      </p>
+      <div class="deep-rule-note">
+       <strong>
+        Competition note
+       </strong>
+       <p>
+        The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
+       </p>
+      </div>
+      <div class="beginner-promise">
+       <strong>
+        Starting from zero?
+       </strong>
+       <p>
+        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+       </p>
+      </div>
+     </section>
+     <section class="deep-card" id="basics">
+      <div class="section-kicker">
+       02 &bull; FOUNDATIONS
+      </div>
+      <h2>
+       What you need to know
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Build the square by writing the keyword without repeated letters, then the remaining alphabet.
+       </li>
+       <li>
+        Treat I/J according to the convention given by the problem; this guide uses a combined I/J cell.
+       </li>
+       <li>
+        Split plaintext into pairs. If a pair contains the same letter twice, insert a filler such as X between them. Add a filler if one letter remains at the end.
+       </li>
+      </ul>
+      <h3>
+       Beginner glossary
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table glossary-table">
+        <thead>
+         <tr>
+          <th>
+           Term
+          </th>
+          <th>
+           Meaning
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Digraph
+          </td>
+          <td>
+           A pair of letters encrypted together.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Key square
+          </td>
+          <td>
+           A 5&times;5 alphabet square built from a keyword.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Filler
+          </td>
+          <td>
+           Usually X in this site; inserted to split repeated letters in a pair or pad an odd final letter.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Rectangle rule
+          </td>
+          <td>
+           For letters in different rows and columns, use the other corners of their rectangle.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           I/J convention
+          </td>
+          <td>
+           A 5&times;5 English square needs one combined cell; this site combines I and J.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="deep-card reference-card" id="reference">
+      <div class="section-kicker">
+       03 &bull; COMPLETE REFERENCE
+      </div>
+      <h2>
+       Keep this beside you while solving
+      </h2>
+      <p class="deep-caption">
+       Example square using keyword
+       <strong>
+        CIPHER
+       </strong>
+       (I/J combined).
+      </p>
+      <div class="square-five">
+       <div>
+        C
+       </div>
+       <div>
+        I
+       </div>
+       <div>
+        P
+       </div>
+       <div>
+        H
+       </div>
+       <div>
+        E
+       </div>
+       <div>
+        R
+       </div>
+       <div>
+        A
+       </div>
+       <div>
+        B
+       </div>
+       <div>
+        D
+       </div>
+       <div>
+        F
+       </div>
+       <div>
+        G
+       </div>
+       <div>
+        K
+       </div>
+       <div>
+        L
+       </div>
+       <div>
+        M
+       </div>
+       <div>
+        N
+       </div>
+       <div>
+        O
+       </div>
+       <div>
+        Q
+       </div>
+       <div>
+        S
+       </div>
+       <div>
+        T
+       </div>
+       <div>
+        U
+       </div>
+       <div>
+        V
+       </div>
+       <div>
+        W
+       </div>
+       <div>
+        X
+       </div>
+       <div>
+        Y
+       </div>
+       <div>
+        Z
+       </div>
+      </div>
+      <div class="deep-table-wrap">
+       <table class="deep-table strategy-table">
+        <thead>
+         <tr>
+          <th>
+           Situation
+          </th>
+          <th>
+           Encryption rule
+          </th>
+          <th>
+           Decryption rule
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Same row
+          </td>
+          <td>
+           Move each letter one cell right; wrap around.
+          </td>
+          <td>
+           Move each letter one cell left; wrap around.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Same column
+          </td>
+          <td>
+           Move each letter one cell down; wrap around.
+          </td>
+          <td>
+           Move each letter one cell up; wrap around.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Rectangle
+          </td>
+          <td>
+           Keep each row; take the other corner in the same row.
+          </td>
+          <td>
+           Same rectangle operation.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <h3>
+       Pair-preparation checklist
+      </h3>
+      <ol class="deep-list">
+       <li>
+        Remove nonletters and convert J to I for this convention.
+       </li>
+       <li>
+        Read left to right in pairs.
+       </li>
+       <li>
+        If a pair would contain the same letter twice, insert X after the first letter and restart the pairing.
+       </li>
+       <li>
+        If one letter remains at the end, append X.
+       </li>
+      </ol>
+      <h3>
+       Three geometry rules
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table">
+        <thead>
+         <tr>
+          <th>
+           Geometry
+          </th>
+          <th>
+           Encrypt
+          </th>
+          <th>
+           Decrypt
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Same row
+          </td>
+          <td>
+           Move each letter one cell right, wrapping.
+          </td>
+          <td>
+           Move each letter one cell left, wrapping.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Same column
+          </td>
+          <td>
+           Move each letter one cell down, wrapping.
+          </td>
+          <td>
+           Move each letter one cell up, wrapping.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Rectangle
+          </td>
+          <td>
+           Keep each letter&rsquo;s row and take the other letter&rsquo;s column.
+          </td>
+          <td>
+           The same rectangle operation reverses it.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="reference-completeness">
+       <strong>
+        Reference rule:
+       </strong>
+       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
+      </div>
+     </section>
+     <section class="deep-card" id="encrypt">
+      <div class="section-kicker">
+       04 &bull; ENCRYPTION
+      </div>
+      <h2>
+       How encryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
         </div>
-
-        <h1>
-            Playfair <span>Cipher</span>
-        </h1>
-
-        <p>
-            A cipher that encrypts pairs of letters
-            using a 5×5 key square.
-        </p>
-
-    </section>
-
-    <section class="daily-card">
-
-        <h2>Key Square</h2>
-
-        <div class="cipher-box">
-            M O N A R<br>
-            C H Y B D<br>
-            E F G I K<br>
-            L P Q S T<br>
-            U V W X Z
+        <div>
+         <h3>
+          Prepare the text
+         </h3>
+         <p>
+          Remove unsupported characters, split into pairs, and insert fillers when needed.
+         </p>
         </div>
-
-        <h2>Important Concept</h2>
-
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Locate both letters
+         </h3>
+         <p>
+          Find the two cells in the 5&times;5 square.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Apply one rule
+         </h3>
+         <p>
+          Same row &rarr; right; same column &rarr; down; rectangle &rarr; opposite corners.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Repeat
+         </h3>
+         <p>
+          Process every pair independently.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="decrypt">
+      <div class="section-kicker">
+       05 &bull; DECRYPTION
+      </div>
+      <h2>
+       How decryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Split ciphertext into pairs
+         </h3>
+         <p>
+          Ciphertext length should be even.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Locate both cells
+         </h3>
+         <p>
+          Use the same keyed square.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Reverse row/column moves
+         </h3>
+         <p>
+          Left for same row, up for same column; rectangles use the same corner swap.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Interpret fillers
+         </h3>
+         <p>
+          An X between doubled letters or at the end may be padding rather than literal plaintext.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="competition">
+      <div class="section-kicker">
+       06 &bull; COMPETITION WORKFLOW
+      </div>
+      <h2>
+       How to approach it in Codebusters practice
+      </h2>
+      <ul class="deep-list competition-list">
+       <li>
+        Keep the square visible while solving; repeatedly reconstructing it wastes time.
+       </li>
+       <li>
+        Mark I/J convention clearly before starting.
+       </li>
+       <li>
+        Work pair-by-pair and write intermediate plaintext under the ciphertext to reduce transcription errors.
+       </li>
+      </ul>
+      <h3>
+       What the problem gives you vs. what you produce
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table problem-format-table">
+        <thead>
+         <tr>
+          <th>
+           Part
+          </th>
+          <th>
+           What to expect
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           You may be given
+          </td>
+          <td>
+           A keyword/key square and ciphertext, or plaintext to encrypt.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           You must find
+          </td>
+          <td>
+           The opposite text by processing digraphs.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fastest first move
+          </td>
+          <td>
+           Build and label the 5&times;5 square neatly; then handle pairs one at a time.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Season note:
+       </strong>
+       use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
+      </div>
+     </section>
+     <section class="deep-card" id="cryptanalysis">
+      <div class="section-kicker">
+       07 &bull; CRYPTANALYSIS
+      </div>
+      <h2>
+       How to attack an unknown or partially known key
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Playfair hides single-letter frequencies better than a simple substitution because it encrypts digraphs.
+       </li>
+       <li>
+        Repeated digraphs and likely crib placements can still give structure.
+       </li>
+       <li>
+        When the key/square is supplied, the task becomes deterministic; without it, cryptanalysis is substantially harder.
+       </li>
+      </ul>
+     </section>
+     <section class="deep-card" id="worked">
+      <div class="section-kicker">
+       08 &bull; WORKED PROBLEM
+      </div>
+      <h2>
+       Follow one example from start to finish
+      </h2>
+      <div class="worked-box">
+       <div class="worked-row">
+        <span>
+         Square key
+        </span>
+        <div>
+         <code>
+          CIPHER
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Prepared pairs
+        </span>
+        <div>
+         <code>
+          HIDDEN CLUE &rarr; HI DX DE NC LU EX
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Pair examples
+        </span>
+        <div>
+         <code>
+          HI &rarr; EP
+         </code>
+         (same row);
+         <code>
+          DX &rarr; BY
+         </code>
+         (rectangle).
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Ciphertext
+        </span>
+        <div>
+         <code>
+          EPBYFHGENSPZ
+         </code>
+        </div>
+       </div>
+      </div>
+      <div class="beginner-check">
+       <div class="beginner-check-title">
+        BEGINNER SELF-CHECK
+       </div>
+       <p>
+        Before moving on, make sure you can answer these without another site:
+       </p>
+       <ul>
+        <li>
+         Can you explain what happens to the pair LL during preparation?
+        </li>
+        <li>
+         Can you identify which rule applies to any two cells in the square?
+        </li>
+        <li>
+         Can you reverse a same-row encrypted pair by moving left?
+        </li>
+       </ul>
+      </div>
+     </section>
+     <section class="deep-card" id="mistakes">
+      <div class="section-kicker">
+       09 &bull; ERROR CHECK
+      </div>
+      <h2>
+       Common mistakes
+      </h2>
+      <div class="mistake-grid">
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
         <p>
-            Playfair works on pairs of letters rather
-            than individual characters.
+         Forgetting to split doubled letters in the same pair.
         </p>
-
-        <iframe
-            src="../visualizers/playfair.html"
-            style="width:100%;height:550px;border:0;">
-        </iframe>
-
-    </section>
-
-</main>
-<script src="/js/navigation.js"></script>
-</body>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Forgetting end padding.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Moving the wrong direction during decryption.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Treating I and J as separate when the square combines them.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="speed">
+      <div class="section-kicker">
+       10 &bull; SPEED
+      </div>
+      <h2>
+       Competition speed strategies
+      </h2>
+      <div class="speed-grid">
+       <div class="speed-item">
+        <span>
+         1
+        </span>
+        <p>
+         Build the square neatly and label rows/columns mentally.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         2
+        </span>
+        <p>
+         Circle each digraph as you finish it.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         3
+        </span>
+        <p>
+         Check the geometry before moving letters; most errors are rule-selection errors, not arithmetic.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="quick">
+      <div class="section-kicker">
+       11 &bull; QUICK REFERENCE
+      </div>
+      <h2>
+       What to remember under time pressure
+      </h2>
+      <div class="quick-grid">
+       <div class="quick-item">
+        <span>
+         Grid
+        </span>
+        <strong>
+         5&times;5
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Unit
+        </span>
+        <strong>
+         Digraphs (2 letters)
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Same row
+        </span>
+        <strong>
+         Right to encrypt / left to decrypt
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Same column
+        </span>
+        <strong>
+         Down / up
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Rectangle
+        </span>
+        <strong>
+         Opposite corners
+        </strong>
+       </div>
+      </div>
+      <div class="quick-use-note">
+       <strong>
+        How to use this section:
+       </strong>
+       during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
+      </div>
+     </section>
+     <section class="deep-card interactive-card" id="interactive">
+      <div class="section-kicker">
+       12 &bull; INTERACTIVE LAB
+      </div>
+      <h2>
+       See every transformation
+      </h2>
+      <p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+      </p>
+      <div class="lab-actions">
+       <a class="deep-secondary-button" href="../visualizers/playfair.html">
+        Open full visualizer
+       </a>
+       <a class="primary-button" href="../practice/index.html">
+        Open Practice Hub
+       </a>
+      </div>
+      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/playfair.html?embed=1" title="Playfair Cipher interactive visualizer">
+      </iframe>
+     </section>
+     <div class="guide-end-nav">
+      <a href="index.html">
+       &larr; All cipher guides
+      </a>
+      <a href="#overview">
+       Back to top &uarr;
+      </a>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <p>
+    THE DAILY CIPHER
+   </p>
+   <span>
+    Learn. Crack. Repeat.
+   </span>
+  </footer>
+  <script src="/js/navigation.js">
+  </script>
+  <script src="../js/learnPage.js">
+  </script>
+ </body>
 </html>

@@ -1,48 +1,1182 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fractionated Morse Cipher Guide | The Daily Cipher</title>
-<meta name="description" content="Learn Fractionated Morse Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
-<link rel="canonical" href="https://thedailycipher.org/learn/fractionatedmorse.html">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#030712">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/animations.css">
-<link rel="stylesheet" href="../css/themes.css">
-<link rel="stylesheet" href="../css/codebusters-learn.css">
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-<body>
-<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
-<main class="container cb-guide-shell">
-<section class="hero"><div class="eyebrow">MORSE + FRACTIONATION • CODEBUSTERS</div><h1>Fractionated Morse<span> Cipher</span></h1><p>Follow plaintext through Morse code, separators, trigrams, and a keyed alphabet.</p></section>
-<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>Fractionated Morse belongs to the recreational fractionation systems popularized through puzzle cryptography. It combines the familiar dot-and-dash structure of Morse code with a substitution stage.</p>
-<p>The method is interesting because one ciphertext letter usually represents information spanning parts of multiple plaintext letters. That breaks the direct one-plaintext-letter-to-one-ciphertext-letter relationship found in ordinary substitution.</p><div class="cb-note">A cipher that converts plaintext into Morse code, groups the Morse stream into triples, and substitutes those triples through a keyed alphabet.</div></section>
-<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Convert plaintext letters to Morse. Add separators between letters and stronger separators between words.</p>
-<p>Divide the resulting dot-dash-separator stream into groups of three and map each group through a keyed alphabet.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Create a keyed ciphertext alphabet.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Translate the plaintext into Morse symbols.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Insert the required letter and word separators.</p></div>
-<div class="cb-step"><div class="cb-step-num">4</div><p>Split the continuous stream into groups of three.</p></div>
-<div class="cb-step"><div class="cb-step-num">5</div><p>Replace each trigram with the corresponding keyed alphabet letter.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>With the keyword known, reverse the keyed substitution first.</p>
-<p>The recovered trigrams reconstruct the Morse stream, which can then be divided at separators and translated normally.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Reconstruct the keyed alphabet.</p></div>
-<div class="cb-step"><div class="cb-step-num">2</div><p>Convert each ciphertext letter back to its Morse trigram.</p></div>
-<div class="cb-step"><div class="cb-step-num">3</div><p>Join the trigrams into one continuous stream.</p></div>
-<div class="cb-step"><div class="cb-step-num">4</div><p>Use separators to recover Morse letters and words.</p></div>
-<div class="cb-step"><div class="cb-step-num">5</div><p>Translate the Morse symbols to plaintext.</p></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Fractionated Morse</strong><span>Keyed alphabet</span><a class="cb-small-button" href="../practice/index.html?cipher=fractionatedmorse">Practice this mode</a></article>
-<article class="cb-mode"><strong>Fractionated Morse Cryptanalysis</strong><span>Crib included</span><a class="cb-small-button" href="../practice/index.html?cipher=fractionatedmorse-cryptanalysis">Practice this mode</a></article></div></section>
-<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>HELLO WORLD</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>CIPHER</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>Depends on keyed Morse alphabet</strong></div></div></section>
-<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Fractionated Morse Cipher visualizer" loading="lazy" src="../visualizers/fractionatedmorse.html"></iframe></section>
-<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Losing the separator symbols between Morse letters.</div>
-<div class="cb-mistake">Grouping the original plaintext into threes instead of grouping the Morse stream.</div>
-<div class="cb-mistake">Building the keyed alphabet incorrectly when the keyword contains repeated letters.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=fractionatedmorse-cryptanalysis">Practice Fractionated Morse Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
-</main>
-<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
-<script src="/js/navigation.js"></script>
-</body>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Fractionated Morse Cipher &mdash; Complete Guide | The Daily Cipher
+  </title>
+  <meta content="Learn Fractionated Morse Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
+  <link href="https://thedailycipher.org/learn/fractionatedmorse.html" rel="canonical"/>
+  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
+  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+  <meta content="#030712" name="theme-color"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../css/animations.css" rel="stylesheet"/>
+  <link href="../css/themes.css" rel="stylesheet"/>
+  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
+  <script>
+   window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  </script>
+  <script defer="" src="/_vercel/insights/script.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-header">
+   <a class="logo" href="../index.html">
+    <span>
+     THE
+    </span>
+    DAILY CIPHER
+   </a>
+   <nav>
+    <a href="../index.html">
+     Daily
+    </a>
+    <a href="index.html">
+     Learn
+    </a>
+    <a href="../practice/index.html">
+     Practice
+    </a>
+   </nav>
+  </header>
+  <main class="container deep-guide-shell">
+   <section class="deep-hero">
+    <div class="eyebrow">
+     MORSE + FRACTIONATION &bull; CODEBUSTERS
+    </div>
+    <h1>
+     Fractionated Morse Cipher
+    </h1>
+    <p>
+     Follow the entire path from plaintext to Morse, separators, trigrams, keyed letters, and back again.
+    </p>
+    <div class="quick-grid">
+     <div class="quick-item">
+      <span>
+       Family
+      </span>
+      <strong>
+       Fractionation / keyed substitution
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Key / parameter
+      </span>
+      <strong>
+       Keyword-derived ciphertext alphabet
+      </strong>
+     </div>
+     <div class="quick-item">
+      <span>
+       Text structure
+      </span>
+      <strong>
+       Morse uses x separators before trigram grouping
+      </strong>
+     </div>
+    </div>
+   </section>
+   <div class="deep-layout">
+    <aside aria-label="Guide contents" class="deep-toc">
+     <div class="deep-toc-title">
+      ON THIS PAGE
+     </div>
+     <a href="#overview">
+      What it is
+     </a>
+     <a href="#basics">
+      What you need
+     </a>
+     <a href="#reference">
+      Complete reference
+     </a>
+     <a href="#encrypt">
+      Encrypt
+     </a>
+     <a href="#decrypt">
+      Decrypt
+     </a>
+     <a href="#competition">
+      Codebusters approach
+     </a>
+     <a href="#cryptanalysis">
+      Cryptanalysis
+     </a>
+     <a href="#worked">
+      Worked problem
+     </a>
+     <a href="#mistakes">
+      Common mistakes
+     </a>
+     <a href="#speed">
+      Speed strategies
+     </a>
+     <a href="#quick">
+      Quick reference
+     </a>
+     <a href="#interactive">
+      Visualizer &amp; practice
+     </a>
+     <div class="deep-toc-note">
+      Everything needed for the cipher itself is included here.
+     </div>
+    </aside>
+    <div class="deep-content">
+     <section class="deep-card" id="overview">
+      <div class="section-kicker">
+       01 &bull; OVERVIEW
+      </div>
+      <h2>
+       What is the Fractionated Morse Cipher?
+      </h2>
+      <p>
+       Fractionated Morse first converts plaintext letters to Morse. It inserts separators, concatenates the symbols, splits the stream into groups of three, and maps each trigram to a letter in a keyed alphabet.
+      </p>
+      <p>
+       The name &ldquo;fractionated&rdquo; comes from breaking and regrouping the Morse representation rather than encrypting the original letters directly.
+      </p>
+      <div class="deep-rule-note">
+       <strong>
+        Competition note
+       </strong>
+       <p>
+        The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
+       </p>
+      </div>
+      <div class="beginner-promise">
+       <strong>
+        Starting from zero?
+       </strong>
+       <p>
+        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+       </p>
+      </div>
+     </section>
+     <section class="deep-card" id="basics">
+      <div class="section-kicker">
+       02 &bull; FOUNDATIONS
+      </div>
+      <h2>
+       What you need to know
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Dots and dashes represent Morse code.
+       </li>
+       <li>
+        The Daily Cipher engine uses
+        <strong>
+         x
+        </strong>
+        as a separator: one x between letters and two x between words before regrouping.
+       </li>
+       <li>
+        There are 26 usable trigrams from {., -, x} when xxx is excluded&mdash;exactly enough to map to A&ndash;Z.
+       </li>
+      </ul>
+      <h3>
+       Beginner glossary
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table glossary-table">
+        <thead>
+         <tr>
+          <th>
+           Term
+          </th>
+          <th>
+           Meaning
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           Morse stream
+          </td>
+          <td>
+           The dots, dashes, and separator x symbols produced before fractionation.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Separator x
+          </td>
+          <td>
+           One x separates Morse letters; two x symbols separate words in this site&rsquo;s convention.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Trigram
+          </td>
+          <td>
+           A group of exactly three symbols from {., -, x}.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Keyed alphabet
+          </td>
+          <td>
+           Keyword with duplicate letters removed, followed by unused alphabet letters.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Crib
+          </td>
+          <td>
+           Known plaintext fragment used to constrain trigram/key mappings during cryptanalysis.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <section class="deep-card reference-card" id="reference">
+      <div class="section-kicker">
+       03 &bull; COMPLETE REFERENCE
+      </div>
+      <h2>
+       Keep this beside you while solving
+      </h2>
+      <h3>
+       International Morse letters
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table compact-two">
+        <thead>
+         <tr>
+          <th>
+           Letter
+          </th>
+          <th>
+           Morse
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           A
+          </td>
+          <td>
+           .-
+          </td>
+         </tr>
+         <tr>
+          <td>
+           B
+          </td>
+          <td>
+           -...
+          </td>
+         </tr>
+         <tr>
+          <td>
+           C
+          </td>
+          <td>
+           -.-.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           D
+          </td>
+          <td>
+           -..
+          </td>
+         </tr>
+         <tr>
+          <td>
+           E
+          </td>
+          <td>
+           .
+          </td>
+         </tr>
+         <tr>
+          <td>
+           F
+          </td>
+          <td>
+           ..-.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           G
+          </td>
+          <td>
+           --.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           H
+          </td>
+          <td>
+           ....
+          </td>
+         </tr>
+         <tr>
+          <td>
+           I
+          </td>
+          <td>
+           ..
+          </td>
+         </tr>
+         <tr>
+          <td>
+           J
+          </td>
+          <td>
+           .---
+          </td>
+         </tr>
+         <tr>
+          <td>
+           K
+          </td>
+          <td>
+           -.-
+          </td>
+         </tr>
+         <tr>
+          <td>
+           L
+          </td>
+          <td>
+           .-..
+          </td>
+         </tr>
+         <tr>
+          <td>
+           M
+          </td>
+          <td>
+           --
+          </td>
+         </tr>
+         <tr>
+          <td>
+           N
+          </td>
+          <td>
+           -.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           O
+          </td>
+          <td>
+           ---
+          </td>
+         </tr>
+         <tr>
+          <td>
+           P
+          </td>
+          <td>
+           .--.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Q
+          </td>
+          <td>
+           --.-
+          </td>
+         </tr>
+         <tr>
+          <td>
+           R
+          </td>
+          <td>
+           .-.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           S
+          </td>
+          <td>
+           ...
+          </td>
+         </tr>
+         <tr>
+          <td>
+           T
+          </td>
+          <td>
+           -
+          </td>
+         </tr>
+         <tr>
+          <td>
+           U
+          </td>
+          <td>
+           ..-
+          </td>
+         </tr>
+         <tr>
+          <td>
+           V
+          </td>
+          <td>
+           ...-
+          </td>
+         </tr>
+         <tr>
+          <td>
+           W
+          </td>
+          <td>
+           .--
+          </td>
+         </tr>
+         <tr>
+          <td>
+           X
+          </td>
+          <td>
+           -..-
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Y
+          </td>
+          <td>
+           -.--
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Z
+          </td>
+          <td>
+           --..
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <h3>
+       Trigram order used by The Daily Cipher
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table compact-four">
+        <thead>
+         <tr>
+          <th>
+           Index
+          </th>
+          <th>
+           Trig.
+          </th>
+          <th>
+           Index
+          </th>
+          <th>
+           Trig.
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           1
+          </td>
+          <td>
+           ...
+          </td>
+          <td>
+           14
+          </td>
+          <td>
+           ---
+          </td>
+         </tr>
+         <tr>
+          <td>
+           2
+          </td>
+          <td>
+           ..-
+          </td>
+          <td>
+           15
+          </td>
+          <td>
+           --x
+          </td>
+         </tr>
+         <tr>
+          <td>
+           3
+          </td>
+          <td>
+           ..x
+          </td>
+          <td>
+           16
+          </td>
+          <td>
+           -x.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           4
+          </td>
+          <td>
+           .-.
+          </td>
+          <td>
+           17
+          </td>
+          <td>
+           -x-
+          </td>
+         </tr>
+         <tr>
+          <td>
+           5
+          </td>
+          <td>
+           .--
+          </td>
+          <td>
+           18
+          </td>
+          <td>
+           -xx
+          </td>
+         </tr>
+         <tr>
+          <td>
+           6
+          </td>
+          <td>
+           .-x
+          </td>
+          <td>
+           19
+          </td>
+          <td>
+           x..
+          </td>
+         </tr>
+         <tr>
+          <td>
+           7
+          </td>
+          <td>
+           .x.
+          </td>
+          <td>
+           20
+          </td>
+          <td>
+           x.-
+          </td>
+         </tr>
+         <tr>
+          <td>
+           8
+          </td>
+          <td>
+           .x-
+          </td>
+          <td>
+           21
+          </td>
+          <td>
+           x.x
+          </td>
+         </tr>
+         <tr>
+          <td>
+           9
+          </td>
+          <td>
+           .xx
+          </td>
+          <td>
+           22
+          </td>
+          <td>
+           x-.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           10
+          </td>
+          <td>
+           -..
+          </td>
+          <td>
+           23
+          </td>
+          <td>
+           x--
+          </td>
+         </tr>
+         <tr>
+          <td>
+           11
+          </td>
+          <td>
+           -.-
+          </td>
+          <td>
+           24
+          </td>
+          <td>
+           x-x
+          </td>
+         </tr>
+         <tr>
+          <td>
+           12
+          </td>
+          <td>
+           -.x
+          </td>
+          <td>
+           25
+          </td>
+          <td>
+           xx.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           13
+          </td>
+          <td>
+           --.
+          </td>
+          <td>
+           26
+          </td>
+          <td>
+           xx-
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p class="deep-caption">
+       The keyed cipher alphabet is placed against these trigrams in order.
+      </p>
+      <h3>
+       Order matters
+      </h3>
+      <p>
+       Build the entire Morse stream first, including separators,
+       <em>
+        then
+       </em>
+       split it into groups of three. Do not group each Morse letter independently.
+      </p>
+      <div class="deep-code">
+       SOS &rarr; ...x---x...
+stream &rarr; ... x-- -x. ..x   (after end padding if needed)
+      </div>
+      <div class="deep-note">
+       <strong>
+        Padding:
+       </strong>
+       if the final stream length is not divisible by 3, this site pads with
+       <code>
+        x
+       </code>
+       until the last trigram is complete. During decoding, trailing separator padding should not be mistaken for a new plaintext letter.
+      </div>
+      <div class="reference-completeness">
+       <strong>
+        Reference rule:
+       </strong>
+       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
+      </div>
+     </section>
+     <section class="deep-card" id="encrypt">
+      <div class="section-kicker">
+       04 &bull; ENCRYPTION
+      </div>
+      <h2>
+       How encryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Convert plaintext to Morse
+         </h3>
+         <p>
+          Write each letter as dots/dashes.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Insert separators
+         </h3>
+         <p>
+          Use x between letters and xx between words.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Regroup into threes
+         </h3>
+         <p>
+          Ignore original Morse letter boundaries after building the stream.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Map each trigram
+         </h3>
+         <p>
+          Find the trigram index and output the corresponding letter from the keyed alphabet.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="decrypt">
+      <div class="section-kicker">
+       05 &bull; DECRYPTION
+      </div>
+      <h2>
+       How decryption works
+      </h2>
+      <div class="deep-steps">
+       <div class="deep-step">
+        <div class="deep-step-num">
+         1
+        </div>
+        <div>
+         <h3>
+          Convert ciphertext letters to trigrams
+         </h3>
+         <p>
+          Use the keyed alphabet to find each ciphertext letter&rsquo;s trigram.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         2
+        </div>
+        <div>
+         <h3>
+          Concatenate the trigrams
+         </h3>
+         <p>
+          Rebuild one long stream of ., -, and x.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         3
+        </div>
+        <div>
+         <h3>
+          Recover separators
+         </h3>
+         <p>
+          x marks letter boundaries and xx marks word boundaries.
+         </p>
+        </div>
+       </div>
+       <div class="deep-step">
+        <div class="deep-step-num">
+         4
+        </div>
+        <div>
+         <h3>
+          Decode Morse
+         </h3>
+         <p>
+          Translate each Morse sequence back to plaintext letters.
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="competition">
+      <div class="section-kicker">
+       06 &bull; COMPETITION WORKFLOW
+      </div>
+      <h2>
+       How to approach it in Codebusters practice
+      </h2>
+      <ul class="deep-list competition-list">
+       <li>
+        A crib can give a powerful alignment clue in cryptanalysis modes.
+       </li>
+       <li>
+        Do not confuse x separators with Morse dashes.
+       </li>
+       <li>
+        Build the keyed alphabet carefully: remove repeated keyword letters, then append unused alphabet letters.
+       </li>
+      </ul>
+      <h3>
+       What the problem gives you vs. what you produce
+      </h3>
+      <div class="deep-table-wrap">
+       <table class="deep-table problem-format-table">
+        <thead>
+         <tr>
+          <th>
+           Part
+          </th>
+          <th>
+           What to expect
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           You may be given
+          </td>
+          <td>
+           Ciphertext plus a keyword/key, or a cryptanalysis problem with a crib.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           You must find
+          </td>
+          <td>
+           The plaintext by reversing keyed letters &rarr; trigrams &rarr; Morse stream &rarr; Morse letters.
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fastest first move
+          </td>
+          <td>
+           Write the keyed alphabet and the 26-trigram order side by side before decoding.
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div class="deep-note">
+       <strong>
+        Season note:
+       </strong>
+       use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
+      </div>
+     </section>
+     <section class="deep-card" id="cryptanalysis">
+      <div class="section-kicker">
+       07 &bull; CRYPTANALYSIS
+      </div>
+      <h2>
+       How to attack an unknown or partially known key
+      </h2>
+      <ul class="deep-list">
+       <li>
+        Known plaintext lets you build the corresponding Morse stream and compare trigram alignments with ciphertext letters.
+       </li>
+       <li>
+        Repeated ciphertext letters indicate repeated trigrams, not necessarily repeated plaintext letters.
+       </li>
+       <li>
+        A crib can constrain both alignment and keyed-alphabet mappings.
+       </li>
+      </ul>
+     </section>
+     <section class="deep-card" id="worked">
+      <div class="section-kicker">
+       08 &bull; WORKED PROBLEM
+      </div>
+      <h2>
+       Follow one example from start to finish
+      </h2>
+      <div class="worked-box">
+       <div class="worked-row">
+        <span>
+         Keyword
+        </span>
+        <div>
+         <code>
+          CIPHER
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Plaintext
+        </span>
+        <div>
+         <code>
+          SOS
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Morse stream
+        </span>
+        <div>
+         <code>
+          ...x---x...
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Pad + trigrams
+        </span>
+        <div>
+         <code>
+          ... x-- -x. ..x
+         </code>
+        </div>
+       </div>
+       <div class="worked-row">
+        <span>
+         Keyed output
+        </span>
+        <div>
+         <code>
+          CWNP
+         </code>
+        </div>
+       </div>
+      </div>
+      <div class="beginner-check">
+       <div class="beginner-check-title">
+        BEGINNER SELF-CHECK
+       </div>
+       <p>
+        Before moving on, make sure you can answer these without another site:
+       </p>
+       <ul>
+        <li>
+         Can you translate one plaintext word to Morse with x separators?
+        </li>
+        <li>
+         Can you explain why xxx is excluded from the 26 trigram list?
+        </li>
+        <li>
+         Can you reverse one ciphertext letter to its trigram using the keyed alphabet?
+        </li>
+       </ul>
+      </div>
+     </section>
+     <section class="deep-card" id="mistakes">
+      <div class="section-kicker">
+       09 &bull; ERROR CHECK
+      </div>
+      <h2>
+       Common mistakes
+      </h2>
+      <div class="mistake-grid">
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Using spaces instead of x inside the Morse stream.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Regrouping before inserting the letter/word separators.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Including xxx as a normal trigram.
+        </p>
+       </div>
+       <div class="mistake-item">
+        <span>
+         !
+        </span>
+        <p>
+         Building the keyed alphabet with duplicated keyword letters.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="speed">
+      <div class="section-kicker">
+       10 &bull; SPEED
+      </div>
+      <h2>
+       Competition speed strategies
+      </h2>
+      <div class="speed-grid">
+       <div class="speed-item">
+        <span>
+         1
+        </span>
+        <p>
+         Keep the full Morse table and trigram order visible.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         2
+        </span>
+        <p>
+         Write the stream in one uninterrupted line before drawing trigram separators.
+        </p>
+       </div>
+       <div class="speed-item">
+        <span>
+         3
+        </span>
+        <p>
+         In decryption, reconstruct the x separators before attempting any Morse-letter lookup.
+        </p>
+       </div>
+      </div>
+     </section>
+     <section class="deep-card" id="quick">
+      <div class="section-kicker">
+       11 &bull; QUICK REFERENCE
+      </div>
+      <h2>
+       What to remember under time pressure
+      </h2>
+      <div class="quick-grid">
+       <div class="quick-item">
+        <span>
+         Symbols
+        </span>
+        <strong>
+         . - x
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Letter separator
+        </span>
+        <strong>
+         x
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Word separator
+        </span>
+        <strong>
+         xx
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Trigram count
+        </span>
+        <strong>
+         26 usable (xxx excluded)
+        </strong>
+       </div>
+       <div class="quick-item">
+        <span>
+         Final mapping
+        </span>
+        <strong>
+         Trigram &harr; keyed alphabet letter
+        </strong>
+       </div>
+      </div>
+      <div class="quick-use-note">
+       <strong>
+        How to use this section:
+       </strong>
+       during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
+      </div>
+     </section>
+     <section class="deep-card interactive-card" id="interactive">
+      <div class="section-kicker">
+       12 &bull; INTERACTIVE LAB
+      </div>
+      <h2>
+       See every transformation
+      </h2>
+      <p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+      </p>
+      <div class="lab-actions">
+       <a class="deep-secondary-button" href="../visualizers/fractionatedmorse.html">
+        Open full visualizer
+       </a>
+       <a class="primary-button" href="../practice/index.html?cipher=fractionatedmorse">
+        Practice Fractionated Morse
+       </a>
+      </div>
+      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/fractionatedmorse.html?embed=1" title="Fractionated Morse Cipher interactive visualizer">
+      </iframe>
+     </section>
+     <div class="guide-end-nav">
+      <a href="index.html">
+       &larr; All cipher guides
+      </a>
+      <a href="#overview">
+       Back to top &uarr;
+      </a>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer class="site-footer">
+   <p>
+    THE DAILY CIPHER
+   </p>
+   <span>
+    Learn. Crack. Repeat.
+   </span>
+  </footer>
+  <script src="/js/navigation.js">
+  </script>
+  <script src="../js/learnPage.js">
+  </script>
+ </body>
 </html>
