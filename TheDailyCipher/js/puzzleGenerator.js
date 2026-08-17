@@ -1,7 +1,7 @@
 /*
 =========================================================
 THE DAILY CIPHER
-Puzzle Generator v2.0
+Puzzle Generator v3.0 — Codebusters Expansion
 =========================================================
 */
 
@@ -31,6 +31,42 @@ const PuzzleGenerator = (() => {
             [
                 "SUCCESSFUL CRYPTANALYSIS DEPENDS ON COMBINING MULTIPLE CLUES"
             ]
+
+    };
+
+
+    const SPANISH_PHRASES = {
+
+        Easy: [
+            "BUSCA LA CLAVE OCULTA",
+            "MIRA CADA LETRA",
+            "SIGUE EL PATRON",
+            "LEE EL MENSAJE",
+            "PIENSA CON CALMA",
+            "LA RESPUESTA ESTA CERCA",
+            "CUENTA CADA SIMBOLO",
+            "ENCUENTRA LA PALABRA"
+        ],
+
+        Medium: [
+            "LAS PISTAS PEQUEÑAS PUEDEN REVELAR UN PATRON IMPORTANTE",
+            "UN BUEN SOLUCIONADOR COMPARA TODAS LAS LETRAS ANTES DE ADIVINAR",
+            "EL MENSAJE PARECE EXTRAÑO PERO TODAVIA SIGUE UNA REGLA",
+            "LAS LETRAS REPETIDAS PUEDEN AYUDAR A ENCONTRAR LA RESPUESTA",
+            "LA MEJOR ESTRATEGIA EMPIEZA CON UNA OBSERVACION CUIDADOSA",
+            "UNA SOLA PISTA PUEDE CAMBIAR LA FORMA DE VER TODO EL MENSAJE",
+            "EL VIEJO MAPA TENIA UNA MARCA JUNTO AL PUENTE",
+            "LA CARTA LLEGO SIN NOMBRE Y CON UNA FECHA EXTRAÑA"
+        ],
+
+        Hard: [
+            "CUANDO UN MENSAJE PARECE COMPLETAMENTE ALEATORIO CONVIENE BUSCAR LA REGLA QUE PODRIA HABERLO PRODUCIDO",
+            "UNA EXPLICACION FUERTE DEBE FUNCIONAR CON TODO EL MENSAJE Y NO SOLAMENTE CON UNA PARTE PEQUEÑA",
+            "SI EL PRIMER METODO FALLA TODAVIA PUEDE ENSEÑARTE QUE POSIBILIDADES DEBES ELIMINAR",
+            "LA ESTRUCTURA DEL IDIOMA DEJA PISTAS AUN CUANDO LAS LETRAS HAN SIDO CAMBIADAS POR COMPLETO",
+            "CUANDO DOS IDEAS PARECEN POSIBLES PRUEBA CUAL EXPLICA MEJOR TODOS LOS DETALLES DEL TEXTO",
+            "EL CUADERNO ANTIGUO CONTENIA VARIAS FECHAS QUE PARECIAN NO TENER RELACION ENTRE SI"
+        ]
 
     };
 
@@ -89,7 +125,9 @@ const PuzzleGenerator = (() => {
 
 
             phraseBank =
-                data;
+                data.map(
+                    normalizePhraseRecord
+                );
 
 
             usedPhraseIDs.clear();
@@ -219,36 +257,35 @@ const PuzzleGenerator = (() => {
                 }
 
 
-                if (
-                    ![
-                        "Easy",
-                        "Medium",
-                        "Hard"
-                    ]
-                    .includes(
+                try {
+                    normalizeDifficulty(
                         phrase.difficulty
-                    )
-                ) {
-
+                    );
+                } catch (error) {
                     errors.push(
                         `${label}: invalid difficulty`
                     );
                 }
 
 
+                /*
+                allowedCiphers is optional in v3.
+                If omitted, the phrase is treated as general-purpose
+                and may be used by any compatible cipher.
+                */
+
                 if (
+                    phrase.allowedCiphers
+                    !==
+                    undefined
+                    &&
                     !Array.isArray(
                         phrase.allowedCiphers
                     )
-                    ||
-                    phrase.allowedCiphers
-                        .length
-                    ===
-                    0
                 ) {
 
                     errors.push(
-                        `${label}: no allowed ciphers`
+                        `${label}: allowedCiphers must be an array when provided`
                     );
                 }
 
@@ -316,6 +353,49 @@ const PuzzleGenerator = (() => {
         throw new Error(
             `Invalid difficulty: ${difficulty}`
         );
+    }
+
+
+    function normalizePhraseRecord(
+        phrase
+    ) {
+
+        return {
+
+            ...phrase,
+
+            difficulty:
+                normalizeDifficulty(
+                    phrase.difficulty
+                ),
+
+            allowedCiphers:
+                Array.isArray(
+                    phrase.allowedCiphers
+                )
+                    ?
+                    phrase.allowedCiphers
+                        .map(
+                            value =>
+                                String(value)
+                                    .toLowerCase()
+                        )
+                    :
+                    []
+
+        };
+    }
+
+
+    function isXenocryptType(
+        type
+    ) {
+
+        return String(type || "")
+            .toLowerCase()
+            .startsWith(
+                "xenocrypt"
+            );
     }
 
 
@@ -462,8 +542,11 @@ const PuzzleGenerator = (() => {
 
 
                 if (
-                    !phrase
-                        .allowedCiphers
+                    phrase.allowedCiphers.length
+                    >
+                    0
+                    &&
+                    !phrase.allowedCiphers
                         .includes(
                             type
                         )
@@ -514,6 +597,22 @@ const PuzzleGenerator = (() => {
             cipherType
         )
         .toLowerCase();
+
+
+    if (
+        isXenocryptType(
+            type
+        )
+    ) {
+
+        return randomItem(
+            SPANISH_PHRASES[
+                normalized
+            ]
+            ||
+            SPANISH_PHRASES.Medium
+        );
+    }
 
 
     /*
@@ -752,6 +851,9 @@ const PuzzleGenerator = (() => {
             ||
             cipherType ===
             "baconian"
+            ||
+            cipherType ===
+            "cryptarithm"
         ) {
 
             return {};
@@ -917,10 +1019,15 @@ const PuzzleGenerator = (() => {
             hints:
                 generated.hints,
 
+            challengeInfo:
+                generated.challengeInfo
+                ||
+                [],
+
             metadata: {
 
                 generatorVersion:
-                    "2.0",
+                    "3.0",
 
                 generatedAt:
                     new Date()
@@ -1117,6 +1224,10 @@ const PuzzleGenerator = (() => {
             puzzle.solution
             &&
             puzzle.parameters
+            &&
+            puzzle.cipher_id
+            !==
+            "cryptarithm"
         ) {
 
             try {

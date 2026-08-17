@@ -58,7 +58,15 @@ const MasteryEngine = (() => {
 
         "hill",
 
-        "fractionatedmorse"
+        "fractionatedmorse",
+
+        "xenocrypt",
+
+        "cryptarithm",
+
+        "checkerboard",
+
+        "homophonic"
 
     ];
 
@@ -105,7 +113,19 @@ const MasteryEngine = (() => {
             "Hill Cipher",
 
         fractionatedmorse:
-            "Fractionated Morse Cipher"
+            "Fractionated Morse Cipher",
+
+        xenocrypt:
+            "Spanish Xenocrypt",
+
+        cryptarithm:
+            "Cryptarithm",
+
+        checkerboard:
+            "5×5 Checkerboard",
+
+        homophonic:
+            "Homophonic Cipher"
 
     };
 
@@ -200,7 +220,9 @@ const MasteryEngine = (() => {
         return getHistory()
             .filter(
                 activity =>
-                    activity.cipher
+                    normalizeCipher(
+                        activity.cipher
+                    )
                     ===
                     normalized
             );
@@ -1394,13 +1416,74 @@ const MasteryEngine = (() => {
         cipher
     ) {
 
-        return String(
-            cipher
-            ||
-            ""
-        )
-        .toLowerCase()
-        .trim();
+        const value =
+            String(
+                cipher
+                ||
+                ""
+            )
+            .toLowerCase()
+            .trim();
+
+
+        const aliases = {
+
+            "baconian-variant":
+                "baconian",
+
+            "aristocrat-k1":
+                "aristocrat",
+
+            "aristocrat-k2":
+                "aristocrat",
+
+            "aristocrat-random":
+                "aristocrat",
+
+            "substitution-k3":
+                "aristocrat",
+
+            "patristocrat-k1":
+                "patristocrat",
+
+            "patristocrat-k2":
+                "patristocrat",
+
+            "xenocrypt-k1":
+                "xenocrypt",
+
+            "xenocrypt-k2":
+                "xenocrypt",
+
+            "xenocrypt-cryptanalysis":
+                "xenocrypt",
+
+            "fractionatedmorse-cryptanalysis":
+                "fractionatedmorse",
+
+            "porta-cryptanalysis":
+                "porta",
+
+            "nihilist-cryptanalysis":
+                "nihilist",
+
+            "columnar-cryptanalysis":
+                "columnar",
+
+            "checkerboard-cryptanalysis":
+                "checkerboard",
+
+            "homophonic-cryptanalysis":
+                "homophonic"
+
+        };
+
+
+        return aliases[
+            value
+        ]
+        ||
+        value;
     }
 
 

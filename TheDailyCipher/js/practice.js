@@ -1,7 +1,7 @@
 /*
 =========================================================
 THE DAILY CIPHER
-Practice Controller v3.0
+Practice Controller v4.0 — Codebusters Expansion
 =========================================================
 */
 
@@ -852,11 +852,40 @@ function populatePracticeCiphers() {
                 type;
 
 
+            const supportedEntry =
+                CipherEngine
+                    .getSupportedCiphers()
+                    .find(
+                        item =>
+                            item.id
+                            ===
+                            type
+                    );
+
+
             option.textContent =
                 CipherEngine
                     .getDisplayName(
                         type
-                    );
+                    )
+                +
+                (
+                    supportedEntry?.divisions
+                        ?
+                        ` • ${supportedEntry.divisions}`
+                        :
+                        ""
+                )
+                +
+                (
+                    supportedEntry?.tier
+                    ===
+                    "State/National"
+                        ?
+                        " • STATE/NAT"
+                        :
+                        ""
+                );
 
 
             select.appendChild(
@@ -1109,6 +1138,9 @@ function renderPracticePuzzle() {
         "MYSTERY CIPHER";
 
 
+    renderPracticeChallengeInfo();
+
+
     document.getElementById(
         "practice-output"
     ).textContent =
@@ -1123,6 +1155,130 @@ function renderPracticePuzzle() {
     updatePracticeScorePreview();
 
     updatePracticeLearnLink();
+}
+
+
+/*
+=========================================================
+CODEBUSTERS QUESTION INFORMATION
+=========================================================
+*/
+
+function renderPracticeChallengeInfo() {
+
+    const container =
+        document.getElementById(
+            "practice-question-info"
+        );
+
+
+    if (
+        !container
+    ) {
+
+        return;
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    const rows =
+        Array.isArray(
+            currentPractice?.challengeInfo
+        )
+            ?
+            currentPractice.challengeInfo
+            :
+            [];
+
+
+    if (
+        rows.length
+        ===
+        0
+    ) {
+
+        container.classList.add(
+            "hidden"
+        );
+
+        return;
+    }
+
+
+    rows.forEach(
+        row => {
+
+            const wrapper =
+                document.createElement(
+                    "div"
+                );
+
+
+            wrapper.className =
+                "practice-question-info-row";
+
+
+            const label =
+                document.createElement(
+                    "div"
+                );
+
+
+            label.className =
+                "practice-question-info-label";
+
+
+            label.textContent =
+                String(
+                    row.label
+                    ||
+                    "INFO"
+                )
+                .toUpperCase();
+
+
+            const value =
+                document.createElement(
+                    "div"
+                );
+
+
+            value.className =
+                "practice-question-info-value";
+
+
+            value.textContent =
+                String(
+                    row.value
+                    ??
+                    ""
+                );
+
+
+            wrapper.appendChild(
+                label
+            );
+
+
+            wrapper.appendChild(
+                value
+            );
+
+
+            container.appendChild(
+                wrapper
+            );
+
+        }
+    );
+
+
+    container.classList.remove(
+        "hidden"
+    );
 }
 
 
@@ -2853,7 +3009,27 @@ function resetPracticeDisplay() {
     .classList.add(
         "hidden"
     );
+
+
+    const questionInfo =
+        document.getElementById(
+            "practice-question-info"
+        );
+
+
+    if (
+        questionInfo
+    ) {
+
+        questionInfo.innerHTML =
+            "";
+
+        questionInfo.classList.add(
+            "hidden"
+        );
+    }
 }
+
 
 
 /*

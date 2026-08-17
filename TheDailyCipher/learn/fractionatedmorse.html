@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fractionated Morse Cipher Guide | The Daily Cipher</title>
+<meta name="description" content="Learn Fractionated Morse Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
+<link rel="canonical" href="https://thedailycipher.org/learn/fractionatedmorse.html">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#030712">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/codebusters-learn.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
+<main class="container cb-guide-shell">
+<section class="hero"><div class="eyebrow">MORSE + FRACTIONATION • CODEBUSTERS</div><h1>Fractionated Morse<span> Cipher</span></h1><p>Follow plaintext through Morse code, separators, trigrams, and a keyed alphabet.</p></section>
+<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>Fractionated Morse belongs to the recreational fractionation systems popularized through puzzle cryptography. It combines the familiar dot-and-dash structure of Morse code with a substitution stage.</p>
+<p>The method is interesting because one ciphertext letter usually represents information spanning parts of multiple plaintext letters. That breaks the direct one-plaintext-letter-to-one-ciphertext-letter relationship found in ordinary substitution.</p><div class="cb-note">A cipher that converts plaintext into Morse code, groups the Morse stream into triples, and substitutes those triples through a keyed alphabet.</div></section>
+<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Convert plaintext letters to Morse. Add separators between letters and stronger separators between words.</p>
+<p>Divide the resulting dot-dash-separator stream into groups of three and map each group through a keyed alphabet.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Create a keyed ciphertext alphabet.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Translate the plaintext into Morse symbols.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Insert the required letter and word separators.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Split the continuous stream into groups of three.</p></div>
+<div class="cb-step"><div class="cb-step-num">5</div><p>Replace each trigram with the corresponding keyed alphabet letter.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>With the keyword known, reverse the keyed substitution first.</p>
+<p>The recovered trigrams reconstruct the Morse stream, which can then be divided at separators and translated normally.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Reconstruct the keyed alphabet.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Convert each ciphertext letter back to its Morse trigram.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Join the trigrams into one continuous stream.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Use separators to recover Morse letters and words.</p></div>
+<div class="cb-step"><div class="cb-step-num">5</div><p>Translate the Morse symbols to plaintext.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Fractionated Morse</strong><span>Keyed alphabet</span><a class="cb-small-button" href="../practice/index.html?cipher=fractionatedmorse">Practice this mode</a></article>
+<article class="cb-mode"><strong>Fractionated Morse Cryptanalysis</strong><span>Crib included</span><a class="cb-small-button" href="../practice/index.html?cipher=fractionatedmorse-cryptanalysis">Practice this mode</a></article></div></section>
+<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>HELLO WORLD</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>CIPHER</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>Depends on keyed Morse alphabet</strong></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Fractionated Morse Cipher visualizer" loading="lazy" src="../visualizers/fractionatedmorse.html"></iframe></section>
+<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Losing the separator symbols between Morse letters.</div>
+<div class="cb-mistake">Grouping the original plaintext into threes instead of grouping the Morse stream.</div>
+<div class="cb-mistake">Building the keyed alphabet incorrectly when the keyword contains repeated letters.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=fractionatedmorse-cryptanalysis">Practice Fractionated Morse Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
+</main>
+<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
+<script src="/js/navigation.js"></script>
+</body>
+</html>

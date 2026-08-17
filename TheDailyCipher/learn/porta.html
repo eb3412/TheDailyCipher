@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Porta Cipher Guide | The Daily Cipher</title>
+<meta name="description" content="Learn Porta Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
+<link rel="canonical" href="https://thedailycipher.org/learn/porta.html">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#030712">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/codebusters-learn.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
+<main class="container cb-guide-shell">
+<section class="hero"><div class="eyebrow">POLYALPHABETIC SUBSTITUTION • CODEBUSTERS</div><h1>Porta<span> Cipher</span></h1><p>See how a repeating keyword selects reciprocal substitutions from the Porta tableau.</p></section>
+<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>The Porta cipher is named for the Renaissance polymath Giambattista della Porta, who wrote extensively about secret writing and cryptanalysis. The exact historical development of reciprocal polyalphabetic systems is more complicated than a single-inventor story; similar reciprocal ideas had appeared earlier.</p>
+<p>For a modern solver, its most distinctive feature is reciprocity: applying the same transformation with the same key can reverse the encryption.</p><div class="cb-note">A reciprocal polyalphabetic cipher controlled by a repeating keyword and paired keyword letters.</div></section>
+<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>A repeating keyword selects one of thirteen reciprocal substitution alphabets.</p>
+<p>Keyword letters are paired: A/B select one alphabet, C/D the next, continuing through Y/Z.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Choose a keyword.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Repeat the keyword beneath the plaintext letters.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Determine the alphabet pair associated with each keyword letter.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Use the corresponding reciprocal substitution for each plaintext letter.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>When the keyword is known, Porta decryption uses the same reciprocal operation as encryption.</p>
+<p>When the key is unknown, repeated-key behavior and language statistics become useful.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Determine or obtain the keyword.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Repeat the keyword beneath the ciphertext.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Choose the correct reciprocal alphabet for each position.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Apply the same Porta substitution operation to recover plaintext.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Porta — Given Key</strong><span>Encrypt/decrypt</span><a class="cb-small-button" href="../practice/index.html?cipher=porta">Practice this mode</a></article>
+<article class="cb-mode"><strong>Porta Cryptanalysis</strong><span>State/National-style crib</span><a class="cb-small-button" href="../practice/index.html?cipher=porta-cryptanalysis">Practice this mode</a></article></div></section>
+<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>HELLO WORLD</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>SECRET</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>Depends on Porta tableau</strong></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Porta Cipher visualizer" loading="lazy" src="../visualizers/porta.html"></iframe></section>
+<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Treating Porta exactly like Vigenère addition.</div>
+<div class="cb-mistake">Forgetting that keyword letters operate in pairs.</div>
+<div class="cb-mistake">Advancing the keyword on spaces or punctuation when the convention says not to.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=porta">Practice Porta Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
+</main>
+<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
+<script src="/js/navigation.js"></script>
+</body>
+</html>

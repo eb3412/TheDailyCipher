@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aristocrat Cipher Guide | The Daily Cipher</title>
+<meta name="description" content="Learn Aristocrat Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
+<link rel="canonical" href="https://thedailycipher.org/learn/aristocrat.html">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#030712">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/codebusters-learn.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
+<main class="container cb-guide-shell">
+<section class="hero"><div class="eyebrow">MONOALPHABETIC SUBSTITUTION • CODEBUSTERS</div><h1>Aristocrat<span> Cipher</span></h1><p>Solve substitution cryptograms while using visible word boundaries as clues.</p></section>
+<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>Simple substitution cryptograms are much older than the name Aristocrat. The term became strongly associated with recreational cryptography through the American Cryptogram Association, founded in 1930, which initially focused on monoalphabetic substitution puzzles.</p>
+<p>The important feature is that every plaintext letter has one consistent ciphertext replacement. Because spaces remain visible, word structure becomes one of the solver&#x27;s strongest sources of information.</p><div class="cb-note">A monoalphabetic substitution cryptogram that preserves word spacing and normally preserves punctuation.</div></section>
+<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Create a scrambled ciphertext alphabet in which each plaintext letter maps to one unique ciphertext letter.</p>
+<p>Use that same mapping throughout the message. Word spacing is preserved, allowing repeated words and word-length patterns to remain visible.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Create a valid substitution alphabet.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Locate each plaintext letter in the normal alphabet.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Replace it using the corresponding ciphertext alphabet letter.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Preserve spaces and punctuation.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>Aristocrats are normally solved through language structure rather than brute-force testing of all substitution alphabets.</p>
+<p>Word lengths, repeated letters, common digraphs, one-letter words, letter frequency, and cross-checking guesses all contribute evidence.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Look first for distinctive word patterns and one-letter words.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Record every proposed letter mapping consistently.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Use common English frequencies as supporting evidence rather than absolute rules.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Test partial words and allow several clues to reinforce one another.</p></div>
+<div class="cb-step"><div class="cb-step-num">5</div><p>Backtrack when a guess creates contradictions elsewhere.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Aristocrat — K1</strong><span>K1 alphabet</span><a class="cb-small-button" href="../practice/index.html?cipher=aristocrat-k1">Practice this mode</a></article>
+<article class="cb-mode"><strong>Aristocrat — K2</strong><span>K2 alphabet</span><a class="cb-small-button" href="../practice/index.html?cipher=aristocrat-k2">Practice this mode</a></article>
+<article class="cb-mode"><strong>Aristocrat — Random</strong><span>Random alphabet</span><a class="cb-small-button" href="../practice/index.html?cipher=aristocrat-random">Practice this mode</a></article>
+<article class="cb-mode"><strong>K3 Substitution</strong><span>Division C</span><a class="cb-small-button" href="../practice/index.html?cipher=substitution-k3">Practice this mode</a></article></div></section>
+<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>THE SECRET MESSAGE</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>Random monoalphabetic substitution</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>Depends on substitution alphabet</strong></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Aristocrat Cipher visualizer" loading="lazy" src="../visualizers/aristocrat.html"></iframe></section>
+<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Assuming the most common ciphertext letter must always be E.</div>
+<div class="cb-mistake">Making a word guess without checking the mapping everywhere else.</div>
+<div class="cb-mistake">Allowing one ciphertext letter to represent multiple plaintext letters.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=aristocrat-k1">Practice Aristocrat Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
+</main>
+<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
+<script src="/js/navigation.js"></script>
+</body>
+</html>

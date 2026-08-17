@@ -4370,3 +4370,812 @@ function validateParameters(
 
 window.CipherEngine =
     CipherEngine;
+/*
+=========================================================
+THE DAILY CIPHER
+Codebusters Expansion v3.0
+
+Adds Science Olympiad-style practice variants while
+preserving the v2 CipherEngine API and all legacy IDs.
+=========================================================
+*/
+
+(() => {
+
+    if (!window.CipherEngine || window.CipherEngine.__codebustersExpanded) {
+        return;
+    }
+
+    const engine = window.CipherEngine;
+
+    const original = {
+        encrypt: engine.encrypt.bind(engine),
+        generate: engine.generate.bind(engine),
+        generateKey: engine.generateKey.bind(engine),
+        createHints: engine.createHints.bind(engine),
+        getDisplayName: engine.getDisplayName.bind(engine),
+        getSupportedCiphers: engine.getSupportedCiphers.bind(engine),
+        validateParameters: engine.validateParameters.bind(engine)
+    };
+
+    const ENGLISH_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const SPANISH_ALPHABET = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    const POLYBIUS_ALPHABET = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+
+    const KEYWORDS = [
+        "CIPHER", "SCIENCE", "PUZZLE", "LOGIC", "MATRIX",
+        "SIGNAL", "SECRET", "ORBIT", "VECTOR", "NUMBER",
+        "PATTERN", "GALAXY", "ENIGMA", "PHOTON", "QUANTUM",
+        "NETWORK", "BINARY", "ALGORITHM", "CHEMISTRY", "HISTORY"
+    ];
+
+    const FIVE_LETTER_KEYS = [
+        "ALERT", "LATER", "STONE", "NOTES", "TRAIN", "NIGHT",
+        "LIGHT", "RIVER", "CLOUD", "PLANT", "SOUND", "WORLD",
+        "MOUSE", "BRICK", "FLAME", "QUEST", "WATER", "SOLAR"
+    ];
+
+    const BACONIAN_SYMBOLS = [
+        ["A", "B"],
+        ["0", "1"],
+        ["X", "O"],
+        ["●", "○"],
+        ["▲", "△"],
+        ["■", "□"]
+    ];
+
+    const CRYPTARITHM_WORDS = [
+        "CIPHER", "PUZZLE", "SECRET", "LOGIC", "MATRIX",
+        "NUMBER", "CODE", "SOLVE", "PATTERN", "SIGNAL"
+    ];
+
+    const HOMOPHONIC_FREQUENCIES = {
+        E: 13, T: 9, A: 8, O: 8, I: 7, N: 7, S: 6, H: 6,
+        R: 6, D: 4, L: 4, C: 3, U: 3, M: 2, W: 2, F: 2,
+        G: 2, Y: 2, P: 2, B: 1, V: 1, K: 1, J: 1, X: 1,
+        Q: 1, Z: 1
+    };
+
+    function randomInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function randomItem(array) {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function shuffle(array) {
+        const copy = [...array];
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+    }
+
+    function cleanEnglish(text) {
+        return String(text || "")
+            .toUpperCase()
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function cleanSpanish(text) {
+        return String(text || "")
+            .toUpperCase()
+            .replace(/Ñ/g, "\u0000")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/\u0000/g, "Ñ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function lettersOnly(text, alphabet = ENGLISH_ALPHABET) {
+        const allowed = new Set(alphabet.split(""));
+        return String(text || "")
+            .toUpperCase()
+            .split("")
+            .filter(character => allowed.has(character))
+            .join("");
+    }
+
+    function uniqueKeywordAlphabet(keyword, alphabet = ENGLISH_ALPHABET) {
+        const output = [];
+        for (const character of lettersOnly(keyword, alphabet) + alphabet) {
+            if (!output.includes(character)) {
+                output.push(character);
+            }
+        }
+        return output.join("");
+    }
+
+    function rotateRight(text, amount) {
+        const value = String(text || "");
+        if (!value.length) return value;
+        const normalized = ((Number(amount) % value.length) + value.length) % value.length;
+        if (!normalized) return value;
+        return value.slice(-normalized) + value.slice(0, -normalized);
+    }
+
+    function groupString(text, size = 5) {
+        const groups = [];
+        for (let i = 0; i < text.length; i += size) {
+            groups.push(text.slice(i, i + size));
+        }
+        return groups.join(" ");
+    }
+
+    function createCrib(plaintext, minimumLength) {
+        const letters = lettersOnly(plaintext);
+        if (!letters.length) return "";
+        const length = Math.min(
+            letters.length,
+            Math.max(minimumLength, Math.min(letters.length, minimumLength + randomInteger(0, 3)))
+        );
+        const start = randomInteger(0, Math.max(0, letters.length - length));
+        return letters.slice(start, start + length);
+    }
+
+    function randomDerangement(alphabet = ENGLISH_ALPHABET) {
+        const source = alphabet.split("");
+        let result;
+        let attempts = 0;
+        do {
+            result = shuffle(source);
+            attempts++;
+        } while (
+            result.some((letter, index) => letter === source[index])
+            && attempts < 10000
+        );
+        return result.join("");
+    }
+
+    function buildSubstitutionRows(kind, keyword, offset = 0, alphabet = ENGLISH_ALPHABET) {
+        const keyed = uniqueKeywordAlphabet(keyword, alphabet);
+        const n = alphabet.length;
+        const safeOffset = ((Number(offset) % n) + n) % n;
+
+        if (kind === "k1") {
+            return {
+                plainRow: rotateRight(keyed, safeOffset),
+                cipherRow: alphabet
+            };
+        }
+
+        if (kind === "k2") {
+            return {
+                plainRow: alphabet,
+                cipherRow: rotateRight(keyed, safeOffset)
+            };
+        }
+
+        if (kind === "k3") {
+            const shift = safeOffset || 1;
+            return {
+                plainRow: keyed,
+                cipherRow: rotateRight(keyed, shift)
+            };
+        }
+
+        return {
+            plainRow: alphabet,
+            cipherRow: randomDerangement(alphabet)
+        };
+    }
+
+    function substituteWithRows(plaintext, rows, alphabet = ENGLISH_ALPHABET) {
+        const source = cleanEnglish(plaintext);
+        return source
+            .split("")
+            .map(character => {
+                if (!alphabet.includes(character)) return character;
+                const index = rows.plainRow.indexOf(character);
+                return index >= 0 ? rows.cipherRow[index] : character;
+            })
+            .join("");
+    }
+
+    function generateKeyedSubstitutionKey(kind, alphabet = ENGLISH_ALPHABET) {
+        const keyword = randomItem(KEYWORDS);
+        const offset = randomInteger(1, alphabet.length - 1);
+        const rows = buildSubstitutionRows(kind, keyword, offset, alphabet);
+        return {
+            keyType: kind.toUpperCase(),
+            keyword,
+            offset,
+            alphabet: rows.cipherRow,
+            plainAlphabet: rows.plainRow,
+            cipherAlphabet: rows.cipherRow
+        };
+    }
+
+    function encryptKeyedSubstitution(plaintext, parameters, kind, patristocrat = false, spanish = false) {
+        const alphabet = spanish ? SPANISH_ALPHABET : ENGLISH_ALPHABET;
+        const keyword = parameters.keyword || randomItem(KEYWORDS);
+        const offset = Number.isInteger(Number(parameters.offset)) ? Number(parameters.offset) : 1;
+        const rows = buildSubstitutionRows(kind, keyword, offset, alphabet);
+        const cleaned = spanish ? cleanSpanish(plaintext) : cleanEnglish(plaintext);
+        let ciphertext = substituteWithRows(cleaned, rows, alphabet);
+        if (patristocrat) {
+            ciphertext = groupString(lettersOnly(ciphertext, alphabet), 5);
+        }
+        return ciphertext;
+    }
+
+    function baconianIndex(character) {
+        return ENGLISH_ALPHABET.indexOf(character);
+    }
+
+    function numberToBaconian(index) {
+        return index
+            .toString(2)
+            .padStart(5, "0")
+            .replace(/0/g, "A")
+            .replace(/1/g, "B");
+    }
+
+    function baconianVariantEncrypt(plaintext, parameters = {}) {
+        const pair = Array.isArray(parameters.symbolPair)
+            ? parameters.symbolPair
+            : ["A", "B"];
+        const [symbolA, symbolB] = pair;
+        return cleanEnglish(plaintext)
+            .split("")
+            .map(character => {
+                if (character === " ") return "/";
+                const index = baconianIndex(character);
+                if (index < 0) return character;
+                return numberToBaconian(index)
+                    .replace(/A/g, "\u0000")
+                    .replace(/B/g, symbolB)
+                    .replace(/\u0000/g, symbolA);
+            })
+            .join(" ");
+    }
+
+    function normalizePolybiusLetter(character) {
+        const upper = String(character || "").toUpperCase();
+        return upper === "J" ? "I" : upper;
+    }
+
+    function buildPolybiusSquare(keyword) {
+        const keyed = uniqueKeywordAlphabet(
+            lettersOnly(String(keyword || "").replace(/J/g, "I"), POLYBIUS_ALPHABET),
+            POLYBIUS_ALPHABET
+        );
+        const grid = [];
+        const coordinates = {};
+        for (let row = 0; row < 5; row++) {
+            const values = [];
+            for (let col = 0; col < 5; col++) {
+                const letter = keyed[row * 5 + col];
+                values.push(letter);
+                coordinates[letter] = { row, col };
+            }
+            grid.push(values);
+        }
+        coordinates.J = coordinates.I;
+        return { alphabet: keyed, grid, coordinates };
+    }
+
+    function checkerboardEncrypt(plaintext, parameters) {
+        const square = buildPolybiusSquare(parameters.polybiusKeyword);
+        const rowKey = lettersOnly(parameters.rowKeyword).slice(0, 5);
+        const colKey = lettersOnly(parameters.columnKeyword).slice(0, 5);
+        if (rowKey.length !== 5 || colKey.length !== 5) {
+            throw new Error("Checkerboard row and column keywords must each contain at least five letters.");
+        }
+
+        const pairs = [];
+        for (const character of cleanEnglish(plaintext)) {
+            if (character === " ") {
+                pairs.push("/");
+                continue;
+            }
+            const letter = normalizePolybiusLetter(character);
+            if (!square.coordinates[letter]) continue;
+            const { row, col } = square.coordinates[letter];
+            pairs.push(`${rowKey[row]}${colKey[col]}`);
+        }
+        return pairs.join(" ");
+    }
+
+    function generateCheckerboardKey() {
+        const rowKeyword = randomItem(FIVE_LETTER_KEYS);
+        let columnKeyword = randomItem(FIVE_LETTER_KEYS);
+        while (columnKeyword === rowKeyword) {
+            columnKeyword = randomItem(FIVE_LETTER_KEYS);
+        }
+        return {
+            polybiusKeyword: randomItem(KEYWORDS),
+            rowKeyword,
+            columnKeyword
+        };
+    }
+
+    function generateHomophonicMap() {
+        const tokens = Array.from({ length: 100 }, (_, index) => String(index).padStart(2, "0"));
+        const shuffled = shuffle(tokens);
+        const mapping = {};
+        ENGLISH_ALPHABET.split("").forEach(letter => {
+            mapping[letter] = [shuffled.pop()];
+        });
+
+        const weightedLetters = [];
+        for (const [letter, weight] of Object.entries(HOMOPHONIC_FREQUENCIES)) {
+            for (let i = 0; i < weight; i++) weightedLetters.push(letter);
+        }
+
+        while (shuffled.length) {
+            const letter = randomItem(weightedLetters);
+            mapping[letter].push(shuffled.pop());
+        }
+
+        return mapping;
+    }
+
+    function homophonicEncrypt(plaintext, parameters) {
+        const mapping = parameters.mapping;
+        if (!mapping || typeof mapping !== "object") {
+            throw new Error("Homophonic cipher requires a number mapping.");
+        }
+        const output = [];
+        for (const character of cleanEnglish(plaintext)) {
+            if (character === " ") {
+                output.push("/");
+                continue;
+            }
+            if (!mapping[character]?.length) continue;
+            output.push(randomItem(mapping[character]));
+        }
+        return output.join(" ");
+    }
+
+    function cryptarithmGenerate(difficulty) {
+        const answer = randomItem(CRYPTARITHM_WORDS);
+        const requiredLetters = [...new Set(answer.split(""))];
+        const digitPool = shuffle([0,1,2,3,4,5,6,7,8,9]);
+        const letterToDigit = {};
+        const digitToLetter = {};
+
+        requiredLetters.forEach((letter, index) => {
+            const digit = digitPool[index];
+            letterToDigit[letter] = digit;
+            digitToLetter[digit] = letter;
+        });
+
+        const fillerLetters = shuffle(
+            ENGLISH_ALPHABET.split("").filter(letter => !requiredLetters.includes(letter))
+        );
+        let fillerIndex = 0;
+        for (let digit = 0; digit <= 9; digit++) {
+            if (!digitToLetter[digit]) {
+                const letter = fillerLetters[fillerIndex++];
+                digitToLetter[digit] = letter;
+                letterToDigit[letter] = digit;
+            }
+        }
+
+        function encodeNumber(number) {
+            return String(number)
+                .split("")
+                .map(digit => digitToLetter[Number(digit)])
+                .join("");
+        }
+
+        const equations = [];
+        const usedDigits = new Set();
+        let attempts = 0;
+        while (equations.length < (difficulty === "Hard" ? 5 : 4) && attempts < 1000) {
+            attempts++;
+            const a = randomInteger(120, 899);
+            const b = randomInteger(120, 899);
+            const sum = a + b;
+            if (sum > 999) continue;
+            const raw = `${a}${b}${sum}`;
+            raw.split("").forEach(d => usedDigits.add(Number(d)));
+            equations.push(`${encodeNumber(a)} + ${encodeNumber(b)} = ${encodeNumber(sum)}`);
+        }
+
+        const extractionDigits = answer
+            .split("")
+            .map(letter => letterToDigit[letter])
+            .join(" ");
+
+        return {
+            type: "cryptarithm",
+            difficulty,
+            plaintext: answer,
+            ciphertext: equations.join("\n") + `\n\nEXTRACT: ${extractionDigits}`,
+            parameters: {
+                letterToDigit,
+                extractionDigits
+            },
+            hints: [
+                { level: 1, title: "Structure", text: "Each letter represents exactly one decimal digit, and each digit maps to one letter." },
+                { level: 2, title: "Arithmetic", text: "Use column addition and carrying to constrain the letter-to-digit mapping." },
+                { level: 3, title: "Extraction", text: "After solving the mapping, convert the extraction digits back into letters." },
+                { level: 4, title: "Strong Hint", text: `The extracted answer has ${answer.length} letters.` }
+            ],
+            challengeInfo: [
+                { label: "TASK", value: "Solve the base-10 letter-to-digit equations, then decode the extraction digits." }
+            ],
+            generatedAt: new Date().toISOString()
+        };
+    }
+
+    function normalizeType(type) {
+        return String(type || "").toLowerCase();
+    }
+
+    function generateExpandedKey(type, difficulty) {
+        switch (normalizeType(type)) {
+            case "aristocrat-k1": return generateKeyedSubstitutionKey("k1");
+            case "aristocrat-k2": return generateKeyedSubstitutionKey("k2");
+            case "aristocrat-random": return { keyType: "RANDOM", alphabet: randomDerangement() };
+            case "patristocrat-k1": return generateKeyedSubstitutionKey("k1");
+            case "patristocrat-k2": return generateKeyedSubstitutionKey("k2");
+            case "substitution-k3": return generateKeyedSubstitutionKey("k3");
+            case "xenocrypt-k1": return generateKeyedSubstitutionKey("k1", SPANISH_ALPHABET);
+            case "xenocrypt-k2": return generateKeyedSubstitutionKey("k2", SPANISH_ALPHABET);
+            case "xenocrypt-cryptanalysis": {
+                const kind = randomItem(["k1", "k2"]);
+                return generateKeyedSubstitutionKey(kind, SPANISH_ALPHABET);
+            }
+            case "baconian-variant": return { symbolPair: randomItem(BACONIAN_SYMBOLS) };
+            case "porta-cryptanalysis": return original.generateKey("porta", difficulty);
+            case "fractionatedmorse-cryptanalysis": return original.generateKey("fractionatedmorse", difficulty);
+            case "nihilist-cryptanalysis": return original.generateKey("nihilist", difficulty);
+            case "columnar-cryptanalysis": {
+                let key = original.generateKey("columnar", difficulty).key;
+                if (key.length > 9) key = key.slice(0, 9);
+                return { key };
+            }
+            case "checkerboard":
+            case "checkerboard-cryptanalysis": return generateCheckerboardKey();
+            case "homophonic":
+            case "homophonic-cryptanalysis": return { mapping: generateHomophonicMap() };
+            default: return original.generateKey(type, difficulty);
+        }
+    }
+
+    function expandedEncrypt(type, plaintext, parameters = {}) {
+        switch (normalizeType(type)) {
+            case "aristocrat-k1": return encryptKeyedSubstitution(plaintext, parameters, "k1");
+            case "aristocrat-k2": return encryptKeyedSubstitution(plaintext, parameters, "k2");
+            case "aristocrat-random": return original.encrypt("aristocrat", plaintext, parameters);
+            case "patristocrat-k1": return encryptKeyedSubstitution(plaintext, parameters, "k1", true);
+            case "patristocrat-k2": return encryptKeyedSubstitution(plaintext, parameters, "k2", true);
+            case "substitution-k3": return encryptKeyedSubstitution(plaintext, parameters, "k3");
+            case "xenocrypt-k1": return encryptKeyedSubstitution(plaintext, parameters, "k1", false, true);
+            case "xenocrypt-k2": return encryptKeyedSubstitution(plaintext, parameters, "k2", false, true);
+            case "xenocrypt-cryptanalysis": {
+                const kind = String(parameters.keyType || "K1").toLowerCase();
+                return encryptKeyedSubstitution(plaintext, parameters, kind, false, true);
+            }
+            case "baconian-variant": return baconianVariantEncrypt(plaintext, parameters);
+            case "porta-cryptanalysis": return original.encrypt("porta", plaintext, parameters);
+            case "fractionatedmorse-cryptanalysis": return original.encrypt("fractionatedmorse", plaintext, parameters);
+            case "nihilist-cryptanalysis": return original.encrypt("nihilist", plaintext, parameters);
+            case "columnar-cryptanalysis": return original.encrypt("columnar", plaintext, parameters);
+            case "checkerboard":
+            case "checkerboard-cryptanalysis": return checkerboardEncrypt(plaintext, parameters);
+            case "homophonic":
+            case "homophonic-cryptanalysis": return homophonicEncrypt(plaintext, parameters);
+            case "cryptarithm": throw new Error("Cryptarithm puzzles are generated with CipherEngine.generate().");
+            default: return original.encrypt(type, plaintext, parameters);
+        }
+    }
+
+    function createExpandedHints(type, parameters = {}) {
+        switch (normalizeType(type)) {
+            case "aristocrat-k1":
+            case "aristocrat-k2":
+            case "aristocrat-random":
+            case "patristocrat-k1":
+            case "patristocrat-k2":
+            case "substitution-k3":
+                return [
+                    { level: 1, title: "Cipher Family", text: "This is a monoalphabetic substitution cipher." },
+                    { level: 2, title: "Pattern Hint", text: "Repeated plaintext letters always use the same ciphertext letter." },
+                    { level: 3, title: "Key Type", text: parameters.keyType === "RANDOM" ? "The substitution alphabet is random." : `This uses a ${parameters.keyType} keyed alphabet.` },
+                    ...(parameters.keyword ? [{ level: 4, title: "Strong Hint", text: `The keyword is ${parameters.keyword}.` }] : [])
+                ];
+            case "xenocrypt-k1":
+            case "xenocrypt-k2":
+            case "xenocrypt-cryptanalysis":
+                return [
+                    { level: 1, title: "Language", text: "The plaintext is Spanish." },
+                    { level: 2, title: "Substitution", text: "Treat this as a monoalphabetic substitution, including Ñ as its own letter." },
+                    { level: 3, title: "Key Type", text: `This uses a ${parameters.keyType || "K1/K2"} alphabet.` },
+                    { level: 4, title: "Strong Hint", text: `The English keyword is ${parameters.keyword}.` }
+                ];
+            case "baconian-variant":
+                return [
+                    { level: 1, title: "Binary Structure", text: "Every plaintext letter is represented by a five-symbol binary-style group." },
+                    { level: 2, title: "Two Classes", text: "Only two distinct symbol classes matter." },
+                    { level: 3, title: "Grouping", text: "Read the ciphertext in groups of five symbols." },
+                    { level: 4, title: "Strong Hint", text: `Treat ${parameters.symbolPair?.[0]} as A and ${parameters.symbolPair?.[1]} as B.` }
+                ];
+            case "fractionatedmorse-cryptanalysis":
+                return [
+                    { level: 1, title: "Cipher Family", text: "Morse symbols are fractionated into trigrams and mapped through a keyed alphabet." },
+                    { level: 2, title: "Crib", text: `Use the supplied crib: ${parameters.crib}.` },
+                    { level: 3, title: "Structure", text: "Morse letters are separated before the stream is split into groups of three." },
+                    { level: 4, title: "Strong Hint", text: `The hidden keyword is ${parameters.keyword}.` }
+                ];
+            case "porta-cryptanalysis":
+                return [
+                    { level: 1, title: "Reciprocal Cipher", text: "Porta encryption and decryption use the same transformation." },
+                    { level: 2, title: "Crib", text: `Use the supplied crib: ${parameters.crib}.` },
+                    { level: 3, title: "Keyword Pairs", text: "Keyword letters work in A/B, C/D, E/F pairs." },
+                    { level: 4, title: "Strong Hint", text: `The hidden keyword is ${parameters.keyword}.` }
+                ];
+            case "nihilist-cryptanalysis":
+                return [
+                    { level: 1, title: "Polybius", text: "Each number combines a plaintext Polybius value and a repeating-key Polybius value." },
+                    { level: 2, title: "Crib", text: `Use the supplied crib: ${parameters.crib}.` },
+                    { level: 3, title: "Keyword Length", text: `The additive keyword has ${lettersOnly(parameters.additiveKeyword).length} letters.` },
+                    { level: 4, title: "Strong Hint", text: `Polybius keyword: ${parameters.squareKeyword}; additive keyword: ${parameters.additiveKeyword}.` }
+                ];
+            case "columnar-cryptanalysis":
+                return [
+                    { level: 1, title: "Transposition", text: "The plaintext letters were rearranged by columns, not substituted." },
+                    { level: 2, title: "Crib", text: `Use the supplied crib: ${parameters.crib}.` },
+                    { level: 3, title: "Columns", text: `There are ${parameters.key.length} columns.` },
+                    { level: 4, title: "Strong Hint", text: `The hidden column order is ${parameters.key.join("-")}.` }
+                ];
+            case "checkerboard":
+                return [
+                    { level: 1, title: "Polybius", text: "Each ciphertext pair identifies a row and column in a keyed 5x5 Polybius square." },
+                    { level: 2, title: "Headers", text: "The first character of each pair is a row header; the second is a column header." },
+                    { level: 3, title: "Given", text: `The Polybius keyword is ${parameters.polybiusKeyword}.` },
+                    { level: 4, title: "Strong Hint", text: `Row keyword: ${parameters.rowKeyword}; column keyword: ${parameters.columnKeyword}.` }
+                ];
+            case "checkerboard-cryptanalysis":
+                return [
+                    { level: 1, title: "Polybius", text: "Treat each two-letter pair as one substitution symbol." },
+                    { level: 2, title: "Crib", text: `Use the supplied crib: ${parameters.crib}.` },
+                    { level: 3, title: "Headers", text: "Five row symbols and five column symbols define the checkerboard." },
+                    { level: 4, title: "Strong Hint", text: `Polybius key: ${parameters.polybiusKeyword}; row: ${parameters.rowKeyword}; column: ${parameters.columnKeyword}.` }
+                ];
+            case "homophonic":
+            case "homophonic-cryptanalysis":
+                return [
+                    { level: 1, title: "Homophones", text: "A plaintext letter can be represented by several different two-digit numbers." },
+                    { level: 2, title: "One-way Mapping", text: "Each number belongs to only one plaintext letter." },
+                    ...(parameters.crib ? [{ level: 3, title: "Crib", text: `Use the supplied crib: ${parameters.crib}.` }] : [{ level: 3, title: "Frequency", text: "Combine the frequencies of number symbols that may represent the same plaintext letter." }]),
+                    { level: 4, title: "Strong Hint", text: "Start with common English letters and repeated word patterns." }
+                ];
+            default:
+                return original.createHints(type, parameters);
+        }
+    }
+
+    function createChallengeInfo(type, parameters) {
+        switch (normalizeType(type)) {
+            case "aristocrat-k1": return [{ label: "FORMAT", value: "Aristocrat • spaces preserved • K1 alphabet" }];
+            case "aristocrat-k2": return [{ label: "FORMAT", value: "Aristocrat • spaces preserved • K2 alphabet" }];
+            case "aristocrat-random": return [{ label: "FORMAT", value: "Aristocrat • spaces preserved • random alphabet" }];
+            case "patristocrat-k1": return [{ label: "FORMAT", value: "Patristocrat • spaces removed • K1 alphabet" }];
+            case "patristocrat-k2": return [{ label: "FORMAT", value: "Patristocrat • spaces removed • K2 alphabet" }];
+            case "substitution-k3": return [{ label: "FORMAT", value: "Division C K3 monoalphabetic substitution" }];
+            case "xenocrypt-k1": return [{ label: "LANGUAGE", value: "Spanish" }, { label: "KEY TYPE", value: "K1 • English keyword" }];
+            case "xenocrypt-k2": return [{ label: "LANGUAGE", value: "Spanish" }, { label: "KEY TYPE", value: "K2 • English keyword" }];
+            case "xenocrypt-cryptanalysis": return [{ label: "LANGUAGE", value: "Spanish" }, { label: "CRIB", value: parameters.crib }];
+            case "baconian-variant": return [{ label: "TASK", value: "Identify the two symbol classes, convert them to A/B, then decode groups of five." }];
+            case "porta": return [{ label: "GIVEN KEY", value: parameters.keyword }];
+            case "porta-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
+            case "fractionatedmorse-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
+            case "nihilist": return [
+                { label: "POLYBIUS KEY", value: parameters.squareKeyword },
+                { label: "ADDITIVE KEY", value: parameters.additiveKeyword },
+                ...(parameters.crib ? [{ label: "CRIB", value: parameters.crib }] : [])
+            ];
+            case "nihilist-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
+            case "columnar-cryptanalysis": return [
+                { label: "COLUMNS", value: String(parameters.key.length) },
+                { label: "CRIB", value: parameters.crib }
+            ];
+            case "checkerboard": return [{ label: "POLYBIUS KEY", value: parameters.polybiusKeyword }];
+            case "checkerboard-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
+            case "homophonic": return [{ label: "TASK", value: "Decode the homophonic number substitution." }];
+            case "homophonic-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
+            default: return [];
+        }
+    }
+
+    function completeParameters(type, parameters, plaintext) {
+        const output = { ...parameters };
+        switch (normalizeType(type)) {
+            case "fractionatedmorse-cryptanalysis":
+                output.crib = output.crib || createCrib(plaintext, 4);
+                break;
+            case "porta-cryptanalysis":
+                output.crib = output.crib || createCrib(plaintext, 3);
+                break;
+            case "nihilist": {
+                const max = Math.max(1, lettersOnly(output.additiveKeyword).length);
+                output.crib = output.crib || createCrib(plaintext, Math.min(max, 3)).slice(0, max);
+                break;
+            }
+            case "nihilist-cryptanalysis": {
+                const min = Math.max(3, lettersOnly(output.additiveKeyword).length);
+                output.crib = output.crib || createCrib(plaintext, min);
+                break;
+            }
+            case "columnar-cryptanalysis":
+                output.crib = output.crib || createCrib(plaintext, Math.max(2, output.key.length - 1));
+                break;
+            case "checkerboard-cryptanalysis":
+            case "homophonic-cryptanalysis":
+            case "xenocrypt-cryptanalysis":
+                output.crib = output.crib || createCrib(plaintext, 5);
+                break;
+        }
+        return output;
+    }
+
+    function expandedGenerate(options = {}) {
+        const type = normalizeType(options.type);
+        const difficulty = options.difficulty || "Easy";
+
+        if (type === "cryptarithm") {
+            return cryptarithmGenerate(difficulty);
+        }
+
+        const expandedTypes = new Set([
+            "aristocrat-k1", "aristocrat-k2", "aristocrat-random",
+            "patristocrat-k1", "patristocrat-k2", "substitution-k3",
+            "xenocrypt-k1", "xenocrypt-k2", "xenocrypt-cryptanalysis",
+            "baconian-variant", "porta-cryptanalysis",
+            "fractionatedmorse-cryptanalysis", "nihilist-cryptanalysis",
+            "columnar-cryptanalysis", "checkerboard", "checkerboard-cryptanalysis",
+            "homophonic", "homophonic-cryptanalysis"
+        ]);
+
+        if (!expandedTypes.has(type)) {
+            const legacy = original.generate(options);
+            const parameters =
+                type === "nihilist"
+                    ? completeParameters(
+                        type,
+                        legacy.parameters,
+                        legacy.plaintext
+                    )
+                    : legacy.parameters;
+
+            return {
+                ...legacy,
+                parameters,
+                challengeInfo: createChallengeInfo(type, parameters)
+            };
+        }
+
+        const plaintext = type.startsWith("xenocrypt")
+            ? cleanSpanish(options.plaintext)
+            : cleanEnglish(options.plaintext);
+
+        if (!plaintext) {
+            throw new Error("Plaintext is required.");
+        }
+
+        let parameters = options.parameters || generateExpandedKey(type, difficulty);
+        parameters = completeParameters(type, parameters, plaintext);
+
+        return {
+            type,
+            difficulty,
+            plaintext,
+            ciphertext: expandedEncrypt(type, plaintext, parameters),
+            parameters,
+            hints: createExpandedHints(type, parameters),
+            challengeInfo: createChallengeInfo(type, parameters),
+            generatedAt: new Date().toISOString()
+        };
+    }
+
+    const DISPLAY_NAMES = {
+        "aristocrat-k1": "Aristocrat — K1",
+        "aristocrat-k2": "Aristocrat — K2",
+        "aristocrat-random": "Aristocrat — Random Alphabet",
+        "patristocrat-k1": "Patristocrat — K1",
+        "patristocrat-k2": "Patristocrat — K2",
+        "substitution-k3": "Monoalphabetic Substitution — K3",
+        "xenocrypt-k1": "Spanish Xenocrypt — K1",
+        "xenocrypt-k2": "Spanish Xenocrypt — K2",
+        "xenocrypt-cryptanalysis": "Spanish Xenocrypt — Cryptanalysis",
+        "baconian-variant": "Baconian — Symbol Variant",
+        "fractionatedmorse-cryptanalysis": "Fractionated Morse — Cryptanalysis",
+        "porta-cryptanalysis": "Porta — Cryptanalysis",
+        "cryptarithm": "Cryptarithm — Base 10",
+        "nihilist-cryptanalysis": "Nihilist — Cryptanalysis",
+        "columnar-cryptanalysis": "Complete Columnar — Cryptanalysis",
+        "checkerboard": "5×5 Checkerboard — Given Polybius Key",
+        "checkerboard-cryptanalysis": "5×5 Checkerboard — Cryptanalysis",
+        "homophonic": "Homophonic Cipher",
+        "homophonic-cryptanalysis": "Homophonic — Cryptanalysis"
+    };
+
+    const EXPANDED_CIPHERS = [
+        { id: "aristocrat-k1", name: DISPLAY_NAMES["aristocrat-k1"], category: "Monoalphabetic", divisions: "B/C", tier: "Regional+" },
+        { id: "aristocrat-k2", name: DISPLAY_NAMES["aristocrat-k2"], category: "Monoalphabetic", divisions: "B/C", tier: "Regional+" },
+        { id: "aristocrat-random", name: DISPLAY_NAMES["aristocrat-random"], category: "Monoalphabetic", divisions: "B/C", tier: "Regional+" },
+        { id: "patristocrat-k1", name: DISPLAY_NAMES["patristocrat-k1"], category: "Monoalphabetic", divisions: "B/C", tier: "Regional+" },
+        { id: "patristocrat-k2", name: DISPLAY_NAMES["patristocrat-k2"], category: "Monoalphabetic", divisions: "B/C", tier: "Regional+" },
+        { id: "substitution-k3", name: DISPLAY_NAMES["substitution-k3"], category: "Monoalphabetic", divisions: "C", tier: "Regional+" },
+        { id: "xenocrypt-k1", name: DISPLAY_NAMES["xenocrypt-k1"], category: "Xenocrypt", divisions: "B/C", tier: "Regional+" },
+        { id: "xenocrypt-k2", name: DISPLAY_NAMES["xenocrypt-k2"], category: "Xenocrypt", divisions: "B/C", tier: "Regional+" },
+        { id: "xenocrypt-cryptanalysis", name: DISPLAY_NAMES["xenocrypt-cryptanalysis"], category: "Xenocrypt", divisions: "B/C", tier: "State/National" },
+        { id: "baconian-variant", name: DISPLAY_NAMES["baconian-variant"], category: "Encoding", divisions: "B/C", tier: "Regional+" },
+        { id: "fractionatedmorse-cryptanalysis", name: DISPLAY_NAMES["fractionatedmorse-cryptanalysis"], category: "Morse / Fractionation", divisions: "B/C", tier: "Regional+" },
+        { id: "porta-cryptanalysis", name: DISPLAY_NAMES["porta-cryptanalysis"], category: "Polyalphabetic", divisions: "B/C", tier: "State/National" },
+        { id: "cryptarithm", name: DISPLAY_NAMES.cryptarithm, category: "Cryptarithm", divisions: "B/C", tier: "Regional+" },
+        { id: "nihilist-cryptanalysis", name: DISPLAY_NAMES["nihilist-cryptanalysis"], category: "Polybius / Additive", divisions: "B/C", tier: "State/National" },
+        { id: "columnar-cryptanalysis", name: DISPLAY_NAMES["columnar-cryptanalysis"], category: "Transposition", divisions: "B/C", tier: "Regional+" },
+        { id: "checkerboard", name: DISPLAY_NAMES.checkerboard, category: "Checkerboard", divisions: "B/C", tier: "Regional+" },
+        { id: "checkerboard-cryptanalysis", name: DISPLAY_NAMES["checkerboard-cryptanalysis"], category: "Checkerboard", divisions: "B/C", tier: "State/National" },
+        { id: "homophonic", name: DISPLAY_NAMES.homophonic, category: "Homophonic", divisions: "B/C", tier: "Regional+" },
+        { id: "homophonic-cryptanalysis", name: DISPLAY_NAMES["homophonic-cryptanalysis"], category: "Homophonic", divisions: "B/C", tier: "State/National" }
+    ];
+
+    engine.encrypt = expandedEncrypt;
+    engine.generate = expandedGenerate;
+    engine.generateKey = generateExpandedKey;
+    engine.createHints = createExpandedHints;
+    engine.createChallengeInfo = createChallengeInfo;
+
+    engine.getDisplayName = function(type) {
+        return DISPLAY_NAMES[normalizeType(type)] || original.getDisplayName(type);
+    };
+
+    engine.getSupportedCiphers = function() {
+        const legacy = original.getSupportedCiphers();
+        const replacedLegacyIds = new Set(["aristocrat", "patristocrat"]);
+        return [
+            ...legacy.filter(item => !replacedLegacyIds.has(item.id)),
+            ...EXPANDED_CIPHERS
+        ];
+    };
+
+    engine.validateParameters = function(type, parameters = {}) {
+        const normalized = normalizeType(type);
+        const expanded = new Set(EXPANDED_CIPHERS.map(item => item.id));
+        if (!expanded.has(normalized)) {
+            return original.validateParameters(type, parameters);
+        }
+        try {
+            if (["aristocrat-k1", "aristocrat-k2", "patristocrat-k1", "patristocrat-k2", "substitution-k3", "xenocrypt-k1", "xenocrypt-k2", "xenocrypt-cryptanalysis"].includes(normalized)) {
+                if (!parameters.keyword) throw new Error("A keyword is required.");
+            }
+            if (normalized === "aristocrat-random" && !engine.isValidSubstitutionAlphabet(parameters.alphabet)) {
+                throw new Error("A valid substitution alphabet is required.");
+            }
+            if (["checkerboard", "checkerboard-cryptanalysis"].includes(normalized)) {
+                if (!parameters.polybiusKeyword || !parameters.rowKeyword || !parameters.columnKeyword) {
+                    throw new Error("Checkerboard requires a Polybius key plus row and column keywords.");
+                }
+            }
+            if (["homophonic", "homophonic-cryptanalysis"].includes(normalized) && !parameters.mapping) {
+                throw new Error("Homophonic mapping is required.");
+            }
+            return { valid: true, message: "" };
+        } catch (error) {
+            return { valid: false, message: error.message };
+        }
+    };
+
+    engine.codebusters = {
+        buildSubstitutionRows,
+        buildPolybiusSquare,
+        checkerboardEncrypt,
+        homophonicEncrypt,
+        generateHomophonicMap,
+        createCrib,
+        spanishAlphabet: SPANISH_ALPHABET
+    };
+
+    engine.__codebustersExpanded = true;
+
+})();

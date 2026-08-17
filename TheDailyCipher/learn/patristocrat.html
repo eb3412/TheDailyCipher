@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patristocrat Cipher Guide | The Daily Cipher</title>
+<meta name="description" content="Learn Patristocrat Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
+<link rel="canonical" href="https://thedailycipher.org/learn/patristocrat.html">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#030712">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/codebusters-learn.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
+<main class="container cb-guide-shell">
+<section class="hero"><div class="eyebrow">MONOALPHABETIC SUBSTITUTION • CODEBUSTERS</div><h1>Patristocrat<span> Cipher</span></h1><p>Practice substitution cryptanalysis without the original spaces between words.</p></section>
+<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>Patristocrat is recreational-cryptography terminology closely related to Aristocrat. Both use monoalphabetic substitution, but a Patristocrat removes the spacing that gives Aristocrat solvers valuable word-length clues.</p>
+<p>That single formatting change makes cryptanalysis noticeably harder. Solvers must rely more heavily on repeated letter patterns, frequency information, probable fragments, and larger-scale language structure.</p><div class="cb-note">A monoalphabetic substitution cryptogram in which the original word boundaries are removed.</div></section>
+<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Encrypt using one fixed substitution alphabet just as with an Aristocrat.</p>
+<p>After substitution, remove the original word divisions. Ciphertext may then be grouped into uniform blocks only for readability.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Create a valid monoalphabetic substitution alphabet.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Substitute every plaintext letter consistently.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Remove the plaintext spaces.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Optionally regroup the ciphertext into equal-size blocks.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>Without word boundaries, many of the easiest Aristocrat clues disappear.</p>
+<p>Repeated sequences, global frequency, probable fragments, and reconstruction of likely word boundaries become especially important.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Count common letters and repeated sequences.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Search for likely digraphs and trigraphs.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Build tentative substitution mappings.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Look for places where likely word boundaries could occur.</p></div>
+<div class="cb-step"><div class="cb-step-num">5</div><p>Use emerging plaintext fragments to refine both the mapping and spacing.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Patristocrat — K1</strong><span>K1 alphabet</span><a class="cb-small-button" href="../practice/index.html?cipher=patristocrat-k1">Practice this mode</a></article>
+<article class="cb-mode"><strong>Patristocrat — K2</strong><span>K2 alphabet</span><a class="cb-small-button" href="../practice/index.html?cipher=patristocrat-k2">Practice this mode</a></article></div></section>
+<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>HELLO WORLD</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>Random substitution; spaces removed</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>Depends on substitution alphabet</strong></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Patristocrat Cipher visualizer" loading="lazy" src="../visualizers/patristocrat.html"></iframe></section>
+<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Treating the displayed five-letter groups as real words.</div>
+<div class="cb-mistake">Forgetting that the underlying substitution remains monoalphabetic.</div>
+<div class="cb-mistake">Committing too early to guessed word boundaries.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=patristocrat-k1">Practice Patristocrat Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
+</main>
+<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
+<script src="/js/navigation.js"></script>
+</body>
+</html>

@@ -426,8 +426,13 @@
             display: grid;
 
             grid-template-columns:
-                1fr
-                1fr;
+                repeat(
+                    auto-fit,
+                    minmax(
+                        90px,
+                        1fr
+                    )
+                );
 
             gap: 8px;
 
@@ -601,9 +606,9 @@
 
         <p>
 
-            Explore how classical ciphers work,
-            how they are solved, and how to
-            practice each technique.
+            Explore classical cryptography and the expanded
+            Science Olympiad Codebusters set with full guides,
+            interactive visualizers, and unlimited practice.
 
         </p>
 

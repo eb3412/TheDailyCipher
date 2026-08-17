@@ -1,7 +1,7 @@
 /*
 =========================================================
 THE DAILY CIPHER
-Difficulty Engine v2.0
+Difficulty Engine v3.0 — Codebusters Expansion
 =========================================================
 */
 
@@ -41,8 +41,10 @@ const DifficultyEngine = (() => {
                 [
                     "caesar",
                     "atbash",
-                    "railfence",
-                    "baconian"
+                    "baconian",
+                    "baconian-variant",
+                    "aristocrat-k1",
+                    "aristocrat-k2"
                 ],
 
             messageLength: {
@@ -92,11 +94,24 @@ const DifficultyEngine = (() => {
                     "affine",
                     "railfence",
                     "baconian",
+                    "baconian-variant",
+                    "aristocrat-k1",
+                    "aristocrat-k2",
+                    "aristocrat-random",
                     "aristocrat",
                     "patristocrat",
+                    "patristocrat-k1",
+                    "patristocrat-k2",
+                    "xenocrypt-k1",
+                    "xenocrypt-k2",
+                    "fractionatedmorse-cryptanalysis",
+                    "cryptarithm",
                     "porta",
-                    "columnar",
                     "nihilist",
+                    "columnar",
+                    "columnar-cryptanalysis",
+                    "checkerboard",
+                    "homophonic",
                     "hill",
                     "fractionatedmorse"
                 ],
@@ -147,11 +162,29 @@ const DifficultyEngine = (() => {
                     "affine",
                     "railfence",
                     "baconian",
+                    "baconian-variant",
+                    "aristocrat-k1",
+                    "aristocrat-k2",
+                    "aristocrat-random",
                     "aristocrat",
                     "patristocrat",
+                    "patristocrat-k1",
+                    "patristocrat-k2",
+                    "substitution-k3",
+                    "xenocrypt-k1",
+                    "xenocrypt-k2",
+                    "xenocrypt-cryptanalysis",
+                    "fractionatedmorse-cryptanalysis",
+                    "cryptarithm",
                     "porta",
-                    "columnar",
+                    "porta-cryptanalysis",
                     "nihilist",
+                    "nihilist-cryptanalysis",
+                    "columnar-cryptanalysis",
+                    "checkerboard",
+                    "checkerboard-cryptanalysis",
+                    "homophonic",
+                    "homophonic-cryptanalysis",
                     "hill",
                     "fractionatedmorse"
                 ],
@@ -308,7 +341,64 @@ const DifficultyEngine = (() => {
                 "Matrix cipher",
 
             fractionatedmorse:
-                "Morse fractionation"
+                "Morse fractionation",
+
+            "baconian-variant":
+                "Binary-style encoding",
+
+            "aristocrat-k1":
+                "Monoalphabetic substitution",
+
+            "aristocrat-k2":
+                "Monoalphabetic substitution",
+
+            "aristocrat-random":
+                "Monoalphabetic substitution",
+
+            "patristocrat-k1":
+                "Monoalphabetic substitution",
+
+            "patristocrat-k2":
+                "Monoalphabetic substitution",
+
+            "substitution-k3":
+                "Monoalphabetic substitution",
+
+            "xenocrypt-k1":
+                "Spanish monoalphabetic substitution",
+
+            "xenocrypt-k2":
+                "Spanish monoalphabetic substitution",
+
+            "xenocrypt-cryptanalysis":
+                "Spanish monoalphabetic substitution",
+
+            "fractionatedmorse-cryptanalysis":
+                "Morse fractionation",
+
+            "porta-cryptanalysis":
+                "Polyalphabetic substitution",
+
+            cryptarithm:
+                "Mathematical substitution",
+
+            "nihilist-cryptanalysis":
+                "Polybius / additive cipher",
+
+            "columnar-cryptanalysis":
+                "Transposition",
+
+            checkerboard:
+                "Polybius checkerboard",
+
+            "checkerboard-cryptanalysis":
+                "Polybius checkerboard",
+
+            homophonic:
+                "Homophonic substitution",
+
+            "homophonic-cryptanalysis":
+                "Homophonic substitution"
 
         };
 

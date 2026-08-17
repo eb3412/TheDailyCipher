@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Columnar Cipher Guide | The Daily Cipher</title>
+<meta name="description" content="Learn Complete Columnar Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
+<link rel="canonical" href="https://thedailycipher.org/learn/columnar.html">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#030712">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/codebusters-learn.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
+<main class="container cb-guide-shell">
+<section class="hero"><div class="eyebrow">TRANSPOSITION • CODEBUSTERS</div><h1>Complete Columnar<span> Cipher</span></h1><p>Write plaintext into a complete rectangle and read columns in key order.</p></section>
+<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>Columnar transposition belongs to a broad historical family of route and transposition systems. Rather than concealing letter identity, these methods conceal the original order of the letters.</p>
+<p>The complete form fills a rectangular grid completely, often using padding when necessary. The key determines the order in which columns are extracted.</p><div class="cb-note">A transposition system that places plaintext in a rectangle and reads the columns in a key-controlled order.</div></section>
+<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Write the plaintext row by row beneath numbered columns.</p>
+<p>Read the columns according to the numeric key order rather than their physical left-to-right order.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Choose the number of columns and a permutation key such as 3-1-4-2.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Write plaintext row by row into the rectangle.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Pad the last row if the complete form requires it.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Find the column labeled 1 and read downward, then column 2, continuing through the key.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>If the key is known, split the ciphertext into equal column lengths and restore them to their original physical positions.</p>
+<p>Unknown-key solving requires testing column arrangements and looking for language structure across reconstructed rows.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Determine the number of rows from the message length and column count.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Split the ciphertext into one section per column.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Place each section beneath the correct key label.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Read across the rows to recover the plaintext.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Complete Columnar</strong><span>Known column key</span><a class="cb-small-button" href="../practice/index.html?cipher=columnar">Practice this mode</a></article>
+<article class="cb-mode"><strong>Complete Columnar Cryptanalysis</strong><span>Crib + ≤9 columns</span><a class="cb-small-button" href="../practice/index.html?cipher=columnar-cryptanalysis">Practice this mode</a></article></div></section>
+<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>ATTACKATDAWN</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>3-1-4-2</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>TKAATNACDTAW</strong></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Complete Columnar Cipher visualizer" loading="lazy" src="../visualizers/columnar.html"></iframe></section>
+<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Confusing a column&#x27;s physical position with its numeric read order.</div>
+<div class="cb-mistake">Reading rows during encryption instead of columns.</div>
+<div class="cb-mistake">Forgetting padding characters in a complete rectangle.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=columnar-cryptanalysis">Practice Complete Columnar Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
+</main>
+<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
+<script src="/js/navigation.js"></script>
+</body>
+</html>

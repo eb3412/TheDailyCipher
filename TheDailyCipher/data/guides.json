@@ -1,575 +1,1308 @@
 [
-    {
-        "id": "caesar",
-        "name": "Caesar Cipher",
-        "category": "Substitution",
-        "difficulty": "Beginner",
-        "scioly": false,
-        "summary": "A substitution cipher in which every letter is moved the same distance through the alphabet.",
-        "history": [
-            "The Caesar cipher is traditionally associated with Julius Caesar and is one of the best-known examples of a shift cipher. Instead of inventing a completely new symbol for every letter, the writer moves the alphabet by a fixed amount and uses the shifted alphabet as the ciphertext alphabet.",
-            "Its modern importance is mostly educational. The cipher demonstrates several ideas that appear throughout cryptography: keys, substitution alphabets, modular wraparound, encryption, decryption, and brute-force search. Its tiny keyspace also makes it a clear example of why a cipher can be easy to use but still provide very little security."
-        ],
-        "mechanics": [
-            "Number the letters from A through Z or simply imagine two copies of the alphabet. Choose one shift and apply that same shift to every plaintext letter.",
-            "If the shift moves beyond Z, wrap back around to A. Spaces and punctuation are normally preserved because they are not part of the substitution."
-        ],
-        "encryptSteps": [
-            "Choose a shift. For example, use +3.",
-            "Take the first plaintext letter and move three places forward through the alphabet.",
-            "Repeat the exact same movement for every other letter.",
-            "When you pass Z, wrap around to the beginning of the alphabet."
-        ],
-        "solveIntro": [
-            "If the shift is unknown, there are only 25 nontrivial possibilities. That makes systematic testing practical.",
-            "Longer messages can also be attacked using recognizable words and English letter-frequency patterns."
-        ],
-        "solveSteps": [
-            "Look for likely short words and recognizable patterns.",
-            "Try shifting every letter backward by one possible amount.",
-            "Check whether the resulting text begins to form readable language.",
-            "Once one shift works, apply it to the entire ciphertext."
-        ],
-        "mistakes": [
-            "Changing the shift halfway through the message.",
-            "Forgetting alphabet wraparound, such as shifting Y by +3 to B.",
-            "Encrypting when you meant to decrypt. Decryption normally moves in the opposite direction."
-        ],
-        "example": {
-            "plaintext": "HELLO WORLD",
-            "key": "Shift +3",
-            "ciphertext": "KHOOR ZRUOG"
-        }
-    },
-
-    {
-        "id": "atbash",
-        "name": "Atbash Cipher",
-        "category": "Substitution",
-        "difficulty": "Beginner",
-        "scioly": false,
-        "summary": "A fixed substitution cipher that pairs letters from opposite ends of the alphabet.",
-        "history": [
-            "Atbash is an old substitution idea based on reversing an alphabet. In the English version, A pairs with Z, B with Y, C with X, and the pattern continues until the middle of the alphabet.",
-            "Unlike Caesar, Atbash has no adjustable key. The substitution alphabet is always the reverse of the normal alphabet. That makes it useful for learning the structure of monoalphabetic substitution without first worrying about key generation."
-        ],
-        "mechanics": [
-            "Write the normal alphabet from A to Z. Under it, write the alphabet backward from Z to A.",
-            "Replace each plaintext letter with the letter directly opposite it. The same operation also decrypts the ciphertext."
-        ],
-        "encryptSteps": [
-            "Write A through Z.",
-            "Write Z through A directly beneath it.",
-            "Find each plaintext letter on one row.",
-            "Replace it with the paired letter on the other row."
-        ],
-        "solveIntro": [
-            "Atbash is reciprocal, so encryption and decryption use the exact same substitution.",
-            "Once you recognize that the alphabet is reversed, no key search is required."
-        ],
-        "solveSteps": [
-            "Pair A with Z, B with Y, C with X, and so on.",
-            "Replace every ciphertext letter using those fixed pairs.",
-            "Preserve spaces and punctuation.",
-            "Read the recovered plaintext normally."
-        ],
-        "mistakes": [
-            "Treating Atbash like a Caesar shift.",
-            "Forgetting that the mapping is fixed and does not use a keyword.",
-            "Moving every letter a constant distance instead of reflecting its alphabet position."
-        ],
-        "example": {
-            "plaintext": "HELLO",
-            "key": "Reversed alphabet",
-            "ciphertext": "SVOOL"
-        }
-    },
-
-    {
-        "id": "affine",
-        "name": "Affine Cipher",
-        "category": "Substitution",
-        "difficulty": "Intermediate",
-        "scioly": false,
-        "summary": "A mathematical substitution cipher based on a linear transformation modulo 26.",
-        "history": [
-            "The Affine cipher is best understood as a mathematical generalization of simple alphabet shifts. Instead of only adding a fixed number, it multiplies a letter value and then adds another value.",
-            "It is commonly taught because it connects classical cryptography to modular arithmetic. The requirement that the multiplication key be invertible modulo 26 also introduces an important cryptographic idea: not every mathematical transformation can be reversed."
-        ],
-        "mechanics": [
-            "Assign A=0, B=1, through Z=25. Encrypt a letter value x with E(x) = (ax + b) mod 26.",
-            "The number a must be coprime to 26 so that a multiplicative inverse exists. The value b acts like an additional Caesar-style shift."
-        ],
-        "encryptSteps": [
-            "Convert the plaintext letter to a number from 0 through 25.",
-            "Multiply it by a.",
-            "Add b.",
-            "Reduce the result modulo 26 and convert the number back to a letter."
-        ],
-        "solveIntro": [
-            "If the key values are known, decryption uses the modular inverse of a.",
-            "If they are unknown, letter correspondences can create equations that reveal the key."
-        ],
-        "solveSteps": [
-            "Identify or determine the values of a and b.",
-            "Find the modular inverse of a modulo 26.",
-            "Subtract b from each ciphertext value.",
-            "Multiply by the inverse of a and reduce modulo 26."
-        ],
-        "mistakes": [
-            "Using an a value that has no inverse modulo 26.",
-            "Using A=1 instead of A=0 without changing the formula.",
-            "Forgetting to reduce intermediate results modulo 26."
-        ],
-        "example": {
-            "plaintext": "AFFINE CIPHER",
-            "key": "a=5, b=8",
-            "ciphertext": "IHHWVC SWFRCP"
-        }
-    },
-
-    {
-        "id": "railfence",
-        "name": "Rail Fence Cipher",
-        "category": "Transposition",
-        "difficulty": "Beginner",
-        "scioly": false,
-        "summary": "A transposition cipher that writes letters along a zigzag path and then reads the rows.",
-        "history": [
-            "Rail Fence belongs to the family of transposition ciphers. Transposition systems do not replace letters with new letters; instead, they rearrange where the original letters appear.",
-            "The method is valuable for learning because its geometry is visible. Once the zigzag path is drawn, encryption becomes a matter of writing the message along that path and reading each rail from left to right."
-        ],
-        "mechanics": [
-            "Choose the number of rails. Write the plaintext diagonally downward through those rails, then reverse direction at the bottom and travel upward.",
-            "Continue bouncing between the top and bottom rails. To encrypt, read the first rail from left to right, then the second, and continue downward."
-        ],
-        "encryptSteps": [
-            "Remove or standardize spaces according to the puzzle format.",
-            "Choose the number of rails.",
-            "Write letters in the repeating path 1 → 2 → 3 → 2 → 1 for a three-rail cipher.",
-            "Read every letter on Rail 1, then Rail 2, then Rail 3."
-        ],
-        "solveIntro": [
-            "Decryption works by reconstructing the zigzag shape before placing the ciphertext letters back into it.",
-            "If the rail count is unknown, testing several reasonable rail counts can reveal recognizable language."
-        ],
-        "solveSteps": [
-            "Draw the zigzag path for the required message length.",
-            "Count how many letter positions belong to each rail.",
-            "Split the ciphertext into sections of those sizes.",
-            "Fill each rail with its section.",
-            "Follow the zigzag path to read the plaintext."
-        ],
-        "mistakes": [
-            "Using ordinary spaces to draw a diagram. Fixed grid cells are much safer.",
-            "Continuing downward after reaching the bottom rail instead of reversing direction.",
-            "Reading vertically instead of reading each entire rail horizontally."
-        ],
-        "example": {
-            "plaintext": "WEAREDISCOVEREDFLEEATONCE",
-            "key": "3 rails",
-            "ciphertext": "WECRLTEERDSOEEFEAOCAIVDEN"
-        }
-    },
-
-    {
-        "id": "baconian",
-        "name": "Baconian Cipher",
-        "category": "Encoding",
-        "difficulty": "Beginner",
-        "scioly": true,
-        "summary": "An encoding system that represents letters using groups made from only two different symbols.",
-        "history": [
-            "Francis Bacon described a biliteral cipher in the early seventeenth century. Its central idea was that two distinguishable forms could encode a sequence of binary-like choices.",
-            "Modern puzzle versions commonly show the two forms directly as A and B. Historical and puzzle conventions can differ in how the alphabet is handled, so a solver should always check the specific alphabet or table supplied with a problem."
-        ],
-        "mechanics": [
-            "Each plaintext letter corresponds to a five-position pattern built from two symbols, normally A and B.",
-            "Five binary choices produce enough combinations to represent an alphabet. The Daily Cipher currently uses a straightforward 26-letter teaching table."
-        ],
-        "encryptSteps": [
-            "Find the plaintext letter in the Baconian table.",
-            "Replace it with its five-character A/B pattern.",
-            "Repeat for every plaintext letter.",
-            "Keep the five-symbol groups clearly separated while learning."
-        ],
-        "solveIntro": [
-            "Baconian problems become straightforward once the stream is divided into correct groups of five.",
-            "The larger challenge in disguised forms is recognizing which two visual features represent the two binary states."
-        ],
-        "solveSteps": [
-            "Identify the two distinct symbol types.",
-            "Translate them consistently to A and B.",
-            "Divide the result into groups of five.",
-            "Use the supplied Baconian alphabet to convert each group to a letter."
-        ],
-        "mistakes": [
-            "Losing track of five-symbol group boundaries.",
-            "Switching which visual feature represents A and which represents B halfway through.",
-            "Assuming every Baconian variant uses exactly the same historical alphabet."
-        ],
-        "example": {
-            "plaintext": "ABC",
-            "key": "A/B five-symbol groups",
-            "ciphertext": "AAAAA AAAAB AAABA"
-        }
-    },
-
-    {
-        "id": "aristocrat",
-        "name": "Aristocrat Cipher",
-        "category": "Substitution",
-        "difficulty": "Intermediate",
-        "scioly": true,
-        "summary": "A monoalphabetic substitution cryptogram that preserves word spacing and normally preserves punctuation.",
-        "history": [
-            "Simple substitution cryptograms are much older than the name Aristocrat. The term became strongly associated with recreational cryptography through the American Cryptogram Association, founded in 1930, which initially focused on monoalphabetic substitution puzzles.",
-            "The important feature is that every plaintext letter has one consistent ciphertext replacement. Because spaces remain visible, word structure becomes one of the solver's strongest sources of information."
-        ],
-        "mechanics": [
-            "Create a scrambled ciphertext alphabet in which each plaintext letter maps to one unique ciphertext letter.",
-            "Use that same mapping throughout the message. Word spacing is preserved, allowing repeated words and word-length patterns to remain visible."
-        ],
-        "encryptSteps": [
-            "Create a valid substitution alphabet.",
-            "Locate each plaintext letter in the normal alphabet.",
-            "Replace it using the corresponding ciphertext alphabet letter.",
-            "Preserve spaces and punctuation."
-        ],
-        "solveIntro": [
-            "Aristocrats are normally solved through language structure rather than brute-force testing of all substitution alphabets.",
-            "Word lengths, repeated letters, common digraphs, one-letter words, letter frequency, and cross-checking guesses all contribute evidence."
-        ],
-        "solveSteps": [
-            "Look first for distinctive word patterns and one-letter words.",
-            "Record every proposed letter mapping consistently.",
-            "Use common English frequencies as supporting evidence rather than absolute rules.",
-            "Test partial words and allow several clues to reinforce one another.",
-            "Backtrack when a guess creates contradictions elsewhere."
-        ],
-        "mistakes": [
-            "Assuming the most common ciphertext letter must always be E.",
-            "Making a word guess without checking the mapping everywhere else.",
-            "Allowing one ciphertext letter to represent multiple plaintext letters."
-        ],
-        "example": {
-            "plaintext": "THE SECRET MESSAGE",
-            "key": "Random monoalphabetic substitution",
-            "ciphertext": "Depends on substitution alphabet"
-        }
-    },
-
-    {
-        "id": "patristocrat",
-        "name": "Patristocrat Cipher",
-        "category": "Substitution",
-        "difficulty": "Advanced",
-        "scioly": true,
-        "summary": "A monoalphabetic substitution cryptogram in which the original word boundaries are removed.",
-        "history": [
-            "Patristocrat is recreational-cryptography terminology closely related to Aristocrat. Both use monoalphabetic substitution, but a Patristocrat removes the spacing that gives Aristocrat solvers valuable word-length clues.",
-            "That single formatting change makes cryptanalysis noticeably harder. Solvers must rely more heavily on repeated letter patterns, frequency information, probable fragments, and larger-scale language structure."
-        ],
-        "mechanics": [
-            "Encrypt using one fixed substitution alphabet just as with an Aristocrat.",
-            "After substitution, remove the original word divisions. Ciphertext may then be grouped into uniform blocks only for readability."
-        ],
-        "encryptSteps": [
-            "Create a valid monoalphabetic substitution alphabet.",
-            "Substitute every plaintext letter consistently.",
-            "Remove the plaintext spaces.",
-            "Optionally regroup the ciphertext into equal-size blocks."
-        ],
-        "solveIntro": [
-            "Without word boundaries, many of the easiest Aristocrat clues disappear.",
-            "Repeated sequences, global frequency, probable fragments, and reconstruction of likely word boundaries become especially important."
-        ],
-        "solveSteps": [
-            "Count common letters and repeated sequences.",
-            "Search for likely digraphs and trigraphs.",
-            "Build tentative substitution mappings.",
-            "Look for places where likely word boundaries could occur.",
-            "Use emerging plaintext fragments to refine both the mapping and spacing."
-        ],
-        "mistakes": [
-            "Treating the displayed five-letter groups as real words.",
-            "Forgetting that the underlying substitution remains monoalphabetic.",
-            "Committing too early to guessed word boundaries."
-        ],
-        "example": {
-            "plaintext": "HELLO WORLD",
-            "key": "Random substitution; spaces removed",
-            "ciphertext": "Depends on substitution alphabet"
-        }
-    },
-
-    {
-        "id": "porta",
-        "name": "Porta Cipher",
-        "category": "Polyalphabetic",
-        "difficulty": "Advanced",
-        "scioly": true,
-        "summary": "A reciprocal polyalphabetic cipher controlled by a repeating keyword and paired keyword letters.",
-        "history": [
-            "The Porta cipher is named for the Renaissance polymath Giambattista della Porta, who wrote extensively about secret writing and cryptanalysis. The exact historical development of reciprocal polyalphabetic systems is more complicated than a single-inventor story; similar reciprocal ideas had appeared earlier.",
-            "For a modern solver, its most distinctive feature is reciprocity: applying the same transformation with the same key can reverse the encryption."
-        ],
-        "mechanics": [
-            "A repeating keyword selects one of thirteen reciprocal substitution alphabets.",
-            "Keyword letters are paired: A/B select one alphabet, C/D the next, continuing through Y/Z."
-        ],
-        "encryptSteps": [
-            "Choose a keyword.",
-            "Repeat the keyword beneath the plaintext letters.",
-            "Determine the alphabet pair associated with each keyword letter.",
-            "Use the corresponding reciprocal substitution for each plaintext letter."
-        ],
-        "solveIntro": [
-            "When the keyword is known, Porta decryption uses the same reciprocal operation as encryption.",
-            "When the key is unknown, repeated-key behavior and language statistics become useful."
-        ],
-        "solveSteps": [
-            "Determine or obtain the keyword.",
-            "Repeat the keyword beneath the ciphertext.",
-            "Choose the correct reciprocal alphabet for each position.",
-            "Apply the same Porta substitution operation to recover plaintext."
-        ],
-        "mistakes": [
-            "Treating Porta exactly like Vigenère addition.",
-            "Forgetting that keyword letters operate in pairs.",
-            "Advancing the keyword on spaces or punctuation when the convention says not to."
-        ],
-        "example": {
-            "plaintext": "HELLO WORLD",
-            "key": "SECRET",
-            "ciphertext": "Depends on Porta tableau"
-        }
-    },
-
-    {
-        "id": "columnar",
-        "name": "Complete Columnar Transposition",
-        "category": "Transposition",
-        "difficulty": "Advanced",
-        "scioly": true,
-        "summary": "A transposition system that places plaintext in a rectangle and reads the columns in a key-controlled order.",
-        "history": [
-            "Columnar transposition belongs to a broad historical family of route and transposition systems. Rather than concealing letter identity, these methods conceal the original order of the letters.",
-            "The complete form fills a rectangular grid completely, often using padding when necessary. The key determines the order in which columns are extracted."
-        ],
-        "mechanics": [
-            "Write the plaintext row by row beneath numbered columns.",
-            "Read the columns according to the numeric key order rather than their physical left-to-right order."
-        ],
-        "encryptSteps": [
-            "Choose the number of columns and a permutation key such as 3-1-4-2.",
-            "Write plaintext row by row into the rectangle.",
-            "Pad the last row if the complete form requires it.",
-            "Find the column labeled 1 and read downward, then column 2, continuing through the key."
-        ],
-        "solveIntro": [
-            "If the key is known, split the ciphertext into equal column lengths and restore them to their original physical positions.",
-            "Unknown-key solving requires testing column arrangements and looking for language structure across reconstructed rows."
-        ],
-        "solveSteps": [
-            "Determine the number of rows from the message length and column count.",
-            "Split the ciphertext into one section per column.",
-            "Place each section beneath the correct key label.",
-            "Read across the rows to recover the plaintext."
-        ],
-        "mistakes": [
-            "Confusing a column's physical position with its numeric read order.",
-            "Reading rows during encryption instead of columns.",
-            "Forgetting padding characters in a complete rectangle."
-        ],
-        "example": {
-            "plaintext": "ATTACKATDAWN",
-            "key": "3-1-4-2",
-            "ciphertext": "TKAATNACDTAW"
-        }
-    },
-
-    {
+  {
+    "id": "caesar",
+    "name": "Caesar Cipher",
+    "category": "Substitution",
+    "difficulty": "Beginner",
+    "scioly": false,
+    "summary": "A substitution cipher in which every letter is moved the same distance through the alphabet.",
+    "history": [
+      "The Caesar cipher is traditionally associated with Julius Caesar and is one of the best-known examples of a shift cipher. Instead of inventing a completely new symbol for every letter, the writer moves the alphabet by a fixed amount and uses the shifted alphabet as the ciphertext alphabet.",
+      "Its modern importance is mostly educational. The cipher demonstrates several ideas that appear throughout cryptography: keys, substitution alphabets, modular wraparound, encryption, decryption, and brute-force search. Its tiny keyspace also makes it a clear example of why a cipher can be easy to use but still provide very little security."
+    ],
+    "mechanics": [
+      "Number the letters from A through Z or simply imagine two copies of the alphabet. Choose one shift and apply that same shift to every plaintext letter.",
+      "If the shift moves beyond Z, wrap back around to A. Spaces and punctuation are normally preserved because they are not part of the substitution."
+    ],
+    "encryptSteps": [
+      "Choose a shift. For example, use +3.",
+      "Take the first plaintext letter and move three places forward through the alphabet.",
+      "Repeat the exact same movement for every other letter.",
+      "When you pass Z, wrap around to the beginning of the alphabet."
+    ],
+    "solveIntro": [
+      "If the shift is unknown, there are only 25 nontrivial possibilities. That makes systematic testing practical.",
+      "Longer messages can also be attacked using recognizable words and English letter-frequency patterns."
+    ],
+    "solveSteps": [
+      "Look for likely short words and recognizable patterns.",
+      "Try shifting every letter backward by one possible amount.",
+      "Check whether the resulting text begins to form readable language.",
+      "Once one shift works, apply it to the entire ciphertext."
+    ],
+    "mistakes": [
+      "Changing the shift halfway through the message.",
+      "Forgetting alphabet wraparound, such as shifting Y by +3 to B.",
+      "Encrypting when you meant to decrypt. Decryption normally moves in the opposite direction."
+    ],
+    "example": {
+      "plaintext": "HELLO WORLD",
+      "key": "Shift +3",
+      "ciphertext": "KHOOR ZRUOG"
+    }
+  },
+  {
+    "id": "atbash",
+    "name": "Atbash Cipher",
+    "category": "Substitution",
+    "difficulty": "Beginner",
+    "scioly": false,
+    "summary": "A fixed substitution cipher that pairs letters from opposite ends of the alphabet.",
+    "history": [
+      "Atbash is an old substitution idea based on reversing an alphabet. In the English version, A pairs with Z, B with Y, C with X, and the pattern continues until the middle of the alphabet.",
+      "Unlike Caesar, Atbash has no adjustable key. The substitution alphabet is always the reverse of the normal alphabet. That makes it useful for learning the structure of monoalphabetic substitution without first worrying about key generation."
+    ],
+    "mechanics": [
+      "Write the normal alphabet from A to Z. Under it, write the alphabet backward from Z to A.",
+      "Replace each plaintext letter with the letter directly opposite it. The same operation also decrypts the ciphertext."
+    ],
+    "encryptSteps": [
+      "Write A through Z.",
+      "Write Z through A directly beneath it.",
+      "Find each plaintext letter on one row.",
+      "Replace it with the paired letter on the other row."
+    ],
+    "solveIntro": [
+      "Atbash is reciprocal, so encryption and decryption use the exact same substitution.",
+      "Once you recognize that the alphabet is reversed, no key search is required."
+    ],
+    "solveSteps": [
+      "Pair A with Z, B with Y, C with X, and so on.",
+      "Replace every ciphertext letter using those fixed pairs.",
+      "Preserve spaces and punctuation.",
+      "Read the recovered plaintext normally."
+    ],
+    "mistakes": [
+      "Treating Atbash like a Caesar shift.",
+      "Forgetting that the mapping is fixed and does not use a keyword.",
+      "Moving every letter a constant distance instead of reflecting its alphabet position."
+    ],
+    "example": {
+      "plaintext": "HELLO",
+      "key": "Reversed alphabet",
+      "ciphertext": "SVOOL"
+    }
+  },
+  {
+    "id": "affine",
+    "name": "Affine Cipher",
+    "category": "Substitution",
+    "difficulty": "Intermediate",
+    "scioly": false,
+    "summary": "A mathematical substitution cipher based on a linear transformation modulo 26.",
+    "history": [
+      "The Affine cipher is best understood as a mathematical generalization of simple alphabet shifts. Instead of only adding a fixed number, it multiplies a letter value and then adds another value.",
+      "It is commonly taught because it connects classical cryptography to modular arithmetic. The requirement that the multiplication key be invertible modulo 26 also introduces an important cryptographic idea: not every mathematical transformation can be reversed."
+    ],
+    "mechanics": [
+      "Assign A=0, B=1, through Z=25. Encrypt a letter value x with E(x) = (ax + b) mod 26.",
+      "The number a must be coprime to 26 so that a multiplicative inverse exists. The value b acts like an additional Caesar-style shift."
+    ],
+    "encryptSteps": [
+      "Convert the plaintext letter to a number from 0 through 25.",
+      "Multiply it by a.",
+      "Add b.",
+      "Reduce the result modulo 26 and convert the number back to a letter."
+    ],
+    "solveIntro": [
+      "If the key values are known, decryption uses the modular inverse of a.",
+      "If they are unknown, letter correspondences can create equations that reveal the key."
+    ],
+    "solveSteps": [
+      "Identify or determine the values of a and b.",
+      "Find the modular inverse of a modulo 26.",
+      "Subtract b from each ciphertext value.",
+      "Multiply by the inverse of a and reduce modulo 26."
+    ],
+    "mistakes": [
+      "Using an a value that has no inverse modulo 26.",
+      "Using A=1 instead of A=0 without changing the formula.",
+      "Forgetting to reduce intermediate results modulo 26."
+    ],
+    "example": {
+      "plaintext": "AFFINE CIPHER",
+      "key": "a=5, b=8",
+      "ciphertext": "IHHWVC SWFRCP"
+    }
+  },
+  {
+    "id": "railfence",
+    "name": "Rail Fence Cipher",
+    "category": "Transposition",
+    "difficulty": "Beginner",
+    "scioly": false,
+    "summary": "A transposition cipher that writes letters along a zigzag path and then reads the rows.",
+    "history": [
+      "Rail Fence belongs to the family of transposition ciphers. Transposition systems do not replace letters with new letters; instead, they rearrange where the original letters appear.",
+      "The method is valuable for learning because its geometry is visible. Once the zigzag path is drawn, encryption becomes a matter of writing the message along that path and reading each rail from left to right."
+    ],
+    "mechanics": [
+      "Choose the number of rails. Write the plaintext diagonally downward through those rails, then reverse direction at the bottom and travel upward.",
+      "Continue bouncing between the top and bottom rails. To encrypt, read the first rail from left to right, then the second, and continue downward."
+    ],
+    "encryptSteps": [
+      "Remove or standardize spaces according to the puzzle format.",
+      "Choose the number of rails.",
+      "Write letters in the repeating path 1 → 2 → 3 → 2 → 1 for a three-rail cipher.",
+      "Read every letter on Rail 1, then Rail 2, then Rail 3."
+    ],
+    "solveIntro": [
+      "Decryption works by reconstructing the zigzag shape before placing the ciphertext letters back into it.",
+      "If the rail count is unknown, testing several reasonable rail counts can reveal recognizable language."
+    ],
+    "solveSteps": [
+      "Draw the zigzag path for the required message length.",
+      "Count how many letter positions belong to each rail.",
+      "Split the ciphertext into sections of those sizes.",
+      "Fill each rail with its section.",
+      "Follow the zigzag path to read the plaintext."
+    ],
+    "mistakes": [
+      "Using ordinary spaces to draw a diagram. Fixed grid cells are much safer.",
+      "Continuing downward after reaching the bottom rail instead of reversing direction.",
+      "Reading vertically instead of reading each entire rail horizontally."
+    ],
+    "example": {
+      "plaintext": "WEAREDISCOVEREDFLEEATONCE",
+      "key": "3 rails",
+      "ciphertext": "WECRLTEERDSOEEFEAOCAIVDEN"
+    }
+  },
+  {
+    "id": "baconian",
+    "name": "Baconian Cipher",
+    "category": "Encoding",
+    "difficulty": "Beginner",
+    "scioly": true,
+    "summary": "An encoding system that represents letters using groups made from only two different symbols.",
+    "history": [
+      "Francis Bacon described a biliteral cipher in the early seventeenth century. Its central idea was that two distinguishable forms could encode a sequence of binary-like choices.",
+      "Modern puzzle versions commonly show the two forms directly as A and B. Historical and puzzle conventions can differ in how the alphabet is handled, so a solver should always check the specific alphabet or table supplied with a problem."
+    ],
+    "mechanics": [
+      "Each plaintext letter corresponds to a five-position pattern built from two symbols, normally A and B.",
+      "Five binary choices produce enough combinations to represent an alphabet. The Daily Cipher currently uses a straightforward 26-letter teaching table."
+    ],
+    "encryptSteps": [
+      "Find the plaintext letter in the Baconian table.",
+      "Replace it with its five-character A/B pattern.",
+      "Repeat for every plaintext letter.",
+      "Keep the five-symbol groups clearly separated while learning."
+    ],
+    "solveIntro": [
+      "Baconian problems become straightforward once the stream is divided into correct groups of five.",
+      "The larger challenge in disguised forms is recognizing which two visual features represent the two binary states."
+    ],
+    "solveSteps": [
+      "Identify the two distinct symbol types.",
+      "Translate them consistently to A and B.",
+      "Divide the result into groups of five.",
+      "Use the supplied Baconian alphabet to convert each group to a letter."
+    ],
+    "mistakes": [
+      "Losing track of five-symbol group boundaries.",
+      "Switching which visual feature represents A and which represents B halfway through.",
+      "Assuming every Baconian variant uses exactly the same historical alphabet."
+    ],
+    "example": {
+      "plaintext": "ABC",
+      "key": "A/B five-symbol groups",
+      "ciphertext": "AAAAA AAAAB AAABA"
+    }
+  },
+  {
+    "id": "aristocrat",
+    "name": "Aristocrat Cipher",
+    "category": "Substitution",
+    "difficulty": "Intermediate",
+    "scioly": true,
+    "summary": "A monoalphabetic substitution cryptogram that preserves word spacing and normally preserves punctuation.",
+    "history": [
+      "Simple substitution cryptograms are much older than the name Aristocrat. The term became strongly associated with recreational cryptography through the American Cryptogram Association, founded in 1930, which initially focused on monoalphabetic substitution puzzles.",
+      "The important feature is that every plaintext letter has one consistent ciphertext replacement. Because spaces remain visible, word structure becomes one of the solver's strongest sources of information."
+    ],
+    "mechanics": [
+      "Create a scrambled ciphertext alphabet in which each plaintext letter maps to one unique ciphertext letter.",
+      "Use that same mapping throughout the message. Word spacing is preserved, allowing repeated words and word-length patterns to remain visible."
+    ],
+    "encryptSteps": [
+      "Create a valid substitution alphabet.",
+      "Locate each plaintext letter in the normal alphabet.",
+      "Replace it using the corresponding ciphertext alphabet letter.",
+      "Preserve spaces and punctuation."
+    ],
+    "solveIntro": [
+      "Aristocrats are normally solved through language structure rather than brute-force testing of all substitution alphabets.",
+      "Word lengths, repeated letters, common digraphs, one-letter words, letter frequency, and cross-checking guesses all contribute evidence."
+    ],
+    "solveSteps": [
+      "Look first for distinctive word patterns and one-letter words.",
+      "Record every proposed letter mapping consistently.",
+      "Use common English frequencies as supporting evidence rather than absolute rules.",
+      "Test partial words and allow several clues to reinforce one another.",
+      "Backtrack when a guess creates contradictions elsewhere."
+    ],
+    "mistakes": [
+      "Assuming the most common ciphertext letter must always be E.",
+      "Making a word guess without checking the mapping everywhere else.",
+      "Allowing one ciphertext letter to represent multiple plaintext letters."
+    ],
+    "example": {
+      "plaintext": "THE SECRET MESSAGE",
+      "key": "Random monoalphabetic substitution",
+      "ciphertext": "Depends on substitution alphabet"
+    }
+  },
+  {
+    "id": "patristocrat",
+    "name": "Patristocrat Cipher",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A monoalphabetic substitution cryptogram in which the original word boundaries are removed.",
+    "history": [
+      "Patristocrat is recreational-cryptography terminology closely related to Aristocrat. Both use monoalphabetic substitution, but a Patristocrat removes the spacing that gives Aristocrat solvers valuable word-length clues.",
+      "That single formatting change makes cryptanalysis noticeably harder. Solvers must rely more heavily on repeated letter patterns, frequency information, probable fragments, and larger-scale language structure."
+    ],
+    "mechanics": [
+      "Encrypt using one fixed substitution alphabet just as with an Aristocrat.",
+      "After substitution, remove the original word divisions. Ciphertext may then be grouped into uniform blocks only for readability."
+    ],
+    "encryptSteps": [
+      "Create a valid monoalphabetic substitution alphabet.",
+      "Substitute every plaintext letter consistently.",
+      "Remove the plaintext spaces.",
+      "Optionally regroup the ciphertext into equal-size blocks."
+    ],
+    "solveIntro": [
+      "Without word boundaries, many of the easiest Aristocrat clues disappear.",
+      "Repeated sequences, global frequency, probable fragments, and reconstruction of likely word boundaries become especially important."
+    ],
+    "solveSteps": [
+      "Count common letters and repeated sequences.",
+      "Search for likely digraphs and trigraphs.",
+      "Build tentative substitution mappings.",
+      "Look for places where likely word boundaries could occur.",
+      "Use emerging plaintext fragments to refine both the mapping and spacing."
+    ],
+    "mistakes": [
+      "Treating the displayed five-letter groups as real words.",
+      "Forgetting that the underlying substitution remains monoalphabetic.",
+      "Committing too early to guessed word boundaries."
+    ],
+    "example": {
+      "plaintext": "HELLO WORLD",
+      "key": "Random substitution; spaces removed",
+      "ciphertext": "Depends on substitution alphabet"
+    }
+  },
+  {
+    "id": "porta",
+    "name": "Porta Cipher",
+    "category": "Polyalphabetic",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A reciprocal polyalphabetic cipher controlled by a repeating keyword and paired keyword letters.",
+    "history": [
+      "The Porta cipher is named for the Renaissance polymath Giambattista della Porta, who wrote extensively about secret writing and cryptanalysis. The exact historical development of reciprocal polyalphabetic systems is more complicated than a single-inventor story; similar reciprocal ideas had appeared earlier.",
+      "For a modern solver, its most distinctive feature is reciprocity: applying the same transformation with the same key can reverse the encryption."
+    ],
+    "mechanics": [
+      "A repeating keyword selects one of thirteen reciprocal substitution alphabets.",
+      "Keyword letters are paired: A/B select one alphabet, C/D the next, continuing through Y/Z."
+    ],
+    "encryptSteps": [
+      "Choose a keyword.",
+      "Repeat the keyword beneath the plaintext letters.",
+      "Determine the alphabet pair associated with each keyword letter.",
+      "Use the corresponding reciprocal substitution for each plaintext letter."
+    ],
+    "solveIntro": [
+      "When the keyword is known, Porta decryption uses the same reciprocal operation as encryption.",
+      "When the key is unknown, repeated-key behavior and language statistics become useful."
+    ],
+    "solveSteps": [
+      "Determine or obtain the keyword.",
+      "Repeat the keyword beneath the ciphertext.",
+      "Choose the correct reciprocal alphabet for each position.",
+      "Apply the same Porta substitution operation to recover plaintext."
+    ],
+    "mistakes": [
+      "Treating Porta exactly like Vigenère addition.",
+      "Forgetting that keyword letters operate in pairs.",
+      "Advancing the keyword on spaces or punctuation when the convention says not to."
+    ],
+    "example": {
+      "plaintext": "HELLO WORLD",
+      "key": "SECRET",
+      "ciphertext": "Depends on Porta tableau"
+    }
+  },
+  {
+    "id": "columnar",
+    "name": "Complete Columnar Transposition",
+    "category": "Transposition",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A transposition system that places plaintext in a rectangle and reads the columns in a key-controlled order.",
+    "history": [
+      "Columnar transposition belongs to a broad historical family of route and transposition systems. Rather than concealing letter identity, these methods conceal the original order of the letters.",
+      "The complete form fills a rectangular grid completely, often using padding when necessary. The key determines the order in which columns are extracted."
+    ],
+    "mechanics": [
+      "Write the plaintext row by row beneath numbered columns.",
+      "Read the columns according to the numeric key order rather than their physical left-to-right order."
+    ],
+    "encryptSteps": [
+      "Choose the number of columns and a permutation key such as 3-1-4-2.",
+      "Write plaintext row by row into the rectangle.",
+      "Pad the last row if the complete form requires it.",
+      "Find the column labeled 1 and read downward, then column 2, continuing through the key."
+    ],
+    "solveIntro": [
+      "If the key is known, split the ciphertext into equal column lengths and restore them to their original physical positions.",
+      "Unknown-key solving requires testing column arrangements and looking for language structure across reconstructed rows."
+    ],
+    "solveSteps": [
+      "Determine the number of rows from the message length and column count.",
+      "Split the ciphertext into one section per column.",
+      "Place each section beneath the correct key label.",
+      "Read across the rows to recover the plaintext."
+    ],
+    "mistakes": [
+      "Confusing a column's physical position with its numeric read order.",
+      "Reading rows during encryption instead of columns.",
+      "Forgetting padding characters in a complete rectangle."
+    ],
+    "example": {
+      "plaintext": "ATTACKATDAWN",
+      "key": "3-1-4-2",
+      "ciphertext": "TKAATNACDTAW"
+    }
+  },
+  {
     "id": "nihilist",
     "name": "Nihilist Cipher",
     "category": "Polybius",
     "difficulty": "Advanced",
     "scioly": true,
-
     "summary": "A numerical cipher built in layers. First, letters are converted into coordinates using a 5×5 letter grid called a Polybius square. Then numbers from a repeating keyword are added to those coordinates.",
-
     "history": [
-        "The Nihilist cipher is associated with hand-cipher systems used by Russian revolutionary groups in the late nineteenth century. Despite the dramatic name, the important thing for learning the cipher is its structure: it combines a substitution system with numerical addition.",
-
-        "Unlike a Caesar or Aristocrat cipher, its ciphertext is normally a series of numbers rather than letters. Those numbers are produced in two stages. Understanding those two stages separately makes the cipher much easier to understand.",
-
-        "The first stage is a Polybius square. The second stage is a repeating numerical key. If you understand both pieces individually, the full Nihilist cipher is mostly just addition."
+      "The Nihilist cipher is associated with hand-cipher systems used by Russian revolutionary groups in the late nineteenth century. Despite the dramatic name, the important thing for learning the cipher is its structure: it combines a substitution system with numerical addition.",
+      "Unlike a Caesar or Aristocrat cipher, its ciphertext is normally a series of numbers rather than letters. Those numbers are produced in two stages. Understanding those two stages separately makes the cipher much easier to understand.",
+      "The first stage is a Polybius square. The second stage is a repeating numerical key. If you understand both pieces individually, the full Nihilist cipher is mostly just addition."
     ],
-
     "mechanics": [
-        "Start with a 5×5 grid. Because 25 spaces are available but the English alphabet has 26 letters, I and J are commonly combined into one position. Every square in the grid receives a two-digit coordinate. The first digit tells you the row and the second digit tells you the column.",
-
-        "For example, the top-left square has coordinate 11. The square immediately to its right is 12. The first square in the second row is 21. Therefore a coordinate such as 43 means row 4, column 3.",
-
-        "A keyed Polybius square does not simply place the alphabet into the grid from A onward. Instead, it begins with the unique letters of a keyword. If the keyword is CIPHER, we first write C, I, P, H, E, R while ignoring repeated letters. Then we fill the remaining empty cells with unused letters of the alphabet.",
-
-        "That gives every plaintext letter a numerical coordinate. If H happens to occupy row 1, column 4, then H becomes 14. If E occupies row 1, column 5, E becomes 15.",
-
-        "Now introduce a second keyword called the additive keyword. Suppose the additive keyword is SECRET. Repeat SECRET underneath the plaintext until every plaintext letter has a key letter.",
-
-        "The key letters are converted into coordinates using the exact same Polybius square. Then, position by position, add the plaintext coordinate and key coordinate together. The sum becomes the ciphertext number.",
-
-        "So conceptually the cipher is: PLAINTEXT LETTER → POLYBIUS NUMBER, KEYWORD LETTER → POLYBIUS NUMBER, then PLAINTEXT NUMBER + KEY NUMBER = CIPHERTEXT NUMBER."
+      "Start with a 5×5 grid. Because 25 spaces are available but the English alphabet has 26 letters, I and J are commonly combined into one position. Every square in the grid receives a two-digit coordinate. The first digit tells you the row and the second digit tells you the column.",
+      "For example, the top-left square has coordinate 11. The square immediately to its right is 12. The first square in the second row is 21. Therefore a coordinate such as 43 means row 4, column 3.",
+      "A keyed Polybius square does not simply place the alphabet into the grid from A onward. Instead, it begins with the unique letters of a keyword. If the keyword is CIPHER, we first write C, I, P, H, E, R while ignoring repeated letters. Then we fill the remaining empty cells with unused letters of the alphabet.",
+      "That gives every plaintext letter a numerical coordinate. If H happens to occupy row 1, column 4, then H becomes 14. If E occupies row 1, column 5, E becomes 15.",
+      "Now introduce a second keyword called the additive keyword. Suppose the additive keyword is SECRET. Repeat SECRET underneath the plaintext until every plaintext letter has a key letter.",
+      "The key letters are converted into coordinates using the exact same Polybius square. Then, position by position, add the plaintext coordinate and key coordinate together. The sum becomes the ciphertext number.",
+      "So conceptually the cipher is: PLAINTEXT LETTER → POLYBIUS NUMBER, KEYWORD LETTER → POLYBIUS NUMBER, then PLAINTEXT NUMBER + KEY NUMBER = CIPHERTEXT NUMBER."
     ],
-
     "encryptSteps": [
-        "Build the 5×5 Polybius square. Write the square keyword first, removing repeated letters, and then fill remaining cells with unused alphabet letters.",
-
-        "Label the rows and columns 1 through 5. Every letter now has a two-digit coordinate such as 11, 24, or 53.",
-
-        "Write the plaintext. Convert each plaintext letter into its Polybius coordinate.",
-
-        "Write the additive keyword repeatedly underneath the plaintext until it reaches the same number of letters.",
-
-        "Convert every additive-keyword letter into a coordinate using the SAME Polybius square.",
-
-        "Add each plaintext coordinate to the key coordinate directly beneath it.",
-
-        "Write those sums as the ciphertext. This is why Nihilist ciphertext often contains numbers such as 57, 72, or 84 instead of ordinary 11–55 Polybius coordinates."
+      "Build the 5×5 Polybius square. Write the square keyword first, removing repeated letters, and then fill remaining cells with unused alphabet letters.",
+      "Label the rows and columns 1 through 5. Every letter now has a two-digit coordinate such as 11, 24, or 53.",
+      "Write the plaintext. Convert each plaintext letter into its Polybius coordinate.",
+      "Write the additive keyword repeatedly underneath the plaintext until it reaches the same number of letters.",
+      "Convert every additive-keyword letter into a coordinate using the SAME Polybius square.",
+      "Add each plaintext coordinate to the key coordinate directly beneath it.",
+      "Write those sums as the ciphertext. This is why Nihilist ciphertext often contains numbers such as 57, 72, or 84 instead of ordinary 11–55 Polybius coordinates."
     ],
-
     "solveIntro": [
-        "To decrypt a Nihilist cipher when both keywords are known, reverse the process. The final encryption operation was addition, so the first decryption operation is subtraction.",
-
-        "The important idea is that ciphertext numbers themselves are not direct Polybius coordinates. You must first remove the additive-key value. Only then do you get a coordinate that can be looked up in the square.",
-
-        "Suppose one ciphertext value is 57 and the corresponding repeated-key letter has Polybius value 23. Subtract 23 from 57. The result is 34. You then look at row 3, column 4 of the Polybius square to recover the plaintext letter."
+      "To decrypt a Nihilist cipher when both keywords are known, reverse the process. The final encryption operation was addition, so the first decryption operation is subtraction.",
+      "The important idea is that ciphertext numbers themselves are not direct Polybius coordinates. You must first remove the additive-key value. Only then do you get a coordinate that can be looked up in the square.",
+      "Suppose one ciphertext value is 57 and the corresponding repeated-key letter has Polybius value 23. Subtract 23 from 57. The result is 34. You then look at row 3, column 4 of the Polybius square to recover the plaintext letter."
     ],
-
     "solveSteps": [
-        "Rebuild the exact keyed Polybius square used for encryption.",
-
-        "Repeat the additive keyword until it lines up with every ciphertext number.",
-
-        "Convert each additive-keyword letter into its Polybius coordinate.",
-
-        "Subtract each key coordinate from the ciphertext number above it.",
-
-        "The result should be a valid coordinate whose two digits are both between 1 and 5.",
-
-        "Look up that coordinate in the Polybius square.",
-
-        "Repeat for every number to reconstruct the plaintext."
+      "Rebuild the exact keyed Polybius square used for encryption.",
+      "Repeat the additive keyword until it lines up with every ciphertext number.",
+      "Convert each additive-keyword letter into its Polybius coordinate.",
+      "Subtract each key coordinate from the ciphertext number above it.",
+      "The result should be a valid coordinate whose two digits are both between 1 and 5.",
+      "Look up that coordinate in the Polybius square.",
+      "Repeat for every number to reconstruct the plaintext."
     ],
-
     "mistakes": [
-        "Trying to look up ciphertext numbers such as 57 directly in the Polybius square. A 5×5 Polybius coordinate can only contain row and column digits from 1 through 5.",
-
-        "Using a normal alphabetical Polybius square when the puzzle specifies a keyed square.",
-
-        "Using one square for the plaintext and another for the additive keyword. Both must use the same square.",
-
-        "Adding the digits separately. If one coordinate is 24 and another is 31, calculate 24 + 31 = 55. Do not calculate 2+3 and 4+1 as separate operations.",
-
-        "Forgetting the I/J convention when building a 5×5 alphabet.",
-
-        "Failing to repeat the additive keyword correctly across the entire message."
+      "Trying to look up ciphertext numbers such as 57 directly in the Polybius square. A 5×5 Polybius coordinate can only contain row and column digits from 1 through 5.",
+      "Using a normal alphabetical Polybius square when the puzzle specifies a keyed square.",
+      "Using one square for the plaintext and another for the additive keyword. Both must use the same square.",
+      "Adding the digits separately. If one coordinate is 24 and another is 31, calculate 24 + 31 = 55. Do not calculate 2+3 and 4+1 as separate operations.",
+      "Forgetting the I/J convention when building a 5×5 alphabet.",
+      "Failing to repeat the additive keyword correctly across the entire message."
     ],
-
     "example": {
-        "plaintext": "HELLO",
-        "key": "Square keyword: CIPHER • Additive keyword: SECRET",
-        "ciphertext": "57 30 44 54 56"
+      "plaintext": "HELLO",
+      "key": "Square keyword: CIPHER • Additive keyword: SECRET",
+      "ciphertext": "57 30 44 54 56"
     }
-},
-
-    {
-        "id": "hill",
-        "name": "Hill Cipher",
-        "category": "Matrix",
-        "difficulty": "Advanced",
-        "scioly": true,
-        "summary": "A polygraphic cipher that encrypts blocks of letters using matrix multiplication modulo 26.",
-        "history": [
-            "Mathematician Lester S. Hill introduced his algebraic approach to cryptography in a 1929 paper. Unlike simple substitution systems that transform one letter at a time, the Hill cipher can mix several letters together in one mathematical operation.",
-            "The cipher is historically important as an elegant connection between linear algebra and cryptography. It is not a modern secure encryption system, but it remains an excellent way to learn modular matrices, inverses, vectors, and block encryption."
-        ],
-        "mechanics": [
-            "Convert letters to numbers from 0 through 25 and group them into vectors whose length matches the matrix size.",
-            "Multiply each vector by an invertible key matrix and reduce each result modulo 26."
-        ],
-        "encryptSteps": [
-            "Choose an invertible key matrix modulo 26.",
-            "Convert the plaintext block into a numerical vector.",
-            "Multiply the matrix by the vector.",
-            "Reduce every result modulo 26.",
-            "Convert the resulting numbers back to letters."
-        ],
-        "solveIntro": [
-            "With a known matrix, decryption requires the inverse matrix modulo 26.",
-            "The determinant must be invertible modulo 26; otherwise a valid decryption matrix does not exist."
-        ],
-        "solveSteps": [
-            "Find the determinant of the key matrix.",
-            "Find its modular inverse.",
-            "Construct the inverse matrix modulo 26.",
-            "Multiply ciphertext vectors by that inverse matrix.",
-            "Convert the resulting values back to plaintext letters."
-        ],
-        "mistakes": [
-            "Using a matrix that is not invertible modulo 26.",
-            "Mixing row-vector and column-vector conventions.",
-            "Forgetting to reduce negative or large values modulo 26."
-        ],
-        "example": {
-            "plaintext": "HELP",
-            "key": "[[3,3],[2,5]]",
-            "ciphertext": "HIAT"
-        }
-    },
-
-    {
-        "id": "fractionatedmorse",
-        "name": "Fractionated Morse Cipher",
-        "category": "Fractionation",
-        "difficulty": "Advanced",
-        "scioly": true,
-        "summary": "A cipher that converts plaintext into Morse code, groups the Morse stream into triples, and substitutes those triples through a keyed alphabet.",
-        "history": [
-            "Fractionated Morse belongs to the recreational fractionation systems popularized through puzzle cryptography. It combines the familiar dot-and-dash structure of Morse code with a substitution stage.",
-            "The method is interesting because one ciphertext letter usually represents information spanning parts of multiple plaintext letters. That breaks the direct one-plaintext-letter-to-one-ciphertext-letter relationship found in ordinary substitution."
-        ],
-        "mechanics": [
-            "Convert plaintext letters to Morse. Add separators between letters and stronger separators between words.",
-            "Divide the resulting dot-dash-separator stream into groups of three and map each group through a keyed alphabet."
-        ],
-        "encryptSteps": [
-            "Create a keyed ciphertext alphabet.",
-            "Translate the plaintext into Morse symbols.",
-            "Insert the required letter and word separators.",
-            "Split the continuous stream into groups of three.",
-            "Replace each trigram with the corresponding keyed alphabet letter."
-        ],
-        "solveIntro": [
-            "With the keyword known, reverse the keyed substitution first.",
-            "The recovered trigrams reconstruct the Morse stream, which can then be divided at separators and translated normally."
-        ],
-        "solveSteps": [
-            "Reconstruct the keyed alphabet.",
-            "Convert each ciphertext letter back to its Morse trigram.",
-            "Join the trigrams into one continuous stream.",
-            "Use separators to recover Morse letters and words.",
-            "Translate the Morse symbols to plaintext."
-        ],
-        "mistakes": [
-            "Losing the separator symbols between Morse letters.",
-            "Grouping the original plaintext into threes instead of grouping the Morse stream.",
-            "Building the keyed alphabet incorrectly when the keyword contains repeated letters."
-        ],
-        "example": {
-            "plaintext": "HELLO WORLD",
-            "key": "CIPHER",
-            "ciphertext": "Depends on keyed Morse alphabet"
-        }
+  },
+  {
+    "id": "hill",
+    "name": "Hill Cipher",
+    "category": "Matrix",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A polygraphic cipher that encrypts blocks of letters using matrix multiplication modulo 26.",
+    "history": [
+      "Mathematician Lester S. Hill introduced his algebraic approach to cryptography in a 1929 paper. Unlike simple substitution systems that transform one letter at a time, the Hill cipher can mix several letters together in one mathematical operation.",
+      "The cipher is historically important as an elegant connection between linear algebra and cryptography. It is not a modern secure encryption system, but it remains an excellent way to learn modular matrices, inverses, vectors, and block encryption."
+    ],
+    "mechanics": [
+      "Convert letters to numbers from 0 through 25 and group them into vectors whose length matches the matrix size.",
+      "Multiply each vector by an invertible key matrix and reduce each result modulo 26."
+    ],
+    "encryptSteps": [
+      "Choose an invertible key matrix modulo 26.",
+      "Convert the plaintext block into a numerical vector.",
+      "Multiply the matrix by the vector.",
+      "Reduce every result modulo 26.",
+      "Convert the resulting numbers back to letters."
+    ],
+    "solveIntro": [
+      "With a known matrix, decryption requires the inverse matrix modulo 26.",
+      "The determinant must be invertible modulo 26; otherwise a valid decryption matrix does not exist."
+    ],
+    "solveSteps": [
+      "Find the determinant of the key matrix.",
+      "Find its modular inverse.",
+      "Construct the inverse matrix modulo 26.",
+      "Multiply ciphertext vectors by that inverse matrix.",
+      "Convert the resulting values back to plaintext letters."
+    ],
+    "mistakes": [
+      "Using a matrix that is not invertible modulo 26.",
+      "Mixing row-vector and column-vector conventions.",
+      "Forgetting to reduce negative or large values modulo 26."
+    ],
+    "example": {
+      "plaintext": "HELP",
+      "key": "[[3,3],[2,5]]",
+      "ciphertext": "HIAT"
     }
+  },
+  {
+    "id": "fractionatedmorse",
+    "name": "Fractionated Morse Cipher",
+    "category": "Fractionation",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A cipher that converts plaintext into Morse code, groups the Morse stream into triples, and substitutes those triples through a keyed alphabet.",
+    "history": [
+      "Fractionated Morse belongs to the recreational fractionation systems popularized through puzzle cryptography. It combines the familiar dot-and-dash structure of Morse code with a substitution stage.",
+      "The method is interesting because one ciphertext letter usually represents information spanning parts of multiple plaintext letters. That breaks the direct one-plaintext-letter-to-one-ciphertext-letter relationship found in ordinary substitution."
+    ],
+    "mechanics": [
+      "Convert plaintext letters to Morse. Add separators between letters and stronger separators between words.",
+      "Divide the resulting dot-dash-separator stream into groups of three and map each group through a keyed alphabet."
+    ],
+    "encryptSteps": [
+      "Create a keyed ciphertext alphabet.",
+      "Translate the plaintext into Morse symbols.",
+      "Insert the required letter and word separators.",
+      "Split the continuous stream into groups of three.",
+      "Replace each trigram with the corresponding keyed alphabet letter."
+    ],
+    "solveIntro": [
+      "With the keyword known, reverse the keyed substitution first.",
+      "The recovered trigrams reconstruct the Morse stream, which can then be divided at separators and translated normally."
+    ],
+    "solveSteps": [
+      "Reconstruct the keyed alphabet.",
+      "Convert each ciphertext letter back to its Morse trigram.",
+      "Join the trigrams into one continuous stream.",
+      "Use separators to recover Morse letters and words.",
+      "Translate the Morse symbols to plaintext."
+    ],
+    "mistakes": [
+      "Losing the separator symbols between Morse letters.",
+      "Grouping the original plaintext into threes instead of grouping the Morse stream.",
+      "Building the keyed alphabet incorrectly when the keyword contains repeated letters."
+    ],
+    "example": {
+      "plaintext": "HELLO WORLD",
+      "key": "CIPHER",
+      "ciphertext": "Depends on keyed Morse alphabet"
+    }
+  },
+  {
+    "id": "aristocrat-k1",
+    "name": "Aristocrat — K1",
+    "category": "Substitution",
+    "difficulty": "Intermediate",
+    "scioly": true,
+    "summary": "A monoalphabetic substitution with spaces preserved in which the plaintext alphabet is keyed.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "aristocrat-k2",
+    "name": "Aristocrat — K2",
+    "category": "Substitution",
+    "difficulty": "Intermediate",
+    "scioly": true,
+    "summary": "A monoalphabetic substitution with spaces preserved in which the ciphertext alphabet is keyed.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "aristocrat-random",
+    "name": "Aristocrat — Random Alphabet",
+    "category": "Substitution",
+    "difficulty": "Intermediate",
+    "scioly": true,
+    "summary": "An Aristocrat using a random monoalphabetic substitution alphabet with normal word spacing preserved.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "patristocrat-k1",
+    "name": "Patristocrat — K1",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A K1 monoalphabetic substitution with word spacing removed and ciphertext grouped into blocks.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "patristocrat-k2",
+    "name": "Patristocrat — K2",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A K2 monoalphabetic substitution with word spacing removed and ciphertext grouped into blocks.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "substitution-k3",
+    "name": "Monoalphabetic Substitution — K3",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A Division C keyed substitution in which both alphabet rows are built from the same keyword and shifted relative to one another.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "xenocrypt-k1",
+    "name": "Spanish Xenocrypt — K1",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A Spanish monoalphabetic cryptogram using a K1 alphabet constructed from an English keyword.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "xenocrypt-k2",
+    "name": "Spanish Xenocrypt — K2",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A Spanish monoalphabetic cryptogram using a K2 alphabet constructed from an English keyword.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "xenocrypt-cryptanalysis",
+    "name": "Spanish Xenocrypt — Cryptanalysis",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A state/national-style Spanish substitution problem solved by cryptanalysis with limited plaintext information.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Construct the requested keyed alphabet by removing repeated letters from the keyword and appending unused alphabet letters.",
+      "Apply one fixed substitution throughout the message; Patristocrats remove spaces, while Xenocrypt plaintext is Spanish."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "baconian-variant",
+    "name": "Baconian — Symbol Variants",
+    "category": "Encoding",
+    "difficulty": "Intermediate",
+    "scioly": true,
+    "summary": "A Baconian problem in which the two binary classes are represented by letters, numbers, or symbols instead of literal A and B.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Every plaintext letter becomes a five-position A/B pattern.",
+      "The visible symbols may not literally be A and B; first classify them into the two underlying groups."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "fractionatedmorse-cryptanalysis",
+    "name": "Fractionated Morse — Cryptanalysis",
+    "category": "Morse / Fractionation",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A Fractionated Morse challenge in which a crib is used to recover the keyed Morse fractionation.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Convert plaintext to Morse with separators, split the symbol stream into groups of three, and map those groups through a keyed alphabet.",
+      "In cryptanalysis, use the crib to align known plaintext with ciphertext and recover structure in the keyed mapping."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "porta-cryptanalysis",
+    "name": "Porta — Cryptanalysis",
+    "category": "Polyalphabetic",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A Porta cipher challenge in which the keyword is hidden and a plaintext crib is supplied.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "A repeating keyword selects one of thirteen reciprocal Porta substitution rows.",
+      "For cryptanalysis the keyword is hidden, so use the crib and the paired A/B, C/D, E/F row structure."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "cryptarithm",
+    "name": "Cryptarithm — Base 10",
+    "category": "Mathematical",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A decimal letter-to-digit arithmetic puzzle followed by an extraction using the solved mapping.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Each letter represents one decimal digit, and a consistent mapping is used throughout the arithmetic.",
+      "Use column arithmetic, carries, and the no-leading-zero rule to determine the mapping before completing the extraction."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "nihilist-cryptanalysis",
+    "name": "Nihilist — Cryptanalysis",
+    "category": "Polybius / Additive",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A Nihilist substitution problem in which the Polybius and additive keys must be inferred using a crib.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Build a keyed Polybius square, convert plaintext and a repeating additive keyword to coordinates, and add the coordinate values.",
+      "For cryptanalysis, use the crib to constrain the repeated additive sequence and Polybius coordinates."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "columnar-cryptanalysis",
+    "name": "Complete Columnar — Cryptanalysis",
+    "category": "Transposition",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A complete columnar transposition with nine columns or fewer and a crib used to reconstruct the column order.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Write plaintext into rows under a fixed number of columns and read columns in the secret order.",
+      "Use the crib and column count to test possible column arrangements until the text aligns."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "checkerboard",
+    "name": "5×5 Checkerboard — Given Polybius Key",
+    "category": "Polybius",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A 5×5 Checkerboard cipher using a keyed Polybius square and letter row and column headers.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Build a keyed 5x5 Polybius square with I/J sharing a cell.",
+      "Ciphertext symbols come in pairs: the first symbol selects a row and the second selects a column."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "checkerboard-cryptanalysis",
+    "name": "5×5 Checkerboard — Cryptanalysis",
+    "category": "Polybius",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A checkerboard cryptanalysis problem with hidden row, column, and Polybius keywords plus a plaintext crib.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "Treat each two-character pair as one substitution symbol while using the crib to align likely plaintext.",
+      "Recover the row and column header sets and then reconstruct the keyed Polybius square."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "homophonic",
+    "name": "Homophonic Cipher",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A monoalphabetic homophonic substitution in which one plaintext letter can be represented by several numeric symbols.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "A plaintext letter can have more than one ciphertext number, but a ciphertext number belongs to only one plaintext letter.",
+      "Combine language patterns, repeated words, and aggregated symbol frequencies rather than treating each number as an independent letter."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  },
+  {
+    "id": "homophonic-cryptanalysis",
+    "name": "Homophonic — Cryptanalysis",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "scioly": true,
+    "summary": "A state/national-style homophonic substitution challenge with a supplied plaintext crib.",
+    "history": [
+      "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
+      "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
+    ],
+    "mechanics": [
+      "A plaintext letter can have multiple numeric homophones, so ordinary one-symbol frequency analysis must be adapted.",
+      "Use the supplied crib to group number symbols that represent the same plaintext letters."
+    ],
+    "encryptSteps": [
+      "Choose or generate the required key material.",
+      "Apply the cipher rules consistently to the plaintext.",
+      "Format the ciphertext in the competition-style form shown in Practice."
+    ],
+    "solveIntro": [
+      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Use structural constraints before making free guesses."
+    ],
+    "solveSteps": [
+      "Write down the given information and identify what is unknown.",
+      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
+      "Test a candidate mapping or key against more than one part of the ciphertext.",
+      "Continue until the entire plaintext is consistent."
+    ],
+    "mistakes": [
+      "Ignoring the exact key type or question format.",
+      "Using a mapping that only explains one small part of the message.",
+      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+    ],
+    "example": {
+      "plaintext": "PRACTICE MESSAGE",
+      "key": "Varies by challenge",
+      "ciphertext": "Open Practice to generate a fresh example"
+    }
+  }
 ]

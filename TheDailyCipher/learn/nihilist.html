@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nihilist Cipher Guide | The Daily Cipher</title>
+<meta name="description" content="Learn Nihilist Cipher, visualize each step, and practice Codebusters-style examples on The Daily Cipher.">
+<link rel="canonical" href="https://thedailycipher.org/learn/nihilist.html">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#030712">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/codebusters-learn.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
+<main class="container cb-guide-shell">
+<section class="hero"><div class="eyebrow">POLYBIUS + ADDITION • CODEBUSTERS</div><h1>Nihilist<span> Cipher</span></h1><p>Combine a keyed Polybius square with a repeating additive keyword to produce number ciphertext.</p></section>
+<section class="cb-guide-card"><div class="eyebrow">OVERVIEW</div><h2>What it is</h2><p>The Nihilist cipher is associated with hand-cipher systems used by Russian revolutionary groups in the late nineteenth century. Despite the dramatic name, the important thing for learning the cipher is its structure: it combines a substitution system with numerical addition.</p>
+<p>Unlike a Caesar or Aristocrat cipher, its ciphertext is normally a series of numbers rather than letters. Those numbers are produced in two stages. Understanding those two stages separately makes the cipher much easier to understand.</p>
+<p>The first stage is a Polybius square. The second stage is a repeating numerical key. If you understand both pieces individually, the full Nihilist cipher is mostly just addition.</p><div class="cb-note">A numerical cipher built in layers. First, letters are converted into coordinates using a 5×5 letter grid called a Polybius square. Then numbers from a repeating keyword are added to those coordinates.</div></section>
+<section class="cb-guide-card"><div class="eyebrow">MECHANICS</div><h2>How it works</h2><p>Start with a 5×5 grid. Because 25 spaces are available but the English alphabet has 26 letters, I and J are commonly combined into one position. Every square in the grid receives a two-digit coordinate. The first digit tells you the row and the second digit tells you the column.</p>
+<p>For example, the top-left square has coordinate 11. The square immediately to its right is 12. The first square in the second row is 21. Therefore a coordinate such as 43 means row 4, column 3.</p>
+<p>A keyed Polybius square does not simply place the alphabet into the grid from A onward. Instead, it begins with the unique letters of a keyword. If the keyword is CIPHER, we first write C, I, P, H, E, R while ignoring repeated letters. Then we fill the remaining empty cells with unused letters of the alphabet.</p>
+<p>That gives every plaintext letter a numerical coordinate. If H happens to occupy row 1, column 4, then H becomes 14. If E occupies row 1, column 5, E becomes 15.</p>
+<p>Now introduce a second keyword called the additive keyword. Suppose the additive keyword is SECRET. Repeat SECRET underneath the plaintext until every plaintext letter has a key letter.</p>
+<p>The key letters are converted into coordinates using the exact same Polybius square. Then, position by position, add the plaintext coordinate and key coordinate together. The sum becomes the ciphertext number.</p>
+<p>So conceptually the cipher is: PLAINTEXT LETTER → POLYBIUS NUMBER, KEYWORD LETTER → POLYBIUS NUMBER, then PLAINTEXT NUMBER + KEY NUMBER = CIPHERTEXT NUMBER.</p><h3>Build or encrypt an example</h3><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Build the 5×5 Polybius square. Write the square keyword first, removing repeated letters, and then fill remaining cells with unused alphabet letters.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Label the rows and columns 1 through 5. Every letter now has a two-digit coordinate such as 11, 24, or 53.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Write the plaintext. Convert each plaintext letter into its Polybius coordinate.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Write the additive keyword repeatedly underneath the plaintext until it reaches the same number of letters.</p></div>
+<div class="cb-step"><div class="cb-step-num">5</div><p>Convert every additive-keyword letter into a coordinate using the SAME Polybius square.</p></div>
+<div class="cb-step"><div class="cb-step-num">6</div><p>Add each plaintext coordinate to the key coordinate directly beneath it.</p></div>
+<div class="cb-step"><div class="cb-step-num">7</div><p>Write those sums as the ciphertext. This is why Nihilist ciphertext often contains numbers such as 57, 72, or 84 instead of ordinary 11–55 Polybius coordinates.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CRYPTANALYSIS</div><h2>How to solve it</h2><p>To decrypt a Nihilist cipher when both keywords are known, reverse the process. The final encryption operation was addition, so the first decryption operation is subtraction.</p>
+<p>The important idea is that ciphertext numbers themselves are not direct Polybius coordinates. You must first remove the additive-key value. Only then do you get a coordinate that can be looked up in the square.</p>
+<p>Suppose one ciphertext value is 57 and the corresponding repeated-key letter has Polybius value 23. Subtract 23 from 57. The result is 34. You then look at row 3, column 4 of the Polybius square to recover the plaintext letter.</p><div class="cb-steps"><div class="cb-step"><div class="cb-step-num">1</div><p>Rebuild the exact keyed Polybius square used for encryption.</p></div>
+<div class="cb-step"><div class="cb-step-num">2</div><p>Repeat the additive keyword until it lines up with every ciphertext number.</p></div>
+<div class="cb-step"><div class="cb-step-num">3</div><p>Convert each additive-keyword letter into its Polybius coordinate.</p></div>
+<div class="cb-step"><div class="cb-step-num">4</div><p>Subtract each key coordinate from the ciphertext number above it.</p></div>
+<div class="cb-step"><div class="cb-step-num">5</div><p>The result should be a valid coordinate whose two digits are both between 1 and 5.</p></div>
+<div class="cb-step"><div class="cb-step-num">6</div><p>Look up that coordinate in the Polybius square.</p></div>
+<div class="cb-step"><div class="cb-step-num">7</div><p>Repeat for every number to reconstruct the plaintext.</p></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">CODEBUSTERS MODES</div><h2>Practice variants</h2><div class="cb-mode-grid"><article class="cb-mode"><strong>Nihilist — Given Keys</strong><span>Polybius + additive keys</span><a class="cb-small-button" href="../practice/index.html?cipher=nihilist">Practice this mode</a></article>
+<article class="cb-mode"><strong>Nihilist Cryptanalysis</strong><span>Cryptanalysis mode</span><a class="cb-small-button" href="../practice/index.html?cipher=nihilist-cryptanalysis">Practice this mode</a></article></div></section>
+<section class="cb-guide-card"><div class="eyebrow">EXAMPLE</div><h2>Example structure</h2><div class="cb-example"><div class="cb-example-row"><span class="cb-example-label">PLAINTEXT</span><strong>HELLO</strong></div><div class="cb-example-row"><span class="cb-example-label">KEY / RULE</span><strong>Square keyword: CIPHER • Additive keyword: SECRET</strong></div><div class="cb-example-row"><span class="cb-example-label">CIPHERTEXT</span><strong>57 30 44 54 56</strong></div></div></section>
+<section class="cb-guide-card"><div class="eyebrow">INTERACTIVE</div><h2>Visualizer</h2><p>Generate a fresh example and inspect the transformation before moving into timed Practice.</p><iframe class="cb-visualizer-frame" title="Nihilist Cipher visualizer" loading="lazy" src="../visualizers/nihilist.html"></iframe></section>
+<section class="cb-guide-card"><div class="eyebrow">COMMON MISTAKES</div><h2>What to watch for</h2><div class="cb-mistake-grid"><div class="cb-mistake">Trying to look up ciphertext numbers such as 57 directly in the Polybius square. A 5×5 Polybius coordinate can only contain row and column digits from 1 through 5.</div>
+<div class="cb-mistake">Using a normal alphabetical Polybius square when the puzzle specifies a keyed square.</div>
+<div class="cb-mistake">Using one square for the plaintext and another for the additive keyword. Both must use the same square.</div>
+<div class="cb-mistake">Adding the digits separately. If one coordinate is 24 and another is 31, calculate 24 + 31 = 55. Do not calculate 2+3 and 4+1 as separate operations.</div>
+<div class="cb-mistake">Forgetting the I/J convention when building a 5×5 alphabet.</div>
+<div class="cb-mistake">Failing to repeat the additive keyword correctly across the entire message.</div></div><div class="cb-guide-actions"><a class="primary-button" href="../practice/index.html?cipher=nihilist">Practice Nihilist Cipher</a><a class="cb-secondary-button" href="index.html">Back to Learn</a></div></section>
+</main>
+<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
+<script src="/js/navigation.js"></script>
+</body>
+</html>

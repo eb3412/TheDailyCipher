@@ -643,10 +643,22 @@ function renderLearnCiphers(
                 "learn-card-button primary";
 
 
-            learn.href =
-                `cipher.html?id=${encodeURIComponent(
-                    cipher.id
-                )}`;
+            if (
+                cipher.page
+                &&
+                cipher.page !== "cipher.html"
+            ) {
+
+                learn.href =
+                    cipher.page;
+
+            } else {
+
+                learn.href =
+                    `cipher.html?id=${encodeURIComponent(
+                        cipher.id
+                    )}`;
+            }
 
 
             learn.textContent =
@@ -676,6 +688,34 @@ function renderLearnCiphers(
             actions.appendChild(
                 learn
             );
+
+
+            if (
+                cipher.visualizer
+            ) {
+
+                const visualizer =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                visualizer.className =
+                    "learn-card-button";
+
+
+                visualizer.href =
+                    cipher.visualizer;
+
+
+                visualizer.textContent =
+                    "Visualize";
+
+
+                actions.appendChild(
+                    visualizer
+                );
+            }
 
 
             actions.appendChild(
