@@ -1,0 +1,19 @@
+body.light-theme {
+    --background: #f4f6fb;
+    --surface: #ffffff;
+    --surface-light: #eef1f7;
+    --border: #d7dce7;
+
+    --text: #111827;
+    --muted: #64748b;
+
+    --primary: #4f46e5;
+    --primary-hover: #6366f1;
+}
+
+body.light-theme .cipher-box,
+body.light-theme .rules-box,
+body.light-theme .hint,
+body.light-theme .difficulty-tabs {
+    background: #f8fafc;
+}

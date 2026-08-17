@@ -1,0 +1,5075 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Learn Cipher | The Daily Cipher</title>
+
+    <meta
+        id="page-description"
+        name="description"
+        content="Learn classical cryptography with step-by-step explanations and interactive examples."
+    >
+<link
+    rel="icon"
+    type="image/png"
+    href="/assets/favicon.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/assets/apple-touch-icon.png"
+>
+
+<meta
+    name="theme-color"
+    content="#030712"
+>
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/themes.css"
+    >
+
+    <link
+    rel="canonical"
+    href="https://thedailycipher.org/learn/caesar.html"
+>
+
+
+    <style>
+
+        .guide-shell {
+            max-width: 900px;
+            margin: auto;
+        }
+
+
+        .guide-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        .guide-back:hover {
+            color: var(--primary-hover);
+        }
+
+
+        .guide-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+
+        .guide-badge {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--background);
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+
+        .guide-section {
+            margin-top: 22px;
+            padding: clamp(22px, 4vw, 35px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+
+        .guide-section h2 {
+            margin: 7px 0 18px;
+            font-size: 26px;
+        }
+
+
+        .guide-section h3 {
+            margin: 25px 0 8px;
+            font-size: 18px;
+        }
+
+
+        .guide-section p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+
+        .guide-steps {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+
+        .guide-step {
+            display: grid;
+            grid-template-columns: 38px 1fr;
+            gap: 12px;
+            padding: 14px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+        }
+
+
+        .guide-step-number {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            background: var(--primary);
+            color: white;
+            font-weight: 900;
+        }
+
+
+        .guide-step strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+
+        .guide-step p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+
+        .example-box {
+            padding: 20px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: monospace;
+        }
+
+
+        .example-row {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 15px;
+            padding: 8px 0;
+        }
+
+
+        .example-row span {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+
+        .example-row strong {
+            overflow-wrap: anywhere;
+        }
+
+
+        .mistake-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+
+        .mistake-card {
+            padding: 14px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+
+        /* =============================================
+           INTERACTIVE VISUALIZER
+        ============================================= */
+
+        .visualizer-controls {
+            display: grid;
+            gap: 12px;
+        }
+
+
+        .visualizer-field label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+
+        .visualizer-field input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--background);
+            color: var(--text);
+            font: inherit;
+            outline: none;
+        }
+
+
+        .visualizer-field input:focus {
+            border-color: var(--primary);
+            box-shadow:
+                0 0 0 3px
+                rgba(99, 102, 241, 0.14);
+        }
+
+        .number-stepper {
+    display: grid;
+
+    grid-template-columns:
+        42px
+        1fr
+        42px;
+
+    gap: 7px;
+
+    align-items: center;
+}
+
+
+.number-stepper input {
+    text-align: center;
+}
+
+
+.number-stepper-button {
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 11px;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.16s,
+        border-color 0.16s,
+        transform 0.16s;
+}
+
+
+.number-stepper-button:hover {
+    background:
+        var(--surface-light);
+
+    border-color:
+        var(--primary);
+
+    color:
+        var(--primary-hover);
+}
+
+
+.number-stepper-button:active {
+    transform:
+        scale(0.94);
+}
+
+
+        .visualizer-output {
+            margin-top: 18px;
+            padding: 20px;
+            min-height: 80px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+
+        .visualizer-error {
+            color: var(--danger);
+        }
+
+
+        /* =============================================
+           RAIL FENCE — TRUE GRID
+        ============================================= */
+
+        #rail-grid-wrapper {
+            margin-top: 18px;
+            overflow-x: auto;
+        }
+
+
+        .rail-guide-grid {
+            display: grid;
+            gap: 4px;
+            width: max-content;
+            padding: 16px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+
+        .rail-guide-cell {
+            width: 31px;
+            height: 31px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+
+        .rail-guide-cell.filled {
+            background:
+                rgba(99, 102, 241, 0.14);
+            color: var(--primary-hover);
+        }
+
+
+        .rail-result {
+            margin-top: 12px;
+            color: var(--muted);
+            font-family: monospace;
+        }
+
+
+        /* =============================================
+           ACTIONS
+        ============================================= */
+
+        .guide-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+
+        .guide-secondary {
+            display: block;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+
+        .guide-secondary:hover {
+            border-color: var(--primary);
+        }
+
+
+        @media (max-width: 650px) {
+
+            .example-row {
+                grid-template-columns: 1fr;
+                gap: 3px;
+            }
+
+
+            .guide-actions {
+                grid-template-columns: 1fr;
+            }
+
+        }
+/* =====================================================
+   NIHILIST TEACHING MODULE
+===================================================== */
+
+.nihilist-teacher {
+    display: grid;
+    gap: 24px;
+    margin-top: 22px;
+}
+
+
+/* ---------- SECTION ---------- */
+
+.nihilist-stage {
+    padding: 20px;
+
+    background:
+        var(--background);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+}
+
+
+.nihilist-stage-number {
+    margin-bottom: 5px;
+
+    color:
+        var(--primary-hover);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+}
+
+
+.nihilist-stage h3 {
+    margin:
+        0
+        0
+        8px;
+
+    font-size: 19px;
+}
+
+
+.nihilist-stage-description {
+    margin:
+        0
+        0
+        18px;
+
+    font-size: 14px;
+}
+
+
+/* ---------- INPUTS ---------- */
+
+.nihilist-input-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+
+.nihilist-input-field label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.nihilist-input-field input {
+    width: 100%;
+
+    padding: 12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    outline: none;
+}
+
+
+.nihilist-input-field input:focus {
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            99,
+            102,
+            241,
+            0.13
+        );
+}
+
+
+/* =====================================================
+   POLYBIUS SQUARE
+===================================================== */
+
+.polybius-wrapper {
+    overflow-x: auto;
+
+    padding:
+        8px
+        0;
+}
+
+
+.polybius-layout {
+    display: grid;
+
+    grid-template-columns:
+        38px
+        repeat(
+            5,
+            54px
+        );
+
+    grid-template-rows:
+        30px
+        repeat(
+            5,
+            54px
+        );
+
+    gap: 5px;
+
+    width: max-content;
+
+    margin: auto;
+}
+
+
+.polybius-corner {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+}
+
+
+.polybius-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color:
+        var(--muted);
+
+    font-family:
+        monospace;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+
+.polybius-cell {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 54px;
+
+    height: 54px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    transition:
+        border-color 0.18s,
+        background 0.18s,
+        transform 0.18s;
+}
+
+
+.polybius-cell:hover {
+    border-color:
+        var(--primary);
+
+    transform:
+        translateY(-2px);
+}
+
+
+.polybius-cell.highlighted {
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.18
+        );
+
+    border-color:
+        var(--primary);
+
+    color:
+        var(--primary-hover);
+}
+
+
+.polybius-coordinate {
+    position: absolute;
+
+    right: 4px;
+
+    bottom: 3px;
+
+    color:
+        var(--muted);
+
+    font-size: 8px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   LETTER LOOKUP
+===================================================== */
+
+.coordinate-demo {
+    margin-top: 18px;
+
+    padding: 15px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+}
+
+
+.coordinate-demo-title {
+    margin-bottom: 10px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.coordinate-result {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    flex-wrap: wrap;
+
+    font-family:
+        monospace;
+
+    font-size: 20px;
+
+    font-weight: 900;
+}
+
+
+.coordinate-arrow {
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   ALIGNED LETTERS
+===================================================== */
+
+.nihilist-alignment {
+    overflow-x: auto;
+
+    margin-top: 12px;
+}
+
+
+.nihilist-alignment-table {
+    display: grid;
+
+    gap: 6px;
+
+    width: max-content;
+
+    min-width: 100%;
+}
+
+
+.nihilist-alignment-row {
+    display: grid;
+
+    grid-template-columns:
+        105px
+        repeat(
+            var(--nihilist-length),
+            minmax(
+                54px,
+                1fr
+            )
+        );
+
+    gap: 5px;
+}
+
+
+.nihilist-row-label {
+    display: flex;
+
+    align-items: center;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.nihilist-data-cell {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 6px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        8px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+
+.nihilist-data-cell.key-cell {
+    color:
+        var(--primary-hover);
+}
+
+
+.nihilist-data-cell.result-cell {
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.14
+        );
+
+    border-color:
+        rgba(
+            99,
+            102,
+            241,
+            0.4
+        );
+
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   SINGLE POSITION BREAKDOWN
+===================================================== */
+
+.nihilist-equation {
+    display: flex;
+
+    align-items: stretch;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 18px;
+}
+
+
+.nihilist-equation-card {
+    min-width: 120px;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+}
+
+
+.nihilist-equation-label {
+    margin-bottom: 7px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.nihilist-equation-value {
+    font-family:
+        monospace;
+
+    font-size: 22px;
+
+    font-weight: 900;
+}
+
+
+.nihilist-equation-symbol {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color:
+        var(--primary-hover);
+
+    font-size: 24px;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.nihilist-position-controls {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+
+.nihilist-position-button {
+    min-width: 42px;
+
+    height: 40px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+.nihilist-position-button:hover {
+    border-color:
+        var(--primary);
+
+    color:
+        var(--primary-hover);
+}
+
+
+.nihilist-position-count {
+    min-width: 90px;
+
+    color:
+        var(--muted);
+
+    text-align: center;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   DECRYPTION
+===================================================== */
+
+.nihilist-decrypt-box {
+    padding: 18px;
+
+    border:
+        1px solid
+        rgba(
+            34,
+            197,
+            94,
+            0.25
+        );
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(
+            34,
+            197,
+            94,
+            0.055
+        );
+}
+
+
+.nihilist-rule {
+    margin:
+        14px
+        0;
+
+    padding: 12px;
+
+    border-left:
+        3px solid
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.07
+        );
+
+    color:
+        var(--text);
+
+    font-family:
+        monospace;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width:
+        700px
+) {
+
+    .nihilist-input-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .polybius-layout {
+        grid-template-columns:
+            28px
+            repeat(
+                5,
+                45px
+            );
+
+        grid-template-rows:
+            25px
+            repeat(
+                5,
+                45px
+            );
+    }
+
+
+    .polybius-cell {
+        width:
+            45px;
+
+        height:
+            45px;
+
+        font-size:
+            17px;
+    }
+
+}
+/* =====================================================
+   HILL CIPHER TEACHING MODULE
+===================================================== */
+
+.hill-teacher {
+    display: grid;
+    gap: 24px;
+    margin-top: 22px;
+}
+
+
+.hill-stage {
+    padding: 20px;
+
+    background:
+        var(--background);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+}
+
+
+.hill-stage-number {
+    margin-bottom: 5px;
+
+    color:
+        var(--primary-hover);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+}
+
+
+.hill-stage h3 {
+    margin:
+        0
+        0
+        8px;
+
+    font-size: 19px;
+}
+
+
+.hill-stage-description {
+    margin:
+        0
+        0
+        18px;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   HILL INPUTS
+===================================================== */
+
+.hill-input-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 14px;
+}
+
+
+.hill-input-field label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.hill-input-field input {
+    width: 100%;
+
+    padding: 12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    outline: none;
+}
+
+
+.hill-input-field input:focus {
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            99,
+            102,
+            241,
+            0.13
+        );
+}
+
+
+/* =====================================================
+   ALPHABET NUMBER STRIP
+===================================================== */
+
+.hill-alphabet-strip {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            13,
+            minmax(
+                42px,
+                1fr
+            )
+        );
+
+    gap: 5px;
+
+    overflow-x: auto;
+}
+
+
+.hill-alphabet-cell {
+    min-width: 42px;
+
+    padding:
+        9px
+        5px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        8px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+}
+
+
+.hill-alphabet-letter {
+    display: block;
+
+    font-family:
+        monospace;
+
+    font-size: 15px;
+
+    font-weight: 900;
+}
+
+
+.hill-alphabet-number {
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--muted);
+
+    font-family:
+        monospace;
+
+    font-size: 10px;
+}
+
+
+.hill-alphabet-cell.highlighted {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.16
+        );
+
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   MATRIX
+===================================================== */
+
+.hill-matrix-area {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+
+.hill-matrix {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            58px
+        );
+
+    grid-template-rows:
+        repeat(
+            2,
+            58px
+        );
+
+    gap: 5px;
+
+    padding:
+        8px
+        14px;
+}
+
+
+.hill-matrix::before,
+.hill-matrix::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    width: 10px;
+
+    height: 100%;
+
+    border-top:
+        2px solid
+        var(--muted);
+
+    border-bottom:
+        2px solid
+        var(--muted);
+}
+
+
+.hill-matrix::before {
+    left: 0;
+
+    border-left:
+        2px solid
+        var(--muted);
+}
+
+
+.hill-matrix::after {
+    right: 0;
+
+    border-right:
+        2px solid
+        var(--muted);
+}
+
+
+.hill-matrix-cell {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-size: 20px;
+
+    font-weight: 900;
+}
+
+
+.hill-vector {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        54px;
+
+    grid-template-rows:
+        repeat(
+            2,
+            54px
+        );
+
+    gap: 5px;
+
+    padding:
+        8px
+        13px;
+}
+
+
+.hill-vector::before,
+.hill-vector::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    width: 9px;
+
+    height: 100%;
+
+    border-top:
+        2px solid
+        var(--muted);
+
+    border-bottom:
+        2px solid
+        var(--muted);
+}
+
+
+.hill-vector::before {
+    left: 0;
+
+    border-left:
+        2px solid
+        var(--muted);
+}
+
+
+.hill-vector::after {
+    right: 0;
+
+    border-right:
+        2px solid
+        var(--muted);
+}
+
+
+.hill-vector-cell {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+.hill-math-symbol {
+    color:
+        var(--primary-hover);
+
+    font-size: 25px;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   BLOCK DISPLAY
+===================================================== */
+
+.hill-blocks {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 16px;
+}
+
+
+.hill-block {
+    padding:
+        10px
+        13px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        9px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-size: 16px;
+
+    font-weight: 900;
+}
+
+
+.hill-block.active {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.16
+        );
+
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   MULTIPLICATION BREAKDOWN
+===================================================== */
+
+.hill-equations {
+    display: grid;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+.hill-equation {
+    padding: 16px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    line-height: 1.7;
+}
+
+
+.hill-equation-main {
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+
+.hill-equation-reduction {
+    margin-top: 5px;
+
+    color:
+        var(--muted);
+}
+
+
+.hill-equation-result {
+    color:
+        var(--primary-hover);
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   PIPELINE
+===================================================== */
+
+.hill-pipeline {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+
+.hill-pipeline-card {
+    min-width: 120px;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+}
+
+
+.hill-pipeline-label {
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.hill-pipeline-value {
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+.hill-pipeline-arrow {
+    color:
+        var(--primary-hover);
+
+    font-size: 22px;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   BLOCK NAVIGATION
+===================================================== */
+
+.hill-position-controls {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+
+.hill-position-button {
+    min-width: 42px;
+
+    height: 40px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+.hill-position-button:hover {
+    border-color:
+        var(--primary);
+
+    color:
+        var(--primary-hover);
+}
+
+
+.hill-position-count {
+    min-width: 110px;
+
+    color:
+        var(--muted);
+
+    text-align: center;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   RULE BOX
+===================================================== */
+
+.hill-rule {
+    margin:
+        14px
+        0;
+
+    padding: 13px;
+
+    border-left:
+        3px solid
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.07
+        );
+
+    font-family:
+        monospace;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width:
+        700px
+) {
+
+    .hill-input-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .hill-alphabet-strip {
+        grid-template-columns:
+            repeat(
+                13,
+                42px
+            );
+    }
+
+}
+
+
+/* =====================================================
+   FRACTIONATED MORSE TEACHER
+===================================================== */
+
+.fm-teacher {
+    display: grid;
+    gap: 24px;
+    margin-top: 22px;
+}
+
+.fm-stage {
+    padding: 20px;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.fm-stage-number {
+    margin-bottom: 5px;
+    color: var(--primary-hover);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+}
+
+.fm-stage h3 {
+    margin: 0 0 8px;
+    font-size: 19px;
+}
+
+.fm-stage-description {
+    margin: 0 0 18px;
+    font-size: 14px;
+}
+
+.fm-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.fm-input-field label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.fm-input-field input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+}
+
+.fm-input-field input:focus {
+    border-color: var(--primary);
+    box-shadow:
+        0 0 0 3px
+        rgba(99, 102, 241, 0.13);
+}
+
+.fm-rule {
+    margin: 14px 0;
+    padding: 13px;
+    border-left: 3px solid var(--primary);
+    background:
+        rgba(99, 102, 241, 0.07);
+    font-family: monospace;
+    font-weight: 800;
+}
+
+.fm-morse-table {
+    display: grid;
+    grid-template-columns:
+        repeat(6, minmax(90px, 1fr));
+    gap: 7px;
+    margin-top: 14px;
+}
+
+.fm-morse-cell {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--surface);
+    text-align: center;
+}
+
+.fm-morse-letter {
+    display: block;
+    font-weight: 900;
+}
+
+.fm-morse-code {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.fm-morse-cell.highlighted {
+    border-color: var(--primary);
+    background:
+        rgba(99, 102, 241, 0.15);
+    color: var(--primary-hover);
+}
+
+.fm-stream {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--surface);
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.fm-stream .separator {
+    color: var(--primary-hover);
+}
+
+.fm-trigram-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.fm-trigram {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--surface);
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.fm-trigram.active {
+    border-color: var(--primary);
+    background:
+        rgba(99, 102, 241, 0.16);
+    color: var(--primary-hover);
+}
+
+.fm-keyed-alphabet {
+    display: grid;
+    grid-template-columns:
+        repeat(13, minmax(44px, 1fr));
+    gap: 5px;
+    margin-top: 14px;
+    overflow-x: auto;
+}
+
+.fm-key-cell {
+    min-width: 44px;
+    padding: 9px 4px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    text-align: center;
+}
+
+.fm-key-letter {
+    display: block;
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.fm-key-index {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.fm-key-cell.highlighted {
+    border-color: var(--primary);
+    background:
+        rgba(99, 102, 241, 0.15);
+    color: var(--primary-hover);
+}
+
+.fm-pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 18px;
+}
+
+.fm-pipeline-card {
+    min-width: 130px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--surface);
+    text-align: center;
+}
+
+.fm-pipeline-label {
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.fm-pipeline-value {
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.fm-pipeline-arrow {
+    color: var(--primary-hover);
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.fm-position-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.fm-position-button {
+    min-width: 42px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.fm-position-button:hover {
+    border-color: var(--primary);
+    color: var(--primary-hover);
+}
+
+.fm-position-count {
+    min-width: 110px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+@media (max-width: 700px) {
+
+    .fm-input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fm-morse-table {
+        grid-template-columns:
+            repeat(3, minmax(85px, 1fr));
+    }
+
+    .fm-keyed-alphabet {
+        grid-template-columns:
+            repeat(13, 44px);
+    }
+}
+/* =====================================================
+   COMPLETE COLUMNAR TRANSPOSITION TEACHER
+===================================================== */
+
+.columnar-teacher {
+    display: grid;
+    gap: 24px;
+    margin-top: 22px;
+}
+
+
+.columnar-stage {
+    padding: 20px;
+
+    background:
+        var(--background);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+}
+
+
+.columnar-stage-number {
+    margin-bottom: 5px;
+
+    color:
+        var(--primary-hover);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+}
+
+
+.columnar-stage h3 {
+    margin:
+        0
+        0
+        8px;
+
+    font-size: 19px;
+}
+
+
+.columnar-stage-description {
+    margin:
+        0
+        0
+        18px;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.columnar-input-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 14px;
+}
+
+
+.columnar-input-field label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.columnar-input-field input {
+    width: 100%;
+
+    padding: 12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    outline: none;
+}
+
+
+.columnar-input-field input:focus {
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            99,
+            102,
+            241,
+            0.13
+        );
+}
+
+
+/* =====================================================
+   RULE BOX
+===================================================== */
+
+.columnar-rule {
+    margin:
+        14px
+        0;
+
+    padding: 13px;
+
+    border-left:
+        3px solid
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.07
+        );
+
+    font-family:
+        monospace;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.columnar-grid-wrapper {
+    overflow-x: auto;
+
+    margin-top: 16px;
+
+    padding-bottom: 4px;
+}
+
+
+.columnar-grid {
+    display: grid;
+
+    gap: 5px;
+
+    width:
+        max-content;
+
+    margin: auto;
+}
+
+
+.columnar-key-cell,
+.columnar-grid-cell {
+    width: 52px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        9px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    transition:
+        border-color 0.17s,
+        background 0.17s,
+        color 0.17s,
+        transform 0.17s;
+}
+
+
+.columnar-key-cell {
+    height: 38px;
+
+    color:
+        var(--primary-hover);
+
+    font-size: 14px;
+}
+
+
+.columnar-key-cell.active,
+.columnar-grid-cell.active {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.17
+        );
+
+    color:
+        var(--primary-hover);
+
+    transform:
+        translateY(-1px);
+}
+
+
+.columnar-grid-cell.padding-cell {
+    color:
+        var(--muted);
+
+    opacity:
+        0.7;
+}
+
+
+/* =====================================================
+   COLUMN ORDER
+===================================================== */
+
+.columnar-order {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 18px;
+}
+
+
+.columnar-order-card {
+    min-width: 120px;
+
+    padding: 13px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+}
+
+
+.columnar-order-card.active {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.15
+        );
+}
+
+
+.columnar-order-label {
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.columnar-order-value {
+    margin-top: 5px;
+
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   PIPELINE
+===================================================== */
+
+.columnar-pipeline {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+
+.columnar-pipeline-card {
+    min-width: 130px;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+}
+
+
+.columnar-pipeline-label {
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.columnar-pipeline-value {
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    overflow-wrap: anywhere;
+}
+
+
+.columnar-pipeline-arrow {
+    color:
+        var(--primary-hover);
+
+    font-size: 22px;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   COLUMN READING
+===================================================== */
+
+.columnar-read-box {
+    margin-top: 18px;
+
+    padding: 16px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+}
+
+
+.columnar-read-title {
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.columnar-read-value {
+    font-family:
+        monospace;
+
+    font-size: 22px;
+
+    font-weight: 900;
+
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.columnar-position-controls {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+
+.columnar-position-button {
+    min-width: 42px;
+
+    height: 40px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+.columnar-position-button:hover {
+    border-color:
+        var(--primary);
+
+    color:
+        var(--primary-hover);
+}
+
+
+.columnar-position-count {
+    min-width: 130px;
+
+    color:
+        var(--muted);
+
+    text-align: center;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width:
+        700px
+) {
+
+    .columnar-input-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .columnar-key-cell,
+    .columnar-grid-cell {
+        width:
+            44px;
+
+        height:
+            44px;
+
+        font-size:
+            16px;
+    }
+
+
+    .columnar-key-cell {
+        height:
+            34px;
+    }
+
+}
+/* =====================================================
+   PORTA CIPHER TEACHING MODULE
+===================================================== */
+
+.porta-teacher {
+    display: grid;
+    gap: 24px;
+    margin-top: 22px;
+}
+
+
+.porta-stage {
+    padding: 20px;
+
+    background:
+        var(--background);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+}
+
+
+.porta-stage-number {
+    margin-bottom: 5px;
+
+    color:
+        var(--primary-hover);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+}
+
+
+.porta-stage h3 {
+    margin:
+        0
+        0
+        8px;
+
+    font-size: 19px;
+}
+
+
+.porta-stage-description {
+    margin:
+        0
+        0
+        18px;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.porta-input-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 14px;
+}
+
+
+.porta-input-field label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.porta-input-field input {
+    width: 100%;
+
+    padding: 12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    outline: none;
+}
+
+
+.porta-input-field input:focus {
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            99,
+            102,
+            241,
+            0.13
+        );
+}
+
+
+/* =====================================================
+   RULE
+===================================================== */
+
+.porta-rule {
+    margin:
+        14px
+        0;
+
+    padding: 13px;
+
+    border-left:
+        3px solid
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.07
+        );
+
+    font-family:
+        monospace;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   KEYWORD PAIRS
+===================================================== */
+
+.porta-pair-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            7,
+            minmax(
+                70px,
+                1fr
+            )
+        );
+
+    gap: 7px;
+
+    margin-top: 16px;
+}
+
+
+.porta-pair {
+    padding:
+        11px
+        7px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        9px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+
+    font-family:
+        monospace;
+
+    font-weight: 900;
+}
+
+
+.porta-pair.active {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.16
+        );
+
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   ALIGNED TEXT
+===================================================== */
+
+.porta-alignment {
+    overflow-x: auto;
+
+    margin-top: 16px;
+}
+
+
+.porta-alignment-table {
+    display: grid;
+
+    gap: 6px;
+
+    width: max-content;
+
+    min-width: 100%;
+}
+
+
+.porta-alignment-row {
+    display: grid;
+
+    grid-template-columns:
+        110px
+        repeat(
+            var(--porta-length),
+            minmax(
+                52px,
+                1fr
+            )
+        );
+
+    gap: 5px;
+}
+
+
+.porta-row-label {
+    display: flex;
+
+    align-items: center;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.porta-data-cell {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 6px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        8px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+
+.porta-data-cell.key {
+    color:
+        var(--primary-hover);
+}
+
+
+.porta-data-cell.selected {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.16
+        );
+}
+
+
+/* =====================================================
+   PORTA ROW
+===================================================== */
+
+.porta-row-scroll {
+    overflow-x: auto;
+
+    margin-top: 18px;
+}
+
+
+.porta-tableau {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            26,
+            40px
+        );
+
+    gap: 4px;
+
+    width: max-content;
+}
+
+
+.porta-tableau-cell {
+    width: 40px;
+
+    min-height: 66px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        8px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+}
+
+
+.porta-tableau-plain {
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.porta-tableau-cipher {
+    font-size: 16px;
+
+    font-weight: 900;
+}
+
+
+.porta-tableau-cell.plain-highlight {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.16
+        );
+}
+
+
+.porta-tableau-cell.plain-highlight
+.porta-tableau-plain,
+.porta-tableau-cell.plain-highlight
+.porta-tableau-cipher {
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   PIPELINE
+===================================================== */
+
+.porta-pipeline {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+
+.porta-pipeline-card {
+    min-width: 125px;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+}
+
+
+.porta-pipeline-label {
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.porta-pipeline-value {
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+.porta-pipeline-arrow {
+    color:
+        var(--primary-hover);
+
+    font-size: 22px;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.porta-position-controls {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+
+.porta-position-button {
+    min-width: 42px;
+
+    height: 40px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+.porta-position-button:hover {
+    border-color:
+        var(--primary);
+
+    color:
+        var(--primary-hover);
+}
+
+
+.porta-position-count {
+    min-width: 110px;
+
+    color:
+        var(--muted);
+
+    text-align: center;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   RECIPROCITY
+===================================================== */
+
+.porta-reciprocal-box {
+    margin-top: 18px;
+
+    padding: 18px;
+
+    border:
+        1px solid
+        rgba(
+            34,
+            197,
+            94,
+            0.25
+        );
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(
+            34,
+            197,
+            94,
+            0.055
+        );
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width:
+        700px
+) {
+
+    .porta-input-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .porta-pair-grid {
+        grid-template-columns:
+            repeat(
+                4,
+                minmax(
+                    65px,
+                    1fr
+                )
+            );
+    }
+
+}
+
+
+/* =====================================================
+   ARISTOCRAT / PATRISTOCRAT CRYPTANALYSIS TRAINER
+===================================================== */
+
+.crypto-trainer {
+    display: grid;
+    gap: 24px;
+    margin-top: 22px;
+}
+
+
+.crypto-stage {
+    padding: 20px;
+
+    background:
+        var(--background);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+}
+
+
+.crypto-stage-number {
+    margin-bottom: 5px;
+
+    color:
+        var(--primary-hover);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+}
+
+
+.crypto-stage h3 {
+    margin:
+        0
+        0
+        8px;
+
+    font-size: 19px;
+}
+
+
+.crypto-stage-description {
+    margin:
+        0
+        0
+        18px;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   RULE BOX
+===================================================== */
+
+.crypto-rule {
+    margin:
+        14px
+        0;
+
+    padding: 13px;
+
+    border-left:
+        3px solid
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.07
+        );
+
+    font-family:
+        monospace;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   CIPHERTEXT
+===================================================== */
+
+.crypto-cipher-box {
+    padding: 20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        12px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-size:
+        clamp(
+            18px,
+            3vw,
+            24px
+        );
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    line-height: 1.8;
+
+    text-align: center;
+
+    overflow-wrap: anywhere;
+}
+
+
+.crypto-cipher-letter {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 22px;
+
+    padding:
+        2px
+        3px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s,
+        color 0.15s,
+        transform 0.15s;
+}
+
+
+.crypto-cipher-letter:hover {
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.14
+        );
+
+    color:
+        var(--primary-hover);
+
+    transform:
+        translateY(-1px);
+}
+
+
+.crypto-cipher-letter.selected {
+    background:
+        var(--primary);
+
+    color: white;
+}
+
+
+/* =====================================================
+   PARTIAL PLAINTEXT
+===================================================== */
+
+.crypto-plaintext-box {
+    margin-top: 12px;
+
+    padding: 20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        12px;
+
+    background:
+        var(--background);
+
+    font-family:
+        monospace;
+
+    font-size:
+        clamp(
+            18px,
+            3vw,
+            24px
+        );
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    line-height: 1.8;
+
+    text-align: center;
+
+    overflow-wrap: anywhere;
+}
+
+
+.crypto-unknown {
+    color:
+        var(--muted);
+}
+
+
+.crypto-known {
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   FREQUENCY TABLE
+===================================================== */
+
+.crypto-frequency-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            6,
+            minmax(
+                70px,
+                1fr
+            )
+        );
+
+    gap: 7px;
+}
+
+
+.crypto-frequency-card {
+    padding:
+        10px
+        7px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        9px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.16s,
+        background 0.16s;
+}
+
+
+.crypto-frequency-card:hover,
+.crypto-frequency-card.selected {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.15
+        );
+}
+
+
+.crypto-frequency-letter {
+    display: block;
+
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+.crypto-frequency-count {
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+}
+
+
+.crypto-frequency-bar {
+    height: 4px;
+
+    margin-top: 7px;
+
+    border-radius: 999px;
+
+    background:
+        var(--border);
+
+    overflow: hidden;
+}
+
+
+.crypto-frequency-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        var(--primary);
+}
+
+
+/* =====================================================
+   GUESS CONTROLS
+===================================================== */
+
+.crypto-guess-panel {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        auto;
+
+    gap: 10px;
+
+    align-items: end;
+
+    margin-top: 18px;
+}
+
+
+.crypto-guess-field label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.crypto-guess-field input {
+    width: 100%;
+
+    min-height: 44px;
+
+    padding: 12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    font-family:
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    text-align: center;
+
+    text-transform: uppercase;
+
+    outline: none;
+}
+
+
+.crypto-guess-field input:focus {
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            99,
+            102,
+            241,
+            0.13
+        );
+}
+
+
+.crypto-guess-button {
+    min-height: 44px;
+
+    padding:
+        0
+        16px;
+
+    border:
+        1px solid
+        var(--primary);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--primary);
+
+    color: white;
+
+    font: inherit;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+.crypto-guess-button:hover {
+    background:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   FEEDBACK
+===================================================== */
+
+.crypto-feedback {
+    min-height: 22px;
+
+    margin-top: 10px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.crypto-feedback.error {
+    color:
+        var(--danger);
+}
+
+
+.crypto-feedback.success {
+    color:
+        var(--success);
+}
+
+
+/* =====================================================
+   MAPPING TABLE
+===================================================== */
+
+.crypto-mapping-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            13,
+            minmax(
+                46px,
+                1fr
+            )
+        );
+
+    gap: 5px;
+
+    overflow-x: auto;
+}
+
+
+.crypto-map-cell {
+    min-width: 46px;
+
+    padding:
+        9px
+        4px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        8px;
+
+    background:
+        var(--surface);
+
+    text-align: center;
+}
+
+
+.crypto-map-cipher {
+    display: block;
+
+    color:
+        var(--muted);
+
+    font-family:
+        monospace;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+.crypto-map-plain {
+    display: block;
+
+    margin-top: 4px;
+
+    min-height: 19px;
+
+    font-family:
+        monospace;
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   WORD PATTERNS
+===================================================== */
+
+.crypto-pattern-list {
+    display: grid;
+    gap: 8px;
+}
+
+
+.crypto-pattern-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(
+            100px,
+            1fr
+        )
+        auto
+        minmax(
+            110px,
+            1fr
+        );
+
+    gap: 10px;
+
+    align-items: center;
+
+    padding: 11px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        9px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+}
+
+
+.crypto-pattern-word {
+    font-weight: 900;
+}
+
+
+.crypto-pattern-signature {
+    color:
+        var(--primary-hover);
+
+    font-weight: 900;
+}
+
+
+.crypto-pattern-note {
+    color:
+        var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   REPEATED SEQUENCES
+===================================================== */
+
+.crypto-repeat-grid {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+
+.crypto-repeat-card {
+    padding:
+        9px
+        12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        9px;
+
+    background:
+        var(--surface);
+
+    font-family:
+        monospace;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.crypto-action-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+
+.crypto-secondary-button {
+    min-height: 42px;
+
+    padding:
+        10px
+        12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+
+.crypto-secondary-button:hover {
+    border-color:
+        var(--primary);
+}
+
+
+/* =====================================================
+   SOLVED
+===================================================== */
+
+.crypto-solved-banner {
+    margin-top: 16px;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        rgba(
+            34,
+            197,
+            94,
+            0.3
+        );
+
+    border-radius:
+        11px;
+
+    background:
+        rgba(
+            34,
+            197,
+            94,
+            0.08
+        );
+
+    color:
+        var(--success);
+
+    text-align: center;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width:
+        750px
+) {
+
+    .crypto-frequency-grid {
+        grid-template-columns:
+            repeat(
+                3,
+                1fr
+            );
+    }
+
+
+    .crypto-guess-panel {
+        grid-template-columns:
+            1fr
+            1fr;
+    }
+
+
+    .crypto-guess-button {
+        grid-column:
+            1 / -1;
+    }
+
+
+    .crypto-mapping-grid {
+        grid-template-columns:
+            repeat(
+                13,
+                46px
+            );
+    }
+
+
+    .crypto-pattern-row {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .crypto-action-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+/* =====================================================
+   BASIC CIPHER TEACHERS
+   Caesar / Atbash / Affine / Baconian
+===================================================== */
+
+.basic-teacher {
+    display: grid;
+    gap: 24px;
+    margin-top: 22px;
+}
+
+.basic-stage {
+    padding: 20px;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.basic-stage-number {
+    margin-bottom: 5px;
+    color: var(--primary-hover);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+}
+
+.basic-stage h3 {
+    margin: 0 0 8px;
+    font-size: 19px;
+}
+
+.basic-stage-description {
+    margin: 0 0 18px;
+    font-size: 14px;
+}
+
+.basic-rule {
+    margin: 14px 0;
+    padding: 13px;
+    border-left: 3px solid var(--primary);
+    background: rgba(99, 102, 241, 0.07);
+    font-family: monospace;
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.basic-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.basic-input-field label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.basic-input-field input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+}
+
+.basic-input-field input:focus {
+    border-color: var(--primary);
+    box-shadow:
+        0 0 0 3px
+        rgba(99, 102, 241, 0.13);
+}
+
+
+/* =====================================================
+   ALPHABET ROWS
+===================================================== */
+
+.basic-alphabet-scroll {
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.basic-alphabet-table {
+    display: grid;
+    grid-template-columns:
+        repeat(26, 42px);
+    gap: 4px;
+    width: max-content;
+}
+
+.basic-alpha-cell {
+    width: 42px;
+    min-height: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    font-family: monospace;
+}
+
+.basic-alpha-top {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.basic-alpha-main {
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.basic-alpha-cell.highlighted {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.16);
+    color: var(--primary-hover);
+}
+
+
+/* =====================================================
+   PIPELINE
+===================================================== */
+
+.basic-pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 18px;
+}
+
+.basic-pipeline-card {
+    min-width: 125px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--surface);
+    text-align: center;
+}
+
+.basic-pipeline-label {
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.basic-pipeline-value {
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.basic-pipeline-arrow {
+    color: var(--primary-hover);
+    font-size: 22px;
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   POSITION NAV
+===================================================== */
+
+.basic-position-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.basic-position-button {
+    min-width: 42px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.basic-position-button:hover {
+    border-color: var(--primary);
+    color: var(--primary-hover);
+}
+
+.basic-position-count {
+    min-width: 110px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   AFFINE
+===================================================== */
+
+.affine-equations {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.affine-equation {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--surface);
+    font-family: monospace;
+}
+
+.affine-equation-main {
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.affine-equation-note {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.affine-valid {
+    color: var(--success);
+    font-weight: 900;
+}
+
+.affine-invalid {
+    color: var(--danger);
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   BACONIAN
+===================================================== */
+
+.baconian-bit-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 16px;
+}
+
+.baconian-bit {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.baconian-bit.a {
+    color: var(--muted);
+}
+
+.baconian-bit.b {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--primary-hover);
+}
+
+.baconian-table {
+    display: grid;
+    grid-template-columns:
+        repeat(6, minmax(90px, 1fr));
+    gap: 7px;
+    margin-top: 16px;
+}
+
+.baconian-cell {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--surface);
+    text-align: center;
+}
+
+.baconian-letter {
+    display: block;
+    font-weight: 900;
+}
+
+.baconian-code {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-family: monospace;
+    font-size: 11px;
+}
+
+.baconian-cell.highlighted {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--primary-hover);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .basic-input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .basic-alphabet-table {
+        grid-template-columns:
+            repeat(26, 39px);
+    }
+
+    .basic-alpha-cell {
+        width: 39px;
+    }
+
+    .baconian-table {
+        grid-template-columns:
+            repeat(3, minmax(85px, 1fr));
+    }
+}
+
+
+/* =====================================================
+   CENTER / FIT FULL A-Z VISUALIZATIONS
+===================================================== */
+
+
+/*
+---------------------------------------------------------
+CAESAR / ATBASH / AFFINE ALPHABET ROWS
+---------------------------------------------------------
+*/
+
+.basic-alphabet-scroll {
+    width: 100%;
+    overflow-x: visible;
+}
+
+
+.basic-alphabet-table {
+    width: 100%;
+    max-width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            26,
+            minmax(0, 1fr)
+        );
+
+    gap: 3px;
+
+    margin:
+        0
+        auto;
+}
+
+
+.basic-alpha-cell {
+    width: auto;
+    min-width: 0;
+
+    min-height: 58px;
+
+    padding:
+        5px
+        1px;
+}
+
+
+.basic-alpha-top {
+    font-size: 9px;
+}
+
+
+.basic-alpha-main {
+    font-size: 15px;
+}
+
+
+/*
+---------------------------------------------------------
+PORTA 26-LETTER TABLEAU
+---------------------------------------------------------
+*/
+
+.porta-row-scroll {
+    width: 100%;
+    overflow-x: visible;
+}
+
+
+.porta-tableau {
+    width: 100%;
+    max-width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            26,
+            minmax(0, 1fr)
+        );
+
+    gap: 3px;
+
+    margin:
+        0
+        auto;
+}
+
+
+.porta-tableau-cell {
+    width: auto;
+    min-width: 0;
+
+    min-height: 64px;
+
+    padding:
+        4px
+        1px;
+}
+
+
+.porta-tableau-plain {
+    font-size: 9px;
+}
+
+
+.porta-tableau-cipher {
+    font-size: 14px;
+}
+
+
+/*
+---------------------------------------------------------
+SUBSTITUTION MAPPING A-Z
+---------------------------------------------------------
+*/
+
+.crypto-mapping-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            13,
+            minmax(0, 1fr)
+        );
+
+    gap: 5px;
+
+    margin:
+        0
+        auto;
+
+    overflow-x: visible;
+}
+
+
+.crypto-map-cell {
+    min-width: 0;
+
+    width: auto;
+}
+
+
+/*
+---------------------------------------------------------
+MOBILE
+
+26 letters become too narrow on a phone, so mobile
+gets a centered scrollable alphabet instead.
+---------------------------------------------------------
+*/
+
+@media (
+    max-width: 700px
+) {
+
+    .basic-alphabet-scroll,
+    .porta-row-scroll {
+        overflow-x: auto;
+
+        padding-bottom: 8px;
+    }
+
+
+    .basic-alphabet-table {
+        width: max-content;
+
+        grid-template-columns:
+            repeat(
+                26,
+                36px
+            );
+
+        margin:
+            0;
+    }
+
+
+    .basic-alpha-cell {
+        width: 36px;
+    }
+
+
+    .porta-tableau {
+        width: max-content;
+
+        grid-template-columns:
+            repeat(
+                26,
+                36px
+            );
+
+        margin:
+            0;
+    }
+
+
+    .porta-tableau-cell {
+        width: 36px;
+    }
+
+
+    .crypto-mapping-grid {
+        grid-template-columns:
+            repeat(
+                13,
+                minmax(
+                    38px,
+                    1fr
+                )
+            );
+    }
+
+}
+    </style>
+<script>
+  window.va = window.va || function () {
+    (window.vaq = window.vaq || []).push(arguments);
+  };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+        <span>THE</span> DAILY CIPHER
+    </a>
+
+
+    <nav>
+
+        <a href="../index.html">
+            Daily
+        </a>
+
+        <a href="index.html">
+            Learn
+        </a>
+
+        <a href="../practice/index.html">
+            Practice
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container guide-shell">
+
+
+    <section class="hero">
+
+        <a
+            href="index.html"
+            class="guide-back"
+        >
+            ← Cryptography Encyclopedia
+        </a>
+
+
+        <div
+            id="guide-category"
+            class="eyebrow"
+        >
+            CRYPTOGRAPHY
+        </div>
+
+
+        <h1 id="guide-title">
+            Loading...
+        </h1>
+
+
+        <p id="guide-summary">
+        </p>
+
+
+        <div
+            id="guide-meta"
+            class="guide-meta"
+        >
+        </div>
+
+    </section>
+
+
+    <!-- HISTORY -->
+
+    <section class="guide-section">
+
+        <div class="eyebrow">
+            BACKGROUND
+        </div>
+
+        <h2>
+            History & Context
+        </h2>
+
+        <div id="guide-history">
+        </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section class="guide-section">
+
+        <div class="eyebrow">
+            MECHANICS
+        </div>
+
+        <h2>
+            How It Works
+        </h2>
+
+        <div id="guide-mechanics">
+        </div>
+
+    </section>
+
+
+    <!-- ENCRYPT -->
+
+    <section class="guide-section">
+
+        <div class="eyebrow">
+            WALKTHROUGH
+        </div>
+
+        <h2>
+            Encrypt Step by Step
+        </h2>
+
+        <div
+            id="encrypt-steps"
+            class="guide-steps"
+        >
+        </div>
+
+    </section>
+
+
+    <!-- EXAMPLE -->
+
+    <section class="guide-section">
+
+        <div class="eyebrow">
+            WORKED EXAMPLE
+        </div>
+
+        <h2>
+            Example
+        </h2>
+
+        <div
+            id="guide-example"
+            class="example-box"
+        >
+        </div>
+
+    </section>
+
+
+    <!-- SOLVING -->
+
+    <section class="guide-section">
+
+        <div class="eyebrow">
+            CRYPTANALYSIS
+        </div>
+
+        <h2>
+            How to Solve It
+        </h2>
+
+        <div
+            id="solve-intro"
+        >
+        </div>
+
+        <div
+            id="solve-steps"
+            class="guide-steps"
+        >
+        </div>
+
+    </section>
+
+
+    <!-- COMMON MISTAKES -->
+
+    <section class="guide-section">
+
+        <div class="eyebrow">
+            WATCH OUT
+        </div>
+
+        <h2>
+            Common Mistakes
+        </h2>
+
+        <div
+            id="guide-mistakes"
+            class="mistake-grid"
+        >
+        </div>
+
+    </section>
+
+<!-- =====================================================
+     ADVANCED TEACHING MODULE
+===================================================== -->
+
+<section
+    id="advanced-teaching-section"
+    class="guide-section hidden"
+>
+
+    <div class="eyebrow">
+        VISUAL WALKTHROUGH
+    </div>
+
+    <h2 id="teaching-title">
+        See How It Works
+    </h2>
+
+    <p id="teaching-description">
+    </p>
+
+    <div id="teaching-module">
+    </div>
+
+</section>
+
+    <!-- INTERACTIVE -->
+
+    <section class="guide-section">
+
+        <div class="eyebrow">
+            INTERACTIVE
+        </div>
+
+        <h2>
+            Try It Yourself
+        </h2>
+
+        <p>
+            Change the plaintext and parameters to see
+            how this cipher transforms a message.
+        </p>
+
+
+        <div id="visualizer-controls">
+        </div>
+
+
+        <button
+            id="run-visualizer"
+            class="primary-button"
+        >
+            Encrypt
+        </button>
+
+
+        <div
+            id="visualizer-output"
+            class="visualizer-output"
+        >
+            Enter a message above.
+        </div>
+
+
+        <div
+            id="rail-grid-wrapper"
+            class="hidden"
+        >
+
+            <div id="rail-grid">
+            </div>
+
+            <div
+                id="rail-result"
+                class="rail-result"
+            >
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="guide-section">
+
+        <div class="eyebrow">
+            NEXT
+        </div>
+
+        <h2>
+            Practice the Cipher
+        </h2>
+
+        <p>
+            Understanding the mechanics is useful,
+            but fluency comes from solving many different
+            examples without relying on the walkthrough.
+        </p>
+
+
+        <div class="guide-actions">
+
+            <a
+                id="guide-practice"
+                href="../practice/index.html"
+                class="primary-button"
+            >
+                Practice This Cipher
+            </a>
+
+            <a
+                href="index.html"
+                class="guide-secondary"
+            >
+                Explore More Ciphers
+            </a>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p>
+        THE DAILY CIPHER
+    </p>
+
+    <span>
+        Learn. Crack. Repeat.
+    </span>
+
+</footer>
+
+
+<script src="../js/utils.js"></script>
+
+<script src="../js/cipherEngine.js"></script>
+
+<script src="../js/nihilistTeacher.js"></script>
+
+<script src="../js/hillTeacher.js"></script>
+
+<script src="../js/fractionatedMorseTeacher.js"></script>
+
+<script src="../js/columnarTeacher.js"></script>
+
+<script src="../js/portaTeacher.js"></script>
+
+<script src="../js/substitutionTrainer.js"></script>
+
+<script src="../js/basicCipherTeacher.js"></script>
+
+<script src="../js/learnGuide.js"></script>
+
+<script src="/js/navigation.js"></script>
+</body>
+
+</html>

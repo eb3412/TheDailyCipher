@@ -1,0 +1,299 @@
+[
+  {
+    "id": "caesar",
+    "practiceId": "caesar",
+    "name": "Caesar Cipher",
+    "category": "Substitution",
+    "difficulty": "Beginner",
+    "description": "Move every letter by the same fixed amount and learn to reverse the shift without guessing.",
+    "keywords": [
+      "shift",
+      "rotation",
+      "monoalphabetic"
+    ],
+    "scienceOlympiad": false,
+    "guideReady": true,
+    "page": "caesar.html",
+    "visualizer": "../visualizers/caesar.html"
+  },
+  {
+    "id": "atbash",
+    "practiceId": "atbash",
+    "name": "Atbash Cipher",
+    "category": "Substitution",
+    "difficulty": "Beginner",
+    "description": "Pair the alphabet with itself backwards: A with Z, B with Y, and so on.",
+    "keywords": [
+      "reverse alphabet",
+      "mirror",
+      "monoalphabetic"
+    ],
+    "scienceOlympiad": false,
+    "guideReady": true,
+    "page": "atbash.html",
+    "visualizer": "../visualizers/atbash.html"
+  },
+  {
+    "id": "affine",
+    "practiceId": "affine",
+    "name": "Affine Cipher",
+    "category": "Substitution",
+    "difficulty": "Intermediate",
+    "description": "Use multiplication and addition modulo 26 to build a complete substitution alphabet.",
+    "keywords": [
+      "modular arithmetic",
+      "linear",
+      "substitution"
+    ],
+    "scienceOlympiad": false,
+    "guideReady": true,
+    "page": "affine.html",
+    "visualizer": "../visualizers/affine.html"
+  },
+  {
+    "id": "railfence",
+    "practiceId": "railfence",
+    "name": "Rail Fence Cipher",
+    "category": "Transposition",
+    "difficulty": "Beginner",
+    "description": "Write letters diagonally across rails, then read each rail to rearrange the message.",
+    "keywords": [
+      "zigzag",
+      "rails",
+      "transposition"
+    ],
+    "scienceOlympiad": false,
+    "guideReady": true,
+    "page": "railfence.html",
+    "visualizer": "../visualizers/railfence.html"
+  },
+  {
+    "id": "playfair",
+    "practiceId": null,
+    "name": "Playfair Cipher",
+    "category": "Polygraphic",
+    "difficulty": "Intermediate",
+    "description": "Encrypt pairs of letters through a keyed 5×5 square using row, column, and rectangle rules.",
+    "keywords": [
+      "digraph",
+      "5x5 square",
+      "polygraphic"
+    ],
+    "scienceOlympiad": false,
+    "guideReady": true,
+    "page": "playfair.html",
+    "visualizer": "../visualizers/playfair.html"
+  },
+  {
+    "id": "hill",
+    "practiceId": "hill",
+    "name": "Hill Cipher",
+    "category": "Mathematical",
+    "difficulty": "Advanced",
+    "description": "Turn blocks of letters into vectors, multiply by an invertible matrix, and reduce modulo 26.",
+    "keywords": [
+      "matrix",
+      "mod 26",
+      "linear algebra"
+    ],
+    "scienceOlympiad": false,
+    "guideReady": true,
+    "page": "hill.html",
+    "visualizer": "../visualizers/hill.html"
+  },
+  {
+    "id": "aristocrat-k1",
+    "practiceId": "aristocrat-k1",
+    "name": "Aristocrat Cipher",
+    "category": "Substitution",
+    "difficulty": "Intermediate",
+    "description": "Solve substitution cryptograms with spaces preserved using patterns, frequencies, and consistent letter mappings.",
+    "keywords": [
+      "Codebusters",
+      "K1",
+      "K2",
+      "K3",
+      "frequency"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "aristocrat.html",
+    "visualizer": "../visualizers/aristocrat.html"
+  },
+  {
+    "id": "patristocrat-k1",
+    "practiceId": "patristocrat-k1",
+    "name": "Patristocrat Cipher",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "description": "Solve a monoalphabetic substitution after word boundaries have been removed and ciphertext has been regrouped.",
+    "keywords": [
+      "Codebusters",
+      "spaceless",
+      "frequency"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "patristocrat.html",
+    "visualizer": "../visualizers/patristocrat.html"
+  },
+  {
+    "id": "baconian-variant",
+    "practiceId": "baconian-variant",
+    "name": "Baconian Cipher",
+    "category": "Encoding",
+    "difficulty": "Beginner",
+    "description": "Decode every five-symbol group with a complete A/B reference table—without needing another website.",
+    "keywords": [
+      "Codebusters",
+      "binary",
+      "five symbols"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "baconian.html",
+    "visualizer": "../visualizers/baconian.html"
+  },
+  {
+    "id": "xenocrypt-k1",
+    "practiceId": "xenocrypt-k1",
+    "name": "Spanish Xenocrypt",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "description": "Apply monoalphabetic cryptanalysis to Spanish text with Spanish word patterns, Ñ, and keyed substitution alphabets.",
+    "keywords": [
+      "Codebusters",
+      "Spanish",
+      "K1",
+      "K2"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "xenocrypt.html",
+    "visualizer": "../visualizers/xenocrypt.html"
+  },
+  {
+    "id": "fractionatedmorse",
+    "practiceId": "fractionatedmorse",
+    "name": "Fractionated Morse Cipher",
+    "category": "Morse / Fractionation",
+    "difficulty": "Advanced",
+    "description": "Follow the entire path from plaintext to Morse, separators, trigrams, keyed letters, and back again.",
+    "keywords": [
+      "Codebusters",
+      "Morse",
+      "trigrams",
+      "crib"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "fractionatedmorse.html",
+    "visualizer": "../visualizers/fractionatedmorse.html"
+  },
+  {
+    "id": "cryptarithm",
+    "practiceId": "cryptarithm",
+    "name": "Cryptarithms",
+    "category": "Arithmetic",
+    "difficulty": "Advanced",
+    "description": "Solve base-10 arithmetic where letters stand for digits, track carries, then decode the requested extraction.",
+    "keywords": [
+      "Codebusters",
+      "base 10",
+      "carries",
+      "digits"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "cryptarithm.html",
+    "visualizer": "../visualizers/cryptarithm.html"
+  },
+  {
+    "id": "porta",
+    "practiceId": "porta",
+    "name": "Porta Cipher",
+    "category": "Polyalphabetic",
+    "difficulty": "Intermediate",
+    "description": "Use a repeating keyword and the 13 reciprocal Porta alphabets to encrypt or decrypt with the same substitution rule.",
+    "keywords": [
+      "Codebusters",
+      "reciprocal",
+      "keyword"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "porta.html",
+    "visualizer": "../visualizers/porta.html"
+  },
+  {
+    "id": "nihilist",
+    "practiceId": "nihilist",
+    "name": "Nihilist Cipher",
+    "category": "Polybius / Numeric",
+    "difficulty": "Advanced",
+    "description": "Build a keyed Polybius square, convert plaintext and key letters to coordinates, add them, and reverse the arithmetic to decrypt.",
+    "keywords": [
+      "Codebusters",
+      "Polybius",
+      "addition",
+      "crib"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "nihilist.html",
+    "visualizer": "../visualizers/nihilist.html"
+  },
+  {
+    "id": "columnar",
+    "practiceId": "columnar",
+    "name": "Complete Columnar Cipher",
+    "category": "Transposition",
+    "difficulty": "Advanced",
+    "description": "Reconstruct a complete rectangle, understand the column-number key, and use a crib to attack unknown ordering.",
+    "keywords": [
+      "Codebusters",
+      "columns",
+      "crib",
+      "permutation"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "columnar.html",
+    "visualizer": "../visualizers/columnar.html"
+  },
+  {
+    "id": "checkerboard",
+    "practiceId": "checkerboard",
+    "name": "Checkerboard Cipher",
+    "category": "Polybius / Coordinates",
+    "difficulty": "Intermediate",
+    "description": "Use a complete 5×5 keyed board and row/column headers so every ciphertext pair can be decoded directly.",
+    "keywords": [
+      "Codebusters",
+      "5x5",
+      "coordinates"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "checkerboard.html",
+    "visualizer": "../visualizers/checkerboard.html"
+  },
+  {
+    "id": "homophonic",
+    "practiceId": "homophonic",
+    "name": "Homophonic Cipher",
+    "category": "Substitution",
+    "difficulty": "Advanced",
+    "description": "Understand how one plaintext letter can map to several number symbols while every number still identifies only one plaintext letter.",
+    "keywords": [
+      "Codebusters",
+      "homophones",
+      "frequency",
+      "numbers"
+    ],
+    "scienceOlympiad": true,
+    "guideReady": true,
+    "page": "homophonic.html",
+    "visualizer": "../visualizers/homophonic.html"
+  }
+]

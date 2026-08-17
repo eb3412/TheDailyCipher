@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Learn Cryptography | The Daily Cipher
+    </title>
+
+    <meta
+        name="description"
+        content="Explore classical ciphers, cryptanalysis methods, examples, practice links, and interactive learning resources."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/themes.css"
+    >
+
+    <link
+    rel="canonical"
+    href="https://thedailycipher.org/learn/"
+>
+<link
+    rel="icon"
+    type="image/png"
+    href="/assets/favicon.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/assets/apple-touch-icon.png"
+>
+
+<meta
+    name="theme-color"
+    content="#030712"
+>
+    <style>
+
+        /* =========================
+           LEARN SUMMARY
+        ========================= */
+
+        .learn-summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .learn-summary-card {
+
+            padding: 18px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 12px;
+
+            text-align: center;
+
+        }
+
+
+        .learn-summary-number {
+
+            font-size: 27px;
+
+            font-weight: 900;
+
+        }
+
+
+        .learn-summary-label {
+
+            margin-top: 4px;
+
+            color:
+                var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .learn-search {
+
+            margin-bottom: 15px;
+
+        }
+
+
+        #cipher-search {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 12px;
+
+            background: white;
+
+            color: #111827;
+
+            font-size: 15px;
+
+            outline: none;
+
+        }
+
+
+        #cipher-search:focus {
+
+            border-color:
+                var(--primary);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.15
+                );
+
+        }
+
+
+        /* =========================
+           FILTERS
+        ========================= */
+
+        .learn-controls {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .learn-control label {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            color:
+                var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 900;
+
+            letter-spacing: 1.4px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .learn-control select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            background: white;
+
+            color: #111827;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+        }
+
+
+        .learn-result-bar {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        /* =========================
+           CIPHER GRID
+        ========================= */
+
+        .cipher-learning-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 14px;
+
+        }
+
+
+        .cipher-learning-card {
+
+            display: flex;
+
+            flex-direction: column;
+
+            min-height: 260px;
+
+            padding: 18px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 14px;
+
+            transition:
+                transform 0.18s,
+                border-color 0.18s;
+
+        }
+
+
+        .cipher-learning-card:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        .cipher-card-top {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            gap: 12px;
+
+        }
+
+
+        .cipher-card-category {
+
+            color:
+                var(--primary-hover);
+
+            font-size: 9px;
+
+            font-weight: 900;
+
+            letter-spacing: 1.5px;
+
+        }
+
+
+        .cipher-difficulty-badge {
+
+            padding:
+                5px
+                8px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 999px;
+
+            color:
+                var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+        }
+
+
+        .cipher-learning-card h3 {
+
+            margin:
+                14px
+                0
+                8px;
+
+            font-size: 21px;
+
+        }
+
+
+        .cipher-description {
+
+            margin: 0;
+
+            color:
+                var(--muted);
+
+            line-height: 1.55;
+
+        }
+
+
+        .cipher-tags {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 6px;
+
+            margin-top: 14px;
+
+        }
+
+
+        .cipher-tag {
+
+            padding:
+                5px
+                7px;
+
+            background:
+                var(--surface-light);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 7px;
+
+            color:
+                var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+        }
+
+
+        .cipher-tag.scioly {
+
+            color:
+                var(--primary-hover);
+
+        }
+
+
+        .cipher-card-actions {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(
+                        90px,
+                        1fr
+                    )
+                );
+
+            gap: 8px;
+
+            margin-top: auto;
+
+            padding-top: 18px;
+
+        }
+
+
+        .learn-card-button {
+
+            display: block;
+
+            padding: 11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 9px;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            transition: 0.18s;
+
+        }
+
+
+        .learn-card-button:hover {
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        .learn-card-button.primary {
+
+            background:
+                var(--primary);
+
+            color: white;
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        .learn-card-button.disabled {
+
+            opacity: 0.5;
+
+            cursor: default;
+
+        }
+
+
+        .learn-empty {
+
+            padding: 35px;
+
+            text-align: center;
+
+            color:
+                var(--muted);
+
+            border:
+                1px dashed
+                var(--border);
+
+            border-radius: 12px;
+
+        }
+
+
+        @media (
+            max-width: 750px
+        ) {
+
+            .learn-summary {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .learn-controls {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .cipher-learning-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+<script>
+  window.va = window.va || function () {
+    (window.vaq = window.vaq || []).push(arguments);
+  };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+
+        <span>THE</span>
+        DAILY CIPHER
+
+    </a>
+
+
+    <nav>
+
+        <a href="../index.html">
+            Daily
+        </a>
+
+        <a href="index.html">
+            Learn
+        </a>
+
+        <a href="../practice/index.html">
+            Practice
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            COMPLETE CIPHER ACADEMY
+        </div>
+
+        <h1>
+
+            Learn
+            <span>Cryptography.</span>
+
+        </h1>
+
+        <p>
+
+            Start from zero and learn each cipher completely with reference tables,
+            encryption and decryption walkthroughs, cryptanalysis strategy,
+            worked problems, interactive visualizers, and unlimited practice.
+
+        </p>
+
+    </section>
+
+
+    <section class="daily-card">
+
+
+        <div class="learn-summary">
+
+
+            <div class="learn-summary-card">
+
+                <div
+                    id="learn-total-ciphers"
+                    class="learn-summary-number"
+                >
+                    0
+                </div>
+
+                <div class="learn-summary-label">
+                    CIPHERS
+                </div>
+
+            </div>
+
+
+            <div class="learn-summary-card">
+
+                <div
+                    id="learn-categories"
+                    class="learn-summary-number"
+                >
+                    0
+                </div>
+
+                <div class="learn-summary-label">
+                    CATEGORIES
+                </div>
+
+            </div>
+
+
+            <div class="learn-summary-card">
+
+                <div
+                    id="learn-pages-ready"
+                    class="learn-summary-number"
+                >
+                    0
+                </div>
+
+                <div class="learn-summary-label">
+                    COMPLETE GUIDES
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="learn-search">
+
+            <label
+                for="cipher-search"
+                style="
+                    display:block;
+                    margin-bottom:7px;
+                    color:var(--muted);
+                    font-size:10px;
+                    font-weight:800;
+                    letter-spacing:1.4px;
+                "
+            >
+                SEARCH
+            </label>
+
+            <input
+                id="cipher-search"
+                type="search"
+                placeholder="Search by cipher, concept, category, or keyword..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="learn-controls">
+
+
+            <div class="learn-control">
+
+                <label for="category-filter">
+                    Category
+                </label>
+
+                <select id="category-filter">
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="learn-control">
+
+                <label for="difficulty-filter">
+                    Difficulty
+                </label>
+
+                <select id="difficulty-filter">
+
+                    <option value="all">
+                        All Difficulties
+                    </option>
+
+                    <option value="Beginner">
+                        Beginner
+                    </option>
+
+                    <option value="Intermediate">
+                        Intermediate
+                    </option>
+
+                    <option value="Advanced">
+                        Advanced
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="learn-control">
+
+                <label for="sort-filter">
+                    Sort
+                </label>
+
+                <select id="sort-filter">
+
+                    <option value="name">
+                        Alphabetical
+                    </option>
+
+                    <option value="difficulty">
+                        Difficulty
+                    </option>
+
+                    <option value="category">
+                        Category
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="learn-result-bar">
+
+            <span id="learn-result-count">
+                Showing 0 ciphers
+            </span>
+
+            <button
+                id="clear-learn-filters"
+                class="text-button"
+            >
+                Clear Filters
+            </button>
+
+        </div>
+
+
+        <div
+            id="cipher-grid"
+            class="cipher-learning-grid"
+        >
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p>
+        THE DAILY CIPHER
+    </p>
+
+    <span>
+        Learn. Crack. Repeat.
+    </span>
+
+</footer>
+
+
+<script src="../js/utils.js"></script>
+
+<script src="../js/search.js"></script>
+
+<script src="/js/navigation.js"></script>
+</body>
+
+</html>

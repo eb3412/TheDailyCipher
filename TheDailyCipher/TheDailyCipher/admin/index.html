@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+    name="robots"
+    content="noindex, nofollow"
+>
+
+    <title>
+        The Daily Cipher Admin
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/themes.css"
+    >
+
+    <style>
+
+        .admin-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .admin-field {
+            margin-bottom: 18px;
+        }
+
+
+        .admin-field.full {
+            grid-column: 1 / -1;
+        }
+
+
+        .admin-field label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+
+        .admin-field input,
+        .admin-field select,
+        .admin-field textarea {
+
+            width: 100%;
+
+            padding: 13px;
+
+            background: white;
+
+            color: #111827;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            outline: none;
+        }
+
+
+        .admin-field textarea {
+            min-height: 120px;
+
+            resize: vertical;
+        }
+
+
+        .admin-field input:focus,
+        .admin-field select:focus,
+        .admin-field textarea:focus {
+
+            border-color:
+                var(--primary);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.15
+                );
+        }
+
+
+        .admin-actions {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            margin-top: 10px;
+        }
+
+
+        .secondary-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            background:
+                var(--surface-light);
+
+            color:
+                var(--text);
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+
+        .secondary-button:hover {
+            border-color:
+                var(--primary);
+        }
+
+
+        .admin-preview {
+
+            margin-top: 30px;
+
+            padding-top: 25px;
+
+            border-top:
+                1px solid
+                var(--border);
+        }
+
+
+        .preview-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 14px;
+        }
+
+
+        .preview-item {
+
+            padding: 16px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+        }
+
+
+        .preview-item.full {
+            grid-column:
+                1 / -1;
+        }
+
+
+        .preview-label {
+
+            margin-bottom: 7px;
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .preview-value {
+
+            font-family:
+                monospace;
+
+            font-size: 15px;
+
+            word-break:
+                break-word;
+        }
+
+
+        .admin-validation {
+
+            margin-top: 18px;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .admin-validation.valid {
+
+            background:
+                rgba(
+                    52,
+                    211,
+                    153,
+                    0.08
+                );
+
+            color:
+                var(--success);
+
+            border:
+                1px solid
+                rgba(
+                    52,
+                    211,
+                    153,
+                    0.3
+                );
+        }
+
+
+        .admin-validation.invalid {
+
+            background:
+                rgba(
+                    248,
+                    113,
+                    113,
+                    0.08
+                );
+
+            color:
+                var(--danger);
+
+            border:
+                1px solid
+                rgba(
+                    248,
+                    113,
+                    113,
+                    0.3
+                );
+        }
+
+
+        .json-output {
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background:
+                #030712;
+
+            color:
+                #e5e7eb;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            overflow-x: auto;
+
+            text-align: left;
+
+            white-space: pre-wrap;
+        }
+
+
+        .hint-preview {
+
+            margin-top: 8px;
+
+            padding: 10px;
+
+            background:
+                var(--surface-light);
+
+            border-radius: 8px;
+
+            font-size: 13px;
+        }
+
+
+        @media (
+            max-width: 700px
+        ) {
+
+            .admin-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .admin-field.full {
+                grid-column:
+                    auto;
+            }
+
+
+            .preview-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .preview-item.full {
+                grid-column:
+                    auto;
+            }
+
+
+            .admin-actions {
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+.schedule-summary {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 18px;
+    margin-bottom: 20px;
+}
+
+
+.schedule-day {
+    padding: 15px;
+
+    background:
+        var(--background);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 10px;
+}
+
+
+.schedule-day-header {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+
+.schedule-date {
+    font-weight: 900;
+}
+
+
+.schedule-status {
+    color:
+        var(--success);
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.schedule-puzzles {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+
+.schedule-puzzle {
+    padding: 10px;
+
+    background:
+        var(--surface-light);
+
+    border-radius: 8px;
+
+    font-size: 12px;
+}
+
+
+.schedule-puzzle-difficulty {
+    margin-bottom: 4px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.schedule-puzzle-cipher {
+    font-weight: 700;
+}
+
+
+.schedule-invalid {
+    color:
+        var(--danger);
+}
+
+
+@media (
+    max-width: 700px
+) {
+
+    .schedule-puzzles {
+
+        grid-template-columns:
+            1fr;
+
+    }
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+
+        <span>THE</span>
+        DAILY CIPHER
+
+    </a>
+
+
+    <nav>
+
+        <a href="../index.html">
+            Daily
+        </a>
+
+        <a href="../learn/index.html">
+            Learn
+        </a>
+
+        <a href="../practice/index.html">
+            Practice
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            ADMINISTRATION
+        </div>
+
+        <h1>
+            Puzzle
+            <span>Manager</span>
+        </h1>
+
+        <p>
+
+            Generate, validate, preview,
+            and export Daily Cipher puzzles.
+
+        </p>
+
+    </section>
+
+
+    <section class="daily-card">
+
+
+        <h2>
+            Create Puzzle
+        </h2>
+
+
+        <div class="admin-grid">
+
+
+            <div class="admin-field">
+
+                <label for="admin-date">
+                    Date
+                </label>
+
+                <input
+                    id="admin-date"
+                    type="date"
+                >
+
+            </div>
+
+
+            <div class="admin-field">
+
+                <label for="admin-difficulty">
+                    Difficulty
+                </label>
+
+                <select
+                    id="admin-difficulty"
+                >
+
+                    <option value="Easy">
+                        Easy
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="Hard">
+                        Hard
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="admin-field">
+
+                <label for="admin-cipher">
+                    Cipher Type
+                </label>
+
+                <select
+                    id="admin-cipher"
+                >
+                </select>
+
+            </div>
+
+
+            <div class="admin-field">
+
+                <label for="admin-plaintext-mode">
+                    Generation Mode
+                </label>
+
+                <select
+                    id="admin-plaintext-mode"
+                >
+
+                    <option value="auto">
+                        Auto-select plaintext
+                    </option>
+
+                    <option value="custom">
+                        Custom plaintext
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="custom-plaintext-field"
+                class="admin-field full hidden"
+            >
+
+                <label for="admin-plaintext">
+                    Custom Plaintext
+                </label>
+
+                <textarea
+                    id="admin-plaintext"
+                    placeholder="Enter the message you want encrypted..."
+                ></textarea>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="admin-actions">
+
+            <button
+                id="generate-puzzle-button"
+                class="primary-button"
+            >
+                Generate Puzzle
+            </button>
+
+
+            <button
+                id="generate-set-button"
+                class="secondary-button"
+            >
+                Generate Full Daily Set
+            </button>
+
+
+            <button
+                id="clear-admin-button"
+                class="secondary-button"
+            >
+                Clear
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             SINGLE PUZZLE PREVIEW
+        ========================== -->
+
+
+        <div
+            id="admin-preview"
+            class="admin-preview hidden"
+        >
+
+            <div class="eyebrow">
+                GENERATED PUZZLE
+            </div>
+
+            <h2>
+                Preview
+            </h2>
+
+
+            <div class="preview-grid">
+
+
+                <div class="preview-item">
+
+                    <div class="preview-label">
+                        DIFFICULTY
+                    </div>
+
+                    <div
+                        id="preview-difficulty"
+                        class="preview-value"
+                    >
+                        ---
+                    </div>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <div class="preview-label">
+                        CIPHER
+                    </div>
+
+                    <div
+                        id="preview-cipher"
+                        class="preview-value"
+                    >
+                        ---
+                    </div>
+
+                </div>
+
+
+                <div class="preview-item full">
+
+                    <div class="preview-label">
+                        PLAINTEXT
+                    </div>
+
+                    <div
+                        id="preview-plaintext"
+                        class="preview-value"
+                    >
+                        ---
+                    </div>
+
+                </div>
+
+
+                <div class="preview-item full">
+
+                    <div class="preview-label">
+                        CIPHERTEXT
+                    </div>
+
+                    <div
+                        id="preview-ciphertext"
+                        class="preview-value"
+                    >
+                        ---
+                    </div>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <div class="preview-label">
+                        PARAMETERS
+                    </div>
+
+                    <div
+                        id="preview-parameters"
+                        class="preview-value"
+                    >
+                        ---
+                    </div>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <div class="preview-label">
+                        PUZZLE ID
+                    </div>
+
+                    <div
+                        id="preview-id"
+                        class="preview-value"
+                    >
+                        ---
+                    </div>
+
+                </div>
+
+
+                <div class="preview-item full">
+
+                    <div class="preview-label">
+                        HINTS
+                    </div>
+
+                    <div
+                        id="preview-hints"
+                    >
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                id="admin-validation"
+                class="admin-validation"
+            >
+            </div>
+
+
+            <div class="admin-actions">
+
+                <button
+                    id="copy-json-button"
+                    class="primary-button"
+                >
+                    Copy Puzzle JSON
+                </button>
+
+
+                <button
+                    id="regenerate-button"
+                    class="secondary-button"
+                >
+                    Regenerate
+                </button>
+
+
+                <button
+                    id="validate-button"
+                    class="secondary-button"
+                >
+                    Validate Again
+                </button>
+
+            </div>
+
+
+            <pre
+                id="json-output"
+                class="json-output"
+            ></pre>
+
+
+        </div>
+
+
+        <!-- =========================
+             FULL DAILY SET
+        ========================== -->
+
+
+        <div
+            id="daily-set-preview"
+            class="admin-preview hidden"
+        >
+
+            <div class="eyebrow">
+                DAILY SET
+            </div>
+
+            <h2>
+                Easy + Medium + Hard
+            </h2>
+
+
+            <div
+                id="daily-set-summary"
+            >
+            </div>
+
+
+            <div class="admin-actions">
+
+                <button
+                    id="copy-set-json-button"
+                    class="primary-button"
+                >
+                    Copy Full Set JSON
+                </button>
+
+
+                <button
+                    id="regenerate-set-button"
+                    class="secondary-button"
+                >
+                    Regenerate Set
+                </button>
+
+            </div>
+
+
+            <pre
+                id="daily-set-json"
+                class="json-output"
+            ></pre>
+
+
+        </div>
+
+       <!-- =========================
+     MULTI-DAY SCHEDULE
+========================== -->
+
+<div
+    id="schedule-builder"
+    class="admin-preview"
+>
+
+    <div class="eyebrow">
+        MULTI-DAY SCHEDULER
+    </div>
+
+    <h2>
+        Generate Puzzle Schedule
+    </h2>
+
+    <p style="color:var(--muted);">
+        Generate complete Easy, Medium, and Hard puzzle sets
+        across multiple consecutive days.
+    </p>
+
+
+    <div class="admin-grid">
+
+        <div class="admin-field">
+
+            <label for="schedule-start-date">
+                Start Date
+            </label>
+
+            <input
+                id="schedule-start-date"
+                type="date"
+            >
+
+        </div>
+
+
+        <div class="admin-field">
+
+            <label for="schedule-days">
+                Number of Days
+            </label>
+
+            <input
+                id="schedule-days"
+                type="number"
+                value="7"
+                min="1"
+                max="365"
+            >
+
+        </div>
+
+    </div>
+
+
+    <button
+        id="generate-schedule-button"
+        class="primary-button"
+    >
+        Generate Schedule
+    </button>
+
+
+    <div
+        id="schedule-preview"
+        class="admin-preview hidden"
+    >
+
+        <div class="eyebrow">
+            GENERATED SCHEDULE
+        </div>
+
+        <h2 id="schedule-title">
+            Schedule Preview
+        </h2>
+
+
+        <div
+            id="schedule-summary"
+            class="schedule-summary"
+        >
+        </div>
+
+
+        <div class="admin-actions">
+
+            <button
+                id="copy-schedule-button"
+                class="primary-button"
+            >
+                Copy Schedule JSON
+            </button>
+
+
+            <button
+                id="regenerate-schedule-button"
+                class="secondary-button"
+            >
+                Regenerate Schedule
+            </button>
+
+
+            <button
+                id="clear-schedule-button"
+                class="secondary-button"
+            >
+                Clear Schedule
+            </button>
+
+        </div>
+
+
+        <pre
+            id="schedule-json"
+            class="json-output"
+        ></pre>
+
+    </div>
+
+</div> 
+
+    </section>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p>
+        THE DAILY CIPHER
+    </p>
+
+    <span>
+        Admin tools
+    </span>
+
+</footer>
+
+
+<!-- ENGINE FILES -->
+
+<script
+    src="../js/cipherEngine.js">
+</script>
+
+<script
+    src="../js/difficultyEngine.js">
+</script>
+
+<script
+    src="../js/puzzleGenerator.js">
+</script>
+
+
+<!-- ADMIN CONTROLLER -->
+
+<script
+    src="dashboard.js">
+</script>
+
+
+</body>
+
+</html>

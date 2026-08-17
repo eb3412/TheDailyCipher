@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Columnar Cipher — Complete Guide | The Daily Cipher</title>
+<meta name="description" content="Learn Complete Columnar Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer.">
+<link rel="canonical" href="https://thedailycipher.org/learn/columnar.html">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#030712">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/codebusters-learn.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header class="site-header"><a href="../index.html" class="logo"><span>THE</span> DAILY CIPHER</a><nav><a href="../index.html">Daily</a><a href="index.html">Learn</a><a href="../practice/index.html">Practice</a></nav></header>
+<main class="container deep-guide-shell">
+<section class="deep-hero">
+<div class="eyebrow">COLUMN TRANSPOSITION • CODEBUSTERS</div>
+<h1>Complete Columnar Cipher</h1>
+<p>Reconstruct a complete rectangle, understand the column-number key, and use a crib to attack unknown ordering.</p>
+<div class="quick-grid"><div class="quick-item"><span>Family</span><strong>Transposition</strong></div><div class="quick-item"><span>Key / parameter</span><strong>Permutation of column numbers</strong></div><div class="quick-item"><span>Text structure</span><strong>Plaintext letters are rearranged into full columns</strong></div></div>
+</section>
+<div class="deep-layout">
+<aside class="deep-toc" aria-label="Guide contents"><div class="deep-toc-title">ON THIS PAGE</div><a href="#overview">What it is</a><a href="#basics">What you need</a><a href="#reference">Complete reference</a><a href="#encrypt">Encrypt</a><a href="#decrypt">Decrypt</a><a href="#competition">Codebusters approach</a><a href="#cryptanalysis">Cryptanalysis</a><a href="#worked">Worked problem</a><a href="#mistakes">Common mistakes</a><a href="#speed">Speed strategies</a><a href="#quick">Quick reference</a><a href="#interactive">Visualizer &amp; practice</a><div class="deep-toc-note">Everything needed for the cipher itself is included here.</div></aside>
+<div class="deep-content">
+<section id="overview" class="deep-card"><div class="section-kicker">01 • OVERVIEW</div><h2>What is the Complete Columnar Cipher?</h2><p>A complete columnar transposition writes plaintext across rows of a rectangle and reads the columns in a key-defined order. “Complete” means the rectangle is filled so every column has the same number of letters, often by padding.</p><p>The letters themselves never change, which distinguishes this from substitution ciphers.</p><div class="deep-rule-note"><strong>Competition note</strong><p>The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.</p></div></section>
+<section id="basics" class="deep-card"><div class="section-kicker">02 • FOUNDATIONS</div><h2>What you need to know</h2><ul class="deep-list"><li>A key such as 4-2-3-1 labels the columns.</li><li>Encryption reads the column labeled 1 first, then 2, then 3, etc.</li><li>If padding is used, it completes the final row.</li><li>For cryptanalysis, the number of columns and a crib can constrain the column order.</li></ul></section>
+<section id="reference" class="deep-card reference-card"><div class="section-kicker">03 • COMPLETE REFERENCE</div><h2>Keep this beside you while solving</h2><div class="deep-code">Key labels:   4  2  3  1
+Plaintext:    S  E  C  R
+              E  T  M  E
+              S  S  A  G
+              E  X  X  X
+
+Read column label 1 first (rightmost), then 2, 3, 4.</div></section>
+<section id="encrypt" class="deep-card"><div class="section-kicker">04 • ENCRYPTION</div><h2>How encryption works</h2><div class="deep-steps"><div class="deep-step"><div class="deep-step-num">1</div><div><h3>Choose the column count/key</h3><p>Example: four columns labeled 4-2-3-1.</p></div></div><div class="deep-step"><div class="deep-step-num">2</div><div><h3>Write plaintext by rows</h3><p>Fill left-to-right.</p></div></div><div class="deep-step"><div class="deep-step-num">3</div><div><h3>Pad to a complete rectangle</h3><p>Add agreed filler letters if needed.</p></div></div><div class="deep-step"><div class="deep-step-num">4</div><div><h3>Read in key order</h3><p>Collect the entire column labeled 1, then 2, etc.</p></div></div></div></section>
+<section id="decrypt" class="deep-card"><div class="section-kicker">05 • DECRYPTION</div><h2>How decryption works</h2><div class="deep-steps"><div class="deep-step"><div class="deep-step-num">1</div><div><h3>Find rectangle dimensions</h3><p>Cipher length ÷ number of columns gives the number of rows for a complete rectangle.</p></div></div><div class="deep-step"><div class="deep-step-num">2</div><div><h3>Split ciphertext into column chunks</h3><p>Each chunk has the same number of letters.</p></div></div><div class="deep-step"><div class="deep-step-num">3</div><div><h3>Place chunks by key label</h3><p>First chunk goes under label 1, second under label 2, etc.</p></div></div><div class="deep-step"><div class="deep-step-num">4</div><div><h3>Read rows left-to-right</h3><p>Remove obvious padding at the end when appropriate.</p></div></div></div></section>
+<section id="competition" class="deep-card"><div class="section-kicker">06 • COMPETITION WORKFLOW</div><h2>How to approach it in Codebusters practice</h2><ul class="deep-list competition-list"><li>If the number of columns is constrained, test only allowed column counts.</li><li>A crib can reveal which column pieces must sit next to one another in reconstructed rows.</li><li>Do not use irregular-column logic for a complete columnar problem.</li></ul></section>
+<section id="cryptanalysis" class="deep-card"><div class="section-kicker">07 • CRYPTANALYSIS</div><h2>How to attack an unknown or partially known key</h2><ul class="deep-list"><li>Because letters are unchanged, frequency statistics match the plaintext overall.</li><li>Crib fragments that span column boundaries are especially informative for ordering columns.</li><li>For a known column count, divide ciphertext into equal column segments before testing permutations.</li></ul></section>
+<section id="worked" class="deep-card"><div class="section-kicker">08 • WORKED PROBLEM</div><h2>Follow one example from start to finish</h2><div class="worked-box"><div class="worked-row"><span>Key</span><div><code>4-2-3-1</code></div></div><div class="worked-row"><span>Plaintext</span><div><code>SECRETMESSAGE</code></div></div><div class="worked-row"><span>Padded grid text</span><div><code>SECRETMESSAGEXXX</code></div></div><div class="worked-row"><span>Read order</span><div><code>label 1 → REGX; 2 → ETSX; 3 → CMAX; 4 → SESE</code></div></div><div class="worked-row"><span>Ciphertext</span><div><code>REGXETSXCMAXSESE</code></div></div></div></section>
+<section id="mistakes" class="deep-card"><div class="section-kicker">09 • ERROR CHECK</div><h2>Common mistakes</h2><div class="mistake-grid"><div class="mistake-item"><span>!</span><p>Reading physical columns left-to-right instead of numeric key order.</p></div><div class="mistake-item"><span>!</span><p>Using unequal column lengths in a complete rectangle.</p></div><div class="mistake-item"><span>!</span><p>Forgetting padding.</p></div><div class="mistake-item"><span>!</span><p>Confusing the key labels with the order the plaintext is written.</p></div></div></section>
+<section id="speed" class="deep-card"><div class="section-kicker">10 • SPEED</div><h2>Competition speed strategies</h2><div class="speed-grid"><div class="speed-item"><span>1</span><p>Write key labels above the grid in large digits.</p></div><div class="speed-item"><span>2</span><p>Compute rows immediately from ciphertext length and column count.</p></div><div class="speed-item"><span>3</span><p>For cryptanalysis, work with whole column chunks rather than moving individual letters repeatedly.</p></div></div></section>
+<section id="quick" class="deep-card"><div class="section-kicker">11 • QUICK REFERENCE</div><h2>What to remember under time pressure</h2><div class="quick-grid"><div class="quick-item"><span>Family</span><strong>Transposition</strong></div><div class="quick-item"><span>Rectangle</span><strong>Complete/equal column lengths</strong></div><div class="quick-item"><span>Encrypt read order</span><strong>Column label 1,2,3…</strong></div><div class="quick-item"><span>Decrypt</span><strong>Fill column chunks, then read rows</strong></div></div></section>
+<section id="interactive" class="deep-card interactive-card"><div class="section-kicker">12 • INTERACTIVE LAB</div><h2>See every transformation</h2><p>The visualizer keeps the reference information on-screen and shows intermediate steps so you can learn the process rather than only seeing the final ciphertext.</p><div class="lab-actions"><a class="deep-secondary-button" href="../visualizers/columnar.html">Open full visualizer</a><a class="primary-button" href="../practice/index.html?cipher=columnar">Practice Complete Columnar</a></div><iframe class="deep-visualizer-frame" title="Complete Columnar Cipher interactive visualizer" loading="lazy" src="../visualizers/columnar.html?embed=1"></iframe></section>
+<div class="guide-end-nav"><a href="index.html">← All cipher guides</a><a href="#overview">Back to top ↑</a></div>
+</div></div>
+</main>
+<footer class="site-footer"><p>THE DAILY CIPHER</p><span>Learn. Crack. Repeat.</span></footer>
+<script src="/js/navigation.js"></script>
+<script src="../js/learnPage.js"></script>
+</body></html>

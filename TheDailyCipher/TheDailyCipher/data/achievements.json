@@ -1,0 +1,32 @@
+[
+    {
+        "id": "first-crack",
+        "name": "First Crack",
+        "description": "Solve your first daily cipher.",
+        "requirement": 1
+    },
+    {
+        "id": "ten-cracks",
+        "name": "Getting Serious",
+        "description": "Solve 10 puzzles.",
+        "requirement": 10
+    },
+    {
+        "id": "streak-seven",
+        "name": "Week Warrior",
+        "description": "Reach a 7-day streak.",
+        "requirement": 7
+    },
+    {
+        "id": "streak-thirty",
+        "name": "Cryptanalyst",
+        "description": "Reach a 30-day streak.",
+        "requirement": 30
+    },
+    {
+        "id": "hundred-cracks",
+        "name": "Cipher Master",
+        "description": "Solve 100 puzzles.",
+        "requirement": 100
+    }
+]
