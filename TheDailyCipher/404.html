@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Page Not Found | The Daily Cipher
+    </title>
+
+    <meta
+        name="description"
+        content="The page you were looking for could not be found on The Daily Cipher."
+    >
+
+    <meta
+        name="robots"
+        content="noindex, follow"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/themes.css"
+    >
+
+    <style>
+
+        .error-main {
+
+            min-height:
+                calc(
+                    100vh - 160px
+                );
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            width:
+                min(
+                    900px,
+                    calc(
+                        100% - 32px
+                    )
+                );
+
+            margin:
+                0 auto;
+
+            padding:
+                60px 0;
+
+            text-align:
+                center;
+
+        }
+
+
+        .error-code {
+
+            font-family:
+                monospace;
+
+            font-size:
+                clamp(
+                    70px,
+                    18vw,
+                    150px
+                );
+
+            font-weight:
+                900;
+
+            line-height:
+                0.9;
+
+            color:
+                var(--primary);
+
+        }
+
+
+        .error-title {
+
+            margin:
+                24px 0 10px;
+
+            font-size:
+                clamp(
+                    28px,
+                    6vw,
+                    48px
+                );
+
+        }
+
+
+        .error-description {
+
+            max-width:
+                560px;
+
+            margin:
+                0 auto;
+
+            color:
+                var(--muted);
+
+            line-height:
+                1.7;
+
+        }
+
+
+        .error-actions {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            gap:
+                10px;
+
+            flex-wrap:
+                wrap;
+
+            margin-top:
+                28px;
+
+        }
+
+
+        .error-button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-height:
+                44px;
+
+            padding:
+                10px 16px;
+
+            border:
+                1px solid
+                var(--primary);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--primary);
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .error-button.secondary {
+
+            background:
+                transparent;
+
+            color:
+                var(--text);
+
+            border-color:
+                var(--border);
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <a
+        href="/"
+        class="logo"
+    >
+        <span>THE</span>
+        DAILY CIPHER
+    </a>
+
+    <nav></nav>
+
+</header>
+
+
+<main
+    id="main-content"
+    class="error-main"
+>
+
+    <section>
+
+        <div class="eyebrow">
+            ERROR
+        </div>
+
+        <div class="error-code">
+            404
+        </div>
+
+        <h1 class="error-title">
+            Cipher Not Found
+        </h1>
+
+        <p class="error-description">
+            This page may have moved, been removed, or never existed.
+            Head back to today's cipher or continue practicing.
+        </p>
+
+        <div class="error-actions">
+
+            <a
+                href="/"
+                class="error-button"
+            >
+                Daily Cipher
+            </a>
+
+            <a
+                href="/practice/"
+                class="error-button secondary"
+            >
+                Practice
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p>
+        THE DAILY CIPHER
+    </p>
+
+    <span>
+        Learn. Crack. Repeat.
+    </span>
+
+</footer>
+
+
+<script src="/js/navigation.js"></script>
+
+
+</body>
+
+</html>

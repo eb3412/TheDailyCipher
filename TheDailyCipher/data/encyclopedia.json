@@ -1,0 +1,272 @@
+[
+    {
+        "id": "caesar",
+        "name": "Caesar Cipher",
+        "category": "Substitution",
+        "difficulty": "Beginner",
+        "description": "A monoalphabetic substitution cipher in which every plaintext letter is shifted by the same number of alphabet positions.",
+        "example": {
+            "input": "HELLO",
+            "output": "KHOOR",
+            "key": "Shift +3"
+        },
+        "keywords": [
+            "shift",
+            "rotation",
+            "rot",
+            "monoalphabetic",
+            "substitution"
+        ],
+        "scienceOlympiad": false,
+        "guideReady": true,
+        "page": "caesar.html"
+    },
+
+    {
+        "id": "atbash",
+        "name": "Atbash Cipher",
+        "category": "Substitution",
+        "difficulty": "Beginner",
+        "description": "A fixed substitution cipher that reverses the alphabet, pairing A with Z, B with Y, and continuing inward.",
+        "example": {
+            "input": "HELLO",
+            "output": "SVOOL",
+            "key": "Reversed alphabet"
+        },
+        "keywords": [
+            "reverse alphabet",
+            "substitution",
+            "mirror"
+        ],
+        "scienceOlympiad": false,
+        "guideReady": true,
+        "page": "atbash.html"
+    },
+
+    {
+        "id": "affine",
+        "name": "Affine Cipher",
+        "category": "Substitution",
+        "difficulty": "Intermediate",
+        "description": "A monoalphabetic substitution cipher that transforms alphabet positions using multiplication, addition, and arithmetic modulo 26.",
+        "example": {
+            "input": "AFFINE CIPHER",
+            "output": "IHHWVC SWFRCP",
+            "key": "a=5, b=8"
+        },
+        "keywords": [
+            "modular arithmetic",
+            "linear transformation",
+            "substitution",
+            "equation"
+        ],
+        "scienceOlympiad": false,
+        "guideReady": true,
+        "page": "affine.html"
+    },
+
+    {
+        "id": "railfence",
+        "name": "Rail Fence Cipher",
+        "category": "Transposition",
+        "difficulty": "Beginner",
+        "description": "A transposition cipher that writes plaintext in a repeating zigzag across several rails and reads the rails in sequence.",
+        "example": {
+            "input": "WEAREDISCOVERED",
+            "output": "WECRERDSOEEAIVD",
+            "key": "3 rails"
+        },
+        "keywords": [
+            "transposition",
+            "zigzag",
+            "rails",
+            "rearrangement"
+        ],
+        "scienceOlympiad": false,
+        "guideReady": true,
+        "page": "railfence.html"
+    },
+
+    {
+        "id": "baconian",
+        "name": "Baconian Cipher",
+        "category": "Encoding",
+        "difficulty": "Beginner",
+        "description": "An encoding system that represents letters with five-symbol patterns made from two possible symbols, commonly written as A and B.",
+        "example": {
+            "input": "ABC",
+            "output": "AAAAA AAAAB AAABA",
+            "key": "A/B groups"
+        },
+        "keywords": [
+            "binary",
+            "five symbols",
+            "encoding",
+            "bacon"
+        ],
+        "scienceOlympiad": true,
+        "guideReady": false,
+        "page": "baconian.html"
+    },
+
+    {
+        "id": "aristocrat",
+        "name": "Aristocrat Cipher",
+        "category": "Substitution",
+        "difficulty": "Intermediate",
+        "description": "A monoalphabetic substitution cryptogram that preserves spaces and word structure while replacing plaintext letters consistently.",
+        "example": {
+            "input": "THE SECRET MESSAGE",
+            "output": "QEB PBZOBQ JBPPXDB",
+            "key": "Random substitution alphabet"
+        },
+        "keywords": [
+            "cryptogram",
+            "frequency analysis",
+            "word patterns",
+            "monoalphabetic",
+            "substitution"
+        ],
+        "scienceOlympiad": true,
+        "guideReady": false,
+        "page": "aristocrat.html"
+    },
+
+    {
+        "id": "patristocrat",
+        "name": "Patristocrat Cipher",
+        "category": "Substitution",
+        "difficulty": "Advanced",
+        "description": "A monoalphabetic substitution cryptogram similar to an Aristocrat, but with original word boundaries removed.",
+        "example": {
+            "input": "HELLO WORLD",
+            "output": "IFMMP XPSME",
+            "key": "Random substitution alphabet"
+        },
+        "keywords": [
+            "cryptogram",
+            "frequency analysis",
+            "no spaces",
+            "substitution",
+            "monoalphabetic"
+        ],
+        "scienceOlympiad": true,
+        "guideReady": false,
+        "page": "patristocrat.html"
+    },
+
+    {
+        "id": "porta",
+        "name": "Porta Cipher",
+        "category": "Polyalphabetic",
+        "difficulty": "Advanced",
+        "description": "A reciprocal polyalphabetic substitution cipher controlled by a repeating keyword whose letters operate in alphabet pairs.",
+        "example": {
+            "input": "HELLO WORLD",
+            "output": "Varies by keyword",
+            "key": "SECRET"
+        },
+        "keywords": [
+            "polyalphabetic",
+            "reciprocal",
+            "keyword",
+            "porta"
+        ],
+        "scienceOlympiad": true,
+        "guideReady": false,
+        "page": "porta.html"
+    },
+
+    {
+        "id": "columnar",
+        "name": "Complete Columnar Transposition",
+        "category": "Transposition",
+        "difficulty": "Advanced",
+        "description": "A transposition cipher that writes plaintext into a complete rectangular grid and reads columns in a key-defined order.",
+        "example": {
+            "input": "ATTACKATDAWN",
+            "output": "TKAATNACDTAW",
+            "key": "3-1-4-2"
+        },
+        "keywords": [
+            "columnar",
+            "transposition",
+            "grid",
+            "columns",
+            "permutation"
+        ],
+        "scienceOlympiad": true,
+        "guideReady": false,
+        "page": "columnar.html"
+    },
+
+    {
+        "id": "nihilist",
+        "name": "Nihilist Cipher",
+        "category": "Polybius",
+        "difficulty": "Advanced",
+        "description": "A numerical cipher that combines keyed Polybius-square coordinates with values generated from a repeating additive keyword.",
+        "example": {
+            "input": "HELLO",
+            "output": "57 30 44 54 56",
+            "key": "Polybius keyword + additive keyword"
+        },
+        "keywords": [
+            "polybius",
+            "numbers",
+            "addition",
+            "keyword",
+            "coordinates"
+        ],
+        "scienceOlympiad": true,
+        "guideReady": false,
+        "page": "nihilist.html"
+    },
+
+    {
+        "id": "hill",
+        "name": "Hill Cipher",
+        "category": "Matrix",
+        "difficulty": "Advanced",
+        "description": "A polygraphic substitution cipher that converts blocks of letters to vectors and transforms them using matrix multiplication modulo 26.",
+        "example": {
+            "input": "HELP",
+            "output": "HIAT",
+            "key": "2×2 matrix"
+        },
+        "keywords": [
+            "matrix",
+            "linear algebra",
+            "modular arithmetic",
+            "vector",
+            "polygraphic"
+        ],
+        "scienceOlympiad": true,
+        "guideReady": true,
+        "page": "hill.html"
+    },
+
+    {
+        "id": "fractionatedmorse",
+        "name": "Fractionated Morse Cipher",
+        "category": "Fractionation",
+        "difficulty": "Advanced",
+        "description": "A fractionation cipher that converts plaintext to Morse symbols, groups the resulting stream into trigrams, and substitutes them through a keyed alphabet.",
+        "example": {
+            "input": "HELLO WORLD",
+            "output": "Varies by keyword",
+            "key": "CIPHER"
+        },
+        "keywords": [
+            "morse",
+            "fractionation",
+            "trigrams",
+            "keyword",
+            "dots",
+            "dashes"
+        ],
+        "scienceOlympiad": true,
+        "guideReady": false,
+        "page": "fractionatedmorse.html"
+    }
+]

@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+    name="robots"
+    content="noindex, nofollow"
+>
+
+    <title>
+        Account | The Daily Cipher
+    </title>
+
+
+    <meta
+        name="description"
+        content="Create an optional The Daily Cipher account to save your progress across devices."
+    >
+
+    <link
+    rel="icon"
+    type="image/png"
+    href="/assets/favicon.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/assets/apple-touch-icon.png"
+>
+
+<meta
+    name="theme-color"
+    content="#030712"
+>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/themes.css"
+    >
+
+
+    <style>
+
+
+        /*
+        =====================================================
+        ACCOUNT PAGE
+        =====================================================
+        */
+
+        .account-main {
+
+            width:
+                min(
+                    920px,
+                    calc(
+                        100%
+                        -
+                        32px
+                    )
+                );
+
+            margin:
+                0
+                auto;
+
+            padding:
+                45px
+                0
+                90px;
+
+        }
+
+
+        .account-hero {
+
+            margin-bottom:
+                24px;
+
+        }
+
+
+        .account-hero h1 {
+
+            margin:
+                5px
+                0
+                8px;
+
+            font-size:
+                clamp(
+                    32px,
+                    6vw,
+                    48px
+                );
+
+        }
+
+
+        .account-hero h1 span {
+
+            color:
+                var(--primary-hover);
+
+        }
+
+
+        .account-hero p {
+
+            max-width:
+                650px;
+
+            margin:
+                0;
+
+            color:
+                var(--muted);
+
+            line-height:
+                1.6;
+
+        }
+
+
+        /*
+        =====================================================
+        OPTIONAL ACCOUNT NOTICE
+        =====================================================
+        */
+
+        .guest-notice {
+
+            margin-bottom:
+                18px;
+
+            padding:
+                16px;
+
+            border:
+                1px solid
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.35
+                );
+
+            border-radius:
+                13px;
+
+            background:
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.07
+                );
+
+        }
+
+
+        .guest-notice-title {
+
+            font-size:
+                12px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .guest-notice-text {
+
+            margin-top:
+                5px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+            line-height:
+                1.55;
+
+        }
+
+
+        /*
+        =====================================================
+        AUTH SHELL
+        =====================================================
+        */
+
+        .auth-shell {
+
+            padding:
+                22px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                15px;
+
+            background:
+                var(--surface);
+
+        }
+
+
+        .auth-tabs {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap:
+                8px;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .auth-tab {
+
+            padding:
+                11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--background);
+
+            color:
+                var(--text);
+
+            font:
+                inherit;
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .auth-tab:hover {
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        /*
+        =====================================================
+        FORM
+        =====================================================
+        */
+
+        .auth-panel h2 {
+
+            margin:
+                0
+                0
+                5px;
+
+        }
+
+
+        .auth-panel-intro {
+
+            margin:
+                0
+                0
+                20px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+            line-height:
+                1.55;
+
+        }
+
+
+        .auth-field {
+
+            margin-top:
+                14px;
+
+        }
+
+
+        .auth-field label {
+
+            display:
+                block;
+
+            margin-bottom:
+                6px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .auth-field input {
+
+            width:
+                100%;
+
+            box-sizing:
+                border-box;
+
+            padding:
+                13px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--background);
+
+            color:
+                var(--text);
+
+            font:
+                inherit;
+
+            outline:
+                none;
+
+        }
+
+
+        .auth-field input:focus {
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        .auth-primary-button {
+
+            width:
+                100%;
+
+            margin-top:
+                18px;
+
+            padding:
+                13px;
+
+            border:
+                1px solid
+                var(--primary);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--primary);
+
+            color:
+                white;
+
+            font:
+                inherit;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .auth-primary-button:hover {
+
+            background:
+                var(--primary-hover);
+
+        }
+
+
+        .auth-primary-button:disabled {
+
+            opacity:
+                0.55;
+
+            cursor:
+                default;
+
+        }
+
+        /* Completed cloud save state */
+
+#cloud-migrate-button:disabled {
+    opacity: 1;
+
+    background: var(--background);
+    border-color: var(--border);
+
+    color: var(--muted);
+
+    cursor: default;
+}
+
+#cloud-migrate-button:disabled:hover {
+    background: var(--background);
+    border-color: var(--border);
+    color: var(--muted);
+}
+
+
+        #cloud-migrate-button:disabled {
+    cursor: default;
+}
+
+        /*
+        =====================================================
+        GUEST BUTTON
+        =====================================================
+        */
+
+        .guest-button {
+
+            width:
+                100%;
+
+            margin-top:
+                10px;
+
+            padding:
+                12px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--background);
+
+            color:
+                var(--text);
+
+            font:
+                inherit;
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .guest-button:hover {
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        /*
+        =====================================================
+        MESSAGE
+        =====================================================
+        */
+
+        .auth-message {
+
+            margin-bottom:
+                16px;
+
+            padding:
+                12px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                10px;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .auth-message-success {
+
+            border-color:
+                rgba(
+                    34,
+                    197,
+                    94,
+                    0.35
+                );
+
+            background:
+                rgba(
+                    34,
+                    197,
+                    94,
+                    0.08
+                );
+
+        }
+
+
+        .auth-message-error {
+
+            border-color:
+                rgba(
+                    239,
+                    68,
+                    68,
+                    0.4
+                );
+
+            background:
+                rgba(
+                    239,
+                    68,
+                    68,
+                    0.08
+                );
+
+        }
+
+
+        /*
+        =====================================================
+        SIGNED IN
+        =====================================================
+        */
+
+        .account-profile {
+
+            padding:
+                22px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                15px;
+
+            background:
+                var(--surface);
+
+        }
+
+
+        .account-profile-name {
+
+            margin-top:
+                5px;
+
+            font-size:
+                26px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .account-profile-username {
+
+            margin-top:
+                4px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+        }
+
+
+        .account-profile-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap:
+                10px;
+
+            margin-top:
+                20px;
+
+        }
+
+
+        .account-detail-card {
+
+            padding:
+                13px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--background);
+
+        }
+
+
+        .account-detail-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                8px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .account-detail-value {
+
+            margin-top:
+                5px;
+
+            overflow-wrap:
+                anywhere;
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .account-actions {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap:
+                9px;
+
+            margin-top:
+                18px;
+
+        }
+
+
+        .account-action-link,
+        .logout-button {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--background);
+
+            color:
+                var(--text);
+
+            text-decoration:
+                none;
+
+            font:
+                inherit;
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .account-action-link:hover,
+        .logout-button:hover {
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        /*
+        =====================================================
+        HIDDEN
+        =====================================================
+        */
+
+        .hidden {
+
+            display:
+                none
+                !important;
+
+        }
+
+
+        /*
+        =====================================================
+        MOBILE
+        =====================================================
+        */
+
+        @media (
+            max-width: 650px
+        ) {
+
+            .account-profile-grid,
+            .account-actions {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+        /* =====================================================
+   CLOUD SYNC
+===================================================== */
+
+.cloud-sync-card {
+
+    margin-top: 18px;
+
+    padding: 22px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 15px;
+
+    background:
+        var(--surface);
+
+}
+
+
+.cloud-sync-card h2 {
+
+    margin:
+        5px
+        0
+        0;
+
+}
+
+
+.cloud-sync-status {
+
+    margin:
+        8px
+        0
+        0;
+
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.55;
+
+}
+
+
+.cloud-sync-note {
+
+    margin:
+        10px
+        0
+        0;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+}
+
+/* =====================================================
+   USERNAME SETTINGS
+===================================================== */
+
+.username-settings {
+
+    margin-top:
+        20px;
+
+    padding-top:
+        20px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+}
+
+
+.username-settings-description {
+
+    margin:
+        5px
+        0
+        12px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.username-input-row {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        auto
+        1fr
+        auto;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+}
+
+
+.username-prefix {
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+    font-weight:
+        900;
+
+}
+
+
+#account-username-input {
+
+    width:
+        100%;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        11px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        9px;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    font:
+        inherit;
+
+    font-size:
+        11px;
+
+    outline:
+        none;
+
+}
+
+
+#account-username-input:focus {
+
+    border-color:
+        var(--primary);
+
+}
+
+
+#save-username-button {
+
+    padding:
+        11px
+        14px;
+
+    border:
+        1px solid
+        var(--primary);
+
+    border-radius:
+        9px;
+
+    background:
+        var(--primary);
+
+    color:
+        white;
+
+    font:
+        inherit;
+
+    font-size:
+        10px;
+
+    font-weight:
+        900;
+
+    cursor:
+        pointer;
+
+}
+
+
+#save-username-button:hover {
+
+    background:
+        var(--primary-hover);
+
+}
+
+
+#save-username-button:disabled {
+
+    opacity:
+        0.6;
+
+    cursor:
+        default;
+
+}
+
+
+.username-message {
+
+    min-height:
+        16px;
+
+    margin-top:
+        8px;
+
+    font-size:
+        10px;
+
+}
+
+
+.username-message.success {
+
+    color:
+        #22c55e;
+
+}
+
+
+.username-message.error {
+
+    color:
+        #ef4444;
+
+}
+
+
+.username-rules {
+
+    margin-top:
+        5px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        8px;
+
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+
+        <span>THE</span>
+        DAILY CIPHER
+
+    </a>
+
+
+    <nav>
+
+        <a href="../index.html">
+            Daily
+        </a>
+
+        <a href="../learn/index.html">
+            Learn
+        </a>
+
+        <a href="../practice/index.html">
+            Practice
+        </a>
+
+        <a href="../dashboard/index.html">
+            Dashboard
+        </a>
+
+        <a href="index.html">
+            Account
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="account-main">
+
+
+    <section class="account-hero">
+
+        <div class="eyebrow">
+            OPTIONAL ACCOUNT
+        </div>
+
+        <h1>
+            Save your
+            <span>progress.</span>
+        </h1>
+
+        <p>
+            You do not need an account to use
+            The Daily Cipher. Create one if you
+            want cloud saving, cross-device
+            progress, and future leaderboard
+            participation.
+        </p>
+
+    </section>
+
+
+    <section class="guest-notice">
+
+        <div class="guest-notice-title">
+            Guest mode stays available.
+        </div>
+
+        <div class="guest-notice-text">
+            Practice, Daily Cipher, local XP,
+            mastery, streaks, and achievements
+            continue working without signing in.
+        </div>
+
+    </section>
+
+
+    <div
+        id="auth-message"
+        class="auth-message hidden"
+        aria-live="polite"
+    >
+    </div>
+
+
+    <!-- =================================================
+         SIGNED OUT
+    ================================================== -->
+
+    <section id="signed-out-view">
+
+
+        <div class="auth-shell">
+
+
+            <div class="auth-tabs">
+
+                <button
+                    id="show-signup-button"
+                    type="button"
+                    class="auth-tab"
+                >
+                    Create Account
+                </button>
+
+
+                <button
+                    id="show-login-button"
+                    type="button"
+                    class="auth-tab"
+                >
+                    Sign In
+                </button>
+
+            </div>
+
+
+            <!-- =========================================
+                 SIGNUP
+            ========================================== -->
+
+            <div
+                id="signup-panel"
+                class="auth-panel"
+            >
+
+                <div class="eyebrow">
+                    NEW ACCOUNT
+                </div>
+
+                <h2>
+                    Create Account
+                </h2>
+
+                <p class="auth-panel-intro">
+                    Your current local progress will
+                    remain on this device. In the next
+                    step, we will connect it to your
+                    new account.
+                </p>
+
+
+                <form id="signup-form">
+
+
+                    <div class="auth-field">
+
+                        <label for="signup-display-name">
+                            Display Name
+                        </label>
+
+                        <input
+                            id="signup-display-name"
+                            type="text"
+                            maxlength="40"
+                            autocomplete="nickname"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="auth-field">
+
+                        <label for="signup-email">
+                            Email
+                        </label>
+
+                        <input
+                            id="signup-email"
+                            type="email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="auth-field">
+
+                        <label for="signup-password">
+                            Password
+                        </label>
+
+                        <input
+                            id="signup-password"
+                            type="password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="auth-field">
+
+                        <label for="signup-confirm-password">
+                            Confirm Password
+                        </label>
+
+                        <input
+                            id="signup-confirm-password"
+                            type="password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        id="signup-submit"
+                        type="submit"
+                        class="auth-primary-button"
+                    >
+                        Create Account
+                    </button>
+
+
+                </form>
+
+            </div>
+
+
+            <!-- =========================================
+                 LOGIN
+            ========================================== -->
+
+            <div
+                id="login-panel"
+                class="auth-panel hidden"
+            >
+
+                <div class="eyebrow">
+                    WELCOME BACK
+                </div>
+
+                <h2>
+                    Sign In
+                </h2>
+
+                <p class="auth-panel-intro">
+                    Sign in to access your saved
+                    cloud profile.
+                </p>
+
+
+                <form id="login-form">
+
+
+                    <div class="auth-field">
+
+                        <label for="login-email">
+                            Email
+                        </label>
+
+                        <input
+                            id="login-email"
+                            type="email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="auth-field">
+
+                        <label for="login-password">
+                            Password
+                        </label>
+
+                        <input
+                            id="login-password"
+                            type="password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        id="login-submit"
+                        type="submit"
+                        class="auth-primary-button"
+                    >
+                        Sign In
+                    </button>
+
+
+                </form>
+
+            </div>
+
+
+            <button
+                id="continue-guest-button"
+                type="button"
+                class="guest-button"
+            >
+                Continue as Guest
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =================================================
+         SIGNED IN
+    ================================================== -->
+
+    <section
+        id="signed-in-view"
+        class="hidden"
+    >
+
+
+        <div class="account-profile">
+
+
+            <div class="eyebrow">
+                SIGNED IN
+            </div>
+
+
+            <div
+                id="account-display-name"
+                class="account-profile-name"
+            >
+                Cipher Solver
+            </div>
+
+
+            <div
+                id="account-username"
+                class="account-profile-username"
+            >
+                Username not set yet
+            </div>
+
+
+            <div class="account-profile-grid">
+
+
+                <div class="account-detail-card">
+
+                    <div class="account-detail-label">
+                        EMAIL
+                    </div>
+
+                    <div
+                        id="account-email"
+                        class="account-detail-value"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="account-detail-card">
+
+                    <div class="account-detail-label">
+                        ACCOUNT ID
+                    </div>
+
+                    <div
+                        id="account-user-id"
+                        class="account-detail-value"
+                    >
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- =================================================
+     USERNAME SETTINGS
+================================================== -->
+
+<div class="username-settings">
+
+    <div class="eyebrow">
+        PUBLIC USERNAME
+    </div>
+
+    <p class="username-settings-description">
+        Your username can appear on leaderboards and
+        public competition features.
+    </p>
+
+    <div class="username-input-row">
+
+        <div class="username-prefix">
+            @
+        </div>
+
+        <input
+            id="account-username-input"
+            type="text"
+            maxlength="20"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="choose_username"
+        >
+
+        <button
+    id="save-username-button"
+    type="button"
+    onclick="AuthController.saveUsername()"
+>
+    Save
+</button>
+
+    </div>
+
+    <div
+        id="username-message"
+        class="username-message"
+        aria-live="polite"
+    >
+    </div>
+
+    <div class="username-rules">
+        3–20 characters • lowercase letters • numbers • underscores
+    </div>
+
+</div>
+
+            <div class="account-actions">
+
+                <a
+                    href="../dashboard/index.html"
+                    class="account-action-link"
+                >
+                    Open Dashboard
+                </a>
+
+
+                <button
+                    id="logout-button"
+                    type="button"
+                    class="logout-button"
+                >
+                    Sign Out
+                </button>
+
+            </div>
+
+
+        </div>
+
+        <!-- =================================================
+     CLOUD PROGRESS
+================================================== -->
+
+<div
+    id="cloud-sync-card"
+    class="cloud-sync-card hidden"
+>
+
+    <div class="eyebrow">
+        CLOUD SAVE
+    </div>
+
+    <h2 id="cloud-sync-title">
+        Cloud Progress
+    </h2>
+
+    <p
+        id="cloud-sync-status"
+        class="cloud-sync-status"
+    >
+        Checking progress...
+    </p>
+
+
+    <button
+        id="cloud-migrate-button"
+        type="button"
+        class="auth-primary-button"
+        disabled
+    >
+        Checking...
+    </button>
+
+
+    <p class="cloud-sync-note">
+        Your local copy is kept on this device.
+        Saving to your account does not delete guest data.
+    </p>
+
+</div>
+
+    </section>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p>
+        THE DAILY CIPHER
+    </p>
+
+    <span>
+        Learn. Crack. Repeat.
+    </span>
+
+</footer>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="../js/supabaseClient.js"></script>
+
+
+<!-- =====================================================
+     LOCAL PROGRESSION ENGINES
+===================================================== -->
+
+<script src="../js/storage.js"></script>
+
+<script src="../js/progressionEngine.js"></script>
+
+<script src="../js/masteryEngine.js"></script>
+
+<script src="../js/streakEngine.js"></script>
+
+<script src="../js/achievementEngine.js"></script>
+
+
+<!-- =====================================================
+     ACCOUNT + CLOUD
+===================================================== -->
+
+<script src="../js/auth.js"></script>
+
+<script src="../js/cloudSync.js"></script>
+
+<script src="/js/navigation.js"></script>
+</body>
+
+</html>

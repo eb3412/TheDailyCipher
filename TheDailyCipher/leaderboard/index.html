@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+
+    <title>
+        Global Leaderboard | The Daily Cipher
+    </title>
+
+
+    <meta
+        name="description"
+        content="View the global The Daily Cipher leaderboard and compare XP, levels, and solved puzzles."
+    >
+
+<link
+    rel="icon"
+    type="image/png"
+    href="/assets/favicon.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/assets/apple-touch-icon.png"
+>
+
+<meta
+    name="theme-color"
+    content="#030712"
+>
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/themes.css"
+    >
+
+    <link
+    rel="canonical"
+    href="https://thedailycipher.org/leaderboard/"
+>
+
+    <style>
+
+
+        /*
+        =====================================================
+        PAGE
+        =====================================================
+        */
+
+        .leaderboard-main {
+
+            width:
+                min(
+                    1050px,
+                    calc(
+                        100%
+                        -
+                        32px
+                    )
+                );
+
+            margin:
+                0
+                auto;
+
+            padding:
+                45px
+                0
+                90px;
+
+        }
+
+
+        /*
+        =====================================================
+        HERO
+        =====================================================
+        */
+
+        .leaderboard-hero {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                end;
+
+            gap:
+                24px;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .leaderboard-hero h1 {
+
+            margin:
+                5px
+                0
+                8px;
+
+            font-size:
+                clamp(
+                    34px,
+                    7vw,
+                    52px
+                );
+
+        }
+
+
+        .leaderboard-hero h1 span {
+
+            color:
+                var(--primary-hover);
+
+        }
+
+
+        .leaderboard-hero p {
+
+            max-width:
+                650px;
+
+            margin:
+                0;
+
+            color:
+                var(--muted);
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .leaderboard-refresh {
+
+            padding:
+                11px
+                16px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--surface);
+
+            color:
+                var(--text);
+
+            font:
+                inherit;
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .leaderboard-refresh:hover {
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        /*
+        =====================================================
+        MY RANK
+        =====================================================
+        */
+
+        .my-rank-card {
+
+            margin-bottom:
+                18px;
+
+            padding:
+                20px;
+
+            border:
+                1px solid
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.4
+                );
+
+            border-radius:
+                15px;
+
+            background:
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.07
+                );
+
+        }
+
+
+        .my-rank-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                8px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .my-rank-main {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+            margin-top:
+                8px;
+
+        }
+
+
+        .my-rank-position {
+
+            font-size:
+                28px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .my-rank-main strong {
+
+            display:
+                block;
+
+            font-size:
+                14px;
+
+        }
+
+
+        .my-rank-main span {
+
+            display:
+                block;
+
+            margin-top:
+                3px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+
+        .my-rank-stats {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap:
+                8px;
+
+            margin-top:
+                15px;
+
+        }
+
+
+        .my-rank-stats div {
+
+            padding:
+                10px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                9px;
+
+            background:
+                var(--background);
+
+        }
+
+
+        .my-rank-stats strong {
+
+            display:
+                block;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .my-rank-stats span {
+
+            display:
+                block;
+
+            margin-top:
+                2px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                8px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .my-rank-guest {
+
+            margin-top:
+                7px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+        }
+
+
+        .my-rank-link {
+
+            display:
+                inline-block;
+
+            margin-top:
+                10px;
+
+            color:
+                var(--primary-hover);
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            text-decoration:
+                none;
+
+        }
+
+
+        /*
+        =====================================================
+        LEADERBOARD SHELL
+        =====================================================
+        */
+
+        .leaderboard-shell {
+
+            overflow:
+                hidden;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                15px;
+
+            background:
+                var(--surface);
+
+        }
+
+
+        .leaderboard-toolbar {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+            padding:
+                15px
+                18px;
+
+            border-bottom:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .leaderboard-toolbar-title {
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .leaderboard-toolbar-meta {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+
+        /*
+        =====================================================
+        HEADER
+        =====================================================
+        */
+
+        .leaderboard-columns {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                90px
+                minmax(
+                    180px,
+                    1fr
+                )
+                90px
+                100px
+                120px;
+
+            gap:
+                8px;
+
+            padding:
+                10px
+                18px;
+
+            border-bottom:
+                1px solid
+                var(--border);
+
+            color:
+                var(--muted);
+
+            font-size:
+                8px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        /*
+        =====================================================
+        ROW
+        =====================================================
+        */
+
+        .leaderboard-row {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                90px
+                minmax(
+                    180px,
+                    1fr
+                )
+                90px
+                100px
+                120px;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            min-height:
+                66px;
+
+            padding:
+                8px
+                18px;
+
+            border-bottom:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .leaderboard-row:last-child {
+
+            border-bottom:
+                none;
+
+        }
+
+
+        .leaderboard-row:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.025
+                );
+
+        }
+
+
+        .leaderboard-row.is-current-user {
+
+            background:
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.09
+                );
+
+        }
+
+
+        .leaderboard-rank {
+
+            font-size:
+                12px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .leaderboard-player strong {
+
+            display:
+                block;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+
+            white-space:
+                nowrap;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .leaderboard-player span {
+
+            display:
+                block;
+
+            overflow:
+                hidden;
+
+            margin-top:
+                3px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                8px;
+
+            text-overflow:
+                ellipsis;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        .leaderboard-stat strong,
+        .leaderboard-xp strong {
+
+            display:
+                block;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .leaderboard-stat span,
+        .leaderboard-xp span {
+
+            display:
+                block;
+
+            margin-top:
+                2px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                7px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .leaderboard-xp {
+
+            text-align:
+                right;
+
+        }
+
+
+        .leaderboard-xp strong {
+
+            color:
+                var(--primary-hover);
+
+            font-size:
+                13px;
+
+        }
+
+
+        /*
+        =====================================================
+        EMPTY
+        =====================================================
+        */
+
+        .leaderboard-empty {
+
+            padding:
+                45px
+                20px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+            text-align:
+                center;
+
+        }
+
+
+        /*
+        =====================================================
+        FOOTER CONTROLS
+        =====================================================
+        */
+
+        .leaderboard-pagination {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr
+                auto
+                1fr;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            padding:
+                14px
+                18px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .pagination-button {
+
+            padding:
+                10px
+                14px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                9px;
+
+            background:
+                var(--background);
+
+            color:
+                var(--text);
+
+            font:
+                inherit;
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .pagination-button:first-child {
+
+            justify-self:
+                start;
+
+        }
+
+
+        .pagination-button:last-child {
+
+            justify-self:
+                end;
+
+        }
+
+
+        .pagination-button:hover:not(:disabled) {
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        .pagination-button:disabled {
+
+            opacity:
+                0.35;
+
+            cursor:
+                default;
+
+        }
+
+
+        .pagination-page {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .leaderboard-status {
+
+            min-height:
+                17px;
+
+            margin-top:
+                10px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            text-align:
+                center;
+
+        }
+
+
+        /*
+        =====================================================
+        MOBILE
+        =====================================================
+        */
+
+        @media (
+            max-width: 760px
+        ) {
+
+            .leaderboard-hero {
+
+                display:
+                    block;
+
+            }
+
+
+            .leaderboard-refresh {
+
+                margin-top:
+                    15px;
+
+            }
+
+
+            .leaderboard-columns {
+
+                grid-template-columns:
+                    60px
+                    minmax(
+                        130px,
+                        1fr
+                    )
+                    90px;
+
+            }
+
+
+            .leaderboard-columns div:nth-child(3),
+            .leaderboard-columns div:nth-child(4) {
+
+                display:
+                    none;
+
+            }
+
+
+            .leaderboard-row {
+
+                grid-template-columns:
+                    60px
+                    minmax(
+                        130px,
+                        1fr
+                    )
+                    90px;
+
+            }
+
+
+            .leaderboard-stat {
+
+                display:
+                    none;
+
+            }
+
+
+            .my-rank-stats {
+
+                grid-template-columns:
+                    1fr
+                    1fr
+                    1fr;
+
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+        <span>THE</span>
+        DAILY CIPHER
+    </a>
+
+
+    <nav>
+
+        <a href="../index.html">
+            Daily
+        </a>
+
+        <a href="../learn/index.html">
+            Learn
+        </a>
+
+        <a href="../practice/index.html">
+            Practice
+        </a>
+
+        <a href="../dashboard/index.html">
+            Dashboard
+        </a>
+
+        <a href="index.html">
+            Leaderboard
+        </a>
+
+        <a
+            id="nav-account-link"
+            href="../account/index.html"
+        >
+            Sign In
+        </a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+        <button
+            id="theme-toggle"
+            class="icon-button"
+            title="Toggle theme"
+            type="button"
+        >
+            ◐
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="leaderboard-main">
+
+
+    <section class="leaderboard-hero">
+
+        <div>
+
+            <div class="eyebrow">
+                GLOBAL RANKINGS
+            </div>
+
+            <h1>
+                Global
+                <span>Leaderboard.</span>
+            </h1>
+
+            <p>
+                Compare your progress with other
+                Daily Cipher solvers. Rankings are
+                currently based on total XP.
+            </p>
+
+        </div>
+
+
+        <button
+            id="leaderboard-refresh"
+            class="leaderboard-refresh"
+            type="button"
+        >
+            Refresh
+        </button>
+
+    </section>
+
+
+    <!-- =================================================
+         CURRENT USER
+    ================================================== -->
+
+    <section
+        id="my-rank-card"
+        class="my-rank-card"
+    >
+
+        <div class="my-rank-label">
+            YOUR RANK
+        </div>
+
+        <div class="my-rank-guest">
+            Loading account status...
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         GLOBAL BOARD
+    ================================================== -->
+
+    <section class="leaderboard-shell">
+
+
+        <div class="leaderboard-toolbar">
+
+            <div>
+
+                <div class="leaderboard-toolbar-title">
+                    ALL-TIME XP
+                </div>
+
+                <div
+                    id="leaderboard-range"
+                    class="leaderboard-toolbar-meta"
+                >
+                    Loading rankings...
+                </div>
+
+            </div>
+
+
+            <div class="leaderboard-toolbar-meta">
+                TOP SOLVERS
+            </div>
+
+        </div>
+
+
+        <div class="leaderboard-columns">
+
+            <div>
+                RANK
+            </div>
+
+            <div>
+                PLAYER
+            </div>
+
+            <div>
+                LEVEL
+            </div>
+
+            <div>
+                SOLVED
+            </div>
+
+            <div style="text-align:right;">
+                XP
+            </div>
+
+        </div>
+
+
+        <div id="leaderboard-body">
+
+            <div class="leaderboard-empty">
+                Loading leaderboard...
+            </div>
+
+        </div>
+
+
+        <div class="leaderboard-pagination">
+
+            <button
+                id="leaderboard-previous"
+                class="pagination-button"
+                type="button"
+                disabled
+            >
+                ← Previous
+            </button>
+
+
+            <div
+                id="leaderboard-page-number"
+                class="pagination-page"
+            >
+                Page 1
+            </div>
+
+
+            <button
+                id="leaderboard-next"
+                class="pagination-button"
+                type="button"
+            >
+                Next →
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+    <div
+        id="leaderboard-status"
+        class="leaderboard-status"
+        aria-live="polite"
+    >
+    </div>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p>
+        THE DAILY CIPHER
+    </p>
+
+    <span>
+        Learn. Crack. Repeat.
+    </span>
+
+</footer>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="../js/supabaseClient.js"></script>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<script src="../js/navigation.js"></script>
+
+
+<!-- =====================================================
+     LEADERBOARD
+===================================================== -->
+
+<script src="../js/leaderboardEngine.js"></script>
+
+<script src="../js/leaderboardUI.js"></script>
+
+
+</body>
+
+</html>

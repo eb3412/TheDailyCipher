@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+    name="robots"
+    content="noindex, nofollow"
+>
+
+    <title>
+        Player Dashboard | The Daily Cipher
+    </title>
+
+
+    <meta
+        name="description"
+        content="Track your cipher-solving progress, XP, mastery, streaks, achievements, and recent activity on The Daily Cipher."
+    >
+
+    <link
+    rel="icon"
+    type="image/png"
+    href="/assets/favicon.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/assets/apple-touch-icon.png"
+>
+
+<meta
+    name="theme-color"
+    content="#030712"
+>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/themes.css"
+    >
+
+
+    <style>
+
+
+        /*
+        =====================================================
+        DASHBOARD PAGE
+        =====================================================
+        */
+
+        .dashboard-main {
+
+            width:
+                min(
+                    1180px,
+                    calc(
+                        100%
+                        -
+                        32px
+                    )
+                );
+
+            margin:
+                0
+                auto;
+
+            padding:
+                42px
+                0
+                90px;
+
+        }
+
+
+        .dashboard-hero {
+
+            margin-bottom:
+                24px;
+
+        }
+
+
+        .dashboard-hero h1 {
+
+            margin:
+                5px
+                0
+                8px;
+
+            font-size:
+                clamp(
+                    30px,
+                    5vw,
+                    48px
+                );
+
+        }
+
+
+        .dashboard-hero p {
+
+            max-width:
+                700px;
+
+            margin:
+                0;
+
+            color:
+                var(--muted);
+
+            line-height:
+                1.6;
+
+        }
+
+
+        /*
+        =====================================================
+        GENERIC PANEL
+        =====================================================
+        */
+
+        .dashboard-panel {
+
+            padding:
+                18px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                14px;
+
+            background:
+                var(--surface);
+
+        }
+
+
+        .dashboard-panel + .dashboard-panel {
+
+            margin-top:
+                16px;
+
+        }
+
+
+        .dashboard-panel-header {
+
+            display:
+                flex;
+
+            align-items:
+                flex-start;
+
+            justify-content:
+                space-between;
+
+            gap:
+                18px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .dashboard-panel-title {
+
+            margin:
+                0;
+
+            font-size:
+                20px;
+
+        }
+
+
+        .dashboard-panel-subtitle {
+
+            margin:
+                4px
+                0
+                0;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /*
+        =====================================================
+        TOP PLAYER CARD
+        =====================================================
+        */
+
+        .dashboard-player-card {
+
+            padding:
+                22px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                16px;
+
+            background:
+                var(--surface);
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .dashboard-player-top {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                20px;
+
+        }
+
+
+        .dashboard-player-level {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                14px;
+
+        }
+
+
+        .dashboard-level-badge {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-width:
+                58px;
+
+            height:
+                58px;
+
+            padding:
+                0
+                12px;
+
+            border:
+                1px solid
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.35
+                );
+
+            border-radius:
+                14px;
+
+            background:
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.12
+                );
+
+            color:
+                var(--primary-hover);
+
+            font-family:
+                monospace;
+
+            font-size:
+                23px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-player-rank {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1.2px;
+
+        }
+
+
+        .dashboard-player-title {
+
+            margin-top:
+                3px;
+
+            font-size:
+                20px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-player-xp {
+
+            text-align:
+                right;
+
+        }
+
+
+        .dashboard-total-xp {
+
+            display:
+                block;
+
+            font-family:
+                monospace;
+
+            font-size:
+                25px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-total-xp-label {
+
+            display:
+                block;
+
+            margin-top:
+                3px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .dashboard-xp-track {
+
+            width:
+                100%;
+
+            height:
+                11px;
+
+            margin-top:
+                18px;
+
+            overflow:
+                hidden;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                999px;
+
+            background:
+                var(--background);
+
+        }
+
+
+        .dashboard-xp-fill {
+
+            width:
+                0%;
+
+            height:
+                100%;
+
+            border-radius:
+                inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--primary-hover)
+                );
+
+            transition:
+                width
+                0.4s
+                ease;
+
+        }
+
+
+        .dashboard-xp-detail {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            margin-top:
+                8px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+
+        /*
+        =====================================================
+        STAT GRID
+        =====================================================
+        */
+
+        .dashboard-stat-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap:
+                10px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .dashboard-stat-card {
+
+            padding:
+                16px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                13px;
+
+            background:
+                var(--surface);
+
+        }
+
+
+        .dashboard-stat-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .dashboard-stat-value {
+
+            margin-top:
+                7px;
+
+            font-family:
+                monospace;
+
+            font-size:
+                27px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-stat-detail {
+
+            margin-top:
+                5px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+
+        /*
+        =====================================================
+        TWO COLUMN LAYOUT
+        =====================================================
+        */
+
+        .dashboard-two-column {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(
+                    0,
+                    1fr
+                )
+                minmax(
+                    0,
+                    1fr
+                );
+
+            gap:
+                16px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        /*
+        =====================================================
+        CIPHER INSIGHTS
+        =====================================================
+        */
+
+        .dashboard-insight-grid {
+
+            display:
+                grid;
+
+            gap:
+                9px;
+
+        }
+
+
+        .dashboard-insight {
+
+            padding:
+                13px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                11px;
+
+            background:
+                var(--background);
+
+        }
+
+
+        .dashboard-insight-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                8px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .dashboard-insight-name {
+
+            margin-top:
+                5px;
+
+            font-size:
+                15px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-insight-detail {
+
+            margin-top:
+                4px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /*
+        =====================================================
+        RECOMMENDED PRACTICE
+        =====================================================
+        */
+
+        .dashboard-recommendation {
+
+            padding:
+                16px;
+
+            border:
+                1px solid
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.35
+                );
+
+            border-radius:
+                12px;
+
+            background:
+                rgba(
+                    99,
+                    102,
+                    241,
+                    0.07
+                );
+
+        }
+
+
+        .dashboard-recommendation-name {
+
+            margin-top:
+                6px;
+
+            font-size:
+                18px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-recommendation-reason {
+
+            margin-top:
+                6px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+            line-height:
+                1.55;
+
+        }
+
+
+        .dashboard-action {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            margin-top:
+                13px;
+
+            padding:
+                10px
+                13px;
+
+            border:
+                1px solid
+                var(--primary);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--primary);
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-action:hover {
+
+            background:
+                var(--primary-hover);
+
+        }
+
+
+        /*
+        =====================================================
+        ACHIEVEMENTS
+        =====================================================
+        */
+
+        .dashboard-achievement-progress {
+
+            display:
+                flex;
+
+            align-items:
+                baseline;
+
+            gap:
+                8px;
+
+            margin-bottom:
+                12px;
+
+        }
+
+
+        .dashboard-achievement-number {
+
+            font-family:
+                monospace;
+
+            font-size:
+                30px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-achievement-total {
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+        }
+
+
+        .dashboard-small-track {
+
+            width:
+                100%;
+
+            height:
+                8px;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--background);
+
+        }
+
+
+        .dashboard-small-fill {
+
+            height:
+                100%;
+
+            border-radius:
+                inherit;
+
+            background:
+                var(--primary);
+
+        }
+
+
+        .dashboard-nearest-list {
+
+            display:
+                grid;
+
+            gap:
+                8px;
+
+            margin-top:
+                14px;
+
+        }
+
+
+        .dashboard-nearest-achievement {
+
+            padding:
+                11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                var(--background);
+
+        }
+
+
+        .dashboard-nearest-name {
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-nearest-progress {
+
+            margin-top:
+                4px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+
+        /*
+        =====================================================
+        MASTERY TABLE
+        =====================================================
+        */
+
+        .dashboard-mastery-list {
+
+            display:
+                grid;
+
+            gap:
+                8px;
+
+        }
+
+
+        .dashboard-mastery-row {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(
+                    150px,
+                    1fr
+                )
+                minmax(
+                    120px,
+                    2fr
+                )
+                50px;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            padding:
+                11px
+                4px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .dashboard-mastery-name {
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-mastery-rank {
+
+            margin-top:
+                2px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                8px;
+
+        }
+
+
+        .dashboard-mastery-track {
+
+            width:
+                100%;
+
+            height:
+                7px;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--background);
+
+        }
+
+
+        .dashboard-mastery-fill {
+
+            height:
+                100%;
+
+            border-radius:
+                inherit;
+
+            background:
+                var(--primary);
+
+        }
+
+
+        .dashboard-mastery-score {
+
+            font-family:
+                monospace;
+
+            font-size:
+                14px;
+
+            font-weight:
+                900;
+
+            text-align:
+                right;
+
+        }
+
+
+        /*
+        =====================================================
+        ACTIVITY
+        =====================================================
+        */
+
+        .dashboard-activity-list {
+
+            display:
+                grid;
+
+        }
+
+
+        .dashboard-activity-row {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(
+                    150px,
+                    1fr
+                )
+                auto
+                auto
+                auto;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            padding:
+                11px
+                4px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .dashboard-activity-name {
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-activity-meta {
+
+            margin-top:
+                2px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                8px;
+
+        }
+
+
+        .dashboard-activity-stat {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        .dashboard-activity-result {
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .dashboard-success {
+
+            color:
+                var(--success);
+
+        }
+
+
+        .dashboard-failure {
+
+            color:
+                var(--muted);
+
+        }
+
+
+        /*
+        =====================================================
+        EMPTY
+        =====================================================
+        */
+
+        .dashboard-empty {
+
+            padding:
+                22px;
+
+            border:
+                1px dashed
+                var(--border);
+
+            border-radius:
+                10px;
+
+            color:
+                var(--muted);
+
+            text-align:
+                center;
+
+            font-size:
+                11px;
+
+        }
+
+
+        /*
+        =====================================================
+        MOBILE
+        =====================================================
+        */
+
+        @media (
+            max-width: 850px
+        ) {
+
+            .dashboard-stat-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+
+            .dashboard-two-column {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 600px
+        ) {
+
+            .dashboard-player-top {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+            }
+
+
+            .dashboard-player-xp {
+
+                text-align:
+                    left;
+
+            }
+
+
+            .dashboard-stat-grid {
+
+                grid-template-columns:
+                    1fr
+                    1fr;
+
+            }
+
+
+            .dashboard-mastery-row {
+
+                grid-template-columns:
+                    1fr
+                    55px;
+
+            }
+
+
+            .dashboard-mastery-track {
+
+                grid-column:
+                    1 / -1;
+
+                grid-row:
+                    2;
+
+            }
+
+
+            .dashboard-activity-row {
+
+                grid-template-columns:
+                    1fr
+                    auto;
+
+            }
+
+
+            .dashboard-activity-stat {
+
+                display:
+                    none;
+
+            }
+
+        }
+
+        /* =====================================================
+   DASHBOARD POLISH
+===================================================== */
+
+.dashboard-subsection {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.dashboard-subsection-title {
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.dashboard-collapse-button {
+    padding: 8px 11px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--background);
+    color: var(--text);
+    font: inherit;
+    font-size: 9px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.dashboard-collapse-button:hover {
+    border-color: var(--primary);
+}
+
+.dashboard-panel.dashboard-collapsed
+#dashboard-mastery-content,
+.dashboard-panel.dashboard-collapsed
+#dashboard-activity-content {
+    display: none;
+}
+
+.dashboard-panel.dashboard-collapsed
+.dashboard-panel-header {
+    margin-bottom: 0;
+}
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+        <span>THE</span>
+        DAILY CIPHER
+    </a>
+
+
+    <nav>
+
+    <a href="../index.html">
+        Daily
+    </a>
+
+    <a href="../learn/index.html">
+        Learn
+    </a>
+
+    <a href="../practice/index.html">
+        Practice
+    </a>
+
+    <a href="index.html">
+        Dashboard
+    </a>
+
+    <a href="../leaderboard/index.html">
+        Leaderboard
+    </a>
+
+    <a
+        id="nav-account-link"
+        href="../account/index.html"
+    >
+        Sign In
+    </a>
+
+</nav>
+
+</header>
+
+
+<main class="dashboard-main">
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section class="dashboard-hero">
+
+        <div class="eyebrow">
+            PLAYER PROFILE
+        </div>
+
+        <h1>
+            Your Dashboard
+        </h1>
+
+        <p>
+            Track your progress across Practice and
+            Daily Cipher activity, including XP,
+            streaks, mastery, achievements, and
+            recent solves.
+        </p>
+
+    </section>
+
+
+    <!-- =================================================
+         LEVEL / XP
+    ================================================== -->
+
+    <section class="dashboard-player-card">
+
+
+        <div class="dashboard-player-top">
+
+
+            <div class="dashboard-player-level">
+
+                <div
+                    id="dashboard-level"
+                    class="dashboard-level-badge"
+                >
+                    1
+                </div>
+
+
+                <div>
+
+                    <div class="dashboard-player-rank">
+                        CURRENT RANK
+                    </div>
+
+                    <div
+                        id="dashboard-level-title"
+                        class="dashboard-player-title"
+                    >
+                        Cipher Rookie
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-player-xp">
+
+                <span
+                    id="dashboard-total-xp"
+                    class="dashboard-total-xp"
+                >
+                    0
+                </span>
+
+                <span class="dashboard-total-xp-label">
+                    TOTAL XP
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="dashboard-xp-track">
+
+            <div
+                id="dashboard-xp-fill"
+                class="dashboard-xp-fill"
+            >
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-xp-detail">
+
+            <span id="dashboard-xp-current">
+                0 / 100 XP
+            </span>
+
+            <span id="dashboard-xp-remaining">
+                100 XP to Level 2
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =================================================
+         KEY STATS
+    ================================================== -->
+
+    <section class="dashboard-stat-grid">
+
+
+        <div class="dashboard-stat-card">
+
+            <div class="dashboard-stat-label">
+                TOTAL SOLVES
+            </div>
+
+            <div
+                id="dashboard-total-solves"
+                class="dashboard-stat-value"
+            >
+                0
+            </div>
+
+            <div
+                id="dashboard-solve-detail"
+                class="dashboard-stat-detail"
+            >
+                0 attempts
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat-card">
+
+            <div class="dashboard-stat-label">
+                SOLVE RATE
+            </div>
+
+            <div
+                id="dashboard-solve-rate"
+                class="dashboard-stat-value"
+            >
+                0%
+            </div>
+
+            <div class="dashboard-stat-detail">
+                successful attempts
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat-card">
+
+            <div class="dashboard-stat-label">
+                DAILY STREAK
+            </div>
+
+            <div
+                id="dashboard-daily-streak"
+                class="dashboard-stat-value"
+            >
+                0
+            </div>
+
+            <div
+                id="dashboard-daily-best"
+                class="dashboard-stat-detail"
+            >
+                Best 0 days
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat-card">
+
+            <div class="dashboard-stat-label">
+                ACTIVITY STREAK
+            </div>
+
+            <div
+                id="dashboard-activity-streak"
+                class="dashboard-stat-value"
+            >
+                0
+            </div>
+        
+            <div
+                id="dashboard-activity-best"
+                class="dashboard-stat-detail"
+            >
+                Best 0 days
+            </div>
+
+        </div>
+
+        <div class="dashboard-stat-card">
+
+    <div class="dashboard-stat-label">
+        AVG SOLVE TIME
+    </div>
+
+    <div
+        id="dashboard-average-time"
+        class="dashboard-stat-value"
+    >
+        0s
+    </div>
+
+    <div class="dashboard-stat-detail">
+        solved puzzles
+    </div>
+
+</div>
+
+
+<div class="dashboard-stat-card">
+
+    <div class="dashboard-stat-label">
+        HARD SOLVES
+    </div>
+
+    <div
+        id="dashboard-hard-solves"
+        class="dashboard-stat-value"
+    >
+        0
+    </div>
+
+    <div class="dashboard-stat-detail">
+        completed on Hard
+    </div>
+
+</div>
+
+
+<div class="dashboard-stat-card">
+
+    <div class="dashboard-stat-label">
+        ACTIVE DAYS
+    </div>
+
+    <div
+        id="dashboard-active-days"
+        class="dashboard-stat-value"
+    >
+        0
+    </div>
+
+    <div class="dashboard-stat-detail">
+        days with a solve
+    </div>
+
+</div>
+
+
+<div class="dashboard-stat-card">
+
+    <div class="dashboard-stat-label">
+        TODAY
+    </div>
+
+    <div
+        id="dashboard-today-solves"
+        class="dashboard-stat-value"
+    >
+        0
+    </div>
+
+    <div class="dashboard-stat-detail">
+        solves today
+    </div>
+
+</div>
+
+
+    </section>
+
+
+    <!-- =================================================
+         MASTERY INSIGHTS + RECOMMENDATION
+    ================================================== -->
+
+    <div class="dashboard-two-column">
+
+
+        <section class="dashboard-panel">
+
+            <div class="dashboard-panel-header">
+
+                <div>
+
+                    <div class="eyebrow">
+                        MASTERY
+                    </div>
+
+                    <h2 class="dashboard-panel-title">
+                        Cipher Insights
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-insight-grid">
+
+
+                <div class="dashboard-insight">
+
+                    <div class="dashboard-insight-label">
+                        OVERALL MASTERY
+                    </div>
+
+                    <div
+                        id="dashboard-overall-mastery"
+                        class="dashboard-insight-name"
+                    >
+                        0 • Unranked
+                    </div>
+
+                    <div
+                        id="dashboard-mastery-coverage"
+                        class="dashboard-insight-detail"
+                    >
+                        0 of 12 ciphers practiced
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-insight">
+
+                    <div class="dashboard-insight-label">
+                        STRONGEST CIPHER
+                    </div>
+
+                    <div
+                        id="dashboard-strongest"
+                        class="dashboard-insight-name"
+                    >
+                        None yet
+                    </div>
+
+                    <div
+                        id="dashboard-strongest-detail"
+                        class="dashboard-insight-detail"
+                    >
+                        Complete some Practice puzzles.
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-insight">
+
+                    <div class="dashboard-insight-label">
+                        WEAKEST PRACTICED
+                    </div>
+
+                    <div
+                        id="dashboard-weakest"
+                        class="dashboard-insight-name"
+                    >
+                        None yet
+                    </div>
+
+                    <div
+                        id="dashboard-weakest-detail"
+                        class="dashboard-insight-detail"
+                    >
+                        Complete some Practice puzzles.
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <section class="dashboard-panel">
+
+            <div class="dashboard-panel-header">
+
+                <div>
+
+                    <div class="eyebrow">
+                        NEXT MOVE
+                    </div>
+
+                    <h2 class="dashboard-panel-title">
+                        Recommended Practice
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="dashboard-recommendation"
+                class="dashboard-recommendation"
+            >
+
+                <div class="dashboard-insight-label">
+                    RECOMMENDED CIPHER
+                </div>
+
+                <div
+                    id="dashboard-recommendation-name"
+                    class="dashboard-recommendation-name"
+                >
+                    Start practicing
+                </div>
+
+                <div
+                    id="dashboard-recommendation-reason"
+                    class="dashboard-recommendation-reason"
+                >
+                    Complete a Practice puzzle to begin
+                    building personalized recommendations.
+                </div>
+
+                <a
+                    id="dashboard-recommendation-link"
+                    class="dashboard-action"
+                    href="../practice/"
+                >
+                    Practice Now
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- =================================================
+         ACHIEVEMENTS
+    ================================================== -->
+
+    <section class="dashboard-panel">
+
+        <div class="dashboard-panel-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    ACHIEVEMENTS
+                </div>
+
+                <h2 class="dashboard-panel-title">
+                    Milestone Progress
+                </h2>
+
+                <p class="dashboard-panel-subtitle">
+                    Your unlocked achievements and
+                    closest upcoming milestones.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-achievement-progress">
+
+            <span
+                id="dashboard-achievement-unlocked"
+                class="dashboard-achievement-number"
+            >
+                0
+            </span>
+
+            <span
+                id="dashboard-achievement-total"
+                class="dashboard-achievement-total"
+            >
+                / 0 unlocked
+            </span>
+
+        </div>
+
+
+        <div class="dashboard-small-track">
+
+            <div
+                id="dashboard-achievement-fill"
+                class="dashboard-small-fill"
+                style="width: 0%;"
+            >
+            </div>
+
+        </div>
+
+
+        <div
+            id="dashboard-nearest-achievements"
+            class="dashboard-nearest-list"
+        >
+        </div>
+
+
+        <div class="dashboard-subsection">
+
+    <div class="dashboard-subsection-title">
+        RECENTLY UNLOCKED
+    </div>
+
+    <div
+        id="dashboard-recent-achievements"
+        class="dashboard-nearest-list"
+    >
+    </div>
+
+</div>
+    </section>
+
+
+    <!-- =================================================
+     MASTERY RANKING
+================================================== -->
+
+<section
+    id="dashboard-mastery-panel"
+    class="dashboard-panel"
+>
+
+    <div class="dashboard-panel-header">
+
+        <div>
+
+            <div class="eyebrow">
+                SKILLS
+            </div>
+
+            <h2 class="dashboard-panel-title">
+                Cipher Mastery
+            </h2>
+
+            <p class="dashboard-panel-subtitle">
+                Ranked by your current mastery score.
+            </p>
+
+        </div>
+
+
+        <button
+            id="dashboard-mastery-collapse"
+            type="button"
+            class="dashboard-collapse-button"
+            aria-expanded="true"
+            aria-controls="dashboard-mastery-content"
+        >
+            Collapse
+        </button>
+
+    </div>
+
+
+    <div id="dashboard-mastery-content">
+
+        <div
+            id="dashboard-mastery-list"
+            class="dashboard-mastery-list"
+        >
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- =================================================
+     RECENT ACTIVITY
+================================================== -->
+
+<section
+    id="dashboard-activity-panel"
+    class="dashboard-panel"
+>
+
+    <div class="dashboard-panel-header">
+
+        <div>
+
+            <div class="eyebrow">
+                HISTORY
+            </div>
+
+            <h2 class="dashboard-panel-title">
+                Recent Activity
+            </h2>
+
+            <p class="dashboard-panel-subtitle">
+                Your latest Practice and Daily Cipher
+                attempts.
+            </p>
+
+        </div>
+
+
+        <button
+            id="dashboard-activity-collapse"
+            type="button"
+            class="dashboard-collapse-button"
+            aria-expanded="true"
+            aria-controls="dashboard-activity-content"
+        >
+            Collapse
+        </button>
+
+    </div>
+
+
+    <div id="dashboard-activity-content">
+
+        <div
+            id="dashboard-activity-list"
+            class="dashboard-activity-list"
+        >
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p>
+        THE DAILY CIPHER
+    </p>
+
+    <span>
+        Learn. Crack. Repeat.
+    </span>
+
+</footer>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="../js/supabaseClient.js"></script>
+
+
+<!-- =====================================================
+     CORE
+===================================================== -->
+
+<script src="../js/storage.js"></script>
+
+<script src="../js/utils.js"></script>
+
+<script src="../js/cipherEngine.js"></script>
+
+<script src="../js/difficultyEngine.js"></script>
+
+
+<!-- =====================================================
+     PROGRESSION
+===================================================== -->
+
+<script src="../js/progressionEngine.js"></script>
+
+<script src="../js/masteryEngine.js"></script>
+
+<script src="../js/streakEngine.js"></script>
+
+<script src="../js/achievementEngine.js"></script>
+
+
+<!-- =====================================================
+     LEADERBOARD
+===================================================== -->
+
+<script src="../js/leaderboardEngine.js"></script>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<script src="../js/navigation.js"></script>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<script src="../js/playerDashboard.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        The Daily Cipher | Daily Cryptography Challenges
+    </title>
+
+    <meta
+        name="description"
+        content="Solve daily cipher challenges, practice cryptography, learn classic ciphers, track your progress, and compete on The Daily Cipher."
+    >
+
+    <link
+        rel="canonical"
+        href="https://thedailycipher.org/"
+    >
+
+<link
+    rel="icon"
+    type="image/png"
+    href="/assets/favicon.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/assets/apple-touch-icon.png"
+>
+
+<meta
+    name="theme-color"
+    content="#030712"
+>
+
+    <meta
+        property="og:type"
+        content="website"
+    >
+
+    <meta
+        property="og:site_name"
+        content="The Daily Cipher"
+    >
+
+    <meta
+        property="og:title"
+        content="The Daily Cipher | Daily Cryptography Challenges"
+    >
+
+    <meta
+        property="og:description"
+        content="Solve daily ciphers, practice cryptography, learn classic cipher systems, and compete with other solvers."
+    >
+
+    <meta
+        property="og:url"
+        content="https://thedailycipher.org/"
+    >
+
+    <meta
+        name="twitter:card"
+        content="summary_large_image"
+    >
+
+    <meta
+        name="twitter:title"
+        content="The Daily Cipher"
+    >
+
+    <meta
+        name="twitter:description"
+        content="Daily cipher challenges, cryptography practice, learning tools, progress tracking, and leaderboards."
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/themes.css"
+    >
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+        <span>THE</span>
+        DAILY CIPHER
+    </a>
+
+
+    <nav>
+        <a href="index.html">
+            Daily
+        </a>
+
+        <a href="learn/index.html">
+            Learn
+        </a>
+
+        <a href="practice/index.html">
+            Practice
+        </a>
+
+        <a href="dashboard/index.html">
+            Dashboard
+        </a>
+
+        <a href="leaderboard/index.html">
+            Leaderboard
+        </a>
+
+        <a
+            id="nav-account-link"
+            href="account/index.html"
+        >
+            Sign In
+        </a>
+    </nav>
+
+
+    <div class="header-actions">
+
+        <button
+            id="stats-button"
+            class="header-button"
+            type="button"
+            title="View statistics"
+        >
+            📊 Stats
+        </button>
+
+        <button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            title="Toggle theme"
+            aria-label="Toggle light and dark theme"
+        >
+            ◐
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <section class="hero">
+        <div class="eyebrow">DAILY CRYPTOGRAPHY CHALLENGE</div>
+
+        <h1>
+            Crack a cipher.<br>
+            <span>Learn something new.</span>
+        </h1>
+
+        <p>
+            Solve a new cryptographic challenge every day,
+            explore the history of ciphers, and practice your
+            codebreaking skills.
+        </p>
+    </section>
+
+    <section class="daily-card">
+
+        <div class="daily-header">
+
+            <div>
+                <div id="daily-date" class="eyebrow">
+                    LOADING...
+                </div>
+
+                <h2 id="cipher-name">
+                    Daily Cipher
+                </h2>
+            </div>
+
+            <div id="streak-indicator" class="streak">
+                🔥 0
+            </div>
+
+        </div>
+
+        <div
+    class="difficulty-tabs"
+    role="group"
+    aria-label="Daily Cipher difficulty"
+>
+
+            <button
+    id="tab-Easy"
+    type="button"
+    class="difficulty active"
+    aria-pressed="true"
+    onclick="switchDifficulty('Easy')"
+>
+    EASY
+</button>
+
+<button
+    id="tab-Medium"
+    type="button"
+    class="difficulty"
+    aria-pressed="false"
+    onclick="switchDifficulty('Medium')"
+>
+    MEDIUM
+</button>
+
+<button
+    id="tab-Hard"
+    type="button"
+    class="difficulty"
+    aria-pressed="false"
+    onclick="switchDifficulty('Hard')"
+>
+    HARD
+</button>
+
+        </div>
+
+        <div id="meta-display" class="cipher-meta">
+            Loading cipher...
+        </div>
+
+        <div class="cipher-box">
+            <div id="ciphertext-output">
+                ---
+            </div>
+        </div>
+
+        <div class="rules-box">
+
+    <strong>CHALLENGE INFORMATION</strong>
+
+    <p id="rules-clue-output">
+        Loading...
+    </p>
+
+    <div id="cipher-family-row" class="challenge-info-row hidden">
+        <span>Cipher family</span>
+        <strong id="cipher-family-output">---</strong>
+    </div>
+
+</div>
+
+        <div class="answer-area">
+
+    <input
+    id="solution-input"
+    type="text"
+    autocomplete="off"
+    autocapitalize="characters"
+    spellcheck="false"
+    aria-label="Your plaintext solution"
+    placeholder="Type your solution..."
+>
+
+    <button
+        id="submit-button"
+        onclick="evaluateSubmission()"
+        class="primary-button">
+        Submit Answer
+    </button>
+
+    <div
+    id="status-feedback"
+    class="feedback"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+>
+</div>
+
+    <!-- NEW CODE STARTS HERE -->
+
+    <div id="daily-score-result" class="daily-score-result hidden">
+
+        <span>PUZZLE SCORE</span>
+
+        <strong id="daily-score-number">
+            0
+        </strong>
+
+        <small id="daily-score-detail">
+        </small>
+
+    </div>
+
+    <!-- NEW CODE ENDS HERE -->
+
+</div>
+
+<div class="hint-area">
+
+    <div class="hint-header">
+
+        <div>
+            <strong>PROGRESSIVE HINTS</strong>
+
+            <p class="hint-description">
+                Revealing hints reduces your score.
+            </p>
+        </div>
+
+        <div id="hint-counter" class="hint-counter">
+            0 hints used
+        </div>
+
+    </div>
+
+    <div id="revealed-hints"></div>
+
+    <button
+        id="reveal-hint-button"
+        onclick="revealNextHint()"
+        class="text-button">
+        Reveal Hint
+    </button>
+
+    <div
+        id="hint-penalty-preview"
+        class="hint-penalty-preview">
+    </div>
+
+</div>
+
+    </section>
+
+    <section class="quick-links">
+
+        <a href="learn/index.html" class="feature-card">
+            <span class="feature-icon">📚</span>
+            <h3>Learn</h3>
+            <p>Explore the history and mechanics behind dozens of ciphers.</p>
+        </a>
+
+        <a href="practice/index.html" class="feature-card">
+            <span class="feature-icon">🧩</span>
+            <h3>Practice</h3>
+            <p>Choose a cipher and generate unlimited practice problems.</p>
+        </a>
+
+        <a href="about.html" class="feature-card">
+            <span class="feature-icon">🏆</span>
+            <h3>Compete</h3>
+            <p>Track your progress and eventually compete globally.</p>
+        </a>
+
+    </section>
+
+</main>
+
+<!-- Statistics Modal -->
+<div id="stats-modal" class="modal-overlay hidden">
+
+    <div class="stats-modal">
+
+        <div class="stats-modal-header">
+
+            <div>
+                <div class="eyebrow">
+                    YOUR PERFORMANCE
+                </div>
+
+                <h2>Statistics</h2>
+            </div>
+
+            <button
+                id="close-stats"
+                class="modal-close"
+                aria-label="Close statistics">
+                ×
+            </button>
+
+        </div>
+
+        <div class="stats-grid">
+
+    <div class="stat-box">
+        <div id="stat-played" class="stat-number">0</div>
+        <div class="stat-label">Played</div>
+    </div>
+
+    <div class="stat-box">
+        <div id="stat-winrate" class="stat-number">0%</div>
+        <div class="stat-label">Solve Rate</div>
+    </div>
+
+    <div class="stat-box">
+        <div id="stat-streak" class="stat-number">0</div>
+        <div class="stat-label">Streak</div>
+    </div>
+
+    <div class="stat-box">
+        <div id="stat-max-streak" class="stat-number">0</div>
+        <div class="stat-label">Best Streak</div>
+    </div>
+
+</div>
+
+
+<div class="stats-detail">
+
+    <div>
+        <span>🧩 Puzzles Cracked</span>
+        <strong id="stat-wins">0</strong>
+    </div>
+
+    <div>
+        <span>🎯 Avg. Guesses</span>
+        <strong id="stat-average">0.00</strong>
+    </div>
+
+    <div>
+        <span>🏆 Total Score</span>
+        <strong id="stat-total-score">0</strong>
+    </div>
+
+    <div>
+        <span>💡 Hints Used</span>
+        <strong id="stat-total-hints">0</strong>
+    </div>
+
+</div>
+
+
+<!-- NEW: DIFFICULTY BREAKDOWN -->
+
+<div class="difficulty-stats">
+
+    <div class="difficulty-stats-title">
+        PERFORMANCE BY DIFFICULTY
+    </div>
+
+    <div class="difficulty-stat-row">
+
+        <span class="difficulty-name easy">
+            EASY
+        </span>
+
+        <span id="stat-easy-record">
+            0 / 0
+        </span>
+
+        <strong id="stat-easy-score">
+            0 pts
+        </strong>
+
+    </div>
+
+
+    <div class="difficulty-stat-row">
+
+        <span class="difficulty-name medium">
+            MEDIUM
+        </span>
+
+        <span id="stat-medium-record">
+            0 / 0
+        </span>
+
+        <strong id="stat-medium-score">
+            0 pts
+        </strong>
+
+    </div>
+
+
+    <div class="difficulty-stat-row">
+
+        <span class="difficulty-name hard">
+            HARD
+        </span>
+
+        <span id="stat-hard-record">
+            0 / 0
+        </span>
+
+        <strong id="stat-hard-score">
+            0 pts
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- TODAY'S WORDLE-STYLE RESULT -->
+
+<div class="share-preview">
+
+    <div class="share-preview-title">
+        TODAY'S RESULT
+    </div>
+
+    <div
+        id="share-grid"
+        class="share-grid detailed-share-grid">
+    </div>
+
+</div>
+
+
+<button
+    id="share-stats-button"
+    class="primary-button">
+    📋 Share Results
+</button>
+
+<div
+    id="share-feedback"
+    class="share-feedback"
+    aria-live="polite">
+</div>
+
+    </div>
+
+</div>
+
+<footer class="site-footer">
+    <p>THE DAILY CIPHER</p>
+    <span>Learn. Crack. Repeat.</span>
+</footer>
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="js/supabaseClient.js"></script>
+
+<script src="js/leaderboardEngine.js"></script>
+
+
+<!-- =====================================================
+     CORE
+===================================================== -->
+
+<script src="js/storage.js"></script>
+
+<script src="js/utils.js"></script>
+
+<script src="js/cipherEngine.js"></script>
+
+<script src="js/difficultyEngine.js"></script>
+
+<script src="js/puzzleGenerator.js"></script>
+
+
+<!-- =====================================================
+     PROGRESSION
+===================================================== -->
+
+<script src="js/progressionEngine.js"></script>
+
+<script src="js/masteryEngine.js"></script>
+
+<script src="js/streakEngine.js"></script>
+
+<script src="js/achievementEngine.js"></script>
+
+
+<!-- =====================================================
+     CLOUD
+===================================================== -->
+
+<script src="js/cloudSync.js"></script>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<script src="js/navigation.js"></script>
+
+
+<!-- =====================================================
+     DAILY
+===================================================== -->
+
+<script src="js/daily.js"></script>
+
+<script src="js/stats.js"></script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

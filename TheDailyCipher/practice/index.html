@@ -1,0 +1,3838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Practice Cryptography | The Daily Cipher
+    </title>
+
+    <meta
+        name="description"
+        content="Practice classical cryptography with generated puzzles, multiple training modes, scoring, hints, timers, and performance tracking."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/themes.css"
+    >
+
+    <link
+    rel="canonical"
+    href="https://thedailycipher.org/practice/"
+>
+<link
+    rel="icon"
+    type="image/png"
+    href="/assets/favicon.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/assets/apple-touch-icon.png"
+>
+
+<meta
+    name="theme-color"
+    content="#030712"
+>
+
+    <style>
+
+        .practice-controls {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .practice-field label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .practice-field select {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: #111827;
+
+            outline: none;
+
+        }
+
+
+        .practice-mode-description {
+
+            margin:
+                -5px
+                0
+                20px;
+
+            padding: 12px 14px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        .practice-status-bar {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                auto
+                auto;
+
+            align-items: center;
+
+            gap: 20px;
+
+            margin-top: 22px;
+
+            margin-bottom: 14px;
+
+            padding: 14px 16px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 12px;
+
+        }
+
+
+        .practice-status-title {
+
+            font-weight: 900;
+
+        }
+
+
+        .practice-status-subtitle {
+
+            margin-top: 3px;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        .practice-status-stat {
+
+            text-align: right;
+
+        }
+
+
+        .practice-status-stat span {
+
+            display: block;
+
+            color:
+                var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .practice-status-stat strong {
+
+            font-size: 20px;
+
+        }
+
+
+        #practice-output {
+
+            margin-top: 10px;
+
+            white-space:
+                pre-wrap;
+
+        }
+
+
+        .practice-cipher-name {
+
+            margin-top: 18px;
+
+            color:
+                var(--muted);
+
+            text-align: center;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        #practice-answer {
+
+            width: 100%;
+
+            margin-top: 18px;
+
+            padding: 15px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: #111827;
+
+            text-align: center;
+
+            text-transform: uppercase;
+
+            font-family: monospace;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            outline: none;
+
+        }
+
+
+        .practice-actions {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-top: 10px;
+
+        }
+
+
+        .practice-secondary-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            background:
+                var(--surface-light);
+
+            color:
+                var(--text);
+
+            font-weight: 800;
+
+        }
+
+
+        .practice-secondary-button:hover {
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        .practice-secondary-button:disabled {
+
+            opacity: 0.45;
+
+            cursor:
+                not-allowed;
+
+        }
+
+
+        .practice-hints {
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .practice-hint-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            gap: 20px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .practice-hint-counter {
+
+            color:
+                var(--muted);
+
+            font-size: 11px;
+
+        }
+
+
+        .practice-hint-card {
+
+            margin-top: 10px;
+
+            padding: 14px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+        }
+
+
+        .practice-hint-number {
+
+            margin-bottom: 5px;
+
+            color:
+                var(--primary-hover);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .practice-hint-title {
+
+            margin-bottom: 5px;
+
+            font-weight: 800;
+
+        }
+
+
+        .practice-hint-text {
+
+            margin: 0;
+
+            color:
+                var(--muted);
+
+            line-height: 1.5;
+
+        }
+
+
+        .practice-hint-cost {
+
+            min-height: 18px;
+
+            margin-top: 8px;
+
+            color:
+                var(--muted);
+
+            font-size: 11px;
+
+            text-align: center;
+
+        }
+
+
+        .practice-result {
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 12px;
+
+            text-align: center;
+
+        }
+
+
+        .practice-result-label {
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .practice-result-score {
+
+            margin:
+                6px
+                0;
+
+            font-size: 34px;
+
+            font-weight: 900;
+
+        }
+
+
+        .practice-result-detail {
+
+            color:
+                var(--muted);
+
+            font-size: 13px;
+
+        }
+
+
+        .practice-solution {
+
+            margin-top: 18px;
+
+            padding: 15px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+        }
+
+
+        .practice-solution-label {
+
+            margin-bottom: 6px;
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .practice-solution-text {
+
+            font-family:
+                monospace;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+        }
+
+
+        .practice-learn-link {
+
+            display: block;
+
+            margin-top: 18px;
+
+            padding: 13px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            color:
+                var(--primary-hover);
+
+            text-align: center;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =========================
+           PRACTICE STATS
+        ========================= */
+
+        .practice-stats-section {
+
+            margin:
+                30px
+                0
+                80px;
+
+        }
+
+
+        .practice-stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+
+            margin-top: 18px;
+
+        }
+
+
+        .practice-stat-card {
+
+            padding: 18px 10px;
+
+            background:
+                var(--background);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            text-align: center;
+
+        }
+
+
+        .practice-stat-number {
+
+            font-size: 25px;
+
+            font-weight: 900;
+
+        }
+
+
+        .practice-stat-label {
+
+            margin-top: 5px;
+
+            color:
+                var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .practice-session {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            margin-top: 15px;
+
+        }
+
+
+        .practice-subsection {
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .practice-subsection-title {
+
+            margin-bottom: 12px;
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .cipher-performance-row,
+        .practice-history-row {
+
+            display: grid;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                10px
+                4px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .cipher-performance-row {
+
+            grid-template-columns:
+                1fr
+                auto
+                auto;
+
+        }
+
+
+        .practice-history-row {
+
+            grid-template-columns:
+                1fr
+                auto
+                auto
+                auto;
+
+        }
+
+
+        .practice-muted {
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        @media (
+            max-width: 700px
+        ) {
+
+            .practice-controls {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .practice-status-bar {
+
+                grid-template-columns:
+                    1fr
+                    1fr;
+
+            }
+
+
+            .practice-status-bar
+            > :first-child {
+
+                grid-column:
+                    1 / -1;
+
+            }
+
+
+            .practice-actions {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .practice-stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .practice-session {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .practice-history-row {
+
+                grid-template-columns:
+                    1fr
+                    auto;
+
+            }
+
+        }
+        /* =====================================================
+   PLAYER PROGRESSION
+===================================================== */
+
+.practice-progression-card {
+    margin-bottom: 18px;
+
+    padding: 18px;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+}
+
+
+.practice-progression-top {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 16px;
+
+    margin-bottom: 13px;
+}
+
+
+.practice-progression-level {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    flex-wrap: wrap;
+}
+
+
+.practice-level-number {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 38px;
+
+    height: 38px;
+
+    padding:
+        0
+        10px;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.15
+        );
+
+    border:
+        1px solid
+        rgba(
+            99,
+            102,
+            241,
+            0.3
+        );
+
+    color:
+        var(--primary-hover);
+
+    font-size: 15px;
+
+    font-weight: 900;
+}
+
+
+.practice-level-info {
+    display: grid;
+
+    gap: 2px;
+}
+
+
+.practice-level-label {
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+}
+
+
+.practice-level-title {
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+
+.practice-total-xp {
+    text-align: right;
+}
+
+
+.practice-total-xp-value {
+    display: block;
+
+    font-family:
+        monospace;
+
+    font-size: 19px;
+
+    font-weight: 900;
+}
+
+
+.practice-total-xp-label {
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   XP BAR
+===================================================== */
+
+.practice-xp-track {
+    position: relative;
+
+    width: 100%;
+
+    height: 11px;
+
+    overflow: hidden;
+
+    background:
+        var(--background);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        999px;
+}
+
+
+.practice-xp-fill {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--primary-hover)
+        );
+
+    transition:
+        width
+        0.45s
+        ease;
+}
+
+
+.practice-xp-details {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 8px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.practice-xp-progress {
+    color:
+        var(--primary-hover);
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   XP GAIN ANIMATION
+===================================================== */
+
+.practice-xp-gain {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-left: 6px;
+
+    padding:
+        3px
+        7px;
+
+    border-radius:
+        999px;
+
+    background:
+        rgba(
+            34,
+            197,
+            94,
+            0.12
+        );
+
+    color:
+        var(--success);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    opacity: 0;
+
+    transform:
+        translateY(4px);
+
+    transition:
+        opacity
+        0.2s,
+        transform
+        0.2s;
+}
+
+
+.practice-xp-gain.show {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =====================================================
+   LEVEL UP
+===================================================== */
+
+.practice-level-up {
+    display: none;
+
+    margin-top: 12px;
+
+    padding: 11px;
+
+    border:
+        1px solid
+        rgba(
+            99,
+            102,
+            241,
+            0.4
+        );
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.09
+        );
+
+    color:
+        var(--primary-hover);
+
+    text-align: center;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+
+.practice-level-up.show {
+    display: block;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width: 600px
+) {
+
+    .practice-progression-top {
+        align-items: center;
+    }
+
+
+    .practice-level-title {
+        font-size: 12px;
+    }
+
+
+    .practice-total-xp-value {
+        font-size: 16px;
+    }
+
+
+    .practice-xp-details {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 4px;
+    }
+
+}
+
+
+/* =====================================================
+   MASTERY DASHBOARD
+===================================================== */
+
+.mastery-panel {
+    margin-top: 18px;
+    padding: 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.mastery-panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.mastery-panel-title {
+    margin: 0;
+    font-size: 20px;
+}
+
+.mastery-panel-subtitle {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.mastery-overall {
+    text-align: right;
+}
+
+.mastery-overall-score {
+    display: block;
+    font-family: monospace;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.mastery-overall-rank {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   SUMMARY CARDS
+===================================================== */
+
+.mastery-summary-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.mastery-summary-card {
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--background);
+}
+
+.mastery-summary-label {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.mastery-summary-name {
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.mastery-summary-detail {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   RECOMMENDATION
+===================================================== */
+
+.mastery-recommendation {
+    margin-bottom: 20px;
+    padding: 16px;
+    border: 1px solid
+        rgba(99, 102, 241, 0.32);
+    border-radius: 12px;
+    background:
+        rgba(99, 102, 241, 0.07);
+}
+
+.mastery-recommendation-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.mastery-recommendation-label {
+    color: var(--primary-hover);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.mastery-recommendation-name {
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.mastery-recommendation-reason {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.mastery-practice-button {
+    flex-shrink: 0;
+    padding: 10px 13px;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.mastery-practice-button:hover {
+    background: var(--primary-hover);
+}
+
+
+/* =====================================================
+   CIPHER LIST
+===================================================== */
+
+.mastery-list {
+    display: grid;
+    gap: 9px;
+}
+
+.mastery-row {
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--background);
+}
+
+.mastery-row-top {
+    display: grid;
+    grid-template-columns:
+        minmax(150px, 1fr)
+        auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.mastery-name {
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.mastery-rank {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+.mastery-score {
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.mastery-track {
+    width: 100%;
+    height: 8px;
+    margin-top: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+}
+
+.mastery-fill {
+    height: 100%;
+    border-radius: inherit;
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--primary-hover)
+        );
+}
+
+.mastery-row-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.mastery-empty {
+    padding: 25px;
+    border: 1px dashed var(--border);
+    border-radius: 11px;
+    color: var(--muted);
+    text-align: center;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .mastery-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mastery-recommendation-top {
+        flex-direction: column;
+    }
+
+    .mastery-practice-button {
+        width: 100%;
+    }
+
+    .mastery-panel-header {
+        flex-direction: column;
+    }
+
+    .mastery-overall {
+        text-align: left;
+    }
+}
+
+
+/* =====================================================
+   STREAK CARDS
+===================================================== */
+
+.streak-section {
+    margin-bottom: 18px;
+}
+
+
+.streak-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 10px;
+}
+
+
+.streak-card {
+    padding: 16px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+
+    background:
+        var(--surface);
+}
+
+
+.streak-card-top {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+
+.streak-label {
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.1px;
+}
+
+
+.streak-title {
+    margin-top: 4px;
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+
+.streak-best {
+    padding:
+        4px
+        8px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        999px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+
+.streak-main {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+
+.streak-number {
+    font-family:
+        monospace;
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    line-height: 1;
+}
+
+
+.streak-unit {
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.streak-status {
+    margin-top: 8px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   COLLAPSIBLE MASTERY
+===================================================== */
+
+.mastery-collapse-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 36px;
+
+    padding:
+        8px
+        11px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.16s,
+        background 0.16s;
+}
+
+
+.mastery-collapse-button:hover {
+    border-color:
+        var(--primary);
+
+    background:
+        var(--surface-light);
+}
+
+
+.mastery-collapse-arrow {
+    width: 7px;
+
+    height: 7px;
+
+    border-right:
+        2px solid
+        currentColor;
+
+    border-bottom:
+        2px solid
+        currentColor;
+
+    transform:
+        rotate(45deg)
+        translateY(-2px);
+
+    transition:
+        transform 0.18s;
+}
+
+
+.mastery-panel.collapsed
+.mastery-collapse-arrow {
+    transform:
+        rotate(-45deg);
+}
+
+
+.mastery-collapsible-content {
+    display: grid;
+}
+
+
+.mastery-panel.collapsed
+.mastery-collapsible-content {
+    display: none;
+}
+
+
+.mastery-panel.collapsed {
+    padding-bottom: 14px;
+}
+
+
+.mastery-header-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+@media (
+    max-width: 700px
+) {
+
+    .streak-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .mastery-header-actions {
+        width: 100%;
+
+        justify-content:
+            space-between;
+    }
+
+}
+
+/* =====================================================
+   FINAL PRACTICE CARD SPACING
+===================================================== */
+
+.mastery-panel {
+    margin:
+        18px
+        0;
+}
+
+/* =====================================================
+   ACHIEVEMENTS PANEL
+===================================================== */
+
+.achievement-panel {
+    margin:
+        18px
+        0;
+
+    padding: 18px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
+
+    background:
+        var(--surface);
+}
+
+
+.achievement-panel-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 18px;
+}
+
+
+.achievement-panel-title {
+    margin: 0;
+
+    font-size: 20px;
+}
+
+
+.achievement-panel-subtitle {
+    margin:
+        5px
+        0
+        0;
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+.achievement-header-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.achievement-total {
+    min-width: 70px;
+
+    text-align: right;
+}
+
+
+.achievement-total-number {
+    display: block;
+
+    font-family:
+        monospace;
+
+    font-size: 23px;
+
+    font-weight: 900;
+}
+
+
+.achievement-total-label {
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   COLLAPSE BUTTON
+===================================================== */
+
+.achievement-collapse-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 36px;
+
+    padding:
+        8px
+        11px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 10px;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    font: inherit;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+.achievement-collapse-button:hover {
+    border-color:
+        var(--primary);
+}
+
+
+.achievement-collapse-arrow {
+    width: 7px;
+
+    height: 7px;
+
+    border-right:
+        2px solid
+        currentColor;
+
+    border-bottom:
+        2px solid
+        currentColor;
+
+    transform:
+        rotate(45deg)
+        translateY(-2px);
+
+    transition:
+        transform
+        0.18s;
+}
+
+
+.achievement-panel.collapsed
+.achievement-collapse-arrow {
+    transform:
+        rotate(-45deg);
+}
+
+
+.achievement-panel.collapsed
+.achievement-content {
+    display: none;
+}
+
+
+.achievement-panel.collapsed {
+    padding-bottom: 14px;
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.achievement-content {
+    margin-top: 18px;
+}
+
+
+.achievement-summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 9px;
+
+    margin-bottom: 18px;
+}
+
+
+.achievement-summary-card {
+    padding: 13px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 10px;
+
+    background:
+        var(--background);
+
+    text-align: center;
+}
+
+
+.achievement-summary-value {
+    font-family:
+        monospace;
+
+    font-size: 19px;
+
+    font-weight: 900;
+}
+
+
+.achievement-summary-label {
+    margin-top: 4px;
+
+    color:
+        var(--muted);
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   OVERALL PROGRESS
+===================================================== */
+
+.achievement-overall-track {
+    width: 100%;
+
+    height: 9px;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 999px;
+
+    background:
+        var(--background);
+}
+
+
+.achievement-overall-fill {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--primary-hover)
+        );
+
+    transition:
+        width
+        0.35s
+        ease;
+}
+
+
+.achievement-overall-detail {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 6px;
+
+    margin-bottom: 18px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+.achievement-filters {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-bottom: 15px;
+}
+
+
+.achievement-filter {
+    padding:
+        7px
+        10px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 999px;
+
+    background:
+        var(--background);
+
+    color:
+        var(--muted);
+
+    font: inherit;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+.achievement-filter:hover {
+    border-color:
+        var(--primary);
+
+    color:
+        var(--text);
+}
+
+
+.achievement-filter.active {
+    border-color:
+        var(--primary);
+
+    background:
+        rgba(
+            99,
+            102,
+            241,
+            0.13
+        );
+
+    color:
+        var(--primary-hover);
+}
+
+
+/* =====================================================
+   ACHIEVEMENT GRID
+===================================================== */
+
+.achievement-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 9px;
+}
+
+
+.achievement-card {
+    position: relative;
+
+    padding: 14px;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 11px;
+
+    background:
+        var(--background);
+}
+
+
+.achievement-card.unlocked {
+    border-color:
+        rgba(
+            99,
+            102,
+            241,
+            0.4
+        );
+}
+
+
+.achievement-card.locked {
+    opacity: 0.72;
+}
+
+
+.achievement-card-top {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.achievement-name {
+    font-size: 13px;
+
+    font-weight: 900;
+}
+
+
+.achievement-description {
+    margin-top: 5px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.45;
+}
+
+
+.achievement-tier {
+    flex-shrink: 0;
+
+    padding:
+        4px
+        7px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 999px;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.8px;
+
+    text-transform: uppercase;
+}
+
+
+.achievement-tier-bronze {
+    color:
+        #c08457;
+}
+
+
+.achievement-tier-silver {
+    color:
+        #a7b0c0;
+}
+
+
+.achievement-tier-gold {
+    color:
+        #d4a72c;
+}
+
+
+.achievement-tier-platinum {
+    color:
+        #b7b8ff;
+}
+
+
+/* =====================================================
+   INDIVIDUAL PROGRESS
+===================================================== */
+
+.achievement-progress-track {
+    width: 100%;
+
+    height: 6px;
+
+    margin-top: 11px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        var(--surface);
+}
+
+
+.achievement-progress-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        var(--primary);
+}
+
+
+.achievement-progress-detail {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 5px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+}
+
+
+.achievement-unlocked-date {
+    margin-top: 9px;
+
+    color:
+        var(--primary-hover);
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.achievement-empty {
+    grid-column:
+        1 / -1;
+
+    padding: 25px;
+
+    border:
+        1px dashed
+        var(--border);
+
+    border-radius: 11px;
+
+    color:
+        var(--muted);
+
+    text-align: center;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   ACHIEVEMENT TOAST
+===================================================== */
+
+.achievement-toast-container {
+    position: fixed;
+
+    right: 20px;
+
+    bottom: 20px;
+
+    z-index: 9999;
+
+    display: grid;
+
+    width:
+        min(
+            360px,
+            calc(
+                100vw
+                -
+                40px
+            )
+        );
+
+    gap: 10px;
+
+    pointer-events: none;
+}
+
+
+.achievement-toast {
+    padding: 16px;
+
+    border:
+        1px solid
+        rgba(
+            99,
+            102,
+            241,
+            0.48
+        );
+
+    border-radius: 13px;
+
+    background:
+        var(--surface);
+
+    box-shadow:
+        0
+        18px
+        50px
+        rgba(
+            0,
+            0,
+            0,
+            0.35
+        );
+
+    opacity: 0;
+
+    transform:
+        translateY(
+            14px
+        );
+
+    transition:
+        opacity
+        0.2s,
+        transform
+        0.2s;
+}
+
+
+.achievement-toast.show {
+    opacity: 1;
+
+    transform:
+        translateY(
+            0
+        );
+}
+
+
+.achievement-toast-eyebrow {
+    color:
+        var(--primary-hover);
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+}
+
+
+.achievement-toast-name {
+    margin-top: 5px;
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+
+.achievement-toast-description {
+    margin-top: 5px;
+
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.45;
+}
+
+
+.achievement-toast-tier {
+    margin-top: 9px;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (
+    max-width: 700px
+) {
+
+    .achievement-panel-header {
+        flex-direction:
+            column;
+    }
+
+
+    .achievement-header-right {
+        width: 100%;
+
+        justify-content:
+            space-between;
+    }
+
+
+    .achievement-total {
+        text-align: left;
+    }
+
+
+    .achievement-summary-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+    }
+
+
+    .achievement-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .achievement-toast-container {
+        right: 12px;
+
+        bottom: 12px;
+
+        width:
+            calc(
+                100vw
+                -
+                24px
+            );
+    }
+
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+
+        <span>THE</span>
+        DAILY CIPHER
+
+    </a>
+
+
+    <nav>
+
+        <a href="../index.html">
+            Daily
+        </a>
+
+        <a href="../learn/index.html">
+            Learn
+        </a>
+
+        <a href="index.html">
+            Practice
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            UNLIMITED PRACTICE
+        </div>
+
+        <h1>
+
+            Practice
+            <span>Cryptography.</span>
+
+        </h1>
+
+        <p>
+
+            Train at your own pace,
+            simulate competition conditions,
+            or race the clock.
+
+        </p>
+
+    </section>
+
+    <!-- =====================================================
+     PLAYER PROGRESSION
+===================================================== -->
+
+<section
+    class="practice-progression-card"
+    aria-label="Player progression"
+>
+
+    <div class="practice-progression-top">
+
+
+        <div class="practice-progression-level">
+
+            <div
+                id="practice-level-number"
+                class="practice-level-number"
+            >
+                1
+            </div>
+
+
+            <div class="practice-level-info">
+
+                <div class="practice-level-label">
+                    CURRENT LEVEL
+                </div>
+
+                <div
+                    id="practice-level-title"
+                    class="practice-level-title"
+                >
+                    Cipher Rookie
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="practice-total-xp">
+
+            <span
+                id="practice-total-xp"
+                class="practice-total-xp-value"
+            >
+                0
+            </span>
+
+            <span class="practice-total-xp-label">
+                TOTAL XP
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <div
+        class="practice-xp-track"
+        aria-label="Experience progress"
+    >
+
+        <div
+            id="practice-xp-fill"
+            class="practice-xp-fill"
+        >
+        </div>
+
+    </div>
+
+
+    <div class="practice-xp-details">
+
+        <span id="practice-xp-current">
+            0 / 100 XP
+        </span>
+
+
+        <span
+            id="practice-xp-percent"
+            class="practice-xp-progress"
+        >
+            0%
+        </span>
+
+
+        <span id="practice-xp-remaining">
+            100 XP to Level 2
+        </span>
+
+    </div>
+
+
+    <div
+        id="practice-xp-gain"
+        class="practice-xp-gain"
+        aria-live="polite"
+    >
+    </div>
+
+
+    <div
+        id="practice-level-up"
+        class="practice-level-up"
+        aria-live="polite"
+    >
+    </div>
+
+</section>
+
+<!-- =====================================================
+     STREAKS
+===================================================== -->
+
+<section
+    class="streak-section"
+    aria-label="Streaks"
+>
+
+    <div class="streak-grid">
+
+
+        <!-- DAILY STREAK -->
+
+        <div class="streak-card">
+
+            <div class="streak-card-top">
+
+                <div>
+
+                    <div class="streak-label">
+                        DAILY CIPHER
+                    </div>
+
+                    <div class="streak-title">
+                        Daily Streak
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="daily-streak-best"
+                    class="streak-best"
+                >
+                    Best 0
+                </div>
+
+            </div>
+
+
+            <div class="streak-main">
+
+                <span
+                    id="daily-streak-current"
+                    class="streak-number"
+                >
+                    0
+                </span>
+
+                <span class="streak-unit">
+                    DAYS
+                </span>
+
+            </div>
+
+
+            <div
+                id="daily-streak-status"
+                class="streak-status"
+            >
+                Complete your first Daily
+            </div>
+
+        </div>
+
+
+        <!-- ACTIVITY STREAK -->
+
+        <div class="streak-card">
+
+            <div class="streak-card-top">
+
+                <div>
+
+                    <div class="streak-label">
+                        ALL SOLVING
+                    </div>
+
+                    <div class="streak-title">
+                        Activity Streak
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="activity-streak-best"
+                    class="streak-best"
+                >
+                    Best 0
+                </div>
+
+            </div>
+
+
+            <div class="streak-main">
+
+                <span
+                    id="activity-streak-current"
+                    class="streak-number"
+                >
+                    0
+                </span>
+
+                <span class="streak-unit">
+                    DAYS
+                </span>
+
+            </div>
+
+
+            <div
+                id="activity-streak-status"
+                class="streak-status"
+            >
+                Complete your first puzzle
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CIPHER MASTERY
+===================================================== -->
+
+<section
+    id="mastery-panel"
+    class="mastery-panel"
+>
+
+    <div class="mastery-panel-header">
+
+        <div>
+
+            <div class="eyebrow">
+                CIPHER MASTERY
+            </div>
+
+            <h2 class="mastery-panel-title">
+                Your Skills
+            </h2>
+
+            <p class="mastery-panel-subtitle">
+                Mastery is based on difficulty,
+                accuracy, efficiency, and consistency.
+            </p>
+
+        </div>
+
+
+        <div class="mastery-header-actions">
+
+            <div class="mastery-overall">
+
+                <span
+                    id="mastery-overall-score"
+                    class="mastery-overall-score"
+                >
+                    0
+                </span>
+
+                <span
+                    id="mastery-overall-rank"
+                    class="mastery-overall-rank"
+                >
+                    UNRANKED
+                </span>
+
+            </div>
+
+
+            <button
+                id="mastery-collapse-button"
+                type="button"
+                class="mastery-collapse-button"
+                aria-expanded="true"
+                aria-controls="mastery-collapsible-content"
+            >
+
+                <span id="mastery-collapse-text">
+                    Collapse
+                </span>
+
+                <span
+                    class="mastery-collapse-arrow"
+                    aria-hidden="true"
+                >
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         EVERYTHING INSIDE THIS WRAPPER COLLAPSES
+    ================================================== -->
+
+    <div
+        id="mastery-collapsible-content"
+        class="mastery-collapsible-content"
+    >
+
+
+        <!-- =============================================
+             SUMMARY
+        ============================================== -->
+
+        <div class="mastery-summary-grid">
+
+
+            <div class="mastery-summary-card">
+
+                <div class="mastery-summary-label">
+                    STRONGEST
+                </div>
+
+                <div
+                    id="mastery-strongest-name"
+                    class="mastery-summary-name"
+                >
+                    None yet
+                </div>
+
+                <div
+                    id="mastery-strongest-detail"
+                    class="mastery-summary-detail"
+                >
+                    Complete some practice first.
+                </div>
+
+            </div>
+
+
+            <div class="mastery-summary-card">
+
+                <div class="mastery-summary-label">
+                    WEAKEST PRACTICED
+                </div>
+
+                <div
+                    id="mastery-weakest-name"
+                    class="mastery-summary-name"
+                >
+                    None yet
+                </div>
+
+                <div
+                    id="mastery-weakest-detail"
+                    class="mastery-summary-detail"
+                >
+                    Complete some practice first.
+                </div>
+
+            </div>
+
+
+            <div class="mastery-summary-card">
+
+                <div class="mastery-summary-label">
+                    COVERAGE
+                </div>
+
+                <div
+                    id="mastery-coverage"
+                    class="mastery-summary-name"
+                >
+                    0 / 12
+                </div>
+
+                <div class="mastery-summary-detail">
+                    ciphers practiced
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =============================================
+             RECOMMENDATION
+        ============================================== -->
+
+        <div
+            id="mastery-recommendation"
+            class="mastery-recommendation"
+            hidden
+        >
+
+            <div class="mastery-recommendation-top">
+
+                <div>
+
+                    <div class="mastery-recommendation-label">
+                        RECOMMENDED FOR YOU
+                    </div>
+
+                    <div
+                        id="mastery-recommendation-name"
+                        class="mastery-recommendation-name"
+                    >
+                    </div>
+
+                    <div
+                        id="mastery-recommendation-reason"
+                        class="mastery-recommendation-reason"
+                    >
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="mastery-practice-button"
+                    type="button"
+                    class="mastery-practice-button"
+                >
+                    Practice
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =============================================
+             FULL MASTERY LIST
+        ============================================== -->
+
+        <div
+            id="mastery-list"
+            class="mastery-list"
+        >
+        </div>
+
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     ACHIEVEMENTS
+===================================================== -->
+
+<section
+    id="achievement-panel"
+    class="achievement-panel"
+>
+
+    <div class="achievement-panel-header">
+
+
+        <div>
+
+            <div class="eyebrow">
+                ACHIEVEMENTS
+            </div>
+
+            <h2 class="achievement-panel-title">
+                Milestones
+            </h2>
+
+            <p class="achievement-panel-subtitle">
+                Earn achievements through solving,
+                streaks, mastery, speed, and progression.
+            </p>
+
+        </div>
+
+
+        <div class="achievement-header-right">
+
+
+            <div class="achievement-total">
+
+                <span
+                    id="achievement-total-number"
+                    class="achievement-total-number"
+                >
+                    0 / 0
+                </span>
+
+                <span class="achievement-total-label">
+                    UNLOCKED
+                </span>
+
+            </div>
+
+
+            <button
+                id="achievement-collapse-button"
+                type="button"
+                class="achievement-collapse-button"
+                aria-expanded="true"
+                aria-controls="achievement-content"
+            >
+
+                <span id="achievement-collapse-text">
+                    Collapse
+                </span>
+
+                <span
+                    class="achievement-collapse-arrow"
+                    aria-hidden="true"
+                >
+                </span>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="achievement-content"
+        class="achievement-content"
+    >
+
+
+        <!-- SUMMARY -->
+
+        <div class="achievement-summary-grid">
+
+
+            <div class="achievement-summary-card">
+
+                <div
+                    id="achievement-bronze"
+                    class="achievement-summary-value"
+                >
+                    0
+                </div>
+
+                <div class="achievement-summary-label">
+                    BRONZE
+                </div>
+
+            </div>
+
+
+            <div class="achievement-summary-card">
+
+                <div
+                    id="achievement-silver"
+                    class="achievement-summary-value"
+                >
+                    0
+                </div>
+
+                <div class="achievement-summary-label">
+                    SILVER
+                </div>
+
+            </div>
+
+
+            <div class="achievement-summary-card">
+
+                <div
+                    id="achievement-gold"
+                    class="achievement-summary-value"
+                >
+                    0
+                </div>
+
+                <div class="achievement-summary-label">
+                    GOLD
+                </div>
+
+            </div>
+
+
+            <div class="achievement-summary-card">
+
+                <div
+                    id="achievement-platinum"
+                    class="achievement-summary-value"
+                >
+                    0
+                </div>
+
+                <div class="achievement-summary-label">
+                    PLATINUM
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- OVERALL PROGRESS -->
+
+        <div class="achievement-overall-track">
+
+            <div
+                id="achievement-overall-fill"
+                class="achievement-overall-fill"
+            >
+            </div>
+
+        </div>
+
+
+        <div class="achievement-overall-detail">
+
+            <span id="achievement-overall-count">
+                0 of 0 unlocked
+            </span>
+
+            <span id="achievement-overall-percent">
+                0%
+            </span>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="achievement-filters">
+
+            <button
+                type="button"
+                class="achievement-filter active"
+                data-achievement-filter="all"
+            >
+                All
+            </button>
+
+            <button
+                type="button"
+                class="achievement-filter"
+                data-achievement-filter="unlocked"
+            >
+                Unlocked
+            </button>
+
+            <button
+                type="button"
+                class="achievement-filter"
+                data-achievement-filter="locked"
+            >
+                Locked
+            </button>
+
+            <button
+                type="button"
+                class="achievement-filter"
+                data-achievement-filter="solving"
+            >
+                Solving
+            </button>
+
+            <button
+                type="button"
+                class="achievement-filter"
+                data-achievement-filter="mastery"
+            >
+                Mastery
+            </button>
+
+            <button
+                type="button"
+                class="achievement-filter"
+                data-achievement-filter="streak"
+            >
+                Streaks
+            </button>
+
+        </div>
+
+
+        <!-- ACHIEVEMENT CARDS -->
+
+        <div
+            id="achievement-grid"
+            class="achievement-grid"
+        >
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ACHIEVEMENT TOASTS
+===================================================== -->
+
+<div
+    id="achievement-toast-container"
+    class="achievement-toast-container"
+    aria-live="polite"
+    aria-atomic="false"
+>
+</div>
+
+    <section class="daily-card">
+
+
+        <div class="practice-controls">
+
+
+            <div class="practice-field">
+
+                <label for="practice-mode">
+                    Mode
+                </label>
+
+                <select id="practice-mode">
+
+                    <option value="guided">
+                        Guided
+                    </option>
+
+                    <option value="competition">
+                        Competition
+                    </option>
+
+                    <option value="speed">
+                        Speed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="practice-field">
+
+                <label for="practice-difficulty">
+                    Difficulty
+                </label>
+
+                <select id="practice-difficulty">
+
+                    <option value="Easy">
+                        Easy
+                    </option>
+
+                    <option
+                        value="Medium"
+                        selected
+                    >
+                        Medium
+                    </option>
+
+                    <option value="Hard">
+                        Hard
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="practice-field">
+
+                <label for="practice-cipher">
+                    Cipher
+                </label>
+
+                <select id="practice-cipher">
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            id="practice-mode-description"
+            class="practice-mode-description"
+        >
+        </div>
+
+
+        <button
+            id="generate-practice-button"
+            class="primary-button"
+        >
+            Generate Challenge
+        </button>
+
+
+        <div
+            id="practice-challenge"
+            class="hidden"
+        >
+
+
+            <div class="practice-status-bar">
+
+
+                <div>
+
+                    <div
+                        id="practice-status-title"
+                        class="practice-status-title"
+                    >
+                    </div>
+
+                    <div
+                        id="practice-attempts"
+                        class="practice-status-subtitle"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="practice-status-stat">
+
+                    <span>
+                        TIME
+                    </span>
+
+                    <strong id="practice-timer">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="practice-status-stat">
+
+                    <span>
+                        CURRENT MAX
+                    </span>
+
+                    <strong
+                        id="practice-score-preview"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                id="practice-cipher-name"
+                class="practice-cipher-name"
+            >
+            </div>
+
+
+            <div
+                id="practice-output"
+                class="cipher-box"
+            >
+                ---
+            </div>
+
+
+            <input
+    id="practice-answer"
+    type="text"
+    autocomplete="off"
+    autocapitalize="characters"
+    spellcheck="false"
+    aria-label="Your plaintext solution"
+    placeholder="TYPE YOUR PLAINTEXT ANSWER..."
+>
+
+
+            <div class="practice-actions">
+
+                <button
+                    id="check-practice-button"
+                    class="primary-button"
+                >
+                    Submit Answer
+                </button>
+
+                <button
+                    id="new-practice-button"
+                    class="practice-secondary-button"
+                >
+                    New Puzzle
+                </button>
+
+            </div>
+
+
+            <div
+                id="practice-feedback"
+                class="feedback"
+                aria-live="polite"
+            >
+            </div>
+
+
+            <div class="practice-hints">
+
+                <div class="practice-hint-header">
+
+                    <div>
+
+                        <strong>
+                            PROGRESSIVE HINTS
+                        </strong>
+
+                        <div class="practice-muted">
+                            Hints reduce your score.
+                        </div>
+
+                    </div>
+
+                    <div
+                        id="practice-hint-counter"
+                        class="practice-hint-counter"
+                    >
+                        0 hints used
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="practice-revealed-hints"
+                >
+                </div>
+
+
+                <button
+                    id="practice-hint-button"
+                    class="practice-secondary-button"
+                >
+                    Reveal Hint
+                </button>
+
+
+                <div
+                    id="practice-hint-cost"
+                    class="practice-hint-cost"
+                >
+                </div>
+
+            </div>
+
+
+            <button
+                id="reveal-solution-button"
+                class="practice-secondary-button"
+                style="margin-top:20px;"
+            >
+                Reveal Solution
+            </button>
+
+
+            <div
+                id="practice-solution"
+                class="practice-solution hidden"
+            >
+
+                <div class="practice-solution-label">
+                    SOLUTION
+                </div>
+
+                <div
+                    id="practice-solution-text"
+                    class="practice-solution-text"
+                >
+                </div>
+
+            </div>
+
+
+            <div
+                id="practice-result"
+                class="practice-result hidden"
+            >
+
+                <div class="practice-result-label">
+                    PRACTICE SCORE
+                </div>
+
+                <div
+                    id="practice-result-score"
+                    class="practice-result-score"
+                >
+                </div>
+
+                <div
+                    id="practice-result-detail"
+                    class="practice-result-detail"
+                >
+                </div>
+
+            </div>
+
+
+            <a
+                id="practice-learn-link"
+                href="../learn/index.html"
+                class="practice-learn-link"
+            >
+                Learn about this cipher →
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+    <section
+        class="daily-card practice-stats-section"
+    >
+
+        <div class="eyebrow">
+            PRACTICE PERFORMANCE
+        </div>
+
+        <h2>
+            Your Training Stats
+        </h2>
+
+
+        <div class="practice-stats-grid">
+
+            <div class="practice-stat-card">
+
+                <div
+                    id="practice-stat-played"
+                    class="practice-stat-number"
+                >
+                    0
+                </div>
+
+                <div class="practice-stat-label">
+                    PLAYED
+                </div>
+
+            </div>
+
+
+            <div class="practice-stat-card">
+
+                <div
+                    id="practice-stat-solve-rate"
+                    class="practice-stat-number"
+                >
+                    0%
+                </div>
+
+                <div class="practice-stat-label">
+                    SOLVE RATE
+                </div>
+
+            </div>
+
+
+            <div class="practice-stat-card">
+
+                <div
+                    id="practice-stat-score"
+                    class="practice-stat-number"
+                >
+                    0
+                </div>
+
+                <div class="practice-stat-label">
+                    TOTAL SCORE
+                </div>
+
+            </div>
+
+
+            <div class="practice-stat-card">
+
+                <div
+                    id="practice-stat-best"
+                    class="practice-stat-number"
+                >
+                    0
+                </div>
+
+                <div class="practice-stat-label">
+                    BEST SCORE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="practice-subsection">
+
+            <div class="practice-subsection-title">
+                THIS SESSION
+            </div>
+
+            <div class="practice-session">
+
+                <div class="practice-stat-card">
+
+                    <div
+                        id="session-played"
+                        class="practice-stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="practice-stat-label">
+                        PLAYED
+                    </div>
+
+                </div>
+
+
+                <div class="practice-stat-card">
+
+                    <div
+                        id="session-solved"
+                        class="practice-stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="practice-stat-label">
+                        SOLVED
+                    </div>
+
+                </div>
+
+
+                <div class="practice-stat-card">
+
+                    <div
+                        id="session-score"
+                        class="practice-stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="practice-stat-label">
+                        SCORE
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="practice-subsection">
+
+            <div class="practice-subsection-title">
+                BY CIPHER
+            </div>
+
+            <div id="practice-cipher-stats">
+            </div>
+
+        </div>
+
+
+        <div class="practice-subsection">
+
+            <div class="practice-subsection-title">
+                RECENT PRACTICE
+            </div>
+
+            <div id="practice-history">
+            </div>
+
+        </div>
+
+
+        <button
+            id="reset-practice-stats-button"
+            class="practice-secondary-button"
+            style="margin-top:25px;"
+        >
+            Reset Practice Statistics
+        </button>
+
+    </section>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p>
+        THE DAILY CIPHER
+    </p>
+
+    <span>
+        Learn. Crack. Repeat.
+    </span>
+
+</footer>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="../js/supabaseClient.js"></script>
+
+
+<!-- =====================================================
+     CORE
+===================================================== -->
+
+<script src="../js/storage.js"></script>
+
+<script src="../js/utils.js"></script>
+
+<script src="../js/cipherEngine.js"></script>
+
+<script src="../js/difficultyEngine.js"></script>
+
+<script src="../js/puzzleGenerator.js"></script>
+
+
+<!-- =====================================================
+     PROGRESSION
+===================================================== -->
+
+<script src="../js/progressionEngine.js"></script>
+
+<script src="../js/masteryEngine.js"></script>
+
+<script src="../js/streakEngine.js"></script>
+
+<script src="../js/achievementEngine.js"></script>
+
+
+<!-- =====================================================
+     UI
+===================================================== -->
+
+<script src="../js/masteryUI.js"></script>
+
+<script src="../js/streakUI.js"></script>
+
+<script src="../js/achievementUI.js"></script>
+
+
+<!-- =====================================================
+     CLOUD
+===================================================== -->
+
+<script src="../js/cloudSync.js"></script>
+
+
+<!-- =====================================================
+     PRACTICE
+===================================================== -->
+
+<script src="../js/practice.js"></script>
+
+<script src="/js/navigation.js"></script>
+</body>
+
+</html>
