@@ -408,6 +408,17 @@ function installAccessibilityBasics() {
 
             {
                 label:
+                    "Codebusters",
+
+                href:
+                    "codebusters/index.html",
+
+                section:
+                    "codebusters"
+            },
+
+            {
+                label:
                     "Practice",
 
                 href:
@@ -744,6 +755,16 @@ function rebuildHeaderActions() {
         const pathname =
             window.location.pathname
                 .toLowerCase();
+
+
+        if (
+            pathname.includes(
+                "/codebusters/"
+            )
+        ) {
+
+            return "codebusters";
+        }
 
 
         if (

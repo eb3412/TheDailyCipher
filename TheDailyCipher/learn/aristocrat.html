@@ -1,865 +1,864 @@
 <!DOCTYPE html>
+
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Aristocrat Cipher &mdash; Complete Guide | The Daily Cipher
-  </title>
-  <meta content="Learn Aristocrat Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
-  <link href="https://thedailycipher.org/learn/aristocrat.html" rel="canonical"/>
-  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
-  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
-  <meta content="#030712" name="theme-color"/>
-  <link href="../css/style.css" rel="stylesheet"/>
-  <link href="../css/animations.css" rel="stylesheet"/>
-  <link href="../css/themes.css" rel="stylesheet"/>
-  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
-  <script>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aristocrat Cipher Guide &amp; Cryptogram Solving Tips | The Daily Cipher</title>
+<meta content="Learn Aristocrat substitution ciphers from scratch with alphabet mappings, K1 and K2 concepts, frequency analysis, word patterns, cryptanalysis strategy, examples, and practice." name="description"/>
+<link href="https://thedailycipher.org/learn/aristocrat.html" rel="canonical"/>
+<link href="/assets/favicon.png" rel="icon" type="image/png"/>
+<link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+<meta content="#030712" name="theme-color"/>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="../css/animations.css" rel="stylesheet"/>
+<link href="../css/themes.css" rel="stylesheet"/>
+<link href="../css/codebusters-learn.css" rel="stylesheet"/>
+<script>
    window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
   </script>
-  <script defer="" src="/_vercel/insights/script.js">
-  </script>
- </head>
- <body>
-  <header class="site-header">
-   <a class="logo" href="../index.html">
-    <span>
+<script defer="" src="/_vercel/insights/script.js">
+</script>
+<meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="The Daily Cipher" property="og:site_name"/><meta content="Aristocrat Cipher Guide &amp; Cryptogram Solving Tips | The Daily Cipher" property="og:title"/><meta content="Learn Aristocrat substitution ciphers from scratch with alphabet mappings, K1 and K2 concepts, frequency analysis, word patterns, cryptanalysis strategy, examples, and practice." property="og:description"/><meta content="https://thedailycipher.org/learn/aristocrat.html" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Aristocrat Cipher Guide &amp; Cryptogram Solving Tips | The Daily Cipher" name="twitter:title"/><meta content="Learn Aristocrat substitution ciphers from scratch with alphabet mappings, K1 and K2 concepts, frequency analysis, word patterns, cryptanalysis strategy, examples, and practice." name="twitter:description"/><link href="/css/seo.css" rel="stylesheet"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thedailycipher.org/"},{"@type":"ListItem","position":2,"name":"Learn Cryptography","item":"https://thedailycipher.org/learn/"},{"@type":"ListItem","position":3,"name":"Aristocrat Cipher","item":"https://thedailycipher.org/learn/aristocrat.html"}]}</script></head>
+<body>
+<header class="site-header">
+<a class="logo" href="../index.html">
+<span>
      THE
     </span>
     DAILY CIPHER
    </a>
-   <nav>
-    <a href="../index.html">
+<nav>
+<a href="../index.html">
      Daily
     </a>
-    <a href="index.html">
+<a href="index.html">
      Learn
     </a>
-    <a href="../practice/index.html">
+<a href="../practice/index.html">
      Practice
     </a>
-   </nav>
-  </header>
-  <main class="container deep-guide-shell">
-   <section class="deep-hero">
-    <div class="eyebrow">
-     MONOALPHABETIC CRYPTANALYSIS &bull; CODEBUSTERS
+</nav>
+</header><nav aria-label="Breadcrumb" class="seo-breadcrumbs"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Learn</a></li><li><span>Aristocrat Cipher</span></li></ol></nav>
+<main class="container deep-guide-shell">
+<section class="deep-hero">
+<div class="eyebrow">
+     MONOALPHABETIC CRYPTANALYSIS • CODEBUSTERS
     </div>
-    <h1>
+<h1>
      Aristocrat Cipher
     </h1>
-    <p>
+<p>
      Solve substitution cryptograms with spaces preserved using patterns, frequencies, and consistent letter mappings.
     </p>
-    <div class="quick-grid">
-     <div class="quick-item">
-      <span>
+<div class="quick-grid">
+<div class="quick-item">
+<span>
        Family
       </span>
-      <strong>
+<strong>
        Monoalphabetic substitution
       </strong>
-     </div>
-     <div class="quick-item">
-      <span>
+</div>
+<div class="quick-item">
+<span>
        Key / parameter
       </span>
-      <strong>
+<strong>
        K1, K2, random, and related keyed alphabets
       </strong>
-     </div>
-     <div class="quick-item">
-      <span>
+</div>
+<div class="quick-item">
+<span>
        Text structure
       </span>
-      <strong>
+<strong>
        Spaces and word lengths are preserved
       </strong>
-     </div>
-    </div>
-   </section>
-   <div class="deep-layout">
-    <aside aria-label="Guide contents" class="deep-toc">
-     <div class="deep-toc-title">
+</div>
+</div>
+</section>
+<div class="deep-layout">
+<aside aria-label="Guide contents" class="deep-toc">
+<div class="deep-toc-title">
       ON THIS PAGE
      </div>
-     <a href="#overview">
+<a href="#overview">
       What it is
      </a>
-     <a href="#basics">
+<a href="#basics">
       What you need
      </a>
-     <a href="#reference">
+<a href="#reference">
       Complete reference
      </a>
-     <a href="#encrypt">
+<a href="#encrypt">
       Encrypt
      </a>
-     <a href="#decrypt">
+<a href="#decrypt">
       Decrypt
      </a>
-     <a href="#competition">
+<a href="#competition">
       Codebusters approach
      </a>
-     <a href="#cryptanalysis">
+<a href="#cryptanalysis">
       Cryptanalysis
      </a>
-     <a href="#worked">
+<a href="#worked">
       Worked problem
      </a>
-     <a href="#mistakes">
+<a href="#mistakes">
       Common mistakes
      </a>
-     <a href="#speed">
+<a href="#speed">
       Speed strategies
      </a>
-     <a href="#quick">
+<a href="#quick">
       Quick reference
      </a>
-     <a href="#interactive">
+<a href="#interactive">
       Visualizer &amp; practice
      </a>
-     <div class="deep-toc-note">
+<div class="deep-toc-note">
       Everything needed for the cipher itself is included here.
      </div>
-    </aside>
-    <div class="deep-content">
-     <section class="deep-card" id="overview">
-      <div class="section-kicker">
-       01 &bull; OVERVIEW
+</aside>
+<div class="deep-content">
+<section class="deep-card" id="overview">
+<div class="section-kicker">
+       01 • OVERVIEW
       </div>
-      <h2>
+<h2>
        What is the Aristocrat Cipher?
       </h2>
-      <p>
+<p>
        An Aristocrat is a monoalphabetic substitution cryptogram that keeps word boundaries. Every plaintext letter maps consistently to one ciphertext letter throughout the message.
       </p>
-      <p>
+<p>
        Spaces are extremely valuable: they expose word lengths, repeated-word patterns, one-letter words, and common endings.
       </p>
-      <div class="deep-rule-note">
-       <strong>
+<div class="deep-rule-note">
+<strong>
         Competition note
        </strong>
-       <p>
+<p>
         The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
        </p>
-      </div>
-      <div class="beginner-promise">
-       <strong>
+</div>
+<div class="beginner-promise">
+<strong>
         Starting from zero?
        </strong>
-       <p>
-        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+<p>
+        No outside reference is assumed. Work through Foundations → Complete Reference → Encryption → Decryption in order, then use the competition and cryptanalysis sections.
        </p>
+</div>
+</section>
+<section class="deep-card" id="basics">
+<div class="section-kicker">
+       02 • FOUNDATIONS
       </div>
-     </section>
-     <section class="deep-card" id="basics">
-      <div class="section-kicker">
-       02 &bull; FOUNDATIONS
-      </div>
-      <h2>
+<h2>
        What you need to know
       </h2>
-      <ul class="deep-list">
-       <li>
+<ul class="deep-list">
+<li>
         A mapping must be one-to-one: one ciphertext letter cannot represent two different plaintext letters in the same substitution alphabet.
        </li>
-       <li>
+<li>
         Repeated-letter patterns are preserved. Example: a pattern like
         <strong>
          ABBC
         </strong>
         still has its middle two letters equal after substitution.
        </li>
-       <li>
+<li>
         K1/K2/K3 describe how keyed alphabets are constructed; for cryptanalysis, the visible substitution behavior is still monoalphabetic.
        </li>
-      </ul>
-      <h3>
+</ul>
+<h3>
        Beginner glossary
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table glossary-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table glossary-table">
+<thead>
+<tr>
+<th>
            Term
           </th>
-          <th>
+<th>
            Meaning
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            Monoalphabetic
           </td>
-          <td>
+<td>
            Each plaintext letter has one consistent ciphertext substitute throughout the message.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Substitution alphabet
           </td>
-          <td>
+<td>
            The row that tells which ciphertext letter corresponds to each plaintext letter.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            K1/K2/K3
           </td>
-          <td>
+<td>
            Ways of constructing keyed alphabet rows; they affect key construction but the resulting cipher is still monoalphabetic.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Word pattern
           </td>
-          <td>
+<td>
            A shape describing repeated letters, such as MEET = 0-1-1-2.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Crib
           </td>
-          <td>
+<td>
            A known or strongly suspected plaintext fragment.
           </td>
-         </tr>
-        </tbody>
-       </table>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="deep-card reference-card" id="reference">
+<div class="section-kicker">
+       03 • COMPLETE REFERENCE
       </div>
-     </section>
-     <section class="deep-card reference-card" id="reference">
-      <div class="section-kicker">
-       03 &bull; COMPLETE REFERENCE
-      </div>
-      <h2>
+<h2>
        Keep this beside you while solving
       </h2>
-      <div class="deep-table-wrap">
-       <table class="deep-table strategy-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table strategy-table">
+<thead>
+<tr>
+<th>
            Key style
           </th>
-          <th>
+<th>
            Conceptual construction
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            K1
           </td>
-          <td>
+<td>
            A keyed/mixed alphabet is used on the plaintext side against a straight alphabet.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            K2
           </td>
-          <td>
+<td>
            A straight plaintext alphabet is used against a keyed/mixed ciphertext alphabet.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            K3
           </td>
-          <td>
+<td>
            Both rows derive from the same mixed alphabet with an offset/relationship.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Random
           </td>
-          <td>
+<td>
            A one-to-one deranged substitution alphabet with no keyword structure to exploit directly.
           </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-      <h3>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>
        Useful English signals
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table strategy-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table strategy-table">
+<thead>
+<tr>
+<th>
            High-frequency English letters
           </th>
-          <th>
+<th>
            Common digraphs
           </th>
-          <th>
+<th>
            Common short words
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            E T A O I N
           </td>
-          <td>
+<td>
            TH HE IN ER AN RE
           </td>
-          <td>
+<td>
            A I AN AS AT
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            S H R D L U
           </td>
-          <td>
+<td>
            ON AT EN ND TI ES
           </td>
-          <td>
+<td>
            THE AND FOR ARE
           </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-      <h3>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>
        Pattern notation examples
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table">
+<thead>
+<tr>
+<th>
            Word
           </th>
-          <th>
+<th>
            Pattern
           </th>
-          <th>
+<th>
            What it tells you
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            MEET
           </td>
-          <td>
+<td>
            0-1-1-2
           </td>
-          <td>
+<td>
            Middle two letters are equal.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            LEVEL
           </td>
-          <td>
+<td>
            0-1-2-1-0
           </td>
-          <td>
+<td>
            First=last and second=fourth.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            THAT
           </td>
-          <td>
+<td>
            0-1-2-0
           </td>
-          <td>
+<td>
            First and last are equal.
           </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-      <h3>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>
        Mapping discipline
       </h3>
-      <p>
-       Maintain two directions: ciphertext&rarr;plaintext for solving, and plaintext&rarr;ciphertext to catch conflicts. A proposed mapping is invalid if it makes one symbol mean two letters or forces two symbols to the same plaintext letter in a one-to-one substitution.
+<p>
+       Maintain two directions: ciphertext→plaintext for solving, and plaintext→ciphertext to catch conflicts. A proposed mapping is invalid if it makes one symbol mean two letters or forces two symbols to the same plaintext letter in a one-to-one substitution.
       </p>
-      <div class="reference-completeness">
-       <strong>
+<div class="reference-completeness">
+<strong>
         Reference rule:
        </strong>
        if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
       </div>
-     </section>
-     <section class="deep-card" id="encrypt">
-      <div class="section-kicker">
-       04 &bull; ENCRYPTION
+</section>
+<section class="deep-card" id="encrypt">
+<div class="section-kicker">
+       04 • ENCRYPTION
       </div>
-      <h2>
+<h2>
        How encryption works
       </h2>
-      <div class="deep-steps">
-       <div class="deep-step">
-        <div class="deep-step-num">
+<div class="deep-steps">
+<div class="deep-step">
+<div class="deep-step-num">
          1
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Build the two alphabet rows
          </h3>
-         <p>
+<p>
           Create the plaintext row and ciphertext row according to the chosen key style.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          2
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Find each plaintext letter
          </h3>
-         <p>
+<p>
           Locate it in the plaintext row.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          3
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Take the paired ciphertext letter
          </h3>
-         <p>
+<p>
           Use the letter in the same column of the ciphertext row.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          4
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Preserve spaces
          </h3>
-         <p>
+<p>
           Aristocrat keeps word boundaries visible.
          </p>
-        </div>
-       </div>
+</div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="decrypt">
+<div class="section-kicker">
+       05 • DECRYPTION
       </div>
-     </section>
-     <section class="deep-card" id="decrypt">
-      <div class="section-kicker">
-       05 &bull; DECRYPTION
-      </div>
-      <h2>
+<h2>
        How decryption works
       </h2>
-      <div class="deep-steps">
-       <div class="deep-step">
-        <div class="deep-step-num">
+<div class="deep-steps">
+<div class="deep-step">
+<div class="deep-step-num">
          1
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Start with structure
          </h3>
-         <p>
+<p>
           Mark one-letter words, repeated words, apostrophes if present, and repeated-letter patterns.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          2
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Make tentative mappings
          </h3>
-         <p>
-          Pencil a ciphertext&rarr;plaintext guess only when it helps multiple places.
+<p>
+          Pencil a ciphertext→plaintext guess only when it helps multiple places.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          3
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Propagate every mapping
          </h3>
-         <p>
+<p>
           Each solved letter applies everywhere.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          4
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Use language constraints
          </h3>
-         <p>
+<p>
           Check word shapes, common endings, frequencies, and grammar together.
          </p>
-        </div>
-       </div>
+</div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="competition">
+<div class="section-kicker">
+       06 • COMPETITION WORKFLOW
       </div>
-     </section>
-     <section class="deep-card" id="competition">
-      <div class="section-kicker">
-       06 &bull; COMPETITION WORKFLOW
-      </div>
-      <h2>
+<h2>
        How to approach it in Codebusters practice
       </h2>
-      <ul class="deep-list competition-list">
-       <li>
+<ul class="deep-list competition-list">
+<li>
         Treat the whole quote as one constraint system. Solving one word often unlocks several others.
        </li>
-       <li>
+<li>
         Do not commit to a guess merely because it creates one English word; it must fit all occurrences of those letters.
        </li>
-       <li>
+<li>
         K1/K2/K3 labels matter for construction questions, but ordinary cryptanalysis still depends heavily on patterns and language.
        </li>
-      </ul>
-      <h3>
+</ul>
+<h3>
        What the problem gives you vs. what you produce
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table problem-format-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table problem-format-table">
+<thead>
+<tr>
+<th>
            Part
           </th>
-          <th>
+<th>
            What to expect
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            You may be given
           </td>
-          <td>
+<td>
            A quote with spaces preserved, sometimes with key-construction information or a hint.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            You must find
           </td>
-          <td>
+<td>
            Readable plaintext and, for some construction questions, key information.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Fastest first move
           </td>
-          <td>
+<td>
            Mark one-letter words, repeated words, doubled letters, punctuation, and distinctive word patterns before guessing.
           </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-      <div class="deep-note">
-       <strong>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="deep-note">
+<strong>
         Season note:
        </strong>
        use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
       </div>
-     </section>
-     <section class="deep-card" id="cryptanalysis">
-      <div class="section-kicker">
-       07 &bull; CRYPTANALYSIS
+</section>
+<section class="deep-card" id="cryptanalysis">
+<div class="section-kicker">
+       07 • CRYPTANALYSIS
       </div>
-      <h2>
+<h2>
        How to attack an unknown or partially known key
       </h2>
-      <ul class="deep-list">
-       <li>
+<ul class="deep-list">
+<li>
         One-letter words are usually A or I in English.
        </li>
-       <li>
+<li>
         Common doubled letters include LL, EE, SS, OO, TT, FF, RR, NN, PP, and CC, but context matters.
        </li>
-       <li>
+<li>
         Look for repeated three-letter patterns that could be THE, AND, ING fragments, etc.
        </li>
-       <li>
+<li>
         Frequency is strongest when combined with word patterns; short quotes can have misleading frequencies.
        </li>
-      </ul>
-     </section>
-     <section class="deep-card" id="worked">
-      <div class="section-kicker">
-       08 &bull; WORKED PROBLEM
+</ul>
+</section>
+<section class="deep-card" id="worked">
+<div class="section-kicker">
+       08 • WORKED PROBLEM
       </div>
-      <h2>
+<h2>
        Follow one example from start to finish
       </h2>
-      <div class="worked-box">
-       <div class="worked-row">
-        <span>
+<div class="worked-box">
+<div class="worked-row">
+<span>
          Construction
         </span>
-        <div>
-         <code>
-          K2 &bull; keyword CIPHER &bull; offset 5
+<div>
+<code>
+          K2 • keyword CIPHER • offset 5
          </code>
-        </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+</div>
+<div class="worked-row">
+<span>
          Plaintext
         </span>
-        <div>
-         <code>
+<div>
+<code>
           THE SECRET MESSAGE
          </code>
-        </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+</div>
+<div class="worked-row">
+<span>
          Ciphertext
         </span>
-        <div>
-         <code>
+<div>
+<code>
           MPZ LZXKZM BZLLVIZ
          </code>
-        </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+</div>
+<div class="worked-row">
+<span>
          Check
         </span>
-        <div>
-         T&rarr;M, H&rarr;P, E&rarr;Z; the same plaintext letter always uses the same ciphertext letter.
+<div>
+         T→M, H→P, E→Z; the same plaintext letter always uses the same ciphertext letter.
         </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+<div class="worked-row">
+<span>
          Solve view
         </span>
-        <div>
+<div>
          During cryptanalysis the key is hidden; build the reverse mapping from word patterns and consistency.
         </div>
-       </div>
-      </div>
-      <div class="beginner-check">
-       <div class="beginner-check-title">
+</div>
+</div>
+<div class="beginner-check">
+<div class="beginner-check-title">
         BEGINNER SELF-CHECK
        </div>
-       <p>
+<p>
         Before moving on, make sure you can answer these without another site:
        </p>
-       <ul>
-        <li>
+<ul>
+<li>
          Can you write a pattern for LEVEL and compare it to a ciphertext word?
         </li>
-        <li>
+<li>
          Can you explain why frequency is evidence but not proof?
         </li>
-        <li>
+<li>
          Can you spot a mapping conflict before it spreads through the quote?
         </li>
-       </ul>
+</ul>
+</div>
+</section>
+<section class="deep-card" id="mistakes">
+<div class="section-kicker">
+       09 • ERROR CHECK
       </div>
-     </section>
-     <section class="deep-card" id="mistakes">
-      <div class="section-kicker">
-       09 &bull; ERROR CHECK
-      </div>
-      <h2>
+<h2>
        Common mistakes
       </h2>
-      <div class="mistake-grid">
-       <div class="mistake-item">
-        <span>
+<div class="mistake-grid">
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Treating frequency as proof instead of evidence.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Mapping two ciphertext letters to the same plaintext letter.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Forgetting to propagate a mapping everywhere.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Ignoring punctuation and word-length information.
         </p>
-       </div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="speed">
+<div class="section-kicker">
+       10 • SPEED
       </div>
-     </section>
-     <section class="deep-card" id="speed">
-      <div class="section-kicker">
-       10 &bull; SPEED
-      </div>
-      <h2>
+<h2>
        Competition speed strategies
       </h2>
-      <div class="speed-grid">
-       <div class="speed-item">
-        <span>
+<div class="speed-grid">
+<div class="speed-item">
+<span>
          1
         </span>
-        <p>
+<p>
          Write a substitution alphabet strip and fill it as you solve letters.
         </p>
-       </div>
-       <div class="speed-item">
-        <span>
+</div>
+<div class="speed-item">
+<span>
          2
         </span>
-        <p>
+<p>
          Attack repeated words and high-information word shapes before long unique words.
         </p>
-       </div>
-       <div class="speed-item">
-        <span>
+</div>
+<div class="speed-item">
+<span>
          3
         </span>
-        <p>
+<p>
          Use teammates strategically: one person can track the mapping while another tests word patterns.
         </p>
-       </div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="quick">
+<div class="section-kicker">
+       11 • QUICK REFERENCE
       </div>
-     </section>
-     <section class="deep-card" id="quick">
-      <div class="section-kicker">
-       11 &bull; QUICK REFERENCE
-      </div>
-      <h2>
+<h2>
        What to remember under time pressure
       </h2>
-      <div class="quick-grid">
-       <div class="quick-item">
-        <span>
+<div class="quick-grid">
+<div class="quick-item">
+<span>
          Family
         </span>
-        <strong>
+<strong>
          Monoalphabetic substitution
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Spaces
         </span>
-        <strong>
+<strong>
          Preserved
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Best clues
         </span>
-        <strong>
+<strong>
          Word shapes + repeated letters + frequency
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Core rule
         </span>
-        <strong>
+<strong>
          One-to-one consistent mapping
         </strong>
-       </div>
-      </div>
-      <div class="quick-use-note">
-       <strong>
+</div>
+</div>
+<div class="quick-use-note">
+<strong>
         How to use this section:
        </strong>
        during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
       </div>
-     </section>
-     <section class="deep-card interactive-card" id="interactive">
-      <div class="section-kicker">
-       12 &bull; INTERACTIVE LAB
+</section>
+<section class="deep-card interactive-card" id="interactive">
+<div class="section-kicker">
+       12 • INTERACTIVE LAB
       </div>
-      <h2>
+<h2>
        See every transformation
       </h2>
-      <p>
-       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+<p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the “How to reverse it” panel so encryption and decryption connect.
       </p>
-      <div class="lab-actions">
-       <a class="deep-secondary-button" href="../visualizers/aristocrat.html">
+<div class="lab-actions">
+<a class="deep-secondary-button" href="../visualizers/aristocrat.html">
         Open full visualizer
        </a>
-       <a class="primary-button" href="../practice/index.html?cipher=aristocrat-k1">
+<a class="primary-button" href="../practice/index.html?cipher=aristocrat-k1">
         Practice Aristocrat
        </a>
-      </div>
-      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/aristocrat.html?embed=1" title="Aristocrat Cipher interactive visualizer">
-      </iframe>
-     </section>
-     <div class="guide-end-nav">
-      <a href="index.html">
-       &larr; All cipher guides
+</div>
+<iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/aristocrat.html?embed=1" title="Aristocrat Cipher interactive visualizer">
+</iframe>
+</section>
+<section aria-labelledby="related-aristocrat-title" class="deep-card seo-related-guides"><div class="section-kicker">KEEP LEARNING</div><h2 id="related-aristocrat-title">Related cipher guides and practice</h2><p>Build connected skills instead of learning this cipher in isolation.</p><div class="seo-related-grid"><a class="seo-related-link" href="patristocrat.html"><strong>Patristocrat Cipher</strong><span>Learn Patristocrat Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="xenocrypt.html"><strong>Spanish Xenocrypt</strong><span>Learn Spanish Xenocrypt with a complete reference and worked examples.</span></a><a class="seo-related-link" href="homophonic.html"><strong>Homophonic Cipher</strong><span>Learn Homophonic Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link seo-related-codebusters" href="../codebusters/"><strong>Science Olympiad Codebusters Practice</strong><span>Browse Codebusters-focused guides, visualizers, and generated practice.</span></a></div></section><div class="guide-end-nav">
+<a href="index.html">
+       ← All cipher guides
       </a>
-      <a href="#overview">
-       Back to top &uarr;
+<a href="#overview">
+       Back to top ↑
       </a>
-     </div>
-    </div>
-   </div>
-  </main>
-  <footer class="site-footer">
-   <p>
+</div>
+</div>
+</div>
+</main>
+<footer class="site-footer">
+<p>
     THE DAILY CIPHER
    </p>
-   <span>
+<span>
     Learn. Crack. Repeat.
    </span>
-  </footer>
-  <script src="/js/navigation.js">
-  </script>
-  <script src="../js/learnPage.js">
-  </script>
- </body>
+</footer>
+<script src="/js/navigation.js">
+</script>
+<script src="../js/learnPage.js">
+</script>
+</body>
 </html>

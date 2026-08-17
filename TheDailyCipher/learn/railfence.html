@@ -1,766 +1,765 @@
 <!DOCTYPE html>
+
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Rail Fence Cipher &mdash; Complete Guide | The Daily Cipher
-  </title>
-  <meta content="Learn Rail Fence Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
-  <link href="https://thedailycipher.org/learn/railfence.html" rel="canonical"/>
-  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
-  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
-  <meta content="#030712" name="theme-color"/>
-  <link href="../css/style.css" rel="stylesheet"/>
-  <link href="../css/animations.css" rel="stylesheet"/>
-  <link href="../css/themes.css" rel="stylesheet"/>
-  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
-  <script>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rail Fence Cipher Guide: Encrypt, Decrypt &amp; Practice | The Daily Cipher</title>
+<meta content="Learn the Rail Fence cipher from scratch with zigzag diagrams, rail patterns, encryption, decryption, worked examples, solving strategy, visualizer, and practice." name="description"/>
+<link href="https://thedailycipher.org/learn/railfence.html" rel="canonical"/>
+<link href="/assets/favicon.png" rel="icon" type="image/png"/>
+<link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+<meta content="#030712" name="theme-color"/>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="../css/animations.css" rel="stylesheet"/>
+<link href="../css/themes.css" rel="stylesheet"/>
+<link href="../css/codebusters-learn.css" rel="stylesheet"/>
+<script>
    window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
   </script>
-  <script defer="" src="/_vercel/insights/script.js">
-  </script>
- </head>
- <body>
-  <header class="site-header">
-   <a class="logo" href="../index.html">
-    <span>
+<script defer="" src="/_vercel/insights/script.js">
+</script>
+<meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="The Daily Cipher" property="og:site_name"/><meta content="Rail Fence Cipher Guide: Encrypt, Decrypt &amp; Practice | The Daily Cipher" property="og:title"/><meta content="Learn the Rail Fence cipher from scratch with zigzag diagrams, rail patterns, encryption, decryption, worked examples, solving strategy, visualizer, and practice." property="og:description"/><meta content="https://thedailycipher.org/learn/railfence.html" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Rail Fence Cipher Guide: Encrypt, Decrypt &amp; Practice | The Daily Cipher" name="twitter:title"/><meta content="Learn the Rail Fence cipher from scratch with zigzag diagrams, rail patterns, encryption, decryption, worked examples, solving strategy, visualizer, and practice." name="twitter:description"/><link href="/css/seo.css" rel="stylesheet"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thedailycipher.org/"},{"@type":"ListItem","position":2,"name":"Learn Cryptography","item":"https://thedailycipher.org/learn/"},{"@type":"ListItem","position":3,"name":"Rail Fence Cipher","item":"https://thedailycipher.org/learn/railfence.html"}]}</script></head>
+<body>
+<header class="site-header">
+<a class="logo" href="../index.html">
+<span>
      THE
     </span>
     DAILY CIPHER
    </a>
-   <nav>
-    <a href="../index.html">
+<nav>
+<a href="../index.html">
      Daily
     </a>
-    <a href="index.html">
+<a href="index.html">
      Learn
     </a>
-    <a href="../practice/index.html">
+<a href="../practice/index.html">
      Practice
     </a>
-   </nav>
-  </header>
-  <main class="container deep-guide-shell">
-   <section class="deep-hero">
-    <div class="eyebrow">
-     ZIGZAG TRANSPOSITION &bull; BEGINNER
+</nav>
+</header><nav aria-label="Breadcrumb" class="seo-breadcrumbs"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Learn</a></li><li><span>Rail Fence Cipher</span></li></ol></nav>
+<main class="container deep-guide-shell">
+<section class="deep-hero">
+<div class="eyebrow">
+     ZIGZAG TRANSPOSITION • BEGINNER
     </div>
-    <h1>
+<h1>
      Rail Fence Cipher
     </h1>
-    <p>
+<p>
      Write letters diagonally across rails, then read each rail to rearrange the message.
     </p>
-    <div class="quick-grid">
-     <div class="quick-item">
-      <span>
+<div class="quick-grid">
+<div class="quick-item">
+<span>
        Family
       </span>
-      <strong>
+<strong>
        Transposition
       </strong>
-     </div>
-     <div class="quick-item">
-      <span>
+</div>
+<div class="quick-item">
+<span>
        Key / parameter
       </span>
-      <strong>
+<strong>
        Number of rails
       </strong>
-     </div>
-     <div class="quick-item">
-      <span>
+</div>
+<div class="quick-item">
+<span>
        Text structure
       </span>
-      <strong>
+<strong>
        Letters are rearranged, not substituted
       </strong>
-     </div>
-    </div>
-   </section>
-   <div class="deep-layout">
-    <aside aria-label="Guide contents" class="deep-toc">
-     <div class="deep-toc-title">
+</div>
+</div>
+</section>
+<div class="deep-layout">
+<aside aria-label="Guide contents" class="deep-toc">
+<div class="deep-toc-title">
       ON THIS PAGE
      </div>
-     <a href="#overview">
+<a href="#overview">
       What it is
      </a>
-     <a href="#basics">
+<a href="#basics">
       What you need
      </a>
-     <a href="#reference">
+<a href="#reference">
       Complete reference
      </a>
-     <a href="#encrypt">
+<a href="#encrypt">
       Encrypt
      </a>
-     <a href="#decrypt">
+<a href="#decrypt">
       Decrypt
      </a>
-     <a href="#competition">
+<a href="#competition">
       Codebusters approach
      </a>
-     <a href="#cryptanalysis">
+<a href="#cryptanalysis">
       Cryptanalysis
      </a>
-     <a href="#worked">
+<a href="#worked">
       Worked problem
      </a>
-     <a href="#mistakes">
+<a href="#mistakes">
       Common mistakes
      </a>
-     <a href="#speed">
+<a href="#speed">
       Speed strategies
      </a>
-     <a href="#quick">
+<a href="#quick">
       Quick reference
      </a>
-     <a href="#interactive">
+<a href="#interactive">
       Visualizer &amp; practice
      </a>
-     <div class="deep-toc-note">
+<div class="deep-toc-note">
       Everything needed for the cipher itself is included here.
      </div>
-    </aside>
-    <div class="deep-content">
-     <section class="deep-card" id="overview">
-      <div class="section-kicker">
-       01 &bull; OVERVIEW
+</aside>
+<div class="deep-content">
+<section class="deep-card" id="overview">
+<div class="section-kicker">
+       01 • OVERVIEW
       </div>
-      <h2>
+<h2>
        What is the Rail Fence Cipher?
       </h2>
-      <p>
+<p>
        Rail Fence is a transposition cipher. The actual letters do not change; only their positions do.
       </p>
-      <p>
+<p>
        To encrypt, the plaintext is written in a zigzag down and up across a chosen number of rails. The ciphertext is formed by reading the rails row by row.
       </p>
-      <div class="deep-rule-note">
-       <strong>
+<div class="deep-rule-note">
+<strong>
         Competition note
        </strong>
-       <p>
+<p>
         The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
        </p>
-      </div>
-      <div class="beginner-promise">
-       <strong>
+</div>
+<div class="beginner-promise">
+<strong>
         Starting from zero?
        </strong>
-       <p>
-        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+<p>
+        No outside reference is assumed. Work through Foundations → Complete Reference → Encryption → Decryption in order, then use the competition and cryptanalysis sections.
        </p>
+</div>
+</section>
+<section class="deep-card" id="basics">
+<div class="section-kicker">
+       02 • FOUNDATIONS
       </div>
-     </section>
-     <section class="deep-card" id="basics">
-      <div class="section-kicker">
-       02 &bull; FOUNDATIONS
-      </div>
-      <h2>
+<h2>
        What you need to know
       </h2>
-      <ul class="deep-list">
-       <li>
+<ul class="deep-list">
+<li>
         A
         <strong>
          rail
         </strong>
         is one row of the zigzag.
        </li>
-       <li>
-        For r rails, the basic zigzag cycle length is 2(r&minus;1).
+<li>
+        For r rails, the basic zigzag cycle length is 2(r−1).
        </li>
-       <li>
+<li>
         Spaces are commonly removed before arranging the letters.
        </li>
-      </ul>
-      <h3>
+</ul>
+<h3>
        Beginner glossary
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table glossary-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table glossary-table">
+<thead>
+<tr>
+<th>
            Term
           </th>
-          <th>
+<th>
            Meaning
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            Rail
           </td>
-          <td>
+<td>
            One horizontal row of the zigzag.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Zigzag
           </td>
-          <td>
+<td>
            The down-then-up path used to place plaintext letters.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Cycle length
           </td>
-          <td>
-           For r rails, the rail pattern repeats every 2(r&minus;1) positions.
+<td>
+           For r rails, the rail pattern repeats every 2(r−1) positions.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Transposition
           </td>
-          <td>
+<td>
            A cipher that rearranges letters instead of replacing them.
           </td>
-         </tr>
-        </tbody>
-       </table>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="deep-card reference-card" id="reference">
+<div class="section-kicker">
+       03 • COMPLETE REFERENCE
       </div>
-     </section>
-     <section class="deep-card reference-card" id="reference">
-      <div class="section-kicker">
-       03 &bull; COMPLETE REFERENCE
-      </div>
-      <h2>
+<h2>
        Keep this beside you while solving
       </h2>
-      <div class="deep-code">
+<div class="deep-code">
        3 rails pattern:
 0: S . . . E . . . E . . .
 1: . E . R . T . E . S . A
 2: . . C . . . M . . . S .
       </div>
-      <h3>
+<h3>
        Rail paths you can sketch quickly
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table">
+<thead>
+<tr>
+<th>
            Rails
           </th>
-          <th>
+<th>
            Repeating rail-number path
           </th>
-          <th>
+<th>
            Cycle length
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            2
           </td>
-          <td>
-           1 2 1 2 &hellip;
+<td>
+           1 2 1 2 …
           </td>
-          <td>
+<td>
            2
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            3
           </td>
-          <td>
-           1 2 3 2 &hellip;
+<td>
+           1 2 3 2 …
           </td>
-          <td>
+<td>
            4
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            4
           </td>
-          <td>
-           1 2 3 4 3 2 &hellip;
+<td>
+           1 2 3 4 3 2 …
           </td>
-          <td>
+<td>
            6
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            5
           </td>
-          <td>
-           1 2 3 4 5 4 3 2 &hellip;
+<td>
+           1 2 3 4 5 4 3 2 …
           </td>
-          <td>
+<td>
            8
           </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-      <div class="deep-note">
-       <strong>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="deep-note">
+<strong>
         Decryption principle:
        </strong>
        do not guess where ciphertext letters go. First draw/mark the zigzag positions, count positions on each rail, fill each rail from the ciphertext, then trace the zigzag.
       </div>
-      <div class="reference-completeness">
-       <strong>
+<div class="reference-completeness">
+<strong>
         Reference rule:
        </strong>
        if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
       </div>
-     </section>
-     <section class="deep-card" id="encrypt">
-      <div class="section-kicker">
-       04 &bull; ENCRYPTION
+</section>
+<section class="deep-card" id="encrypt">
+<div class="section-kicker">
+       04 • ENCRYPTION
       </div>
-      <h2>
+<h2>
        How encryption works
       </h2>
-      <div class="deep-steps">
-       <div class="deep-step">
-        <div class="deep-step-num">
+<div class="deep-steps">
+<div class="deep-step">
+<div class="deep-step-num">
          1
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Remove separators if required
          </h3>
-         <p>
+<p>
           Use a continuous letter stream.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          2
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Draw the zigzag
          </h3>
-         <p>
+<p>
           Move downward one rail per letter, then reverse direction at the bottom.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          3
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Fill every letter
          </h3>
-         <p>
+<p>
           Continue the up/down pattern to the end.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          4
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Read across rails
          </h3>
-         <p>
+<p>
           Top rail first, then the next rail, until all letters are collected.
          </p>
-        </div>
-       </div>
+</div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="decrypt">
+<div class="section-kicker">
+       05 • DECRYPTION
       </div>
-     </section>
-     <section class="deep-card" id="decrypt">
-      <div class="section-kicker">
-       05 &bull; DECRYPTION
-      </div>
-      <h2>
+<h2>
        How decryption works
       </h2>
-      <div class="deep-steps">
-       <div class="deep-step">
-        <div class="deep-step-num">
+<div class="deep-steps">
+<div class="deep-step">
+<div class="deep-step-num">
          1
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Determine the rail count
          </h3>
-         <p>
+<p>
           This defines the zigzag path.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          2
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Mark the path positions
          </h3>
-         <p>
+<p>
           Draw placeholders in the zigzag for the ciphertext length.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          3
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Fill rail by rail
          </h3>
-         <p>
+<p>
           Place ciphertext letters into the marked positions across each rail.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          4
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Read the zigzag
          </h3>
-         <p>
+<p>
           Follow the path down and up to recover plaintext order.
          </p>
-        </div>
-       </div>
+</div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="competition">
+<div class="section-kicker">
+       06 • COMPETITION WORKFLOW
       </div>
-     </section>
-     <section class="deep-card" id="competition">
-      <div class="section-kicker">
-       06 &bull; COMPETITION WORKFLOW
-      </div>
-      <h2>
+<h2>
        How to approach it in Codebusters practice
       </h2>
-      <ul class="deep-list competition-list">
-       <li>
-        Do not treat Rail Fence like substitution&mdash;letter frequencies are unchanged.
+<ul class="deep-list competition-list">
+<li>
+        Do not treat Rail Fence like substitution—letter frequencies are unchanged.
        </li>
-       <li>
+<li>
         The rail count may be supplied or inferred by testing plausible rail counts.
        </li>
-       <li>
+<li>
         A clean grid prevents most errors.
        </li>
-      </ul>
-      <h3>
+</ul>
+<h3>
        What the problem gives you vs. what you produce
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table problem-format-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table problem-format-table">
+<thead>
+<tr>
+<th>
            Part
           </th>
-          <th>
+<th>
            What to expect
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            You may be given
           </td>
-          <td>
+<td>
            Ciphertext and the number of rails, or a ciphertext where a small range of rail counts can be tested.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            You must find
           </td>
-          <td>
+<td>
            The reordered plaintext.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Fastest first move
           </td>
-          <td>
+<td>
            Draw the rail-number path before placing any letters.
           </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-      <div class="deep-note">
-       <strong>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="deep-note">
+<strong>
         Season note:
        </strong>
        use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
       </div>
-     </section>
-     <section class="deep-card" id="cryptanalysis">
-      <div class="section-kicker">
-       07 &bull; CRYPTANALYSIS
+</section>
+<section class="deep-card" id="cryptanalysis">
+<div class="section-kicker">
+       07 • CRYPTANALYSIS
       </div>
-      <h2>
+<h2>
        How to attack an unknown or partially known key
       </h2>
-      <ul class="deep-list">
-       <li>
+<ul class="deep-list">
+<li>
         Try small rail counts first; practical puzzles usually use a manageable number of rails.
        </li>
-       <li>
+<li>
         Look for likely word fragments after reconstructing each candidate rail count.
        </li>
-       <li>
+<li>
         Because all original letters remain, unusual letter-frequency distributions are not created by the cipher itself.
        </li>
-      </ul>
-     </section>
-     <section class="deep-card" id="worked">
-      <div class="section-kicker">
-       08 &bull; WORKED PROBLEM
+</ul>
+</section>
+<section class="deep-card" id="worked">
+<div class="section-kicker">
+       08 • WORKED PROBLEM
       </div>
-      <h2>
+<h2>
        Follow one example from start to finish
       </h2>
-      <div class="worked-box">
-       <div class="worked-row">
-        <span>
+<div class="worked-box">
+<div class="worked-row">
+<span>
          Plaintext
         </span>
-        <div>
-         <code>
+<div>
+<code>
           WEAREDISCOVERED
          </code>
-        </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+</div>
+<div class="worked-row">
+<span>
          Rails
         </span>
-        <div>
+<div>
          3
         </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+<div class="worked-row">
+<span>
          Zigzag
         </span>
-        <div>
-         Write W-E-A-R-E&hellip; down/up across three rows.
+<div>
+         Write W-E-A-R-E… down/up across three rows.
         </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+<div class="worked-row">
+<span>
          Read rails
         </span>
-        <div>
-         <code>
+<div>
+<code>
           WECRERDSOEEAIVD
          </code>
-        </div>
-       </div>
-      </div>
-      <div class="beginner-check">
-       <div class="beginner-check-title">
+</div>
+</div>
+</div>
+<div class="beginner-check">
+<div class="beginner-check-title">
         BEGINNER SELF-CHECK
        </div>
-       <p>
+<p>
         Before moving on, make sure you can answer these without another site:
        </p>
-       <ul>
-        <li>
+<ul>
+<li>
          Can you write the rail path for 4 rails without drawing letters?
         </li>
-        <li>
+<li>
          Can you explain why decryption must fill rail positions before following the zigzag?
         </li>
-       </ul>
+</ul>
+</div>
+</section>
+<section class="deep-card" id="mistakes">
+<div class="section-kicker">
+       09 • ERROR CHECK
       </div>
-     </section>
-     <section class="deep-card" id="mistakes">
-      <div class="section-kicker">
-       09 &bull; ERROR CHECK
-      </div>
-      <h2>
+<h2>
        Common mistakes
       </h2>
-      <div class="mistake-grid">
-       <div class="mistake-item">
-        <span>
+<div class="mistake-grid">
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Reading diagonally instead of row-by-row during encryption.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Changing direction one position too early.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Forgetting that the top and bottom rails contain fewer positions.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Inserting spaces into the grid as if they were letters when the problem removed them.
         </p>
-       </div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="speed">
+<div class="section-kicker">
+       10 • SPEED
       </div>
-     </section>
-     <section class="deep-card" id="speed">
-      <div class="section-kicker">
-       10 &bull; SPEED
-      </div>
-      <h2>
+<h2>
        Competition speed strategies
       </h2>
-      <div class="speed-grid">
-       <div class="speed-item">
-        <span>
+<div class="speed-grid">
+<div class="speed-item">
+<span>
          1
         </span>
-        <p>
-         Draw rail numbers 0,1,2,&hellip; beside the grid.
+<p>
+         Draw rail numbers 0,1,2,… beside the grid.
         </p>
-       </div>
-       <div class="speed-item">
-        <span>
+</div>
+<div class="speed-item">
+<span>
          2
         </span>
-        <p>
+<p>
          For decryption, mark the zigzag shape first before placing any ciphertext letters.
         </p>
-       </div>
-       <div class="speed-item">
-        <span>
+</div>
+<div class="speed-item">
+<span>
          3
         </span>
-        <p>
-         Use cycle length 2(r&minus;1) to predict top/bottom positions.
+<p>
+         Use cycle length 2(r−1) to predict top/bottom positions.
         </p>
-       </div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="quick">
+<div class="section-kicker">
+       11 • QUICK REFERENCE
       </div>
-     </section>
-     <section class="deep-card" id="quick">
-      <div class="section-kicker">
-       11 &bull; QUICK REFERENCE
-      </div>
-      <h2>
+<h2>
        What to remember under time pressure
       </h2>
-      <div class="quick-grid">
-       <div class="quick-item">
-        <span>
+<div class="quick-grid">
+<div class="quick-item">
+<span>
          Family
         </span>
-        <strong>
+<strong>
          Transposition
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Key
         </span>
-        <strong>
+<strong>
          Number of rails
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Cycle
         </span>
-        <strong>
-         2(r&minus;1)
+<strong>
+         2(r−1)
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Letters changed?
         </span>
-        <strong>
-         No&mdash;only positions change
+<strong>
+         No—only positions change
         </strong>
-       </div>
-      </div>
-      <div class="quick-use-note">
-       <strong>
+</div>
+</div>
+<div class="quick-use-note">
+<strong>
         How to use this section:
        </strong>
        during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
       </div>
-     </section>
-     <section class="deep-card interactive-card" id="interactive">
-      <div class="section-kicker">
-       12 &bull; INTERACTIVE LAB
+</section>
+<section class="deep-card interactive-card" id="interactive">
+<div class="section-kicker">
+       12 • INTERACTIVE LAB
       </div>
-      <h2>
+<h2>
        See every transformation
       </h2>
-      <p>
-       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+<p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the “How to reverse it” panel so encryption and decryption connect.
       </p>
-      <div class="lab-actions">
-       <a class="deep-secondary-button" href="../visualizers/railfence.html">
+<div class="lab-actions">
+<a class="deep-secondary-button" href="../visualizers/railfence.html">
         Open full visualizer
        </a>
-       <a class="primary-button" href="../practice/index.html?cipher=railfence">
+<a class="primary-button" href="../practice/index.html?cipher=railfence">
         Practice Rail Fence
        </a>
-      </div>
-      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/railfence.html?embed=1" title="Rail Fence Cipher interactive visualizer">
-      </iframe>
-     </section>
-     <div class="guide-end-nav">
-      <a href="index.html">
-       &larr; All cipher guides
+</div>
+<iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/railfence.html?embed=1" title="Rail Fence Cipher interactive visualizer">
+</iframe>
+</section>
+<section aria-labelledby="related-railfence-title" class="deep-card seo-related-guides"><div class="section-kicker">KEEP LEARNING</div><h2 id="related-railfence-title">Related cipher guides and practice</h2><p>Build connected skills instead of learning this cipher in isolation.</p><div class="seo-related-grid"><a class="seo-related-link" href="columnar.html"><strong>Complete Columnar Cipher</strong><span>Learn Complete Columnar Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="fractionatedmorse.html"><strong>Fractionated Morse Cipher</strong><span>Learn Fractionated Morse Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="caesar.html"><strong>Caesar Cipher</strong><span>Learn Caesar Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link seo-related-codebusters" href="../codebusters/"><strong>Science Olympiad Codebusters Practice</strong><span>Browse Codebusters-focused guides, visualizers, and generated practice.</span></a></div></section><div class="guide-end-nav">
+<a href="index.html">
+       ← All cipher guides
       </a>
-      <a href="#overview">
-       Back to top &uarr;
+<a href="#overview">
+       Back to top ↑
       </a>
-     </div>
-    </div>
-   </div>
-  </main>
-  <footer class="site-footer">
-   <p>
+</div>
+</div>
+</div>
+</main>
+<footer class="site-footer">
+<p>
     THE DAILY CIPHER
    </p>
-   <span>
+<span>
     Learn. Crack. Repeat.
    </span>
-  </footer>
-  <script src="/js/navigation.js">
-  </script>
-  <script src="../js/learnPage.js">
-  </script>
- </body>
+</footer>
+<script src="/js/navigation.js">
+</script>
+<script src="../js/learnPage.js">
+</script>
+</body>
 </html>

@@ -1,63 +1,19 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-
-    <title>
-        Global Leaderboard | The Daily Cipher
-    </title>
-
-
-    <meta
-        name="description"
-        content="View the global The Daily Cipher leaderboard and compare XP, levels, and solved puzzles."
-    >
-
-<link
-    rel="icon"
-    type="image/png"
-    href="/assets/favicon.png"
->
-
-<link
-    rel="apple-touch-icon"
-    href="/assets/apple-touch-icon.png"
->
-
-<meta
-    name="theme-color"
-    content="#030712"
->
-    <link
-        rel="stylesheet"
-        href="../css/style.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/animations.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/themes.css"
-    >
-
-    <link
-    rel="canonical"
-    href="https://thedailycipher.org/leaderboard/"
->
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cryptography Practice Leaderboard | The Daily Cipher</title>
+<meta content="Compare XP, levels, solved puzzles, and cryptography practice progress on The Daily Cipher global leaderboard." name="description"/>
+<link href="/assets/favicon.png" rel="icon" type="image/png"/>
+<link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+<meta content="#030712" name="theme-color"/>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="../css/animations.css" rel="stylesheet"/>
+<link href="../css/themes.css" rel="stylesheet"/>
+<link href="https://thedailycipher.org/leaderboard/" rel="canonical"/>
+<style>
 
 
         /*
@@ -968,279 +924,146 @@
     (window.vaq = window.vaq || []).push(arguments);
   };
 </script>
-<script defer src="/_vercel/insights/script.js"></script>
-</head>
-
-
+<script defer="" src="/_vercel/insights/script.js"></script>
+<meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="The Daily Cipher" property="og:site_name"/><meta content="Cryptography Practice Leaderboard | The Daily Cipher" property="og:title"/><meta content="Compare XP, levels, solved puzzles, and cryptography practice progress on The Daily Cipher global leaderboard." property="og:description"/><meta content="https://thedailycipher.org/leaderboard/" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Cryptography Practice Leaderboard | The Daily Cipher" name="twitter:title"/><meta content="Compare XP, levels, solved puzzles, and cryptography practice progress on The Daily Cipher global leaderboard." name="twitter:description"/><link href="/css/seo.css" rel="stylesheet"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thedailycipher.org/"},{"@type":"ListItem","position":2,"name":"Leaderboard","item":"https://thedailycipher.org/leaderboard/"}]}</script></head>
 <body>
-
-
 <header class="site-header">
-
-    <a
-        href="../index.html"
-        class="logo"
-    >
-        <span>THE</span>
+<a class="logo" href="../index.html">
+<span>THE</span>
         DAILY CIPHER
     </a>
-
-
-    <nav>
-
-        <a href="../index.html">
+<nav>
+<a href="../index.html">
             Daily
         </a>
-
-        <a href="../learn/index.html">
+<a href="../learn/index.html">
             Learn
         </a>
-
-        <a href="../practice/index.html">
+<a href="../practice/index.html">
             Practice
         </a>
-
-        <a href="../dashboard/index.html">
+<a href="../dashboard/index.html">
             Dashboard
         </a>
-
-        <a href="index.html">
+<a href="index.html">
             Leaderboard
         </a>
-
-        <a
-            id="nav-account-link"
-            href="../account/index.html"
-        >
+<a href="../account/index.html" id="nav-account-link">
             Sign In
         </a>
-
-    </nav>
-
-
-    <div class="header-actions">
-
-        <button
-            id="theme-toggle"
-            class="icon-button"
-            title="Toggle theme"
-            type="button"
-        >
+</nav>
+<div class="header-actions">
+<button class="icon-button" id="theme-toggle" title="Toggle theme" type="button">
             ◐
         </button>
-
-    </div>
-
-</header>
-
-
+</div>
+</header><nav aria-label="Breadcrumb" class="seo-breadcrumbs"><ol><li><a href="../index.html">Home</a></li><li><span>Leaderboard</span></li></ol></nav>
 <main class="leaderboard-main">
-
-
-    <section class="leaderboard-hero">
-
-        <div>
-
-            <div class="eyebrow">
+<section class="leaderboard-hero">
+<div>
+<div class="eyebrow">
                 GLOBAL RANKINGS
             </div>
-
-            <h1>
+<h1>
                 Global
                 <span>Leaderboard.</span>
-            </h1>
-
-            <p>
+</h1>
+<p>
                 Compare your progress with other
                 Daily Cipher solvers. Rankings are
                 currently based on total XP.
             </p>
-
-        </div>
-
-
-        <button
-            id="leaderboard-refresh"
-            class="leaderboard-refresh"
-            type="button"
-        >
+</div>
+<button class="leaderboard-refresh" id="leaderboard-refresh" type="button">
             Refresh
         </button>
-
-    </section>
-
-
-    <!-- =================================================
+</section>
+<!-- =================================================
          CURRENT USER
     ================================================== -->
-
-    <section
-        id="my-rank-card"
-        class="my-rank-card"
-    >
-
-        <div class="my-rank-label">
+<section class="my-rank-card" id="my-rank-card">
+<div class="my-rank-label">
             YOUR RANK
         </div>
-
-        <div class="my-rank-guest">
+<div class="my-rank-guest">
             Loading account status...
         </div>
-
-    </section>
-
-
-    <!-- =================================================
+</section>
+<!-- =================================================
          GLOBAL BOARD
     ================================================== -->
-
-    <section class="leaderboard-shell">
-
-
-        <div class="leaderboard-toolbar">
-
-            <div>
-
-                <div class="leaderboard-toolbar-title">
+<section class="leaderboard-shell">
+<div class="leaderboard-toolbar">
+<div>
+<div class="leaderboard-toolbar-title">
                     ALL-TIME XP
                 </div>
-
-                <div
-                    id="leaderboard-range"
-                    class="leaderboard-toolbar-meta"
-                >
+<div class="leaderboard-toolbar-meta" id="leaderboard-range">
                     Loading rankings...
                 </div>
-
-            </div>
-
-
-            <div class="leaderboard-toolbar-meta">
+</div>
+<div class="leaderboard-toolbar-meta">
                 TOP SOLVERS
             </div>
-
-        </div>
-
-
-        <div class="leaderboard-columns">
-
-            <div>
+</div>
+<div class="leaderboard-columns">
+<div>
                 RANK
             </div>
-
-            <div>
+<div>
                 PLAYER
             </div>
-
-            <div>
+<div>
                 LEVEL
             </div>
-
-            <div>
+<div>
                 SOLVED
             </div>
-
-            <div style="text-align:right;">
+<div style="text-align:right;">
                 XP
             </div>
-
-        </div>
-
-
-        <div id="leaderboard-body">
-
-            <div class="leaderboard-empty">
+</div>
+<div id="leaderboard-body">
+<div class="leaderboard-empty">
                 Loading leaderboard...
             </div>
-
-        </div>
-
-
-        <div class="leaderboard-pagination">
-
-            <button
-                id="leaderboard-previous"
-                class="pagination-button"
-                type="button"
-                disabled
-            >
+</div>
+<div class="leaderboard-pagination">
+<button class="pagination-button" disabled="" id="leaderboard-previous" type="button">
                 ← Previous
             </button>
-
-
-            <div
-                id="leaderboard-page-number"
-                class="pagination-page"
-            >
+<div class="pagination-page" id="leaderboard-page-number">
                 Page 1
             </div>
-
-
-            <button
-                id="leaderboard-next"
-                class="pagination-button"
-                type="button"
-            >
+<button class="pagination-button" id="leaderboard-next" type="button">
                 Next →
             </button>
-
-        </div>
-
-
-    </section>
-
-
-    <div
-        id="leaderboard-status"
-        class="leaderboard-status"
-        aria-live="polite"
-    >
-    </div>
-
-
+</div>
+</section>
+<div aria-live="polite" class="leaderboard-status" id="leaderboard-status">
+</div>
 </main>
-
-
 <footer class="site-footer">
-
-    <p>
+<p>
         THE DAILY CIPHER
     </p>
-
-    <span>
+<span>
         Learn. Crack. Repeat.
     </span>
-
 </footer>
-
-
 <!-- =====================================================
      SUPABASE
 ===================================================== -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabaseClient.js"></script>
-
-
 <!-- =====================================================
      NAVIGATION
 ===================================================== -->
-
 <script src="../js/navigation.js"></script>
-
-
 <!-- =====================================================
      LEADERBOARD
 ===================================================== -->
-
 <script src="../js/leaderboardEngine.js"></script>
-
 <script src="../js/leaderboardUI.js"></script>
-
-
 </body>
-
 </html>

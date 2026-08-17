@@ -1,944 +1,943 @@
 <!DOCTYPE html>
+
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Baconian Cipher &mdash; Complete Guide | The Daily Cipher
-  </title>
-  <meta content="Learn Baconian Cipher from scratch with complete reference tables, encryption, decryption, cryptanalysis, worked examples, speed strategies, and an interactive visualizer." name="description"/>
-  <link href="https://thedailycipher.org/learn/baconian.html" rel="canonical"/>
-  <link href="/assets/favicon.png" rel="icon" type="image/png"/>
-  <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
-  <meta content="#030712" name="theme-color"/>
-  <link href="../css/style.css" rel="stylesheet"/>
-  <link href="../css/animations.css" rel="stylesheet"/>
-  <link href="../css/themes.css" rel="stylesheet"/>
-  <link href="../css/codebusters-learn.css" rel="stylesheet"/>
-  <script>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baconian Cipher Guide &amp; Complete A/B Alphabet Chart | The Daily Cipher</title>
+<meta content="Learn the Baconian cipher with the complete A-Z A/B chart, five-symbol grouping, disguised symbol classes, encryption, decryption, worked examples, visualizer, and practice." name="description"/>
+<link href="https://thedailycipher.org/learn/baconian.html" rel="canonical"/>
+<link href="/assets/favicon.png" rel="icon" type="image/png"/>
+<link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+<meta content="#030712" name="theme-color"/>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="../css/animations.css" rel="stylesheet"/>
+<link href="../css/themes.css" rel="stylesheet"/>
+<link href="../css/codebusters-learn.css" rel="stylesheet"/>
+<script>
    window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
   </script>
-  <script defer="" src="/_vercel/insights/script.js">
-  </script>
- </head>
- <body>
-  <header class="site-header">
-   <a class="logo" href="../index.html">
-    <span>
+<script defer="" src="/_vercel/insights/script.js">
+</script>
+<meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="The Daily Cipher" property="og:site_name"/><meta content="Baconian Cipher Guide &amp; Complete A/B Alphabet Chart | The Daily Cipher" property="og:title"/><meta content="Learn the Baconian cipher with the complete A-Z A/B chart, five-symbol grouping, disguised symbol classes, encryption, decryption, worked examples, visualizer, and practice." property="og:description"/><meta content="https://thedailycipher.org/learn/baconian.html" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Baconian Cipher Guide &amp; Complete A/B Alphabet Chart | The Daily Cipher" name="twitter:title"/><meta content="Learn the Baconian cipher with the complete A-Z A/B chart, five-symbol grouping, disguised symbol classes, encryption, decryption, worked examples, visualizer, and practice." name="twitter:description"/><link href="/css/seo.css" rel="stylesheet"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thedailycipher.org/"},{"@type":"ListItem","position":2,"name":"Learn Cryptography","item":"https://thedailycipher.org/learn/"},{"@type":"ListItem","position":3,"name":"Baconian Cipher","item":"https://thedailycipher.org/learn/baconian.html"}]}</script></head>
+<body>
+<header class="site-header">
+<a class="logo" href="../index.html">
+<span>
      THE
     </span>
     DAILY CIPHER
    </a>
-   <nav>
-    <a href="../index.html">
+<nav>
+<a href="../index.html">
      Daily
     </a>
-    <a href="index.html">
+<a href="index.html">
      Learn
     </a>
-    <a href="../practice/index.html">
+<a href="../practice/index.html">
      Practice
     </a>
-   </nav>
-  </header>
-  <main class="container deep-guide-shell">
-   <section class="deep-hero">
-    <div class="eyebrow">
-     FIVE-SYMBOL BINARY ENCODING &bull; CODEBUSTERS
+</nav>
+</header><nav aria-label="Breadcrumb" class="seo-breadcrumbs"><ol><li><a href="../index.html">Home</a></li><li><a href="index.html">Learn</a></li><li><span>Baconian Cipher</span></li></ol></nav>
+<main class="container deep-guide-shell">
+<section class="deep-hero">
+<div class="eyebrow">
+     FIVE-SYMBOL BINARY ENCODING • CODEBUSTERS
     </div>
-    <h1>
+<h1>
      Baconian Cipher
     </h1>
-    <p>
-     Decode every five-symbol group with a complete A/B reference table&mdash;without needing another website.
+<p>
+     Decode every five-symbol group with a complete A/B reference table—without needing another website.
     </p>
-    <div class="quick-grid">
-     <div class="quick-item">
-      <span>
+<div class="quick-grid">
+<div class="quick-item">
+<span>
        Family
       </span>
-      <strong>
+<strong>
        Two-symbol encoding
       </strong>
-     </div>
-     <div class="quick-item">
-      <span>
+</div>
+<div class="quick-item">
+<span>
        Key / parameter
       </span>
-      <strong>
+<strong>
        A/B class assignment or two visual forms
       </strong>
-     </div>
-     <div class="quick-item">
-      <span>
+</div>
+<div class="quick-item">
+<span>
        Text structure
       </span>
-      <strong>
+<strong>
        Every plaintext letter uses exactly five binary-style positions
       </strong>
-     </div>
-    </div>
-   </section>
-   <div class="deep-layout">
-    <aside aria-label="Guide contents" class="deep-toc">
-     <div class="deep-toc-title">
+</div>
+</div>
+</section>
+<div class="deep-layout">
+<aside aria-label="Guide contents" class="deep-toc">
+<div class="deep-toc-title">
       ON THIS PAGE
      </div>
-     <a href="#overview">
+<a href="#overview">
       What it is
      </a>
-     <a href="#basics">
+<a href="#basics">
       What you need
      </a>
-     <a href="#reference">
+<a href="#reference">
       Complete reference
      </a>
-     <a href="#encrypt">
+<a href="#encrypt">
       Encrypt
      </a>
-     <a href="#decrypt">
+<a href="#decrypt">
       Decrypt
      </a>
-     <a href="#competition">
+<a href="#competition">
       Codebusters approach
      </a>
-     <a href="#cryptanalysis">
+<a href="#cryptanalysis">
       Cryptanalysis
      </a>
-     <a href="#worked">
+<a href="#worked">
       Worked problem
      </a>
-     <a href="#mistakes">
+<a href="#mistakes">
       Common mistakes
      </a>
-     <a href="#speed">
+<a href="#speed">
       Speed strategies
      </a>
-     <a href="#quick">
+<a href="#quick">
       Quick reference
      </a>
-     <a href="#interactive">
+<a href="#interactive">
       Visualizer &amp; practice
      </a>
-     <div class="deep-toc-note">
+<div class="deep-toc-note">
       Everything needed for the cipher itself is included here.
      </div>
-    </aside>
-    <div class="deep-content">
-     <section class="deep-card" id="overview">
-      <div class="section-kicker">
-       01 &bull; OVERVIEW
+</aside>
+<div class="deep-content">
+<section class="deep-card" id="overview">
+<div class="section-kicker">
+       01 • OVERVIEW
       </div>
-      <h2>
+<h2>
        What is the Baconian Cipher?
       </h2>
-      <p>
+<p>
        The Baconian cipher represents each letter with a five-position pattern made from two symbol classes. We write those classes as A and B.
       </p>
-      <p>
+<p>
        Puzzle versions may disguise A and B using two fonts, glyphs, shapes, colors, digits, or other paired features. Once you identify the two classes, the decoding is a direct table lookup.
       </p>
-      <div class="deep-rule-note">
-       <strong>
+<div class="deep-rule-note">
+<strong>
         Competition note
        </strong>
-       <p>
+<p>
         The cipher mechanics on this page are self-contained. Science Olympiad event formats, allowed variants, and tournament constraints can change by season; the current official Rules Manual and official clarifications take precedence.
        </p>
-      </div>
-      <div class="beginner-promise">
-       <strong>
+</div>
+<div class="beginner-promise">
+<strong>
         Starting from zero?
        </strong>
-       <p>
-        No outside reference is assumed. Work through Foundations &rarr; Complete Reference &rarr; Encryption &rarr; Decryption in order, then use the competition and cryptanalysis sections.
+<p>
+        No outside reference is assumed. Work through Foundations → Complete Reference → Encryption → Decryption in order, then use the competition and cryptanalysis sections.
        </p>
+</div>
+</section>
+<section class="deep-card" id="basics">
+<div class="section-kicker">
+       02 • FOUNDATIONS
       </div>
-     </section>
-     <section class="deep-card" id="basics">
-      <div class="section-kicker">
-       02 &bull; FOUNDATIONS
-      </div>
-      <h2>
+<h2>
        What you need to know
       </h2>
-      <ul class="deep-list">
-       <li>
+<ul class="deep-list">
+<li>
         Exactly five A/B positions represent one letter in the 26-letter teaching alphabet used by The Daily Cipher.
        </li>
-       <li>
+<li>
         The first pattern is AAAAA for A, then the patterns count upward like five-bit binary with A=0 and B=1.
        </li>
-       <li>
+<li>
         If symbols are disguised, first decide which visual form means A and which means B.
        </li>
-      </ul>
-      <h3>
+</ul>
+<h3>
        Beginner glossary
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table glossary-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table glossary-table">
+<thead>
+<tr>
+<th>
            Term
           </th>
-          <th>
+<th>
            Meaning
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            Biliteral
           </td>
-          <td>
+<td>
            Using two distinguishable forms or symbol classes.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            A/B pattern
           </td>
-          <td>
+<td>
            A five-position sequence such as AAABA.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Symbol class
           </td>
-          <td>
+<td>
            One of the two visual categories representing A or B.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Group boundary
           </td>
-          <td>
+<td>
            The division after every five A/B choices; losing it shifts all later decoding.
           </td>
-         </tr>
-        </tbody>
-       </table>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="deep-card reference-card" id="reference">
+<div class="section-kicker">
+       03 • COMPLETE REFERENCE
       </div>
-     </section>
-     <section class="deep-card reference-card" id="reference">
-      <div class="section-kicker">
-       03 &bull; COMPLETE REFERENCE
-      </div>
-      <h2>
+<h2>
        Keep this beside you while solving
       </h2>
-      <h3>
+<h3>
        Complete 26-letter Baconian table
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table compact-two">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table compact-two">
+<thead>
+<tr>
+<th>
            Letter
           </th>
-          <th>
+<th>
            Pattern
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            A
           </td>
-          <td>
+<td>
            AAAAA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            B
           </td>
-          <td>
+<td>
            AAAAB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            C
           </td>
-          <td>
+<td>
            AAABA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            D
           </td>
-          <td>
+<td>
            AAABB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            E
           </td>
-          <td>
+<td>
            AABAA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            F
           </td>
-          <td>
+<td>
            AABAB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            G
           </td>
-          <td>
+<td>
            AABBA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            H
           </td>
-          <td>
+<td>
            AABBB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            I
           </td>
-          <td>
+<td>
            ABAAA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            J
           </td>
-          <td>
+<td>
            ABAAB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            K
           </td>
-          <td>
+<td>
            ABABA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            L
           </td>
-          <td>
+<td>
            ABABB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            M
           </td>
-          <td>
+<td>
            ABBAA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            N
           </td>
-          <td>
+<td>
            ABBAB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            O
           </td>
-          <td>
+<td>
            ABBBA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            P
           </td>
-          <td>
+<td>
            ABBBB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Q
           </td>
-          <td>
+<td>
            BAAAA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            R
           </td>
-          <td>
+<td>
            BAAAB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            S
           </td>
-          <td>
+<td>
            BAABA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            T
           </td>
-          <td>
+<td>
            BAABB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            U
           </td>
-          <td>
+<td>
            BABAA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            V
           </td>
-          <td>
+<td>
            BABAB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            W
           </td>
-          <td>
+<td>
            BABBA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            X
           </td>
-          <td>
+<td>
            BABBB
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Y
           </td>
-          <td>
+<td>
            BBAAA
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Z
           </td>
-          <td>
+<td>
            BBAAB
           </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-      <div class="deep-note">
-       <strong>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="deep-note">
+<strong>
         Convention note:
        </strong>
        historical Baconian alphabets can combine I/J and U/V. The Daily Cipher practice engine uses the 26-letter table above. Always follow the table/convention provided by a specific competition problem.
       </div>
-      <h3>
+<h3>
        How the 26-letter table is generated
       </h3>
-      <p>
-       Treat A as binary 0 and B as binary 1. The five positions count from 00000 through 11001 for A through Z. Example: C is alphabet index 2 &rarr; binary 00010 &rarr;
+<p>
+       Treat A as binary 0 and B as binary 1. The five positions count from 00000 through 11001 for A through Z. Example: C is alphabet index 2 → binary 00010 →
        <code>
         AAABA
        </code>
        .
       </p>
-      <div class="deep-note">
-       <strong>
+<div class="deep-note">
+<strong>
         Do not memorize a different table blindly.
        </strong>
        Historical Baconian systems can combine I/J and U/V. The Daily Cipher practice engine uses the visible 26-letter table on this page. If a competition problem supplies a table or convention, use the supplied convention.
       </div>
-      <div class="reference-completeness">
-       <strong>
+<div class="reference-completeness">
+<strong>
         Reference rule:
        </strong>
        if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
       </div>
-     </section>
-     <section class="deep-card" id="encrypt">
-      <div class="section-kicker">
-       04 &bull; ENCRYPTION
+</section>
+<section class="deep-card" id="encrypt">
+<div class="section-kicker">
+       04 • ENCRYPTION
       </div>
-      <h2>
+<h2>
        How encryption works
       </h2>
-      <div class="deep-steps">
-       <div class="deep-step">
-        <div class="deep-step-num">
+<div class="deep-steps">
+<div class="deep-step">
+<div class="deep-step-num">
          1
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Find the plaintext letter
          </h3>
-         <p>
+<p>
           Example: C.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          2
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Look it up
          </h3>
-         <p>
+<p>
           C = AAABA in the 26-letter table.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          3
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Replace A/B if needed
          </h3>
-         <p>
-          If A-class is ● and B-class is &cir;, AAABA becomes ●●●&cir;●.
+<p>
+          If A-class is ● and B-class is ○, AAABA becomes ●●●○●.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          4
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Repeat
          </h3>
-         <p>
+<p>
           Encode every letter independently in groups of five.
          </p>
-        </div>
-       </div>
+</div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="decrypt">
+<div class="section-kicker">
+       05 • DECRYPTION
       </div>
-     </section>
-     <section class="deep-card" id="decrypt">
-      <div class="section-kicker">
-       05 &bull; DECRYPTION
-      </div>
-      <h2>
+<h2>
        How decryption works
       </h2>
-      <div class="deep-steps">
-       <div class="deep-step">
-        <div class="deep-step-num">
+<div class="deep-steps">
+<div class="deep-step">
+<div class="deep-step-num">
          1
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Identify the two classes
          </h3>
-         <p>
+<p>
           For example X and O, bold/plain, or two shapes.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          2
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Normalize to A/B
          </h3>
-         <p>
+<p>
           Choose one class as A and the other as B according to the problem.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          3
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Split into groups of five
          </h3>
-         <p>
+<p>
           Never decode across a group boundary.
          </p>
-        </div>
-       </div>
-       <div class="deep-step">
-        <div class="deep-step-num">
+</div>
+</div>
+<div class="deep-step">
+<div class="deep-step-num">
          4
         </div>
-        <div>
-         <h3>
+<div>
+<h3>
           Look up every group
          </h3>
-         <p>
-          AAABA &rarr; C, BAAAB &rarr; R, etc.
+<p>
+          AAABA → C, BAAAB → R, etc.
          </p>
-        </div>
-       </div>
+</div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="competition">
+<div class="section-kicker">
+       06 • COMPETITION WORKFLOW
       </div>
-     </section>
-     <section class="deep-card" id="competition">
-      <div class="section-kicker">
-       06 &bull; COMPETITION WORKFLOW
-      </div>
-      <h2>
+<h2>
        How to approach it in Codebusters practice
       </h2>
-      <ul class="deep-list competition-list">
-       <li>
+<ul class="deep-list competition-list">
+<li>
         The main challenge is often recognizing the two symbol classes correctly.
        </li>
-       <li>
+<li>
         If the decoded result is nonsense, test whether A and B were reversed before assuming the table is wrong.
        </li>
-       <li>
+<li>
         Keep five-symbol boundaries visible; one dropped symbol shifts every following letter.
        </li>
-      </ul>
-      <h3>
+</ul>
+<h3>
        What the problem gives you vs. what you produce
       </h3>
-      <div class="deep-table-wrap">
-       <table class="deep-table problem-format-table">
-        <thead>
-         <tr>
-          <th>
+<div class="deep-table-wrap">
+<table class="deep-table problem-format-table">
+<thead>
+<tr>
+<th>
            Part
           </th>
-          <th>
+<th>
            What to expect
           </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
            You may be given
           </td>
-          <td>
+<td>
            A stream of A/B, or two fonts/symbols/glyph classes that hide A/B.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            You must find
           </td>
-          <td>
+<td>
            The plaintext by identifying classes, grouping in fives, and using the table.
           </td>
-         </tr>
-         <tr>
-          <td>
+</tr>
+<tr>
+<td>
            Fastest first move
           </td>
-          <td>
+<td>
            Mark which visual form is A and which is B, then draw separators every five symbols.
           </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-      <div class="deep-note">
-       <strong>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="deep-note">
+<strong>
         Season note:
        </strong>
        use this page to learn the cipher mechanics and solving workflow. Exact Science Olympiad event constraints can change by season, so follow the current official rules/clarifications for tournament-specific limits.
       </div>
-     </section>
-     <section class="deep-card" id="cryptanalysis">
-      <div class="section-kicker">
-       07 &bull; CRYPTANALYSIS
+</section>
+<section class="deep-card" id="cryptanalysis">
+<div class="section-kicker">
+       07 • CRYPTANALYSIS
       </div>
-      <h2>
+<h2>
        How to attack an unknown or partially known key
       </h2>
-      <ul class="deep-list">
-       <li>
+<ul class="deep-list">
+<li>
         Baconian is an encoding rather than a strong modern cipher: once the two classes and grouping are known, decoding is direct.
        </li>
-       <li>
+<li>
         Disguised typography can hide the binary structure, so scan for exactly two recurring visual states.
        </li>
-       <li>
+<li>
         If spacing is absent, count symbols in sets of five from the intended start position.
        </li>
-      </ul>
-     </section>
-     <section class="deep-card" id="worked">
-      <div class="section-kicker">
-       08 &bull; WORKED PROBLEM
+</ul>
+</section>
+<section class="deep-card" id="worked">
+<div class="section-kicker">
+       08 • WORKED PROBLEM
       </div>
-      <h2>
+<h2>
        Follow one example from start to finish
       </h2>
-      <div class="worked-box">
-       <div class="worked-row">
-        <span>
+<div class="worked-box">
+<div class="worked-row">
+<span>
          Ciphertext
         </span>
-        <div>
-         <code>
+<div>
+<code>
           AAABA BAAAB AAAAA AAABA ABABA
          </code>
-        </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+</div>
+<div class="worked-row">
+<span>
          Groups
         </span>
-        <div>
+<div>
          AAABA | BAAAB | AAAAA | AAABA | ABABA
         </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+<div class="worked-row">
+<span>
          Lookup
         </span>
-        <div>
+<div>
          C | R | A | C | K
         </div>
-       </div>
-       <div class="worked-row">
-        <span>
+</div>
+<div class="worked-row">
+<span>
          Answer
         </span>
-        <div>
-         <code>
+<div>
+<code>
           CRACK
          </code>
-        </div>
-       </div>
-      </div>
-      <div class="beginner-check">
-       <div class="beginner-check-title">
+</div>
+</div>
+</div>
+<div class="beginner-check">
+<div class="beginner-check-title">
         BEGINNER SELF-CHECK
        </div>
-       <p>
+<p>
         Before moving on, make sure you can answer these without another site:
        </p>
-       <ul>
-        <li>
+<ul>
+<li>
          Can you find C directly in the table as AAABA?
         </li>
-        <li>
+<li>
          Can you explain why one missing symbol corrupts every later group?
         </li>
-        <li>
+<li>
          If a puzzle uses X/O, can you normalize it to A/B before lookup?
         </li>
-       </ul>
+</ul>
+</div>
+</section>
+<section class="deep-card" id="mistakes">
+<div class="section-kicker">
+       09 • ERROR CHECK
       </div>
-     </section>
-     <section class="deep-card" id="mistakes">
-      <div class="section-kicker">
-       09 &bull; ERROR CHECK
-      </div>
-      <h2>
+<h2>
        Common mistakes
       </h2>
-      <div class="mistake-grid">
-       <div class="mistake-item">
-        <span>
+<div class="mistake-grid">
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Using four or six symbols per letter instead of five.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Reversing A and B unintentionally.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Using a historical 24-letter table when the problem uses a 26-letter table.
         </p>
-       </div>
-       <div class="mistake-item">
-        <span>
+</div>
+<div class="mistake-item">
+<span>
          !
         </span>
-        <p>
+<p>
          Losing one symbol and shifting all later group boundaries.
         </p>
-       </div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="speed">
+<div class="section-kicker">
+       10 • SPEED
       </div>
-     </section>
-     <section class="deep-card" id="speed">
-      <div class="section-kicker">
-       10 &bull; SPEED
-      </div>
-      <h2>
+<h2>
        Competition speed strategies
       </h2>
-      <div class="speed-grid">
-       <div class="speed-item">
-        <span>
+<div class="speed-grid">
+<div class="speed-item">
+<span>
          1
         </span>
-        <p>
+<p>
          Keep the complete table above on your reference sheet.
         </p>
-       </div>
-       <div class="speed-item">
-        <span>
+</div>
+<div class="speed-item">
+<span>
          2
         </span>
-        <p>
+<p>
          Recognize common patterns: AAAAA=A, AAAAB=B, AAABA=C.
         </p>
-       </div>
-       <div class="speed-item">
-        <span>
+</div>
+<div class="speed-item">
+<span>
          3
         </span>
-        <p>
+<p>
          Mark a slash after every five symbols before decoding a long stream.
         </p>
-       </div>
+</div>
+</div>
+</section>
+<section class="deep-card" id="quick">
+<div class="section-kicker">
+       11 • QUICK REFERENCE
       </div>
-     </section>
-     <section class="deep-card" id="quick">
-      <div class="section-kicker">
-       11 &bull; QUICK REFERENCE
-      </div>
-      <h2>
+<h2>
        What to remember under time pressure
       </h2>
-      <div class="quick-grid">
-       <div class="quick-item">
-        <span>
+<div class="quick-grid">
+<div class="quick-item">
+<span>
          Group size
         </span>
-        <strong>
+<strong>
          5 symbols
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Two classes
         </span>
-        <strong>
+<strong>
          A and B
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          A
         </span>
-        <strong>
+<strong>
          AAAAA
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Z
         </span>
-        <strong>
+<strong>
          BBAAB
         </strong>
-       </div>
-       <div class="quick-item">
-        <span>
+</div>
+<div class="quick-item">
+<span>
          Fast check
         </span>
-        <strong>
-         26-letter table = binary values 0&ndash;25
+<strong>
+         26-letter table = binary values 0–25
         </strong>
-       </div>
-      </div>
-      <div class="quick-use-note">
-       <strong>
+</div>
+</div>
+<div class="quick-use-note">
+<strong>
         How to use this section:
        </strong>
        during timed practice, come here first for the minimum rules. If a step is unclear, jump back to Complete Reference or the worked example instead of guessing.
       </div>
-     </section>
-     <section class="deep-card interactive-card" id="interactive">
-      <div class="section-kicker">
-       12 &bull; INTERACTIVE LAB
+</section>
+<section class="deep-card interactive-card" id="interactive">
+<div class="section-kicker">
+       12 • INTERACTIVE LAB
       </div>
-      <h2>
+<h2>
        See every transformation
       </h2>
-      <p>
-       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the &ldquo;How to reverse it&rdquo; panel so encryption and decryption connect.
+<p>
+       Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the “How to reverse it” panel so encryption and decryption connect.
       </p>
-      <div class="lab-actions">
-       <a class="deep-secondary-button" href="../visualizers/baconian.html">
+<div class="lab-actions">
+<a class="deep-secondary-button" href="../visualizers/baconian.html">
         Open full visualizer
        </a>
-       <a class="primary-button" href="../practice/index.html?cipher=baconian-variant">
+<a class="primary-button" href="../practice/index.html?cipher=baconian-variant">
         Practice Baconian
        </a>
-      </div>
-      <iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/baconian.html?embed=1" title="Baconian Cipher interactive visualizer">
-      </iframe>
-     </section>
-     <div class="guide-end-nav">
-      <a href="index.html">
-       &larr; All cipher guides
+</div>
+<iframe class="deep-visualizer-frame" loading="lazy" src="../visualizers/baconian.html?embed=1" title="Baconian Cipher interactive visualizer">
+</iframe>
+</section>
+<section aria-labelledby="related-baconian-title" class="deep-card seo-related-guides"><div class="section-kicker">KEEP LEARNING</div><h2 id="related-baconian-title">Related cipher guides and practice</h2><p>Build connected skills instead of learning this cipher in isolation.</p><div class="seo-related-grid"><a class="seo-related-link" href="homophonic.html"><strong>Homophonic Cipher</strong><span>Learn Homophonic Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="aristocrat.html"><strong>Aristocrat Cipher</strong><span>Learn Aristocrat Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="caesar.html"><strong>Caesar Cipher</strong><span>Learn Caesar Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link seo-related-codebusters" href="../codebusters/"><strong>Science Olympiad Codebusters Practice</strong><span>Browse Codebusters-focused guides, visualizers, and generated practice.</span></a></div></section><div class="guide-end-nav">
+<a href="index.html">
+       ← All cipher guides
       </a>
-      <a href="#overview">
-       Back to top &uarr;
+<a href="#overview">
+       Back to top ↑
       </a>
-     </div>
-    </div>
-   </div>
-  </main>
-  <footer class="site-footer">
-   <p>
+</div>
+</div>
+</div>
+</main>
+<footer class="site-footer">
+<p>
     THE DAILY CIPHER
    </p>
-   <span>
+<span>
     Learn. Crack. Repeat.
    </span>
-  </footer>
-  <script src="/js/navigation.js">
-  </script>
-  <script src="../js/learnPage.js">
-  </script>
- </body>
+</footer>
+<script src="/js/navigation.js">
+</script>
+<script src="../js/learnPage.js">
+</script>
+</body>
 </html>
