@@ -2266,3 +2266,16 @@ right-side buttons differ in width.
     margin-top: 0;
 }
 
+
+
+/* =====================================================
+   SITEWIDE FORM LABEL LEGIBILITY
+   Keep control labels visually strong and consistent.
+===================================================== */
+form label,
+.form-group label,
+.form-field label,
+.field label,
+.control-group label {
+    font-weight: 800;
+}

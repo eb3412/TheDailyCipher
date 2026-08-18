@@ -151,3 +151,29 @@ second, nested scrollbar.
     overflow: hidden;
 }
 
+
+
+/* =====================================================
+   COMPACT EMBEDDED VISUALIZER PREVIEW
+   The full visualizer remains available via the button above.
+===================================================== */
+.deep-visualizer-frame {
+    height: 640px;
+    min-height: 0;
+    max-height: 640px;
+    overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    .deep-visualizer-frame {
+        height: 600px;
+        max-height: 600px;
+    }
+}
+
+@media (max-width: 650px) {
+    .deep-visualizer-frame {
+        height: 540px;
+        max-height: 540px;
+    }
+}
