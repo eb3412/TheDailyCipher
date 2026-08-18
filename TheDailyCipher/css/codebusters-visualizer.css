@@ -80,3 +80,14 @@ html::-webkit-scrollbar-thumb {
     border-radius: 999px;
 }
 html::-webkit-scrollbar-thumb:hover { background: var(--primary-hover); }
+
+
+/* FINAL VISUALIZER LABEL OVERRIDE */
+html body .viz-field > label {
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 1.05px !important;
+    opacity: 1 !important;
+}

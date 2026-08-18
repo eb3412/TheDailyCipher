@@ -2279,3 +2279,15 @@ form label,
 .control-group label {
     font-weight: 800;
 }
+
+
+/* FINAL CONTROL LABEL OVERRIDE — intentionally high-specificity */
+body form label,
+body .form-group label,
+body .form-field label,
+body .field label,
+body .control-group label,
+body .input-group label {
+    color: var(--text) !important;
+    font-weight: 900 !important;
+}

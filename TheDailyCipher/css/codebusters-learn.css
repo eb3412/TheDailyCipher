@@ -177,3 +177,25 @@ second, nested scrollbar.
         max-height: 540px;
     }
 }
+
+
+/* FINAL EMBED HEIGHT OVERRIDE — fixed preview, never auto-grown. */
+html body .deep-visualizer-frame {
+    display: block !important;
+    width: 100% !important;
+    height: 460px !important;
+    min-height: 0 !important;
+    max-height: 460px !important;
+}
+@media (max-width: 900px) {
+    html body .deep-visualizer-frame {
+        height: 440px !important;
+        max-height: 440px !important;
+    }
+}
+@media (max-width: 650px) {
+    html body .deep-visualizer-frame {
+        height: 400px !important;
+        max-height: 400px !important;
+    }
+}
