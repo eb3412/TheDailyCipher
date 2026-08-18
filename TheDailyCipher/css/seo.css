@@ -7,3 +7,68 @@
 .seo-codebusters-page{padding-bottom:70px}.seo-codebusters-hero{padding-bottom:32px}.seo-hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:24px}.seo-hero-actions .primary-button{text-decoration:none}.seo-disclaimer{margin:0 0 26px;padding:18px 20px;border:1px solid var(--border);border-radius:13px;background:var(--surface);color:var(--muted);font-size:11px;line-height:1.65}.seo-disclaimer strong{color:var(--text)}.seo-disclaimer p{margin:6px 0 0}.seo-disclaimer a{color:var(--primary-hover);text-decoration:underline;text-underline-offset:3px}.seo-codebusters-intro,.seo-cipher-directory,.seo-codebusters-search,.seo-final-cta{margin:26px 0;padding:clamp(22px,4vw,34px);border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}.seo-codebusters-intro h2,.seo-cipher-directory h2,.seo-codebusters-search h2,.seo-final-cta h2{margin:7px 0 10px;font-size:clamp(24px,4vw,36px)}.seo-section-lead,.seo-codebusters-search p,.seo-final-cta p{max-width:820px;color:var(--muted);font-size:12px;line-height:1.7}.seo-process-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:20px}.seo-process-grid article{padding:16px;border:1px solid var(--border);border-radius:11px;background:var(--background)}.seo-process-grid article>span{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--primary);color:white;font-size:12px;font-weight:900}.seo-process-grid h3{margin:11px 0 5px;font-size:13px}.seo-process-grid p{margin:0;color:var(--muted);font-size:10px;line-height:1.55}.seo-cipher-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:20px}.seo-cipher-card{padding:17px;border:1px solid var(--border);border-radius:12px;background:var(--background)}.seo-cipher-card h3{margin:0;font-size:15px}.seo-cipher-card h3 a:hover{color:var(--primary-hover)}.seo-cipher-card p{min-height:62px;margin:8px 0 13px;color:var(--muted);font-size:10px;line-height:1.55}.seo-card-actions{display:flex;flex-direction:column;gap:5px}.seo-card-actions a{color:var(--primary-hover);font-size:10px;font-weight:800}.seo-codebusters-search{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:24px;align-items:start}.seo-search-links{display:grid;gap:8px}.seo-search-links a{padding:11px 12px;border:1px solid var(--border);border-radius:9px;background:var(--background);color:var(--text);font-size:10px;font-weight:800}.seo-search-links a:hover{border-color:var(--primary);color:var(--primary-hover)}.seo-final-cta{display:flex;align-items:center;justify-content:space-between;gap:25px}.seo-final-cta .primary-button{flex:0 0 auto;text-decoration:none}
 @media(max-width:900px){.seo-process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.seo-cipher-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.seo-codebusters-search{grid-template-columns:1fr}}
 @media(max-width:700px){.seo-codebusters-callout,.seo-final-cta{align-items:flex-start;flex-direction:column}.seo-related-grid,.seo-cipher-grid,.seo-process-grid{grid-template-columns:1fr}.seo-popular-guides{margin:-45px 0 55px}.seo-breadcrumbs{margin-top:4px}.seo-cipher-card p{min-height:0}}
+
+/* =====================================================
+   GLOBAL LAYOUT POLISH — HORIZONTAL CTA COMPONENTS
+   Keeps shared .primary-button full-width behavior where
+   it is useful, but prevents it from stretching/compressing
+   horizontal SEO callouts and hero action rows.
+===================================================== */
+.seo-codebusters-callout,
+.seo-final-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+}
+
+.seo-codebusters-callout > div,
+.seo-final-cta > div {
+    min-width: 0;
+}
+
+.seo-codebusters-callout .primary-button,
+.seo-final-cta .primary-button,
+.seo-hero-actions .primary-button {
+    display: inline-flex;
+    width: auto;
+    min-height: 44px;
+    margin-top: 0;
+    padding: 12px 18px;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.25;
+    text-align: center;
+    text-decoration: none;
+}
+
+.seo-codebusters-callout .primary-button,
+.seo-final-cta .primary-button {
+    min-width: 220px;
+    max-width: 300px;
+}
+
+.seo-hero-actions .primary-button,
+.seo-hero-actions .seo-secondary-button {
+    min-width: 205px;
+    min-height: 44px;
+    margin: 0;
+}
+
+@media (max-width: 700px) {
+    .seo-codebusters-callout,
+    .seo-final-cta {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+    }
+
+    .seo-codebusters-callout .primary-button,
+    .seo-final-cta .primary-button,
+    .seo-hero-actions .primary-button,
+    .seo-hero-actions .seo-secondary-button {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+    }
+}
+

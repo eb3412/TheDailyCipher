@@ -1360,6 +1360,23 @@
 .dashboard-panel-header {
     margin-bottom: 0;
 }
+
+
+        /*
+        =====================================================
+        DASHBOARD GRID ALIGNMENT POLISH
+        =====================================================
+        Adjacent panels normally receive vertical spacing.
+        Inside the two-column grid, the grid gap already owns
+        that spacing, so both cards should start and end together.
+        */
+
+        .dashboard-two-column > .dashboard-panel,
+        .dashboard-two-column > .dashboard-panel + .dashboard-panel {
+            height: 100%;
+            margin-top: 0;
+        }
+
     </style>
 <script>
   window.va = window.va || function () {

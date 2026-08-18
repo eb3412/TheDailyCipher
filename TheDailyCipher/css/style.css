@@ -2253,3 +2253,16 @@ right-side buttons differ in width.
     }
 
 }
+
+/* =====================================================
+   SHARED ACTION-GRID ALIGNMENT
+   Primary buttons normally span their container, but inside
+   explicit multi-button grids they should not carry the
+   standalone button's extra top margin.
+===================================================== */
+.guide-actions > .primary-button,
+.practice-actions > .primary-button,
+.admin-actions > .primary-button {
+    margin-top: 0;
+}
+

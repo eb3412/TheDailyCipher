@@ -57,3 +57,97 @@
 .learn-pathway-grid p { margin: 6px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
 @media (max-width: 800px) { .learn-pathway-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 @media (max-width: 520px) { .learn-pathway-grid { grid-template-columns: 1fr; } .problem-format-table td:first-child { width: auto; } }
+
+/* =====================================================
+   GLOBAL GUIDE LAYOUT POLISH
+   The article column is centered independently; the TOC
+   occupies a matching rail to its left instead of shifting
+   the article off the viewport center.
+===================================================== */
+@media (min-width: 1201px) {
+    .container.deep-guide-shell {
+        width: min(1360px, calc(100% - 32px));
+        max-width: none;
+    }
+
+    .deep-layout {
+        grid-template-columns: 220px minmax(0, 850px) 220px;
+        justify-content: center;
+        gap: 22px;
+    }
+
+    .deep-toc {
+        grid-column: 1;
+    }
+
+    .deep-content {
+        grid-column: 2;
+        width: 100%;
+        max-width: 850px;
+        justify-self: center;
+    }
+}
+
+/* Collapse the side rail before it starts squeezing the centered article. */
+@media (min-width: 901px) and (max-width: 1200px) {
+    .container.deep-guide-shell {
+        width: min(900px, calc(100% - 32px));
+        max-width: none;
+    }
+
+    .deep-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .deep-toc {
+        position: relative;
+        top: auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+    }
+
+    .deep-toc-title,
+    .deep-toc-note {
+        grid-column: 1 / -1;
+    }
+
+    .deep-toc a {
+        border-left: 0;
+        border-bottom: 2px solid transparent;
+    }
+
+    .deep-toc a.active {
+        border-left: 0;
+        border-bottom-color: var(--primary);
+    }
+}
+
+/* Both actions in every guide use the same box metrics and typography. */
+.lab-actions > .deep-secondary-button,
+.lab-actions > .primary-button {
+    width: 100%;
+    min-height: 52px;
+    margin: 0;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+/*
+The iframe starts at a usable fallback height. learnPage.js grows it to
+the same-origin visualizer's real content height so users do not get a
+second, nested scrollbar.
+*/
+.deep-visualizer-frame {
+    height: 980px;
+    min-height: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+

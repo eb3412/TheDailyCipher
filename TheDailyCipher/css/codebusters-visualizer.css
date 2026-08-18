@@ -16,3 +16,44 @@
 .viz-reverse-list { margin: 0; padding-left: 22px; color: var(--muted); }
 .viz-reverse-list li { padding: 4px 0; font-size: 11px; line-height: 1.6; }
 .viz-reference { border-color: rgba(129,140,248,.30); }
+
+/* =====================================================
+   VISUALIZER EMBED + SCROLL POLISH
+===================================================== */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface-light) var(--background);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    border: 2px solid var(--background);
+    border-radius: 999px;
+    background: var(--surface-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--muted);
+}
+
+.viz-shell {
+    width: 100%;
+}
+
+/* These links already exist in the surrounding Learn page when embedded. */
+body.is-embedded .seo-breadcrumbs-viz,
+body.is-embedded .seo-viz-actions {
+    display: none;
+}
+
