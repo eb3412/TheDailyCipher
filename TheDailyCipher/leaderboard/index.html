@@ -736,6 +736,9 @@
 
         .pagination-button {
 
+            min-height:
+                40px;
+
             padding:
                 10px
                 14px;
@@ -915,6 +918,28 @@
 
             }
 
+        }
+
+
+        @media (max-width: 420px) {
+
+            .leaderboard-columns,
+            .leaderboard-row {
+                grid-template-columns:
+                    44px
+                    minmax(0, 1fr)
+                    64px;
+
+                gap: 6px;
+
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .leaderboard-columns > :last-child,
+            .leaderboard-xp {
+                text-align: right;
+            }
         }
 
 

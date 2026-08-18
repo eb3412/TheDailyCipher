@@ -21,7 +21,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 body {
@@ -53,7 +53,8 @@ a {
 
 button,
 input,
-select {
+select,
+textarea {
     font: inherit;
 }
 
@@ -322,6 +323,12 @@ button {
 
     font-weight: 800;
     letter-spacing: 1px;
+    line-height: 1.25;
+    text-align: center;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     transition: 0.2s;
 }
@@ -2266,28 +2273,54 @@ right-side buttons differ in width.
     margin-top: 0;
 }
 
-
-
 /* =====================================================
-   SITEWIDE FORM LABEL LEGIBILITY
-   Keep control labels visually strong and consistent.
+   FINAL SITEWIDE FORM + CONTROL POLISH
 ===================================================== */
-form label,
-.form-group label,
-.form-field label,
-.field label,
-.control-group label {
-    font-weight: 800;
+body label {
+    font-weight: 900 !important;
 }
 
+input,
+select,
+textarea,
+button {
+    min-width: 0;
+    max-width: 100%;
+}
 
-/* FINAL CONTROL LABEL OVERRIDE — intentionally high-specificity */
-body form label,
-body .form-group label,
-body .form-field label,
-body .field label,
-body .control-group label,
-body .input-group label {
-    color: var(--text) !important;
-    font-weight: 900 !important;
+iframe {
+    max-width: 100%;
+}
+
+.icon-button {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Grid/flex children must be allowed to shrink instead of forcing page-wide overflow. */
+.site-header > *,
+.quick-links > *,
+.stats-grid > *,
+.guide-actions > *,
+.practice-actions > *,
+.admin-actions > * {
+    min-width: 0;
+}
+
+/* =====================================================
+   CONSISTENT KEYBOARD FOCUS
+===================================================== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--primary-hover);
+    outline-offset: 2px;
 }

@@ -567,20 +567,6 @@ const MasteryUI = (() => {
             );
         }
 
-
-        cipherSelect
-            .closest(
-                ".daily-card, section, .practice-card"
-            )
-            ?.scrollIntoView({
-
-                behavior:
-                    "smooth",
-
-                block:
-                    "start"
-
-            });
     }
 
 

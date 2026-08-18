@@ -1513,7 +1513,9 @@ const SubstitutionTrainer = (() => {
 
         document.getElementById(
             "crypto-plain-guess"
-        ).focus();
+        ).focus({
+            preventScroll: true
+        });
 
 
         renderCiphertext();

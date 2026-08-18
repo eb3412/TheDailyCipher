@@ -1087,7 +1087,7 @@ function preparePracticeSession() {
         false;
 
 
-    answer.focus();
+    answer.focus({ preventScroll: true });
 }
 
 

@@ -5,12 +5,13 @@
         const frames = [...document.querySelectorAll(".deep-visualizer-frame")];
 
         frames.forEach(frame => {
-            // Keep Learn-page embeds intentionally compact. The complete visualizer
-            // remains available through the "Open full visualizer" button.
+            // Embedded labs use the CSS-defined compact viewport. Do not
+            // measure content, resize the iframe, or move the parent page.
             frame.removeAttribute("height");
             frame.style.removeProperty("height");
+            frame.style.removeProperty("min-height");
             frame.style.removeProperty("max-height");
-            frame.setAttribute("scrolling", "yes");
+            frame.removeAttribute("scrolling");
             frame.dataset.compactEmbed = "true";
         });
     }
@@ -26,8 +27,10 @@
                 const target = document.querySelector(link.getAttribute("href"));
                 if (!target) return;
 
+                // Preserve keyboard focus without triggering a second browser
+                // scroll after the user's normal anchor navigation.
                 target.setAttribute("tabindex", "-1");
-                setTimeout(() => target.focus({ preventScroll: true }), 350);
+                setTimeout(() => target.focus({ preventScroll: true }), 0);
             });
         });
 
