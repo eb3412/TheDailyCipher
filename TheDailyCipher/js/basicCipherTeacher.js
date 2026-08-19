@@ -22,6 +22,14 @@ const BasicCipherTeacher = (() => {
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 
+    const BACONIAN_LABELS =
+        [
+            "A", "B", "C", "D", "E", "F", "G", "H",
+            "I/J", "K", "L", "M", "N", "O", "P", "Q",
+            "R", "S", "T", "U/V", "W", "X", "Y", "Z"
+        ];
+
+
     const SUPPORTED =
         new Set([
             "caesar",
@@ -666,9 +674,9 @@ const BasicCipherTeacher = (() => {
                 </h3>
 
                 <p class="basic-stage-description">
-                    Five positions, each with two choices,
-                    produce enough possible patterns to
-                    represent the alphabet.
+                    Five positions act like a five-bit binary counter.
+                    For Codebusters-style Baconian practice, I/J share
+                    one entry and U/V share one entry, giving 24 values.
                 </p>
 
 
@@ -1117,7 +1125,7 @@ const BasicCipherTeacher = (() => {
 
         for (
             let i = 0;
-            i < 26;
+            i < BACONIAN_LABELS.length;
             i++
         ) {
 
@@ -1338,20 +1346,22 @@ const BasicCipherTeacher = (() => {
 
 
         const selected =
-            currentData
-                .letters[
-                    currentPosition
-                ];
+            baconianLabel(
+                currentData
+                    .letters[
+                        currentPosition
+                    ]
+            );
 
 
         for (
             let i = 0;
-            i < 26;
+            i < BACONIAN_LABELS.length;
             i++
         ) {
 
             const letter =
-                ALPHABET[i];
+                BACONIAN_LABELS[i];
 
 
             const code =
@@ -1742,9 +1752,15 @@ const BasicCipherTeacher = (() => {
         letter
     ) {
 
-        const index =
-            ALPHABET.indexOf(
+        const mergedLabel =
+            baconianLabel(
                 letter
+            );
+
+
+        const index =
+            BACONIAN_LABELS.indexOf(
+                mergedLabel
             );
 
 
@@ -1788,7 +1804,7 @@ const BasicCipherTeacher = (() => {
                 </div>
 
                 ${pipelineCard(
-                    "ALPHABET INDEX",
+                    "24-ENTRY INDEX",
                     index
                 )}
 
@@ -1806,6 +1822,10 @@ const BasicCipherTeacher = (() => {
 
             <div class="baconian-bit-row">
                 ${bits}
+            </div>
+
+            <div class="basic-rule" style="margin-top:12px">
+                ${mergedLabel.includes("/") ? `${mergedLabel} share this same Baconian pattern.` : `This is the ${mergedLabel} entry in the 24-entry table.`}
             </div>
 
             `;
@@ -1926,6 +1946,25 @@ const BasicCipherTeacher = (() => {
     BACONIAN CODE
     =====================================================
     */
+
+    function baconianLabel(
+        letter
+    ) {
+
+        const upper =
+            String(letter || "").toUpperCase();
+
+        if (upper === "I" || upper === "J") {
+            return "I/J";
+        }
+
+        if (upper === "U" || upper === "V") {
+            return "U/V";
+        }
+
+        return upper;
+    }
+
 
     function baconianCode(
         index

@@ -143,11 +143,15 @@
     "name": "Baconian Cipher",
     "category": "Encoding",
     "difficulty": "Beginner",
-    "description": "Decode every five-symbol group with a complete A/B reference table—without needing another website.",
+    "description": "Decode five-symbol binary-style groups with the 24-entry Baconian table, where I/J and U/V share codes.",
     "keywords": [
       "Codebusters",
       "binary",
-      "five symbols"
+      "five symbols",
+      "24-letter Baconian",
+      "I/J",
+      "U/V",
+      "binary counter"
     ],
     "scienceOlympiad": true,
     "guideReady": true,

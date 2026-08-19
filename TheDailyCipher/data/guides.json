@@ -174,40 +174,44 @@
     "category": "Encoding",
     "difficulty": "Beginner",
     "scioly": true,
-    "summary": "An encoding system that represents letters using groups made from only two different symbols.",
+    "summary": "A five-position binary-style encoding using a 24-entry alphabet in which I/J and U/V share codes.",
     "history": [
       "Francis Bacon described a biliteral cipher in the early seventeenth century. Its central idea was that two distinguishable forms could encode a sequence of binary-like choices.",
-      "Modern puzzle versions commonly show the two forms directly as A and B. Historical and puzzle conventions can differ in how the alphabet is handled, so a solver should always check the specific alphabet or table supplied with a problem."
+      "For The Daily Cipher's Codebusters-style practice, Baconian uses the traditional 24-entry alphabet: I/J share one value and U/V share one value."
     ],
     "mechanics": [
-      "Each plaintext letter corresponds to a five-position pattern built from two symbols, normally A and B.",
-      "Five binary choices produce enough combinations to represent an alphabet. The Daily Cipher currently uses a straightforward 26-letter teaching table."
+      "Each plaintext letter corresponds to a five-position pattern built from two states, normally A and B.",
+      "Treat A as binary 0 and B as binary 1. The five positions have weights 16, 8, 4, 2, and 1.",
+      "The 24 entries use values 0 through 23. I/J share value 8 (ABAAA), and U/V share value 19 (BAABB)."
     ],
     "encryptSteps": [
-      "Find the plaintext letter in the Baconian table.",
-      "Replace it with its five-character A/B pattern.",
-      "Repeat for every plaintext letter.",
-      "Keep the five-symbol groups clearly separated while learning."
+      "Normalize J to the shared I/J entry and V to the shared U/V entry for lookup.",
+      "Find the entry's value from 0 through 23.",
+      "Write that value as five-bit binary.",
+      "Replace 0 with A and 1 with B.",
+      "If the puzzle disguises A/B, replace them with the two supplied symbol classes."
     ],
     "solveIntro": [
-      "Baconian problems become straightforward once the stream is divided into correct groups of five.",
-      "The larger challenge in disguised forms is recognizing which two visual features represent the two binary states."
+      "Baconian becomes direct once the two symbol classes and five-symbol boundaries are identified.",
+      "The 24-entry convention creates two deliberate ambiguities: I/J and U/V. Resolve those from word context."
     ],
     "solveSteps": [
       "Identify the two distinct symbol types.",
       "Translate them consistently to A and B.",
       "Divide the result into groups of five.",
-      "Use the supplied Baconian alphabet to convert each group to a letter."
+      "Use the 24-entry table to convert each group to a letter or shared I/J or U/V entry.",
+      "Use language context to choose the intended letter in shared entries."
     ],
     "mistakes": [
+      "Using a 26-letter Baconian table, which shifts K and later values.",
+      "Giving J or V separate patterns instead of using the shared entries.",
       "Losing track of five-symbol group boundaries.",
-      "Switching which visual feature represents A and which represents B halfway through.",
-      "Assuming every Baconian variant uses exactly the same historical alphabet."
+      "Switching which visual feature represents A and which represents B halfway through."
     ],
     "example": {
-      "plaintext": "ABC",
-      "key": "A/B five-symbol groups",
-      "ciphertext": "AAAAA AAAAB AAABA"
+      "plaintext": "VIVID",
+      "key": "24-entry A/B table; I/J and U/V combined",
+      "ciphertext": "BAABB ABAAA BAABB ABAAA AAABB"
     }
   },
   {

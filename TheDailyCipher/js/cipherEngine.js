@@ -27,6 +27,11 @@ const CipherEngine = (() => {
     const POLYBIUS_ALPHABET =
         "ABCDEFGHIKLMNOPQRSTUVWXYZ";
 
+    // Traditional 24-entry Baconian alphabet used for Codebusters-style practice.
+    // I/J share one value and U/V share one value.
+    const BACONIAN_ALPHABET =
+        "ABCDEFGHIKLMNOPQRSTUWXYZ";
+
 
     /*
     =====================================================
@@ -630,9 +635,17 @@ const CipherEngine = (() => {
                 }
 
 
+                const normalizedCharacter =
+                    character === "J"
+                        ? "I"
+                        : character === "V"
+                            ? "U"
+                            : character;
+
+
                 const index =
-                    ALPHABET.indexOf(
-                        character
+                    BACONIAN_ALPHABET.indexOf(
+                        normalizedCharacter
                     );
 
 
@@ -2215,7 +2228,7 @@ const CipherEngine = (() => {
                         title:
                             "Strong Hint",
                         text:
-                            "Each plaintext letter is represented by a five-character A/B pattern."
+                            "Use the 24-entry Baconian table: I/J share one pattern and U/V share one pattern."
                     }
 
                 ];
@@ -3166,6 +3179,33 @@ if (
                 "ABC"
             ),
             "AAAAA AAAAB AAABA"
+        );
+
+
+        test(
+            "Baconian I/J merge",
+            baconianEncrypt(
+                "IJ"
+            ),
+            "ABAAA ABAAA"
+        );
+
+
+        test(
+            "Baconian U/V merge",
+            baconianEncrypt(
+                "UV"
+            ),
+            "BAABB BAABB"
+        );
+
+
+        test(
+            "Baconian Z in 24-entry alphabet",
+            baconianEncrypt(
+                "Z"
+            ),
+            "BABBB"
         );
 
 
@@ -4401,6 +4441,7 @@ preserving the v2 CipherEngine API and all legacy IDs.
     const ENGLISH_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const SPANISH_ALPHABET = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
     const POLYBIUS_ALPHABET = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+    const BACONIAN_ALPHABET = "ABCDEFGHIKLMNOPQRSTUWXYZ";
 
     const KEYWORDS = [
         "CIPHER", "SCIENCE", "PUZZLE", "LOGIC", "MATRIX",
@@ -4603,8 +4644,15 @@ preserving the v2 CipherEngine API and all legacy IDs.
         return ciphertext;
     }
 
+    function normalizeBaconianLetter(character) {
+        const upper = String(character || "").toUpperCase();
+        if (upper === "J") return "I";
+        if (upper === "V") return "U";
+        return upper;
+    }
+
     function baconianIndex(character) {
-        return ENGLISH_ALPHABET.indexOf(character);
+        return BACONIAN_ALPHABET.indexOf(normalizeBaconianLetter(character));
     }
 
     function numberToBaconian(index) {
@@ -4895,8 +4943,8 @@ preserving the v2 CipherEngine API and all legacy IDs.
                 return [
                     { level: 1, title: "Binary Structure", text: "Every plaintext letter is represented by a five-symbol binary-style group." },
                     { level: 2, title: "Two Classes", text: "Only two distinct symbol classes matter." },
-                    { level: 3, title: "Grouping", text: "Read the ciphertext in groups of five symbols." },
-                    { level: 4, title: "Strong Hint", text: `Treat ${parameters.symbolPair?.[0]} as A and ${parameters.symbolPair?.[1]} as B.` }
+                    { level: 3, title: "24-entry alphabet", text: "I/J share one Baconian value, and U/V share one Baconian value." },
+                    { level: 4, title: "Strong Hint", text: `Treat ${parameters.symbolPair?.[0]} as A and ${parameters.symbolPair?.[1]} as B, then use the 24-entry table.` }
                 ];
             case "fractionatedmorse-cryptanalysis":
                 return [
@@ -4964,7 +5012,10 @@ preserving the v2 CipherEngine API and all legacy IDs.
             case "xenocrypt-k1": return [{ label: "LANGUAGE", value: "Spanish" }, { label: "KEY TYPE", value: "K1 • English keyword" }];
             case "xenocrypt-k2": return [{ label: "LANGUAGE", value: "Spanish" }, { label: "KEY TYPE", value: "K2 • English keyword" }];
             case "xenocrypt-cryptanalysis": return [{ label: "LANGUAGE", value: "Spanish" }, { label: "CRIB", value: parameters.crib }];
-            case "baconian-variant": return [{ label: "TASK", value: "Identify the two symbol classes, convert them to A/B, then decode groups of five." }];
+            case "baconian-variant": return [
+                { label: "TASK", value: "Identify the two symbol classes, convert them to A/B, then decode groups of five." },
+                { label: "ALPHABET", value: "24 entries • I/J combined • U/V combined" }
+            ];
             case "porta": return [{ label: "GIVEN KEY", value: parameters.keyword }];
             case "porta-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
             case "fractionatedmorse-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
@@ -5173,7 +5224,8 @@ preserving the v2 CipherEngine API and all legacy IDs.
         homophonicEncrypt,
         generateHomophonicMap,
         createCrib,
-        spanishAlphabet: SPANISH_ALPHABET
+        spanishAlphabet: SPANISH_ALPHABET,
+        baconianAlphabet: BACONIAN_ALPHABET
     };
 
     engine.__codebustersExpanded = true;

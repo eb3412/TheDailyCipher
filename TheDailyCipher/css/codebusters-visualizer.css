@@ -133,3 +133,43 @@ summary:focus-visible {
     outline: 2px solid var(--primary-hover);
     outline-offset: 2px;
 }
+
+
+/* =====================================================
+   BACONIAN 24-ENTRY MECHANICAL BINARY COUNTER
+   Mechanism-inspired teaching UI: five two-state panels,
+   rightmost bit advances first, rollover carries left.
+===================================================== */
+.bacon-counter-card{border-color:rgba(245,158,11,.34)}
+.bacon-counter-intro p{margin-top:0;color:var(--text);font-size:12px}
+.bacon-counter-machine{margin-top:12px;padding:16px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg,rgba(120,78,42,.16),rgba(3,7,18,.35))}
+.bacon-counter-weights{display:grid;grid-template-columns:repeat(5,1fr);gap:42px;max-width:700px;margin:0 auto 7px;padding:0 8px;color:var(--muted);font:900 9px/1 ui-monospace,SFMono-Regular,Consolas,monospace;text-align:center;letter-spacing:.8px}
+.bacon-counter-bits{display:flex;align-items:center;justify-content:center;gap:7px;min-width:0}
+.wood-bit{position:relative;display:grid;width:min(112px,16vw);min-width:68px;aspect-ratio:.82;grid-template-rows:18px 1fr auto auto;align-items:center;justify-items:center;overflow:hidden;border:2px solid #6f4a2d;border-radius:10px;background:linear-gradient(90deg,#7f5735 0%,#a7784d 48%,#815737 100%);box-shadow:inset 0 0 0 2px rgba(255,255,255,.05),0 5px 14px rgba(0,0,0,.24);color:#fff7ed;transform-origin:center;transition:transform .24s ease,filter .24s ease,border-color .24s ease}
+.wood-bit.is-one{border-color:#c6925d;background:linear-gradient(90deg,#9b673e 0%,#c38b56 48%,#96613c 100%)}
+.wood-bit.just-flipped{animation:baconFlip .34s ease}
+.wood-bit-hinge{display:flex;width:100%;justify-content:space-between;padding:5px 8px 0}
+.wood-bit-hinge span{width:7px;height:7px;border-radius:50%;background:#2b211a;box-shadow:inset 0 0 0 2px #b9a18b}
+.wood-bit-number{font:900 clamp(28px,5vw,46px)/1 ui-monospace,SFMono-Regular,Consolas,monospace;text-shadow:0 2px 0 rgba(0,0,0,.3)}
+.wood-bit-ab{font:900 13px/1 ui-monospace,SFMono-Regular,Consolas,monospace;color:#fff}
+.wood-bit-place{padding:0 0 8px;color:#ead6c3;font:800 8px/1 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.7px;text-transform:uppercase}
+.wood-carry-arrow{display:flex;width:28px;min-width:20px;align-items:center;justify-content:center;color:#6b7280;font-size:22px;font-weight:900;transition:color .2s,transform .2s}
+.wood-carry-arrow.is-carrying{color:#f59e0b;transform:scale(1.25)}
+.bacon-counter-readout{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:14px}
+.bacon-counter-readout>div{padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--background);text-align:center}
+.bacon-counter-readout span{display:block;color:var(--muted);font-size:8px;font-weight:900;letter-spacing:1px}
+.bacon-counter-readout strong{display:block;margin-top:4px;color:var(--primary-hover);font:900 14px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace}
+.bacon-counter-machine.is-unused [data-bacon-letter]{color:var(--danger)}
+.bacon-counter-controls{display:grid;grid-template-columns:auto auto 1fr auto;gap:7px;margin-top:10px}
+.bacon-counter-controls button{min-height:40px;padding:9px 11px;border:1px solid var(--border);border-radius:8px;background:var(--background);color:var(--text);font:inherit;font-size:10px;font-weight:900;cursor:pointer}
+.bacon-counter-controls button:hover{border-color:var(--primary)}
+.bacon-counter-controls .bacon-counter-next{border-color:var(--primary);background:var(--primary);color:#fff}
+.bacon-counter-controls .bacon-counter-next:hover{background:var(--primary-hover)}
+.bacon-carry-trace,.bacon-unused-note{margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--background);font-size:10px;line-height:1.55}
+.bacon-carry-trace{border-left:3px solid #f59e0b;color:var(--muted)}
+.bacon-carry-trace div+div{margin-top:3px}
+.bacon-unused-note{border-left:3px solid var(--danger);color:var(--muted)}
+@keyframes baconFlip{0%{transform:rotateX(0)}45%{transform:rotateX(82deg) scale(.97)}100%{transform:rotateX(0)}}
+@media(max-width:720px){.bacon-counter-weights{gap:24px}.bacon-counter-bits{gap:4px}.wood-bit{min-width:50px}.wood-carry-arrow{width:16px;min-width:12px;font-size:16px}.bacon-counter-readout{grid-template-columns:repeat(2,minmax(0,1fr))}.bacon-counter-controls{grid-template-columns:1fr 1fr}.bacon-counter-controls .bacon-counter-next{grid-column:1/-1;grid-row:1}.bacon-counter-controls [data-bacon-auto]{grid-column:1/-1}}
+@media(max-width:480px){.bacon-counter-machine{padding:10px}.bacon-counter-weights{gap:11px;padding:0 2px}.wood-bit{min-width:42px;border-radius:7px}.wood-bit-hinge{padding:4px 5px 0}.wood-bit-hinge span{width:5px;height:5px}.wood-carry-arrow{width:10px;min-width:8px;font-size:13px}.wood-bit-place{font-size:7px}.wood-bit-ab{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.wood-bit{transition:none}.wood-bit.just-flipped{animation:none}.wood-carry-arrow{transition:none}}
