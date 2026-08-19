@@ -347,7 +347,10 @@ const ProblemInfoEngine = (() => {
         const plaintext = input.plaintext || input.solution || "";
         const ciphertext = input.ciphertext || "";
         const mode = getProblemMode(type);
-        const rows = [text("PROBLEM MODE", mode === "solve" ? "Solve the stated puzzle" : mode === "decode" ? "Decode with the supplied key information" : "Cryptanalysis — recover the plaintext from structure and clues")];
+        const rows = [
+            text("PROBLEM MODE", mode === "solve" ? "Solve the stated puzzle" : mode === "decode" ? "Decode with the supplied key information" : "Cryptanalysis — recover the plaintext from structure and clues"),
+            text("ANSWER FORMAT", "Enter the plaintext with normal spaces between words.")
+        ];
 
         switch (type) {
             case "caesar":

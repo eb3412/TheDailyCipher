@@ -353,6 +353,16 @@ function renderDailyCipher() {
         false;
 
 
+    input.classList.remove(
+        "solved-answer-locked"
+    );
+
+
+    input.removeAttribute(
+        "aria-disabled"
+    );
+
+
     document.getElementById(
         "daily-date"
     ).textContent =
@@ -1466,6 +1476,11 @@ function evaluateSubmission() {
             "feedback success";
 
 
+        /* Persist the canonical solved answer with the Daily result. */
+        result.answer =
+            activeCipher.solution;
+
+
         recordWin(
             result
         );
@@ -1473,6 +1488,26 @@ function evaluateSubmission() {
 
         displayPuzzleScore(
             result
+        );
+
+
+        /*
+        Keep the canonical solved plaintext visible after completion.
+        This also restores normal word spacing if the accepted submission
+        used different spacing or punctuation.
+        */
+        input.value =
+            activeCipher.solution;
+
+
+        input.classList.add(
+            "solved-answer-locked"
+        );
+
+
+        input.setAttribute(
+            "aria-disabled",
+            "true"
         );
 
 
@@ -2278,6 +2313,30 @@ function checkPreviousCompletion() {
         "WON"
     ) {
 
+        /*
+        Older saved results may predate the stored answer field, so fall
+        back to the current puzzle's canonical solution. This keeps solved
+        Daily puzzles useful after refresh without revealing unsolved ones.
+        */
+        input.value =
+            savedResult?.answer
+            ||
+            activeCipher.solution
+            ||
+            "";
+
+
+        input.classList.add(
+            "solved-answer-locked"
+        );
+
+
+        input.setAttribute(
+            "aria-disabled",
+            "true"
+        );
+
+
         feedback.textContent =
             "✓ ALREADY SOLVED TODAY";
 
@@ -2286,6 +2345,16 @@ function checkPreviousCompletion() {
             "feedback success";
 
     } else {
+
+        input.classList.remove(
+            "solved-answer-locked"
+        );
+
+
+        input.removeAttribute(
+            "aria-disabled"
+        );
+
 
         feedback.textContent =
             "PUZZLE ALREADY COMPLETED";

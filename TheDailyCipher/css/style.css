@@ -308,6 +308,18 @@ button {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
+/* Completed Daily answers stay visible but cannot be focused or clicked. */
+#solution-input.solved-answer-locked,
+#solution-input.solved-answer-locked:disabled {
+    opacity: 1;
+    pointer-events: none;
+    cursor: default;
+    color: #111827;
+    -webkit-text-fill-color: #111827;
+    background: white;
+    border-color: var(--border);
+}
+
 .primary-button {
     width: 100%;
 
