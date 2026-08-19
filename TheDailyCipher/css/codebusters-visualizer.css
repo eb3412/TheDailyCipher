@@ -173,3 +173,10 @@ summary:focus-visible {
 @media(max-width:720px){.bacon-counter-weights{gap:24px}.bacon-counter-bits{gap:4px}.wood-bit{min-width:50px}.wood-carry-arrow{width:16px;min-width:12px;font-size:16px}.bacon-counter-readout{grid-template-columns:repeat(2,minmax(0,1fr))}.bacon-counter-controls{grid-template-columns:1fr 1fr}.bacon-counter-controls .bacon-counter-next{grid-column:1/-1;grid-row:1}.bacon-counter-controls [data-bacon-auto]{grid-column:1/-1}}
 @media(max-width:480px){.bacon-counter-machine{padding:10px}.bacon-counter-weights{gap:11px;padding:0 2px}.wood-bit{min-width:42px;border-radius:7px}.wood-bit-hinge{padding:4px 5px 0}.wood-bit-hinge span{width:5px;height:5px}.wood-carry-arrow{width:10px;min-width:8px;font-size:13px}.wood-bit-place{font-size:7px}.wood-bit-ab{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.wood-bit{transition:none}.wood-bit.just-flipped{animation:none}.wood-carry-arrow{transition:none}}
+
+/* MATRIX TEACHING BLOCKS — shared by 2×2 and 3×3 Hill labs */
+.viz-matrix-block{margin-top:10px}
+.viz-matrix{display:inline-grid;gap:5px;padding:9px 12px;border-left:2px solid var(--primary);border-right:2px solid var(--primary);border-radius:7px;background:var(--background);max-width:100%;overflow:hidden}
+.viz-matrix-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(34px,1fr);gap:6px}
+.viz-matrix-row span{display:flex;min-width:34px;min-height:32px;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:6px;background:var(--surface);font:800 11px/1 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--text)}
+@media(max-width:480px){.viz-matrix{padding:7px 9px}.viz-matrix-row{grid-auto-columns:minmax(30px,1fr);gap:4px}.viz-matrix-row span{min-width:30px;min-height:30px;font-size:10px}}

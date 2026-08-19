@@ -1,7 +1,7 @@
 /*
 =========================================================
 THE DAILY CIPHER
-Practice Controller v4.0 — Codebusters Expansion
+Practice Controller v4.2 — Competition Context
 =========================================================
 */
 
@@ -1172,113 +1172,66 @@ function renderPracticeChallengeInfo() {
         );
 
 
-    if (
-        !container
-    ) {
-
+    if (!container) {
         return;
     }
 
 
-    container.innerHTML =
-        "";
+    if (window.ProblemInfoEngine) {
+
+        const startingInfo =
+            currentPractice?.startingInfo
+            ||
+            ProblemInfoEngine.createStartingInfo({
+                ...currentPractice,
+                type: currentPractice?.cipher_id
+            });
 
 
-    const rows =
-        Array.isArray(
-            currentPractice?.challengeInfo
-        )
-            ?
-            currentPractice.challengeInfo
-            :
-            [];
-
-
-    if (
-        rows.length
-        ===
-        0
-    ) {
-
-        container.classList.add(
-            "hidden"
+        ProblemInfoEngine.render(
+            container,
+            startingInfo
         );
 
+
         return;
     }
 
 
-    rows.forEach(
-        row => {
-
-            const wrapper =
-                document.createElement(
-                    "div"
-                );
+    /* Legacy fallback if the shared information engine fails to load. */
+    const rows =
+        Array.isArray(currentPractice?.challengeInfo)
+            ? currentPractice.challengeInfo
+            : [];
 
 
-            wrapper.className =
-                "practice-question-info-row";
+    container.innerHTML = "";
 
 
-            const label =
-                document.createElement(
-                    "div"
-                );
+    if (!rows.length) {
+        container.classList.add("hidden");
+        return;
+    }
 
 
-            label.className =
-                "practice-question-info-label";
+    rows.forEach(row => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "practice-question-info-row";
+
+        const label = document.createElement("div");
+        label.className = "practice-question-info-label";
+        label.textContent = String(row.label || "INFO").toUpperCase();
+
+        const value = document.createElement("div");
+        value.className = "practice-question-info-value";
+        value.textContent = String(row.value ?? "");
+
+        wrapper.append(label, value);
+        container.appendChild(wrapper);
+    });
 
 
-            label.textContent =
-                String(
-                    row.label
-                    ||
-                    "INFO"
-                )
-                .toUpperCase();
-
-
-            const value =
-                document.createElement(
-                    "div"
-                );
-
-
-            value.className =
-                "practice-question-info-value";
-
-
-            value.textContent =
-                String(
-                    row.value
-                    ??
-                    ""
-                );
-
-
-            wrapper.appendChild(
-                label
-            );
-
-
-            wrapper.appendChild(
-                value
-            );
-
-
-            container.appendChild(
-                wrapper
-            );
-
-        }
-    );
-
-
-    container.classList.remove(
-        "hidden"
-    );
+    container.classList.remove("hidden");
 }
 
 

@@ -364,14 +364,15 @@
       "Find the column labeled 1 and read downward, then column 2, continuing through the key."
     ],
     "solveIntro": [
-      "If the key is known, split the ciphertext into equal column lengths and restore them to their original physical positions.",
-      "Unknown-key solving requires testing column arrangements and looking for language structure across reconstructed rows."
+      "In competition-style Complete Columnar cryptanalysis, the ciphertext and a crib are given; the number of columns and the column order are part of the solve.",
+      "Use ciphertext length to test plausible rectangle dimensions, then use the crib to constrain which column chunks can sit next to one another."
     ],
     "solveSteps": [
-      "Determine the number of rows from the message length and column count.",
-      "Split the ciphertext into one section per column.",
-      "Place each section beneath the correct key label.",
-      "Read across the rows to recover the plaintext."
+      "Write down the supplied crib and count the ciphertext units.",
+      "List plausible column counts/rectangle dimensions allowed by the ciphertext length and padding behavior.",
+      "Split the ciphertext into candidate column chunks for one width.",
+      "Slide the crib across possible row positions and reject arrangements that cannot create the observed chunks.",
+      "Use successful adjacencies to determine the column order, then read across rows."
     ],
     "mistakes": [
       "Confusing a column's physical position with its numeric read order.",
@@ -415,9 +416,8 @@
       "Write those sums as the ciphertext. This is why Nihilist ciphertext often contains numbers such as 57, 72, or 84 instead of ordinary 11–55 Polybius coordinates."
     ],
     "solveIntro": [
-      "To decrypt a Nihilist cipher when both keywords are known, reverse the process. The final encryption operation was addition, so the first decryption operation is subtraction.",
-      "The important idea is that ciphertext numbers themselves are not direct Polybius coordinates. You must first remove the additive-key value. Only then do you get a coordinate that can be looked up in the square.",
-      "Suppose one ciphertext value is 57 and the corresponding repeated-key letter has Polybius value 23. Subtract 23 from 57. The result is 34. You then look at row 3, column 4 of the Polybius square to recover the plaintext letter."
+      "For a normal decode, the Polybius key and additive keyword are supplied as starting information.",
+      "For cryptanalysis, those keys are hidden and a plaintext crib at a stated location supplies the foothold instead."
     ],
     "solveSteps": [
       "Rebuild the exact keyed Polybius square used for encryption.",
@@ -465,8 +465,8 @@
       "Convert the resulting numbers back to letters."
     ],
     "solveIntro": [
-      "With a known matrix, decryption requires the inverse matrix modulo 26.",
-      "The determinant must be invertible modulo 26; otherwise a valid decryption matrix does not exist."
+      "The key matrix (or key material from which it is constructed) is required problem information, not an optional hint.",
+      "For a 2×2 or 3×3 decode, find the matrix inverse modulo 26 and apply it block by block."
     ],
     "solveSteps": [
       "Find the determinant of the key matrix.",
@@ -509,8 +509,8 @@
       "Replace each trigram with the corresponding keyed alphabet letter."
     ],
     "solveIntro": [
-      "With the keyword known, reverse the keyed substitution first.",
-      "The recovered trigrams reconstruct the Morse stream, which can then be divided at separators and translated normally."
+      "With a known keyword, reverse the keyed morslet substitution first.",
+      "In cryptanalysis, the supplied plaintext crib and corresponding ciphertext window reveal some ciphertext-letter↔morslet mappings; extend those constraints through the keyed alphabet."
     ],
     "solveSteps": [
       "Reconstruct the keyed alphabet.",
@@ -551,7 +551,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -592,7 +592,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -633,7 +633,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -674,7 +674,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -715,7 +715,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -756,7 +756,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -797,7 +797,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -838,7 +838,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -879,7 +879,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -920,7 +920,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -961,7 +961,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -1002,7 +1002,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -1043,7 +1043,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -1084,7 +1084,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -1125,7 +1125,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -1166,14 +1166,14 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
-      "Use structural constraints before making free guesses."
+      "For a decode, the Polybius keyword is supplied while the five row and five column header positions must be recovered from the ciphertext structure.",
+      "For cryptanalysis, use the supplied plaintext crib and its stated cipher-unit location to constrain both the keyed square and header order."
     ],
     "solveSteps": [
-      "Write down the given information and identify what is unknown.",
-      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
-      "Test a candidate mapping or key against more than one part of the ciphertext.",
-      "Continue until the entire plaintext is consistent."
+      "Build the keyed 5×5 Polybius square if the Polybius keyword is supplied.",
+      "Separate the symbols that occur first in pairs from those that occur second; they belong to row and column headers respectively.",
+      "Use repeated pairs, language frequency, or the supplied crib to place header symbols and square letters.",
+      "Check every proposed placement against multiple ciphertext pairs before extending the plaintext."
     ],
     "mistakes": [
       "Ignoring the exact key type or question format.",
@@ -1207,7 +1207,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [
@@ -1233,39 +1233,42 @@
     "category": "Substitution",
     "difficulty": "Advanced",
     "scioly": true,
-    "summary": "A monoalphabetic homophonic substitution in which one plaintext letter can be represented by several numeric symbols.",
+    "summary": "A four-band homophonic substitution: every plaintext position has one value in each of 1–25, 26–50, 51–75, and 76–100, controlled by a four-unique-letter keyword.",
     "history": [
       "This format is included as a Science Olympiad Codebusters practice mode on The Daily Cipher.",
       "The practice generator varies keys, plaintext, and cribs so repeated attempts train the method rather than one memorized example."
     ],
     "mechanics": [
-      "A plaintext letter can have more than one ciphertext number, but a ciphertext number belongs to only one plaintext letter.",
-      "Combine language patterns, repeated words, and aggregated symbol frequencies rather than treating each number as an independent letter."
+      "Use the 25-position alphabet A–Z with I/J sharing one position. A four-letter keyword with four unique letters anchors four parallel number alphabets.",
+      "The first keyword letter maps to 1, the second to 26, the third to 51, and the fourth to 76; continue through the alphabet with wraparound in each 25-number band.",
+      "Each plaintext letter therefore has four possible ciphertext numbers, but each number decodes to only one plaintext position."
     ],
     "encryptSteps": [
-      "Choose or generate the required key material.",
-      "Apply the cipher rules consistently to the plaintext.",
-      "Format the ciphertext in the competition-style form shown in Practice."
+      "Choose a four-letter keyword with four unique letters.",
+      "Build the four 25-number bands by anchoring the keyword letters at 1, 26, 51, and 76.",
+      "For each plaintext letter, choose one of its four valid number values.",
+      "Group cipher units as required; competition-style grouping is not a plaintext word boundary."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
-      "Use structural constraints before making free guesses."
+      "For a decode, partial information about the four-letter keyword is supplied; for cryptanalysis, a plaintext crib at a stated location is supplied.",
+      "Reduce numbers to their position inside the four 25-number bands and use the keyword/crib constraints to recover the parallel rotations."
     ],
     "solveSteps": [
-      "Write down the given information and identify what is unknown.",
-      "Use repeated patterns, arithmetic constraints, or the supplied crib to narrow possibilities.",
-      "Test a candidate mapping or key against more than one part of the ciphertext.",
-      "Continue until the entire plaintext is consistent."
+      "Sort each number into the 1–25, 26–50, 51–75, or 76–100 band.",
+      "Place the supplied keyword letters or plaintext crib constraints.",
+      "Propagate those constraints through the 25-position alphabet, remembering that I/J share a position.",
+      "Recombine proven homophones when using frequency evidence and verify guesses across the whole message."
     ],
     "mistakes": [
-      "Ignoring the exact key type or question format.",
-      "Using a mapping that only explains one small part of the message.",
-      "Forgetting competition-specific formatting such as removed spaces or grouped ciphertext."
+      "Treating each number as an independent substitution letter instead of one of four parallel alphabets.",
+      "Assuming ciphertext grouping marks plaintext words.",
+      "Forgetting that I/J share one alphabet position.",
+      "Allowing one ciphertext number to decode to more than one plaintext position."
     ],
     "example": {
-      "plaintext": "PRACTICE MESSAGE",
-      "key": "Varies by challenge",
-      "ciphertext": "Open Practice to generate a fresh example"
+      "plaintext": "TEE",
+      "key": "CODE (C=1, O=26, D=51, E=76)",
+      "ciphertext": "66 3 52"
     }
   },
   {
@@ -1289,7 +1292,7 @@
       "Format the ciphertext in the competition-style form shown in Practice."
     ],
     "solveIntro": [
-      "Start with the information explicitly given in the question, such as key type, Polybius key, column count, or crib.",
+      "Start by separating required givens from unknowns. Required key material or a supplied crib appears in Starting Information; optional hints are separate.",
       "Use structural constraints before making free guesses."
     ],
     "solveSteps": [

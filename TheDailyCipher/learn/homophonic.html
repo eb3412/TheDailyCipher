@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Homophonic Cipher Guide &amp; Cryptanalysis Practice | The Daily Cipher</title>
-<meta content="Learn homophonic substitution from scratch: multiple symbols per plaintext letter, frequency flattening, mapping strategy, cryptanalysis, worked examples, visualizer, and practice." name="description"/>
+<meta content="Learn the Codebusters-style Homophonic cipher from scratch: four 25-number bands, four-letter keyword construction, crib cryptanalysis, worked examples, visualizer, and practice." name="description"/>
 <link href="https://thedailycipher.org/learn/homophonic.html" rel="canonical"/>
 <link href="/assets/favicon.png" rel="icon" type="image/png"/>
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
@@ -19,7 +19,7 @@
   </script>
 <script defer="" src="/_vercel/insights/script.js">
 </script>
-<meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="The Daily Cipher" property="og:site_name"/><meta content="Homophonic Cipher Guide &amp; Cryptanalysis Practice | The Daily Cipher" property="og:title"/><meta content="Learn homophonic substitution from scratch: multiple symbols per plaintext letter, frequency flattening, mapping strategy, cryptanalysis, worked examples, visualizer, and practice." property="og:description"/><meta content="https://thedailycipher.org/learn/homophonic.html" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Homophonic Cipher Guide &amp; Cryptanalysis Practice | The Daily Cipher" name="twitter:title"/><meta content="Learn homophonic substitution from scratch: multiple symbols per plaintext letter, frequency flattening, mapping strategy, cryptanalysis, worked examples, visualizer, and practice." name="twitter:description"/><link href="/css/seo.css" rel="stylesheet"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thedailycipher.org/"},{"@type":"ListItem","position":2,"name":"Learn Cryptography","item":"https://thedailycipher.org/learn/"},{"@type":"ListItem","position":3,"name":"Homophonic Cipher","item":"https://thedailycipher.org/learn/homophonic.html"}]}</script></head>
+<meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="The Daily Cipher" property="og:site_name"/><meta content="Homophonic Cipher Guide &amp; Cryptanalysis Practice | The Daily Cipher" property="og:title"/><meta content="Learn the Codebusters-style Homophonic cipher from scratch: four 25-number bands, four-letter keyword construction, crib cryptanalysis, worked examples, visualizer, and practice." property="og:description"/><meta content="https://thedailycipher.org/learn/homophonic.html" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Homophonic Cipher Guide &amp; Cryptanalysis Practice | The Daily Cipher" name="twitter:title"/><meta content="Learn the Codebusters-style Homophonic cipher from scratch: four 25-number bands, four-letter keyword construction, crib cryptanalysis, worked examples, visualizer, and practice." name="twitter:description"/><link href="/css/seo.css" rel="stylesheet"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thedailycipher.org/"},{"@type":"ListItem","position":2,"name":"Learn Cryptography","item":"https://thedailycipher.org/learn/"},{"@type":"ListItem","position":3,"name":"Homophonic Cipher","item":"https://thedailycipher.org/learn/homophonic.html"}]}</script></head>
 <body>
 <header class="site-header">
 <a class="logo" href="../index.html">
@@ -132,10 +132,10 @@
        What is the Homophonic Cipher?
       </h2>
 <p>
-       A homophonic cipher gives common plaintext letters multiple possible ciphertext symbols. For example E might encrypt as any of several numbers, while a rare letter might have only one.
+       The Science Olympiad-style Homophonic cipher uses a four-letter keyword with four unique letters. Every plaintext letter has four possible number values—one in each of the ranges 1–25, 26–50, 51–75, and 76–100—with I/J sharing one alphabet position.
       </p>
 <p>
-       The important one-way rule is that each ciphertext number decodes to only one plaintext letter. This spreads plaintext frequency across several symbols and makes simple frequency analysis less obvious.
+       The important one-way rule is unchanged: each ciphertext number decodes to only one plaintext letter. Because repeated plaintext letters can choose different values from their four-number set, ordinary single-symbol frequency analysis becomes less obvious.
       </p>
 <div class="deep-rule-note">
 <strong>
@@ -163,7 +163,7 @@
       </h2>
 <ul class="deep-list">
 <li>
-        One plaintext letter may own multiple ciphertext tokens.
+        Each plaintext letter owns four ciphertext values, one in each 25-number band; I/J share a position.
        </li>
 <li>
         One ciphertext token must not decode to multiple plaintext letters in the same mapping.
@@ -201,7 +201,7 @@
            Token
           </td>
 <td>
-           A ciphertext symbol/number such as 04 or 71.
+           A ciphertext number such as 17, 42, 66, or 90.
           </td>
 </tr>
 <tr>
@@ -225,93 +225,46 @@
 </div>
 </section>
 <section class="deep-card reference-card" id="reference">
-<div class="section-kicker">
-       03 • COMPLETE REFERENCE
-      </div>
-<h2>
-       Keep this beside you while solving
-      </h2>
-<div class="deep-table-wrap">
-<table class="deep-table strategy-table">
-<thead>
-<tr>
-<th>
-           Plaintext
-          </th>
-<th>
-           Possible ciphertext tokens (illustrative)
-          </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-           E
-          </td>
-<td>
-           04, 10, 20, 28, 41, …
-          </td>
-</tr>
-<tr>
-<td>
-           T
-          </td>
-<td>
-           11, 14, 17, 44, …
-          </td>
-</tr>
-<tr>
-<td>
-           Q
-          </td>
-<td>
-           24
-          </td>
-</tr>
-<tr>
-<td>
-           Z
-          </td>
-<td>
-           one/few tokens
-          </td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="deep-note">
-       The exact token mapping changes by puzzle. The visualizer below always displays the complete generated mapping so you can learn how the system behaves.
-      </div>
-<h3>
-       The mapping is many-to-one only in the ciphertext→plaintext view
-      </h3>
-<div class="deep-code">
-       plaintext E → {04, 10, 20, 28}
-plaintext T → {11, 17, 44}
-
-04 → E
-10 → E
-20 → E
-28 → E
-11 → T
-17 → T
-44 → T
-      </div>
-<p>
-       Several tokens may decode to E, but a token such as 20 must not also decode to another plaintext letter in the same mapping.
-      </p>
-<div class="deep-note">
-<strong>
-        Cryptanalysis:
-       </strong>
-       equal plaintext letters can appear as different tokens, so ordinary repeated-letter word patterns are weakened. Use cribs, context, token distribution, and combine suspected homophones when doing frequency reasoning.
-      </div>
-<div class="reference-completeness">
-<strong>
-        Reference rule:
-       </strong>
-       if a fixed table, formula, alphabet, or convention is needed to solve this cipher, it should be visible in this section or generated explicitly by the visualizer below.
-      </div>
+<div class="section-kicker">03 • COMPLETE REFERENCE</div>
+<h2>Build all four number alphabets from the keyword</h2>
+<p>The working alphabet has 25 positions because <strong>I/J share one position</strong>:</p>
+<div class="deep-code">A B C D E F G H I/J K L M N O P Q R S T U V W X Y Z</div>
+<p>Choose a four-letter keyword with four unique letters. Its first letter receives <strong>1</strong>, its second receives <strong>26</strong>, its third receives <strong>51</strong>, and its fourth receives <strong>76</strong>. Continue forward through the 25-letter alphabet inside each number band, wrapping around after Z.</p>
+<div class="deep-rule-note"><strong>Example keyword: CODE</strong><p>C=1, O=26, D=51, and E=76. That determines the entire table below. A solver who recovers the keyword can reconstruct all 100 number assignments.</p></div>
+<div class="deep-table-wrap"><table class="deep-table strategy-table"><thead><tr><th>Plain</th><th>1–25 band</th><th>26–50 band</th><th>51–75 band</th><th>76–100 band</th></tr></thead><tbody>
+<tr><td>A</td><td>24</td><td>38</td><td>73</td><td>97</td></tr>
+<tr><td>B</td><td>25</td><td>39</td><td>74</td><td>98</td></tr>
+<tr><td>C</td><td>1</td><td>40</td><td>75</td><td>99</td></tr>
+<tr><td>D</td><td>2</td><td>41</td><td>51</td><td>100</td></tr>
+<tr><td>E</td><td>3</td><td>42</td><td>52</td><td>76</td></tr>
+<tr><td>F</td><td>4</td><td>43</td><td>53</td><td>77</td></tr>
+<tr><td>G</td><td>5</td><td>44</td><td>54</td><td>78</td></tr>
+<tr><td>H</td><td>6</td><td>45</td><td>55</td><td>79</td></tr>
+<tr><td>I/J</td><td>7</td><td>46</td><td>56</td><td>80</td></tr>
+<tr><td>K</td><td>8</td><td>47</td><td>57</td><td>81</td></tr>
+<tr><td>L</td><td>9</td><td>48</td><td>58</td><td>82</td></tr>
+<tr><td>M</td><td>10</td><td>49</td><td>59</td><td>83</td></tr>
+<tr><td>N</td><td>11</td><td>50</td><td>60</td><td>84</td></tr>
+<tr><td>O</td><td>12</td><td>26</td><td>61</td><td>85</td></tr>
+<tr><td>P</td><td>13</td><td>27</td><td>62</td><td>86</td></tr>
+<tr><td>Q</td><td>14</td><td>28</td><td>63</td><td>87</td></tr>
+<tr><td>R</td><td>15</td><td>29</td><td>64</td><td>88</td></tr>
+<tr><td>S</td><td>16</td><td>30</td><td>65</td><td>89</td></tr>
+<tr><td>T</td><td>17</td><td>31</td><td>66</td><td>90</td></tr>
+<tr><td>U</td><td>18</td><td>32</td><td>67</td><td>91</td></tr>
+<tr><td>V</td><td>19</td><td>33</td><td>68</td><td>92</td></tr>
+<tr><td>W</td><td>20</td><td>34</td><td>69</td><td>93</td></tr>
+<tr><td>X</td><td>21</td><td>35</td><td>70</td><td>94</td></tr>
+<tr><td>Y</td><td>22</td><td>36</td><td>71</td><td>95</td></tr>
+<tr><td>Z</td><td>23</td><td>37</td><td>72</td><td>96</td></tr>
+</tbody></table></div>
+<h3>How to read the table</h3>
+<div class="deep-code">E → 3, 42, 52, or 76
+T → 17, 31, 66, or 90
+I/J → 7, 46, 56, or 80</div>
+<p>When encrypting E, any of its four values may be chosen. When decrypting, each of those four values points back to E. A number can never represent two different plaintext positions.</p>
+<div class="deep-note"><strong>Competition implication:</strong> a normal decode may give only some letters from the four-letter keyword, sometimes with positions and sometimes without them. A cryptanalysis question instead supplies a plaintext crib at a stated location. Those givens belong in the problem statement—not in optional hints.</div>
+<div class="reference-completeness"><strong>Reference rule:</strong> the four bands are always 25 values long. Subtract 25, 50, or 75 to compare a number with its position inside a band, then reason about the keyword rotations.</div>
 </section>
 <section class="deep-card" id="encrypt">
 <div class="section-kicker">
@@ -476,7 +429,7 @@ plaintext T → {11, 17, 44}
            You may be given
           </td>
 <td>
-           Numeric/symbol ciphertext and possibly a crib or partial mapping.
+           Number ciphertext plus either partial information about the four-letter keyword (decode) or a plaintext crib at a stated location (cryptanalysis).
           </td>
 </tr>
 <tr>
@@ -484,7 +437,7 @@ plaintext T → {11, 17, 44}
            You must find
           </td>
 <td>
-           The plaintext and/or complete mapping.
+           The plaintext; while solving, reconstruct enough of the four-band keyword mapping to support it.
           </td>
 </tr>
 <tr>
@@ -492,7 +445,7 @@ plaintext T → {11, 17, 44}
            Fastest first move
           </td>
 <td>
-           Build a reverse token→letter table for every proven mapping and never assign one token twice.
+           Separate values into the four 25-number bands, place the supplied keyword/crib information, and propagate consistent rotations across the bands.
           </td>
 </tr>
 </tbody>
@@ -506,90 +459,31 @@ plaintext T → {11, 17, 44}
       </div>
 </section>
 <section class="deep-card" id="cryptanalysis">
-<div class="section-kicker">
-       07 • CRYPTANALYSIS
-      </div>
-<h2>
-       How to attack an unknown or partially known key
-      </h2>
+<div class="section-kicker">07 • CRYPTANALYSIS</div>
+<h2>Recover the hidden keyword structure</h2>
 <ul class="deep-list">
-<li>
-        Individual token frequency is deliberately flattened compared with ordinary substitution.
-       </li>
-<li>
-        Context, crib placement, token distributions, and the restriction that each token has one plaintext meaning become important.
-       </li>
-<li>
-        Once two tokens are proven to represent the same plaintext letter, combine their counts when reasoning about language frequency.
-       </li>
+<li>First split every cipher number into its band: 1–25, 26–50, 51–75, or 76–100. Each band is the same 25-letter alphabet rotated to a different keyword anchor.</li>
+<li>For a decode, use the supplied keyword letters as constraints on a four-letter word. If positions are supplied, place them immediately; if not, test plausible positions.</li>
+<li>For cryptanalysis, line the supplied plaintext crib up with the stated cipher-unit location. Each known plaintext↔number pair fixes a position in one band and therefore constrains one keyword letter.</li>
+<li>Repeated plaintext letters can use different numbers, so do not expect ordinary Aristocrat repeated-symbol patterns. Combine proven homophones before interpreting frequency.</li>
 </ul>
+<div class="deep-note"><strong>Useful arithmetic:</strong> values 1–25 stay in band 1; subtract 25 from 26–50, 50 from 51–75, or 75 from 76–100 to compare positions inside the four parallel alphabets.</div>
 </section>
 <section class="deep-card" id="worked">
-<div class="section-kicker">
-       08 • WORKED PROBLEM
-      </div>
-<h2>
-       Follow one example from start to finish
-      </h2>
+<div class="section-kicker">08 • WORKED PROBLEM</div>
+<h2>Keyword CODE: encrypt and reverse one short example</h2>
 <div class="worked-box">
-<div class="worked-row">
-<span>
-         Mapping fragment
-        </span>
-<div>
-<code>
-          E → {10, 20, 28}; T → {11, 17}
-         </code>
+<div class="worked-row"><span>Keyword anchors</span><div><code>C=1, O=26, D=51, E=76</code></div></div>
+<div class="worked-row"><span>Needed mappings</span><div><code>T → {17,31,66,90}; E → {3,42,52,76}</code></div></div>
+<div class="worked-row"><span>Plaintext</span><div><code>TEE</code></div></div>
+<div class="worked-row"><span>One valid ciphertext</span><div><code>66 3 52</code></div></div>
+<div class="worked-row"><span>Decrypt</span><div>66 is one of T's four values; 3 and 52 are both E values, so the plaintext is TEE even though the repeated E does not repeat as a number.</div></div>
 </div>
-</div>
-<div class="worked-row">
-<span>
-         Plaintext
-        </span>
-<div>
-<code>
-          T E E
-         </code>
-</div>
-</div>
-<div class="worked-row">
-<span>
-         Possible ciphertext
-        </span>
-<div>
-<code>
-          17 20 10
-         </code>
-</div>
-</div>
-<div class="worked-row">
-<span>
-         Decrypt
-        </span>
-<div>
-         17→T, 20→E, 10→E, so different numbers can produce the repeated EE.
-        </div>
-</div>
-</div>
-<div class="beginner-check">
-<div class="beginner-check-title">
-        BEGINNER SELF-CHECK
-       </div>
-<p>
-        Before moving on, make sure you can answer these without another site:
-       </p>
-<ul>
-<li>
-         Can two different numbers both mean E? Yes. Can one number mean both E and T? No.
-        </li>
-<li>
-         Can you explain why repeated plaintext letters might not repeat in ciphertext?
-        </li>
-<li>
-         Can you combine counts of proven E-homophones when estimating E frequency?
-        </li>
-</ul>
-</div>
+<div class="beginner-check"><div class="beginner-check-title">BEGINNER SELF-CHECK</div><p>Before moving on, make sure you can answer these without another site:</p><ul>
+<li>Why are there four number bands of 25 values?</li>
+<li>With keyword CODE, why does E have values 3, 42, 52, and 76?</li>
+<li>Can two different numbers both mean E? Yes. Can one number mean both E and T? No.</li>
+</ul></div>
 </section>
 <section class="deep-card" id="mistakes">
 <div class="section-kicker">
@@ -654,7 +548,7 @@ plaintext T → {11, 17, 44}
          2
         </span>
 <p>
-         Group suspected homophones by plaintext letter rather than by numeric value.
+         Group values by their 25-number band and use the four-letter keyword rotation to connect them.
         </p>
 </div>
 <div class="speed-item">
@@ -662,7 +556,7 @@ plaintext T → {11, 17, 44}
          3
         </span>
 <p>
-         Use cribs/context to establish high-confidence mappings before doing frequency estimates.
+         Use the supplied keyword letters or crib before relying on frequency; the four-band structure is stronger evidence.
         </p>
 </div>
 </div>
@@ -680,7 +574,7 @@ plaintext T → {11, 17, 44}
          Plain letter
         </span>
 <strong>
-         May have multiple tokens
+         Four number values (I/J share)
         </strong>
 </div>
 <div class="quick-item">

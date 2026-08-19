@@ -498,6 +498,35 @@ function prepareCipherForDifficulty(
     };
 
 
+    /*
+    Required givens belong in Starting Information, not behind
+    a score-reducing hint. Rebuild context for legacy JSON too.
+    */
+    if (window.ProblemInfoEngine) {
+
+        const cipherID = getCipherID(prepared);
+
+        prepared.problem_mode =
+            prepared.problem_mode
+            ||
+            ProblemInfoEngine.getProblemMode(cipherID);
+
+        prepared.startingInfo =
+            prepared.startingInfo
+            ||
+            ProblemInfoEngine.createStartingInfo({
+                ...prepared,
+                type: cipherID
+            });
+
+        prepared.hints =
+            ProblemInfoEngine.createHints({
+                ...prepared,
+                type: cipherID
+            });
+    }
+
+
     activeHints =
         DifficultyEngine
             .prepareHints(
@@ -729,11 +758,9 @@ function renderDifficultyInformation() {
 
 
     /*
-    Easy + Medium:
-    show cipher identity.
-
-    Hard:
-    hide it.
+    Codebusters-style questions identify the cipher type.
+    Difficulty comes from the cipher and the amount of supplied
+    information, not from hiding the question category.
     */
 
     if (
@@ -777,6 +804,30 @@ function renderDifficultyInformation() {
     } else {
 
         hideCipherFamily();
+    }
+
+
+    const startingInfoContainer =
+        document.getElementById(
+            "daily-starting-info"
+        );
+
+
+    if (startingInfoContainer && window.ProblemInfoEngine) {
+
+        const startingInfo =
+            activeCipher.startingInfo
+            ||
+            ProblemInfoEngine.createStartingInfo({
+                ...activeCipher,
+                type: getCipherID(activeCipher)
+            });
+
+
+        ProblemInfoEngine.render(
+            startingInfoContainer,
+            startingInfo
+        );
     }
 }
 

@@ -90,7 +90,7 @@
     "name": "Hill Cipher",
     "category": "Mathematical",
     "difficulty": "Advanced",
-    "description": "Turn blocks of letters into vectors, multiply by an invertible matrix, and reduce modulo 26.",
+    "description": "Turn 2×2 or 3×3 letter blocks into vectors, use the supplied key matrix, and multiply by its modular inverse to decrypt.",
     "keywords": [
       "matrix",
       "mod 26",
@@ -253,7 +253,7 @@
     "name": "Complete Columnar Cipher",
     "category": "Transposition",
     "difficulty": "Advanced",
-    "description": "Reconstruct a complete rectangle, understand the column-number key, and use a crib to attack unknown ordering.",
+    "description": "Reconstruct a complete rectangle and use a supplied crib to determine the hidden column count and ordering in cryptanalysis.",
     "keywords": [
       "Codebusters",
       "columns",
@@ -271,7 +271,7 @@
     "name": "Checkerboard Cipher",
     "category": "Polybius / Coordinates",
     "difficulty": "Intermediate",
-    "description": "Use a complete 5×5 keyed board and row/column headers so every ciphertext pair can be decoded directly.",
+    "description": "Build a keyed 5×5 Polybius square, recover row/column header order, and use competition-style cribs for cryptanalysis.",
     "keywords": [
       "Codebusters",
       "5x5",
@@ -288,12 +288,13 @@
     "name": "Homophonic Cipher",
     "category": "Substitution",
     "difficulty": "Advanced",
-    "description": "Understand how one plaintext letter can map to several number symbols while every number still identifies only one plaintext letter.",
+    "description": "Use a four-unique-letter keyword to build four 25-number alphabets, then see why one plaintext letter can appear as four different cipher values while every number keeps one meaning.",
     "keywords": [
-      "Codebusters",
-      "homophones",
-      "frequency",
-      "numbers"
+      "homophonic cipher",
+      "four number bands",
+      "Codebusters homophonic",
+      "cryptanalysis",
+      "keyword cipher"
     ],
     "scienceOlympiad": true,
     "guideReady": true,

@@ -1,7 +1,7 @@
 /*
 =========================================================
 THE DAILY CIPHER
-Puzzle Generator v3.0 — Codebusters Expansion
+Puzzle Generator v4.2 — Competition Context
 =========================================================
 */
 
@@ -12,6 +12,9 @@ const PuzzleGenerator = (() => {
 
 
     const usedPhraseIDs =
+        new Set();
+
+    const usedSpanishPhrases =
         new Set();
 
 
@@ -50,22 +53,78 @@ const PuzzleGenerator = (() => {
 
         Medium: [
             "LAS PISTAS PEQUEÑAS PUEDEN REVELAR UN PATRON IMPORTANTE",
-            "UN BUEN SOLUCIONADOR COMPARA TODAS LAS LETRAS ANTES DE ADIVINAR",
+            "UN BUEN DESCIFRADOR COMPARA TODAS LAS LETRAS ANTES DE ADIVINAR",
             "EL MENSAJE PARECE EXTRAÑO PERO TODAVIA SIGUE UNA REGLA",
             "LAS LETRAS REPETIDAS PUEDEN AYUDAR A ENCONTRAR LA RESPUESTA",
             "LA MEJOR ESTRATEGIA EMPIEZA CON UNA OBSERVACION CUIDADOSA",
             "UNA SOLA PISTA PUEDE CAMBIAR LA FORMA DE VER TODO EL MENSAJE",
             "EL VIEJO MAPA TENIA UNA MARCA JUNTO AL PUENTE",
-            "LA CARTA LLEGO SIN NOMBRE Y CON UNA FECHA EXTRAÑA"
+            "LA CARTA LLEGO SIN NOMBRE Y CON UNA FECHA EXTRAÑA",
+            "EL EQUIPO REVISA CADA LETRA ANTES DE PROPONER UNA CLAVE",
+            "UNA PALABRA REPETIDA PUEDE MOSTRAR DONDE EMPIEZA EL PATRON",
+            "CUANDO UNA IDEA FALLA CONVIENE PROBAR UNA REGLA DIFERENTE",
+            "LOS ESPACIOS ENTRE PALABRAS OFRECEN INFORMACION MUY UTIL",
+            "UNA FRECUENCIA ALTA PUEDE SUGERIR UNA LETRA COMUN DEL IDIOMA",
+            "EL PRIMER PASO ES SEPARAR LOS HECHOS DE LAS SUPOSICIONES",
+            "CADA NUEVA LETRA CONFIRMADA DEBE FUNCIONAR EN TODO EL TEXTO",
+            "LA FRASE OCULTA SE VUELVE MAS CLARA DESPUES DE VARIAS PRUEBAS",
+            "EL PATRON DE UNA PALABRA PUEDE SER MAS UTIL QUE SU LONGITUD",
+            "UNA BUENA PISTA REDUCE LAS OPCIONES SIN REGALAR LA RESPUESTA",
+            "EL MENSAJE SE ENTIENDE MEJOR CUANDO COMPARAS VARIOS PATRONES",
+            "LAS PALABRAS CORTAS SON UN BUEN LUGAR PARA EMPEZAR EL ANALISIS",
+            "EL CUADERNO TENIA UNA NOTA ESCONDIDA ENTRE DOS PAGINAS",
+            "LA PUERTA ANTIGUA TENIA CINCO SIMBOLOS GRABADOS EN LA MADERA",
+            "EL RELOJ SE DETUVO JUSTO CUANDO LLEGO EL MENSAJE SECRETO",
+            "UNA LUZ EN LA VENTANA MARCABA EL INICIO DE LA SEÑAL",
+            "EL EQUIPO ENCONTRO OTRA PISTA DEBAJO DE LA MESA",
+            "LA RESPUESTA APARECIO CUANDO ORDENARON LAS LETRAS CON CUIDADO",
+            "EL ARCHIVO CONTENIA VARIAS CLAVES PERO SOLO UNA ERA CORRECTA",
+            "LA SECUENCIA CAMBIA DE FORMA REGULAR DESPUES DE CADA LETRA",
+            "COMPARAR DOS HIPOTESIS PUEDE REVELAR CUAL EXPLICA MAS DATOS",
+            "EL MENSAJE OCULTO CONSERVA PATRONES AUNQUE CAMBIEN LAS LETRAS",
+            "UNA TABLA BIEN ORGANIZADA PUEDE EVITAR MUCHOS ERRORES",
+            "LA CLAVE CORRECTA PRODUCE PALABRAS NATURALES EN TODO EL TEXTO",
+            "EL GRUPO DIVIDIO EL PROBLEMA EN PASOS MAS PEQUEÑOS",
+            "UNA SEGUNDA REVISION DESCUBRIO EL ERROR EN LA PRIMERA FILA",
+            "EL PATRON REPETIDO APARECIA TRES VECES EN EL MISMO MENSAJE",
+            "LA NOTA DECIA QUE LA RESPUESTA ESTABA CERCA DEL FINAL",
+            "EL EQUIPO PROBO LA CLAVE EN VARIAS PARTES ANTES DE ACEPTARLA",
+            "UNA LETRA AISLADA PUEDE CAMBIAR TODA LA INTERPRETACION",
+            "EL METODO MAS RAPIDO EMPIEZA CON LAS PISTAS MAS SEGURAS",
+            "LAS RELACIONES ENTRE LETRAS SON TAN IMPORTANTES COMO LAS FRECUENCIAS"
         ],
 
         Hard: [
-            "CUANDO UN MENSAJE PARECE COMPLETAMENTE ALEATORIO CONVIENE BUSCAR LA REGLA QUE PODRIA HABERLO PRODUCIDO",
-            "UNA EXPLICACION FUERTE DEBE FUNCIONAR CON TODO EL MENSAJE Y NO SOLAMENTE CON UNA PARTE PEQUEÑA",
-            "SI EL PRIMER METODO FALLA TODAVIA PUEDE ENSEÑARTE QUE POSIBILIDADES DEBES ELIMINAR",
-            "LA ESTRUCTURA DEL IDIOMA DEJA PISTAS AUN CUANDO LAS LETRAS HAN SIDO CAMBIADAS POR COMPLETO",
+            "CUANDO UN MENSAJE PARECE ALEATORIO CONVIENE BUSCAR LA REGLA QUE PODRIA HABERLO PRODUCIDO",
+            "UNA EXPLICACION FUERTE DEBE FUNCIONAR CON TODO EL MENSAJE Y NO SOLO CON UNA PARTE PEQUEÑA",
+            "SI EL PRIMER METODO FALLA TODAVIA PUEDE MOSTRAR QUE POSIBILIDADES DEBES ELIMINAR",
+            "LA ESTRUCTURA DEL IDIOMA DEJA PISTAS AUN CUANDO LAS LETRAS HAN CAMBIADO POR COMPLETO",
             "CUANDO DOS IDEAS PARECEN POSIBLES PRUEBA CUAL EXPLICA MEJOR TODOS LOS DETALLES DEL TEXTO",
-            "EL CUADERNO ANTIGUO CONTENIA VARIAS FECHAS QUE PARECIAN NO TENER RELACION ENTRE SI"
+            "EL CUADERNO ANTIGUO CONTENIA VARIAS FECHAS QUE PARECIAN NO TENER RELACION ENTRE SI",
+            "UNA HIPOTESIS UTIL DEBE PREDECIR LETRAS NUEVAS Y NO LIMITARSE A EXPLICAR LAS QUE YA CONOCES",
+            "LOS PATRONES REPETIDOS PUEDEN REVELAR LA ESTRUCTURA DEL MENSAJE INCLUSO SIN ESPACIOS",
+            "UNA SOLUCION CONVINCENTE DEBE MANTENERSE CUANDO LA PRUEBAS EN LAS PARTES MAS DIFICILES",
+            "EL EQUIPO DESCARTO VARIAS CLAVES PORQUE PRODUCIAN CONTRADICCIONES EN OTRAS PALABRAS",
+            "CUANTO MAS COMPLEJO PARECE EL CIFRADO MAS IMPORTANTE ES REGISTRAR CADA DEDUCCION CON ORDEN",
+            "UNA PISTA BIEN ELEGIDA PUEDE CONECTAR DOS PARTES DEL PROBLEMA QUE PARECIAN INDEPENDIENTES",
+            "EL ANALISIS MEJORA CUANDO DISTINGUES ENTRE UNA COINCIDENCIA POSIBLE Y UN PATRON QUE SE REPITE",
+            "LAS FRECUENCIAS SON UN PUNTO DE PARTIDA PERO LOS PATRONES DE PALABRAS CONFIRMAN LAS HIPOTESIS",
+            "CUANDO CAMBIA UNA SUPOSICION CONVIENE REVISAR TODAS LAS CONCLUSIONES QUE DEPENDIAN DE ELLA",
+            "EL MENSAJE TENIA SUFICIENTES REGULARIDADES PARA DESCARTAR LA IDEA DE QUE FUERA PURO AZAR",
+            "UNA BUENA ESTRATEGIA PRIORIZA LAS DEDUCCIONES QUE PUEDEN CONFIRMARSE EN MAS DE UN LUGAR",
+            "EL DESCIFRADOR ANOTO CADA SUSTITUCION PARA EVITAR REPETIR EL MISMO TRABAJO EN OTRA LINEA",
+            "A VECES UNA PALABRA COMUN RESULTA MAS UTIL QUE UNA LETRA FRECUENTE PORQUE REVELA VARIAS RELACIONES",
+            "EL EQUIPO ENCONTRO LA CLAVE DESPUES DE COMPARAR LOS BLOQUES QUE APARECIAN CON MAYOR FRECUENCIA",
+            "UNA CONTRADICCION TEMPRANA ES VALIOSA PORQUE PERMITE ABANDONAR UNA HIPOTESIS ANTES DE PERDER TIEMPO",
+            "LA PARTE MAS DIFICIL NO ERA HACER LOS CALCULOS SINO DECIDIR QUE INFORMACION USAR PRIMERO",
+            "EL TEXTO OCULTO CONSERVABA SU GRAMATICA Y ESO PERMITIO RECONSTRUIR VARIAS PALABRAS INCOMPLETAS",
+            "CUANDO EL TIEMPO ES LIMITADO CONVIENE RESOLVER PRIMERO LOS PASOS QUE REDUCEN MAS POSIBILIDADES",
+            "UNA TABLA ORDENADA DE RELACIONES PUEDE CONVERTIR UN PROBLEMA CONFUSO EN UNA SERIE DE PASOS CLAROS",
+            "EL EQUIPO REVISO EL RESULTADO COMPLETO PARA ASEGURARSE DE QUE NINGUNA LETRA CONTRADECIA LA CLAVE",
+            "LAS MEJORES DEDUCCIONES SON LAS QUE EXPLICAN VARIOS DETALLES DEL CIFRADO AL MISMO TIEMPO",
+            "UN PATRON PEQUEÑO PUEDE PARECER CASUAL HASTA QUE APARECE DE NUEVO EN OTRA PARTE DEL MENSAJE",
+            "EL ANALISIS CUIDADOSO DE LOS ERRORES PUEDE SER TAN UTIL COMO ENCONTRAR UNA LETRA CORRECTA",
+            "UNA VEZ QUE VARIAS PIEZAS COINCIDEN EL RESTO DEL MENSAJE SUELE REVELARSE MUCHO MAS RAPIDO"
         ]
 
     };
@@ -466,6 +525,49 @@ const PuzzleGenerator = (() => {
     =====================================================
     */
 
+    function getCipherLengthProfile(
+        difficulty,
+        cipherType
+    ) {
+
+        const normalized = normalizeDifficulty(difficulty);
+        const type = String(cipherType || "").toLowerCase();
+
+        if (normalized === "Easy") {
+            return { min: 9, max: 34, sourceDifficulties: ["Easy"] };
+        }
+
+        if (normalized === "Medium") {
+            return { min: 28, max: 68, sourceDifficulties: ["Medium"] };
+        }
+
+        /*
+        In advanced Codebusters ciphers, the cryptanalytic operation
+        itself supplies most of the difficulty. Extremely long quotes
+        make Hill/Nihilist/Porta/Fractionated-Morse style questions
+        tedious rather than better. Prefer compact contest-sized text.
+        */
+        const compactHard = new Set([
+            "affine",
+            "railfence",
+            "hill",
+            "xenocrypt-cryptanalysis",
+            "fractionatedmorse-cryptanalysis",
+            "porta-cryptanalysis",
+            "nihilist-cryptanalysis",
+            "columnar-cryptanalysis",
+            "checkerboard-cryptanalysis",
+            "homophonic-cryptanalysis"
+        ]);
+
+        if (compactHard.has(type)) {
+            return { min: 35, max: 72, sourceDifficulties: ["Medium", "Hard"] };
+        }
+
+        return { min: 55, max: 155, sourceDifficulties: ["Hard"] };
+    }
+
+
     function getEligiblePhrases(
         difficulty,
         cipherType
@@ -531,12 +633,19 @@ const PuzzleGenerator = (() => {
         return phraseBank.filter(
             phrase => {
 
-                if (
-                    phrase.difficulty
-                    !==
-                    normalized
-                ) {
+                const profile =
+                    getCipherLengthProfile(
+                        normalized,
+                        type
+                    );
 
+
+                if (
+                    !profile.sourceDifficulties
+                        .includes(
+                            phrase.difficulty
+                        )
+                ) {
                     return false;
                 }
 
@@ -563,17 +672,9 @@ const PuzzleGenerator = (() => {
 
 
                 return (
-                    length
-                    >=
-                    config
-                        .messageLength
-                        .min
+                    length >= profile.min
                     &&
-                    length
-                    <=
-                    config
-                        .messageLength
-                        .max
+                    length <= profile.max
                 );
 
             }
@@ -605,13 +706,25 @@ const PuzzleGenerator = (() => {
         )
     ) {
 
-        return randomItem(
-            SPANISH_PHRASES[
-                normalized
-            ]
+        const pool =
+            SPANISH_PHRASES[normalized]
             ||
-            SPANISH_PHRASES.Medium
+            SPANISH_PHRASES.Medium;
+
+        let choices = pool.filter(
+            phrase => !usedSpanishPhrases.has(`${normalized}:${phrase}`)
         );
+
+        if (choices.length === 0) {
+            for (const key of [...usedSpanishPhrases]) {
+                if (key.startsWith(`${normalized}:`)) usedSpanishPhrases.delete(key);
+            }
+            choices = pool;
+        }
+
+        const selected = randomItem(choices);
+        usedSpanishPhrases.add(`${normalized}:${selected}`);
+        return selected;
     }
 
 
@@ -646,11 +759,11 @@ const PuzzleGenerator = (() => {
         phraseBank.length > 0
     ) {
 
-        const config =
-            DifficultyEngine
-                .getConfig(
-                    normalized
-                );
+        const profile =
+            getCipherLengthProfile(
+                normalized,
+                type
+            );
 
 
         eligible =
@@ -658,11 +771,11 @@ const PuzzleGenerator = (() => {
                 phrase => {
 
                     if (
-                        phrase.difficulty
-                        !==
-                        normalized
+                        !profile.sourceDifficulties
+                            .includes(
+                                phrase.difficulty
+                            )
                     ) {
-
                         return false;
                     }
 
@@ -674,17 +787,9 @@ const PuzzleGenerator = (() => {
 
 
                     return (
-                        length
-                        >=
-                        config
-                            .messageLength
-                            .min
+                        length >= profile.min
                         &&
-                        length
-                        <=
-                        config
-                            .messageLength
-                            .max
+                        length <= profile.max
                     );
 
                 }
@@ -981,7 +1086,7 @@ const PuzzleGenerator = (() => {
             });
 
 
-        return {
+        const basePuzzle = {
 
             id:
                 options.id
@@ -1016,18 +1121,13 @@ const PuzzleGenerator = (() => {
             parameters:
                 generated.parameters,
 
-            hints:
-                generated.hints,
-
-            challengeInfo:
-                generated.challengeInfo
-                ||
-                [],
-
             metadata: {
 
                 generatorVersion:
-                    "3.0",
+                    "4.2",
+
+                contextProfile:
+                    "scioly-public-guidance-2026-expanded",
 
                 generatedAt:
                     new Date()
@@ -1035,6 +1135,55 @@ const PuzzleGenerator = (() => {
 
             }
 
+        };
+
+
+        const startingInfo =
+            window.ProblemInfoEngine
+                ?
+                ProblemInfoEngine
+                    .createStartingInfo({
+                        ...basePuzzle,
+                        type
+                    })
+                :
+                {
+                    title: "STARTING INFORMATION",
+                    rows: generated.challengeInfo || []
+                };
+
+
+        const hints =
+            window.ProblemInfoEngine
+                ?
+                ProblemInfoEngine
+                    .createHints({
+                        ...basePuzzle,
+                        type
+                    })
+                :
+                generated.hints;
+
+
+        return {
+            ...basePuzzle,
+            problem_mode:
+                window.ProblemInfoEngine
+                    ? ProblemInfoEngine.getProblemMode(type)
+                    : "decode",
+            startingInfo,
+            hints,
+
+            /*
+            Legacy alias retained for older UI/admin code.
+            New Daily/Practice render startingInfo directly.
+            */
+            challengeInfo:
+                startingInfo?.rows
+                ||
+                generated.challengeInfo
+                ||
+                []
         };
     }
 
@@ -1232,24 +1381,122 @@ const PuzzleGenerator = (() => {
 
             try {
 
-                const expected =
-                    CipherEngine
-                        .encrypt(
-                            puzzle.cipher_id,
-                            puzzle.solution,
-                            puzzle.parameters
-                        );
+                const randomizedHomophonic =
+                    [
+                        "homophonic",
+                        "homophonic-cryptanalysis"
+                    ]
+                    .includes(
+                        puzzle.cipher_id
+                    );
 
 
                 if (
-                    expected
-                    !==
-                    puzzle.ciphertext
+                    randomizedHomophonic
                 ) {
 
-                    errors.push(
-                        "Ciphertext does not match solution and parameters."
-                    );
+                    const mapping =
+                        puzzle.parameters.mapping
+                        ||
+                        {};
+
+                    const plaintextLetters =
+                        String(
+                            puzzle.solution
+                            ||
+                            ""
+                        )
+                        .toUpperCase()
+                        .replace(
+                            /J/g,
+                            "I"
+                        )
+                        .replace(
+                            /[^A-Z]/g,
+                            ""
+                        );
+
+                    const cipherTokens =
+                        String(
+                            puzzle.ciphertext
+                            ||
+                            ""
+                        )
+                        .match(
+                            /\d+/g
+                        )
+                        ||
+                        [];
+
+                    if (
+                        cipherTokens.length
+                        !==
+                        plaintextLetters.length
+                    ) {
+
+                        errors.push(
+                            "Homophonic ciphertext token count does not match plaintext length."
+                        );
+
+                    } else {
+
+                        for (
+                            let index = 0;
+                            index < plaintextLetters.length;
+                            index++
+                        ) {
+
+                            const letter =
+                                plaintextLetters[index];
+
+                            const allowed =
+                                Array.isArray(
+                                    mapping[letter]
+                                )
+                                    ?
+                                    mapping[letter]
+                                        .map(
+                                            String
+                                        )
+                                    :
+                                    [];
+
+                            if (
+                                !allowed.includes(
+                                    cipherTokens[index]
+                                )
+                            ) {
+
+                                errors.push(
+                                    `Homophonic token ${cipherTokens[index]} is invalid for plaintext letter ${letter} at position ${index + 1}.`
+                                );
+
+                                break;
+                            }
+                        }
+                    }
+
+                } else {
+
+                    const expected =
+                        CipherEngine
+                            .encrypt(
+                                puzzle.cipher_id,
+                                puzzle.solution,
+                                puzzle.parameters
+                            );
+
+
+                    if (
+                        expected
+                        !==
+                        puzzle.ciphertext
+                    ) {
+
+                        errors.push(
+                            "Ciphertext does not match solution and parameters."
+                        );
+                    }
                 }
 
 
@@ -1374,6 +1621,7 @@ const PuzzleGenerator = (() => {
     function resetUsedPhrases() {
 
         usedPhraseIDs.clear();
+        usedSpanishPhrases.clear();
     }
 
 
@@ -1657,6 +1905,7 @@ const PuzzleGenerator = (() => {
         chooseCipher,
 
         generateParameters,
+        getCipherLengthProfile,
 
         loadPhraseBank,
 

@@ -110,7 +110,7 @@
             </div>
 </div>
 <div class="rules-box">
-<strong>CHALLENGE INFORMATION</strong>
+<strong>PUZZLE CONTEXT</strong>
 <p id="rules-clue-output">
         Loading...
     </p>
@@ -119,6 +119,7 @@
 <strong id="cipher-family-output">---</strong>
 </div>
 </div>
+<div aria-label="Starting information" class="starting-info-box hidden" id="daily-starting-info"></div>
 <div class="answer-area">
 <input aria-label="Your plaintext solution" autocapitalize="characters" autocomplete="off" id="solution-input" placeholder="Type your solution..." spellcheck="false" type="text"/>
 <button class="primary-button" id="submit-button" onclick="evaluateSubmission()">
@@ -295,6 +296,7 @@
 <script src="js/storage.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/cipherEngine.js"></script>
+<script src="js/problemInfoEngine.js"></script>
 <script src="js/difficultyEngine.js"></script>
 <script src="js/puzzleGenerator.js"></script>
 <!-- =====================================================

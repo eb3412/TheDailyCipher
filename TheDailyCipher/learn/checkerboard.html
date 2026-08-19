@@ -565,7 +565,7 @@ intersection(row R, column C) = plaintext letter
            You may be given
           </td>
 <td>
-           Cipher pairs plus a keyed Polybius square/header information, or a cryptanalysis variant with a crib.
+           For a decode, ciphertext pairs plus the Polybius keyword; row/column header order is recovered. For cryptanalysis, a plaintext crib at a stated location is supplied while the square/header structure is hidden.
           </td>
 </tr>
 <tr>
@@ -609,7 +609,7 @@ intersection(row R, column C) = plaintext letter
         Repeated pairs always decode to the same plaintext letter under a fixed board.
        </li>
 <li>
-        If headers are known but square key is unknown, pair frequencies can provide limited substitution-style clues.
+        Treat each two-letter ciphertext pair as one substitution symbol while using the crib to constrain both its Polybius cell and the row/column header structure.
        </li>
 </ul>
 </section>

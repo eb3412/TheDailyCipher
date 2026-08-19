@@ -1764,11 +1764,10 @@ const CipherEngine = (() => {
         if (
             difficulty ===
             "Hard"
-            &&
-            Math.random() <
-            0.4
         ) {
 
+            // Keep the Hard tier meaningfully harder: Division C-style 3×3 work
+            // requires more arithmetic and a larger modular inverse than 2×2.
             matrix =
                 randomItem(
                     HILL_3X3_KEYS
@@ -2330,7 +2329,7 @@ const CipherEngine = (() => {
                         title:
                             "Strong Hint",
                         text:
-                            `The keyword is ${parameters.keyword}.`
+                            "Write the repeating key above the text and keep key position aligned only to alphabetic characters."
                     }
 
                 ];
@@ -2369,7 +2368,7 @@ const CipherEngine = (() => {
                         title:
                             "Strong Hint",
                         text:
-                            `The column key is ${parameters.key.join("-")}.`
+                            "Compute each column length first, place ciphertext chunks back into the supplied column order, then read across rows."
                     }
 
                 ];
@@ -2408,7 +2407,7 @@ const CipherEngine = (() => {
                         title:
                             "Strong Hint",
                         text:
-                            `Square keyword: ${parameters.squareKeyword}; additive keyword: ${parameters.additiveKeyword}.`
+                            "Build the supplied keyed Polybius square once, convert the repeating additive key through that same square, and subtract those values position by position."
                     }
 
                 ];
@@ -2447,7 +2446,7 @@ const CipherEngine = (() => {
                         title:
                             "Strong Hint",
                         text:
-                            `The key matrix is ${JSON.stringify(parameters.matrix)}.`
+                            "Find the modular inverse of the supplied key matrix, then multiply each ciphertext vector by that inverse modulo 26."
                     }
 
                 ];
@@ -2486,7 +2485,7 @@ const CipherEngine = (() => {
                         title:
                             "Strong Hint",
                         text:
-                            `The keyed alphabet begins with the keyword ${parameters.keyword}.`
+                            "After mapping ciphertext letters back to morslets, join the stream before splitting it at × and ×× separators."
                     }
 
                 ];
@@ -4466,16 +4465,28 @@ preserving the v2 CipherEngine API and all legacy IDs.
     ];
 
     const CRYPTARITHM_WORDS = [
-        "CIPHER", "PUZZLE", "SECRET", "LOGIC", "MATRIX",
-        "NUMBER", "CODE", "SOLVE", "PATTERN", "SIGNAL"
+        "CIPHER", "PUZZLE", "SECRET", "LOGIC", "MATRIX", "NUMBER",
+        "CODE", "SOLVE", "PATTERN", "SIGNAL", "KEYWORD", "DECODE",
+        "ENCODE", "LETTER", "SHIFT", "CRYPTO", "BINARY", "MORSE",
+        "COLUMN", "SQUARE", "VECTOR", "ALGEBRA", "MODULO", "INVERSE",
+        "MESSAGE", "SYMBOL", "SEARCH", "ROTATE", "RAIL", "BLOCK",
+        "ALPHABET", "SUBSTITUTION", "FREQUENCY", "PLAINTEXT", "CIPHERTEXT",
+        "ANALYSIS", "CRACK", "CLUE", "GRID", "TABLE", "DIGIT", "KEY",
+        "MAP", "PAIR", "PRIME", "VALUE", "EQUATION", "RESULT", "CARRY",
+        "UNIQUE", "TOKEN", "PHRASE", "WORD", "SPACE", "CRIB", "HIDDEN",
+        "OFFSET", "DECRYPT", "ENCRYPT", "CONTEST", "SCIENCE", "OLYMPIAD"
     ];
 
-    const HOMOPHONIC_FREQUENCIES = {
-        E: 13, T: 9, A: 8, O: 8, I: 7, N: 7, S: 6, H: 6,
-        R: 6, D: 4, L: 4, C: 3, U: 3, M: 2, W: 2, F: 2,
-        G: 2, Y: 2, P: 2, B: 1, V: 1, K: 1, J: 1, X: 1,
-        Q: 1, Z: 1
-    };
+    const usedCryptarithmAnswers = new Set();
+
+    // Four-unique-letter keywords mirror the public Science Olympiad
+    // Homophonic construction: four 25-number alphabets, with I/J sharing
+    // a position. The four keyword letters anchor values 1, 26, 51 and 76.
+    const HOMOPHONIC_KEYS = [
+        "CODE", "MATH", "LAMP", "STAR", "WOLF", "BLUE",
+        "FISH", "GLOW", "RACE", "TIME", "NOVA", "PATH",
+        "ZERO", "VAST", "CLUE", "BYTE", "DARK", "MINT"
+    ];
 
     function randomInteger(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -4547,16 +4558,161 @@ preserving the v2 CipherEngine API and all legacy IDs.
         return groups.join(" ");
     }
 
+    function naturalCribCandidates(plaintext, minimumLength, maximumLength = null) {
+        const words = String(plaintext || "").toUpperCase().match(/[A-ZÑ]+/g) || [];
+        const minimum = Math.max(1, Number(minimumLength) || 1);
+        const maximum = Math.max(minimum, Number(maximumLength) || Math.max(minimum + 10, minimum * 2));
+        const sourceLetters = lettersOnly(plaintext);
+        const candidates = [];
+        const seen = new Set();
+
+        for (let start = 0; start < words.length; start++) {
+            let joined = "";
+            for (let end = start; end < Math.min(words.length, start + 4); end++) {
+                joined += words[end].replace(/[^A-ZÑ]/g, "");
+                if (joined.length > maximum) break;
+                if (joined.length < minimum) continue;
+                if (seen.has(joined)) continue;
+                seen.add(joined);
+                const first = sourceLetters.indexOf(joined);
+                const unique = first >= 0 && sourceLetters.indexOf(joined, first + 1) < 0;
+                candidates.push({
+                    crib: joined,
+                    wordCount: end - start + 1,
+                    unique,
+                    length: joined.length
+                });
+            }
+        }
+
+        return candidates;
+    }
+
     function createCrib(plaintext, minimumLength) {
         const letters = lettersOnly(plaintext);
         if (!letters.length) return "";
+        const minimum = Math.min(letters.length, Math.max(1, Number(minimumLength) || 1));
+        const candidates = naturalCribCandidates(plaintext, minimum, Math.min(letters.length, minimum + 10));
+
+        if (candidates.length) {
+            const scored = candidates
+                .map(item => ({
+                    ...item,
+                    score: (item.unique ? 20 : 0) - Math.abs(item.length - minimum) * 2 - (item.wordCount - 1)
+                }))
+                .sort((a, b) => b.score - a.score);
+            const topScore = scored[0].score;
+            const top = scored.filter(item => item.score >= topScore - 2);
+            return randomItem(top).crib;
+        }
+
         const length = Math.min(
             letters.length,
-            Math.max(minimumLength, Math.min(letters.length, minimumLength + randomInteger(0, 3)))
+            Math.max(minimum, Math.min(letters.length, minimum + randomInteger(0, 3)))
         );
         const start = randomInteger(0, Math.max(0, letters.length - length));
         return letters.slice(start, start + length);
     }
+
+
+
+    const FRACTIONATED_MORSE_MAP = {
+        A: ".-", B: "-...", C: "-.-.", D: "-..", E: ".", F: "..-.", G: "--.",
+        H: "....", I: "..", J: ".---", K: "-.-", L: ".-..", M: "--", N: "-.",
+        O: "---", P: ".--.", Q: "--.-", R: ".-.", S: "...", T: "-", U: "..-",
+        V: "...-", W: ".--", X: "-..-", Y: "-.--", Z: "--.."
+    };
+
+    function fractionatedMorseCribMappingCount(plaintext, keyword, crib) {
+        const clean = cleanEnglish(plaintext);
+        const needle = lettersOnly(crib);
+        if (!clean || !needle || !keyword) return 0;
+
+        const words = clean.match(/[A-Z]+/g) || [];
+        const letterSpans = [];
+        let stream = "";
+        let sourceLetters = "";
+
+        words.forEach((word, wordIndex) => {
+            [...word].forEach((letter, letterIndex) => {
+                const start = stream.length;
+                stream += FRACTIONATED_MORSE_MAP[letter];
+                const end = stream.length;
+                letterSpans.push({ start, end });
+                sourceLetters += letter;
+                if (letterIndex < word.length - 1) stream += "x";
+            });
+            if (wordIndex < words.length - 1) stream += "xx";
+        });
+
+        const startLetter = sourceLetters.indexOf(needle);
+        if (startLetter < 0) return 0;
+        const endLetter = startLetter + needle.length - 1;
+        const streamStart = letterSpans[startLetter]?.start;
+        const streamEnd = letterSpans[endLetter]?.end;
+        if (!Number.isFinite(streamStart) || !Number.isFinite(streamEnd)) return 0;
+
+        const firstTrig = Math.floor(streamStart / 3);
+        const lastTrigExclusive = Math.ceil(streamEnd / 3);
+        const cipherLetters = original.encrypt("fractionatedmorse", clean, { keyword }).replace(/\s+/g, "");
+        const seen = new Set();
+
+        for (let trigIndex = firstTrig; trigIndex < lastTrigExclusive; trigIndex++) {
+            const trigStart = trigIndex * 3;
+            const trigEnd = trigStart + 3;
+            // Only mappings whose entire morslet lies inside the known crib are actually revealed.
+            if (trigStart < streamStart || trigEnd > streamEnd) continue;
+            const cipherLetter = cipherLetters[trigIndex];
+            if (cipherLetter) seen.add(cipherLetter);
+        }
+
+        return seen.size;
+    }
+
+    function selectFractionatedMorseCrib(plaintext, keyword, difficulty = "Hard") {
+        const letters = lettersOnly(plaintext);
+        if (!letters.length) return "";
+
+        // Public test-writing guidance recommends enough known plaintext to reveal
+        // roughly 10–12 distinct cipher-letter ↔ morslet mappings. Prefer complete
+        // words/phrases so the clue reads like an actual contest problem, then score
+        // those candidates by the number of mappings they reveal.
+        const targetLow = difficulty === "Medium" ? 11 : 10;
+        const targetHigh = 12;
+        const maxLength = Math.min(letters.length, 22);
+        const minLength = Math.min(letters.length, 5);
+        let candidates = naturalCribCandidates(plaintext, minLength, maxLength);
+
+        // A very short source may not contain a whole-word span in range. Keep a
+        // fallback search so generation never becomes fragile.
+        if (!candidates.length) {
+            candidates = [];
+            for (let length = Math.min(8, letters.length); length <= maxLength; length++) {
+                for (let start = 0; start + length <= letters.length; start++) {
+                    candidates.push({ crib: letters.slice(start, start + length), wordCount: 0, unique: true, length });
+                }
+            }
+        }
+
+        let best = null;
+        for (const candidate of candidates) {
+            const crib = candidate.crib;
+            const mappings = fractionatedMorseCribMappingCount(plaintext, keyword, crib);
+            const inTarget = mappings >= targetLow && mappings <= targetHigh;
+            const distance = inTarget ? 0 : Math.min(Math.abs(mappings - targetLow), Math.abs(mappings - targetHigh));
+            const score =
+                (inTarget ? 1000 : 0)
+                - distance * 25
+                + mappings * 2
+                + (candidate.unique ? 5 : 0)
+                + (candidate.wordCount ? 3 : 0)
+                - candidate.length * 0.1;
+            if (!best || score > best.score) best = { crib, mappings, score };
+        }
+
+        return best?.crib || createCrib(plaintext, Math.min(8, letters.length));
+    }
+
 
     function randomDerangement(alphabet = ENGLISH_ALPHABET) {
         const source = alphabet.split("");
@@ -4742,25 +4898,41 @@ preserving the v2 CipherEngine API and all legacy IDs.
         };
     }
 
-    function generateHomophonicMap() {
-        const tokens = Array.from({ length: 100 }, (_, index) => String(index).padStart(2, "0"));
-        const shuffled = shuffle(tokens);
+    function buildHomophonicMapping(keyword) {
+        const normalizedKeyword = String(keyword || "CODE")
+            .toUpperCase()
+            .replace(/J/g, "I")
+            .replace(/[^A-Z]/g, "");
+
+        if (normalizedKeyword.length !== 4 || new Set(normalizedKeyword).size !== 4) {
+            throw new Error("Homophonic keyword must contain four unique letters.");
+        }
+
         const mapping = {};
-        ENGLISH_ALPHABET.split("").forEach(letter => {
-            mapping[letter] = [shuffled.pop()];
+        POLYBIUS_ALPHABET.split("").forEach(letter => { mapping[letter] = []; });
+
+        [...normalizedKeyword].forEach((anchor, band) => {
+            const anchorIndex = POLYBIUS_ALPHABET.indexOf(anchor);
+            if (anchorIndex < 0) throw new Error("Homophonic keyword may not contain unsupported letters.");
+            const base = 1 + band * 25;
+            POLYBIUS_ALPHABET.split("").forEach((letter, letterIndex) => {
+                const offset = ((letterIndex - anchorIndex) % 25 + 25) % 25;
+                mapping[letter].push(String(base + offset));
+            });
         });
 
-        const weightedLetters = [];
-        for (const [letter, weight] of Object.entries(HOMOPHONIC_FREQUENCIES)) {
-            for (let i = 0; i < weight; i++) weightedLetters.push(letter);
-        }
-
-        while (shuffled.length) {
-            const letter = randomItem(weightedLetters);
-            mapping[letter].push(shuffled.pop());
-        }
-
+        // I and J share the same homophones in the 25-position alphabet.
+        mapping.J = [...mapping.I];
         return mapping;
+    }
+
+    function generateHomophonicMap(difficulty = "Medium", keyword = null) {
+        const selectedKeyword = keyword || randomItem(HOMOPHONIC_KEYS);
+        return {
+            keyword: selectedKeyword,
+            mapping: buildHomophonicMapping(selectedKeyword),
+            blockSize: difficulty === "Easy" ? 0 : 5
+        };
     }
 
     function homophonicEncrypt(plaintext, parameters) {
@@ -4768,20 +4940,117 @@ preserving the v2 CipherEngine API and all legacy IDs.
         if (!mapping || typeof mapping !== "object") {
             throw new Error("Homophonic cipher requires a number mapping.");
         }
-        const output = [];
-        for (const character of cleanEnglish(plaintext)) {
-            if (character === " ") {
-                output.push("/");
-                continue;
-            }
-            if (!mapping[character]?.length) continue;
-            output.push(randomItem(mapping[character]));
+
+        const clean = cleanEnglish(plaintext);
+        const words = clean.split(" ").filter(Boolean);
+        const encodedWords = words.map(word => [...word].map(character => {
+            const normalized = character === "J" ? "I" : character;
+            if (!mapping[normalized]?.length) throw new Error(`No Homophonic mapping for ${character}.`);
+            return randomItem(mapping[normalized]);
+        }));
+
+        const blockSize = Math.max(0, Number(parameters.blockSize) || 0);
+        if (blockSize === 0) {
+            return encodedWords.map(tokens => tokens.join(" ")).join(" / ");
         }
-        return output.join(" ");
+
+        const tokens = encodedWords.flat();
+        const blocks = [];
+        for (let i = 0; i < tokens.length; i += blockSize) {
+            blocks.push(tokens.slice(i, i + blockSize).join(" "));
+        }
+        return blocks.join("   ");
     }
 
+    function countCryptarithmSolutions(equations, cap = 2) {
+        const parsed = equations.map(line => {
+            const match = String(line).match(/^([A-Z]+) \+ ([A-Z]+) = ([A-Z]+)$/);
+            return match ? [match[1], match[2], match[3]] : null;
+        }).filter(Boolean);
+
+        const leading = new Set();
+        parsed.forEach(parts => parts.forEach(word => {
+            if (word.length > 1) leading.add(word[0]);
+        }));
+
+        let solutions = 0;
+        const mapping = {};
+        const used = new Set();
+
+        function assignUnknowns(letters, index, callback) {
+            if (solutions >= cap) return;
+            if (index >= letters.length) {
+                callback();
+                return;
+            }
+            const letter = letters[index];
+            for (let digit = 0; digit <= 9; digit++) {
+                if (used.has(digit)) continue;
+                if (digit === 0 && leading.has(letter)) continue;
+                mapping[letter] = digit;
+                used.add(digit);
+                assignUnknowns(letters, index + 1, callback);
+                used.delete(digit);
+                delete mapping[letter];
+                if (solutions >= cap) return;
+            }
+        }
+
+        function solveEquation(eqIndex) {
+            if (solutions >= cap) return;
+            if (eqIndex >= parsed.length) {
+                solutions++;
+                return;
+            }
+
+            const [a, b, result] = parsed[eqIndex];
+            const width = Math.max(a.length, b.length, result.length);
+
+            function solveColumn(column, carry) {
+                if (solutions >= cap) return;
+                if (column >= width) {
+                    if (carry === 0) solveEquation(eqIndex + 1);
+                    return;
+                }
+
+                const la = column < a.length ? a[a.length - 1 - column] : null;
+                const lb = column < b.length ? b[b.length - 1 - column] : null;
+                const lr = column < result.length ? result[result.length - 1 - column] : null;
+                const unknowns = [];
+                for (const letter of [la, lb, lr]) {
+                    if (letter && mapping[letter] === undefined && !unknowns.includes(letter)) unknowns.push(letter);
+                }
+
+                assignUnknowns(unknowns, 0, () => {
+                    const da = la ? mapping[la] : 0;
+                    const db = lb ? mapping[lb] : 0;
+                    const total = da + db + carry;
+                    const expected = total % 10;
+                    if (lr) {
+                        if (mapping[lr] !== expected) return;
+                    } else if (expected !== 0) {
+                        return;
+                    }
+                    solveColumn(column + 1, Math.floor(total / 10));
+                });
+            }
+
+            solveColumn(0, 0);
+        }
+
+        solveEquation(0);
+        return solutions;
+    }
+
+
     function cryptarithmGenerate(difficulty) {
-        const answer = randomItem(CRYPTARITHM_WORDS);
+        let availableAnswers = CRYPTARITHM_WORDS.filter(word => !usedCryptarithmAnswers.has(word));
+        if (!availableAnswers.length) {
+            usedCryptarithmAnswers.clear();
+            availableAnswers = [...CRYPTARITHM_WORDS];
+        }
+        const answer = randomItem(availableAnswers);
+        usedCryptarithmAnswers.add(answer);
         const requiredLetters = [...new Set(answer.split(""))];
         const digitPool = shuffle([0,1,2,3,4,5,6,7,8,9]);
         const letterToDigit = {};
@@ -4813,17 +5082,42 @@ preserving the v2 CipherEngine API and all legacy IDs.
         }
 
         const equations = [];
+        const equationSet = new Set();
         const usedDigits = new Set();
+        const requiredDigits = new Set(requiredLetters.map(letter => letterToDigit[letter]));
+        const minimumEquations = difficulty === "Hard" ? 5 : 4;
         let attempts = 0;
-        while (equations.length < (difficulty === "Hard" ? 5 : 4) && attempts < 1000) {
+
+        while (attempts < 4000) {
             attempts++;
             const a = randomInteger(120, 899);
             const b = randomInteger(120, 899);
             const sum = a + b;
             if (sum > 999) continue;
-            const raw = `${a}${b}${sum}`;
-            raw.split("").forEach(d => usedDigits.add(Number(d)));
-            equations.push(`${encodeNumber(a)} + ${encodeNumber(b)} = ${encodeNumber(sum)}`);
+
+            const equation = `${encodeNumber(a)} + ${encodeNumber(b)} = ${encodeNumber(sum)}`;
+            if (equationSet.has(equation)) continue;
+            equationSet.add(equation);
+            equations.push(equation);
+            `${a}${b}${sum}`.split("").forEach(d => usedDigits.add(Number(d)));
+
+            if (equations.length < minimumEquations) continue;
+
+            const extractionCovered = [...requiredDigits].every(digit => usedDigits.has(digit));
+            if (extractionCovered && countCryptarithmSolutions(equations, 2) === 1) break;
+
+            /* Keep generated questions readable while still forcing uniqueness. */
+            if (equations.length >= 9) {
+                equations.length = 0;
+                equationSet.clear();
+                usedDigits.clear();
+            }
+        }
+
+        if (equations.length < minimumEquations ||
+            ![...requiredDigits].every(digit => usedDigits.has(digit)) ||
+            countCryptarithmSolutions(equations, 2) !== 1) {
+            throw new Error("Unable to generate a uniquely solvable cryptarithm within the attempt limit.");
         }
 
         const extractionDigits = answer
@@ -4883,7 +5177,7 @@ preserving the v2 CipherEngine API and all legacy IDs.
             case "checkerboard":
             case "checkerboard-cryptanalysis": return generateCheckerboardKey();
             case "homophonic":
-            case "homophonic-cryptanalysis": return { mapping: generateHomophonicMap() };
+            case "homophonic-cryptanalysis": return generateHomophonicMap(difficulty);
             default: return original.generateKey(type, difficulty);
         }
     }
@@ -4989,13 +5283,15 @@ preserving the v2 CipherEngine API and all legacy IDs.
                     { level: 4, title: "Strong Hint", text: `Polybius key: ${parameters.polybiusKeyword}; row: ${parameters.rowKeyword}; column: ${parameters.columnKeyword}.` }
                 ];
             case "homophonic":
-            case "homophonic-cryptanalysis":
+            case "homophonic-cryptanalysis": {
+                const kw = String(parameters.keyword || "").toUpperCase().replace(/J/g, "I");
                 return [
-                    { level: 1, title: "Homophones", text: "A plaintext letter can be represented by several different two-digit numbers." },
-                    { level: 2, title: "One-way Mapping", text: "Each number belongs to only one plaintext letter." },
-                    ...(parameters.crib ? [{ level: 3, title: "Crib", text: `Use the supplied crib: ${parameters.crib}.` }] : [{ level: 3, title: "Frequency", text: "Combine the frequencies of number symbols that may represent the same plaintext letter." }]),
-                    { level: 4, title: "Strong Hint", text: "Start with common English letters and repeated word patterns." }
+                    { level: 1, title: "Four Number Bands", text: "Each plaintext position has one value in 1–25, 26–50, 51–75, and 76–100. Compare values by their position inside each band." },
+                    { level: 2, title: "Keyword Structure", text: parameters.crib ? "Use the supplied crib alignment to place letters in the four parallel alphabets." : "The hidden key is a four-letter word with four unique letters." },
+                    { level: 3, title: "Keyword Foothold", text: kw ? `The keyword pattern is ${kw[0]}_${kw[2]}_.` : "Test the supplied keyword letters in plausible positions." },
+                    { level: 4, title: "Strong Hint", text: kw ? `The hidden keyword is ${kw}.` : "Recover one full band, then propagate the rotations to the other three." }
                 ];
+            }
             default:
                 return original.createHints(type, parameters);
         }
@@ -5026,43 +5322,53 @@ preserving the v2 CipherEngine API and all legacy IDs.
             ];
             case "nihilist-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
             case "columnar-cryptanalysis": return [
-                { label: "COLUMNS", value: String(parameters.key.length) },
-                { label: "CRIB", value: parameters.crib }
+                { label: "CRIB", value: parameters.crib },
+                { label: "TASK", value: "Determine the number of columns and their order from the ciphertext and crib." }
             ];
             case "checkerboard": return [{ label: "POLYBIUS KEY", value: parameters.polybiusKeyword }];
             case "checkerboard-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
-            case "homophonic": return [{ label: "TASK", value: "Decode the homophonic number substitution." }];
-            case "homophonic-cryptanalysis": return [{ label: "CRIB", value: parameters.crib }];
+            case "homophonic": {
+                const kw = String(parameters.keyword || "").toUpperCase().replace(/J/g, "I");
+                return [
+                    { label: "NUMBER BANDS", value: "1–25 • 26–50 • 51–75 • 76–100" },
+                    ...(kw.length === 4 ? [{ label: "KNOWN KEYWORD LETTERS", value: `${kw[0]}, ${kw[2]} (positions hidden)` }] : [])
+                ];
+            }
+            case "homophonic-cryptanalysis": return [
+                { label: "CRIB", value: parameters.crib },
+                { label: "NUMBER BANDS", value: "1–25 • 26–50 • 51–75 • 76–100" }
+            ];
             default: return [];
         }
     }
 
-    function completeParameters(type, parameters, plaintext) {
+    function completeParameters(type, parameters, plaintext, difficulty = "Medium") {
         const output = { ...parameters };
         switch (normalizeType(type)) {
             case "fractionatedmorse-cryptanalysis":
-                output.crib = output.crib || createCrib(plaintext, 4);
+                output.crib = output.crib || selectFractionatedMorseCrib(plaintext, output.keyword, difficulty);
                 break;
             case "porta-cryptanalysis":
-                output.crib = output.crib || createCrib(plaintext, 3);
+                output.crib = output.crib || createCrib(plaintext, 5);
                 break;
-            case "nihilist": {
-                const max = Math.max(1, lettersOnly(output.additiveKeyword).length);
-                output.crib = output.crib || createCrib(plaintext, Math.min(max, 3)).slice(0, max);
-                break;
-            }
             case "nihilist-cryptanalysis": {
-                const min = Math.max(3, lettersOnly(output.additiveKeyword).length);
+                const keywordLength = lettersOnly(output.additiveKeyword).length;
+                const min = Math.max(4, keywordLength * 2);
                 output.crib = output.crib || createCrib(plaintext, min);
                 break;
             }
-            case "columnar-cryptanalysis":
-                output.crib = output.crib || createCrib(plaintext, Math.max(2, output.key.length - 1));
+            case "columnar-cryptanalysis": {
+                const columns = Array.isArray(output.key) ? output.key.length : Number(output.columns) || 0;
+                const allowance = difficulty === "Hard" ? 3 : 1;
+                output.crib = output.crib || createCrib(plaintext, Math.max(3, columns - allowance));
                 break;
+            }
             case "checkerboard-cryptanalysis":
+                output.crib = output.crib || createCrib(plaintext, 5);
+                break;
             case "homophonic-cryptanalysis":
             case "xenocrypt-cryptanalysis":
-                output.crib = output.crib || createCrib(plaintext, 5);
+                output.crib = output.crib || createCrib(plaintext, 6);
                 break;
         }
         return output;
@@ -5093,7 +5399,8 @@ preserving the v2 CipherEngine API and all legacy IDs.
                     ? completeParameters(
                         type,
                         legacy.parameters,
-                        legacy.plaintext
+                        legacy.plaintext,
+                        difficulty
                     )
                     : legacy.parameters;
 
@@ -5113,7 +5420,7 @@ preserving the v2 CipherEngine API and all legacy IDs.
         }
 
         let parameters = options.parameters || generateExpandedKey(type, difficulty);
-        parameters = completeParameters(type, parameters, plaintext);
+        parameters = completeParameters(type, parameters, plaintext, difficulty);
 
         return {
             type,
@@ -5208,8 +5515,14 @@ preserving the v2 CipherEngine API and all legacy IDs.
                     throw new Error("Checkerboard requires a Polybius key plus row and column keywords.");
                 }
             }
-            if (["homophonic", "homophonic-cryptanalysis"].includes(normalized) && !parameters.mapping) {
-                throw new Error("Homophonic mapping is required.");
+            if (["homophonic", "homophonic-cryptanalysis"].includes(normalized)) {
+                if (!parameters.mapping || !parameters.keyword) {
+                    throw new Error("Homophonic requires a four-letter keyword and its derived mapping.");
+                }
+                const normalizedKeyword = String(parameters.keyword).toUpperCase().replace(/J/g, "I").replace(/[^A-Z]/g, "");
+                if (normalizedKeyword.length !== 4 || new Set(normalizedKeyword).size !== 4) {
+                    throw new Error("Homophonic keyword must contain four unique letters.");
+                }
             }
             return { valid: true, message: "" };
         } catch (error) {
@@ -5223,9 +5536,27 @@ preserving the v2 CipherEngine API and all legacy IDs.
         checkerboardEncrypt,
         homophonicEncrypt,
         generateHomophonicMap,
+        buildHomophonicMapping,
         createCrib,
+        naturalCribCandidates,
+        fractionatedMorseCribMappingCount,
+        selectFractionatedMorseCrib,
         spanishAlphabet: SPANISH_ALPHABET,
         baconianAlphabet: BACONIAN_ALPHABET
+    };
+
+    engine.createStartingInfo = function(options = {}) {
+        if (typeof window !== "undefined" && window.ProblemInfoEngine) {
+            return window.ProblemInfoEngine.createStartingInfo(options);
+        }
+        return { title: "STARTING INFORMATION", rows: createChallengeInfo(options.type, options.parameters || {}) };
+    };
+
+    engine.createCompetitionHints = function(options = {}) {
+        if (typeof window !== "undefined" && window.ProblemInfoEngine) {
+            return window.ProblemInfoEngine.createHints(options);
+        }
+        return createExpandedHints(options.type, options.parameters || {});
     };
 
     engine.__codebustersExpanded = true;

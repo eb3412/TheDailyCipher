@@ -172,7 +172,7 @@
         If padding is used, it completes the final row.
        </li>
 <li>
-        For cryptanalysis, the number of columns and a crib can constrain the column order.
+        For cryptanalysis, the crib is supplied; the number of columns and the column order are part of the solve. Ciphertext length and possible rectangle shapes constrain the candidates.
        </li>
 </ul>
 <h3>
@@ -438,7 +438,7 @@ read ciphertext: column under label 1 first → physical column 4
            You may be given
           </td>
 <td>
-           Ciphertext, a column count/key, or a cryptanalysis problem with a crib and limited columns.
+           For competition-style cryptanalysis: ciphertext plus a crib. The column count and order are not given directly; known-key examples on this Learn page are for understanding the mechanics.
           </td>
 </tr>
 <tr>
@@ -482,7 +482,7 @@ read ciphertext: column under label 1 first → physical column 4
         Crib fragments that span column boundaries are especially informative for ordering columns.
        </li>
 <li>
-        For a known column count, divide ciphertext into equal column segments before testing permutations.
+        Use ciphertext length to test plausible rectangle widths; for each candidate, divide the ciphertext into equal column segments and test whether the crib can sit consistently across reconstructed rows.
        </li>
 </ul>
 </section>

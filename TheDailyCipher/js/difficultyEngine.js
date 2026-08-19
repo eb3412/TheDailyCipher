@@ -1,7 +1,7 @@
 /*
 =========================================================
 THE DAILY CIPHER
-Difficulty Engine v3.0 — Codebusters Expansion
+Difficulty Engine v4.2 — Competition Context
 =========================================================
 */
 
@@ -24,7 +24,7 @@ const DifficultyEngine = (() => {
                 true,
 
             initialInfo:
-                "The cipher type is shown. Use the Learn section if you need help.",
+                "The cipher type and beginner-appropriate givens are shown below. Optional hints are separate.",
 
             hintPenalties:
                 [
@@ -44,7 +44,8 @@ const DifficultyEngine = (() => {
                     "baconian",
                     "baconian-variant",
                     "aristocrat-k1",
-                    "aristocrat-k2"
+                    "aristocrat-k2",
+                    "railfence"
                 ],
 
             messageLength: {
@@ -75,7 +76,7 @@ const DifficultyEngine = (() => {
                 false,
 
             initialInfo:
-                "The cipher type is shown, but key information is hidden.",
+                "Competition-style givens are shown below. Information intentionally withheld is part of the solve.",
 
             hintPenalties:
                 [
@@ -98,22 +99,18 @@ const DifficultyEngine = (() => {
                     "aristocrat-k1",
                     "aristocrat-k2",
                     "aristocrat-random",
-                    "aristocrat",
-                    "patristocrat",
                     "patristocrat-k1",
                     "patristocrat-k2",
                     "xenocrypt-k1",
                     "xenocrypt-k2",
-                    "fractionatedmorse-cryptanalysis",
                     "cryptarithm",
                     "porta",
                     "nihilist",
-                    "columnar",
                     "columnar-cryptanalysis",
                     "checkerboard",
                     "homophonic",
                     "hill",
-                    "fractionatedmorse"
+                    "fractionatedmorse-cryptanalysis"
                 ],
 
             messageLength: {
@@ -138,13 +135,13 @@ const DifficultyEngine = (() => {
                 6,
 
             showCipherName:
-                false,
+                true,
 
             showCipherFamily:
                 false,
 
             initialInfo:
-                "Cipher identification may be part of the challenge.",
+                "The cipher type is identified, as on a competition question. Difficulty comes from cryptanalysis and limited givens—not hidden instructions.",
 
             hintPenalties:
                 [
@@ -161,32 +158,20 @@ const DifficultyEngine = (() => {
                 [
                     "affine",
                     "railfence",
-                    "baconian",
                     "baconian-variant",
-                    "aristocrat-k1",
-                    "aristocrat-k2",
                     "aristocrat-random",
-                    "aristocrat",
-                    "patristocrat",
                     "patristocrat-k1",
                     "patristocrat-k2",
                     "substitution-k3",
-                    "xenocrypt-k1",
-                    "xenocrypt-k2",
                     "xenocrypt-cryptanalysis",
                     "fractionatedmorse-cryptanalysis",
                     "cryptarithm",
-                    "porta",
                     "porta-cryptanalysis",
-                    "nihilist",
                     "nihilist-cryptanalysis",
                     "columnar-cryptanalysis",
-                    "checkerboard",
                     "checkerboard-cryptanalysis",
-                    "homophonic",
                     "homophonic-cryptanalysis",
-                    "hill",
-                    "fractionatedmorse"
+                    "hill"
                 ],
 
             messageLength: {
