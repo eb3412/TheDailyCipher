@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://thedailycipher.org/</loc></url>
+  <url><loc>https://thedailycipher.org/</loc><lastmod>2026-08-30</lastmod></url>
   <url><loc>https://thedailycipher.org/about.html</loc></url>
   <url><loc>https://thedailycipher.org/contact.html</loc></url>
   <url><loc>https://thedailycipher.org/codebusters/</loc></url>
@@ -13,17 +13,17 @@
   <url><loc>https://thedailycipher.org/learn/railfence.html</loc></url>
   <url><loc>https://thedailycipher.org/learn/playfair.html</loc></url>
   <url><loc>https://thedailycipher.org/learn/hill.html</loc></url>
-  <url><loc>https://thedailycipher.org/learn/aristocrat.html</loc></url>
+  <url><loc>https://thedailycipher.org/learn/aristocrat.html</loc><lastmod>2026-08-30</lastmod></url>
   <url><loc>https://thedailycipher.org/learn/patristocrat.html</loc></url>
-  <url><loc>https://thedailycipher.org/learn/baconian.html</loc></url>
+  <url><loc>https://thedailycipher.org/learn/baconian.html</loc><lastmod>2026-08-30</lastmod></url>
   <url><loc>https://thedailycipher.org/learn/xenocrypt.html</loc></url>
-  <url><loc>https://thedailycipher.org/learn/fractionatedmorse.html</loc></url>
+  <url><loc>https://thedailycipher.org/learn/fractionatedmorse.html</loc><lastmod>2026-08-30</lastmod></url>
   <url><loc>https://thedailycipher.org/learn/cryptarithm.html</loc></url>
   <url><loc>https://thedailycipher.org/learn/porta.html</loc></url>
   <url><loc>https://thedailycipher.org/learn/nihilist.html</loc></url>
   <url><loc>https://thedailycipher.org/learn/columnar.html</loc></url>
-  <url><loc>https://thedailycipher.org/learn/checkerboard.html</loc></url>
-  <url><loc>https://thedailycipher.org/learn/homophonic.html</loc></url>
+  <url><loc>https://thedailycipher.org/learn/checkerboard.html</loc><lastmod>2026-08-30</lastmod></url>
+  <url><loc>https://thedailycipher.org/learn/homophonic.html</loc><lastmod>2026-08-30</lastmod></url>
   <url><loc>https://thedailycipher.org/visualizers/caesar.html</loc></url>
   <url><loc>https://thedailycipher.org/visualizers/atbash.html</loc></url>
   <url><loc>https://thedailycipher.org/visualizers/affine.html</loc></url>

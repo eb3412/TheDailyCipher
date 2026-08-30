@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Checkerboard Cipher Guide: Polybius Key &amp; Practice | The Daily Cipher</title>
-<meta content="Learn checkerboard ciphers with keyed 5x5 Polybius squares, coordinate lookup, encryption, decryption, crib-based cryptanalysis, examples, visualizer, and practice." name="description"/>
+<title>Checkerboard Cipher Guide, Polybius &amp; Practice | The Daily Cipher</title>
+<meta content="Learn the Checkerboard cipher with a keyed 5x5 Polybius square, row and column coordinates, decoding, crib cryptanalysis, worked examples, visualizer, and practice." name="description"/>
 <link href="https://thedailycipher.org/learn/checkerboard.html" rel="canonical"/>
 <link href="/assets/favicon.png" rel="icon" type="image/png"/>
 <link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
@@ -19,7 +18,7 @@
   </script>
 <script defer="" src="/_vercel/insights/script.js">
 </script>
-<meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="The Daily Cipher" property="og:site_name"/><meta content="Checkerboard Cipher Guide: Polybius Key &amp; Practice | The Daily Cipher" property="og:title"/><meta content="Learn checkerboard ciphers with keyed 5x5 Polybius squares, coordinate lookup, encryption, decryption, crib-based cryptanalysis, examples, visualizer, and practice." property="og:description"/><meta content="https://thedailycipher.org/learn/checkerboard.html" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Checkerboard Cipher Guide: Polybius Key &amp; Practice | The Daily Cipher" name="twitter:title"/><meta content="Learn checkerboard ciphers with keyed 5x5 Polybius squares, coordinate lookup, encryption, decryption, crib-based cryptanalysis, examples, visualizer, and practice." name="twitter:description"/><link href="/css/seo.css" rel="stylesheet"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thedailycipher.org/"},{"@type":"ListItem","position":2,"name":"Learn Cryptography","item":"https://thedailycipher.org/learn/"},{"@type":"ListItem","position":3,"name":"Checkerboard Cipher","item":"https://thedailycipher.org/learn/checkerboard.html"}]}</script></head>
+<meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="The Daily Cipher" property="og:site_name"/><meta content="Checkerboard Cipher Guide, Polybius &amp; Practice | The Daily Cipher" property="og:title"/><meta content="Learn the Checkerboard cipher with a keyed 5x5 Polybius square, row and column coordinates, decoding, crib cryptanalysis, worked examples, visualizer, and practice." property="og:description"/><meta content="https://thedailycipher.org/learn/checkerboard.html" property="og:url"/><meta content="summary" name="twitter:card"/><meta content="Checkerboard Cipher Guide, Polybius &amp; Practice | The Daily Cipher" name="twitter:title"/><meta content="Learn the Checkerboard cipher with a keyed 5x5 Polybius square, row and column coordinates, decoding, crib cryptanalysis, worked examples, visualizer, and practice." name="twitter:description"/><link href="/css/seo.css" rel="stylesheet"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thedailycipher.org/"},{"@type":"ListItem","position":2,"name":"Learn Cryptography","item":"https://thedailycipher.org/learn/"},{"@type":"ListItem","position":3,"name":"Checkerboard Cipher","item":"https://thedailycipher.org/learn/checkerboard.html"}]}</script></head>
 <body>
 <header class="site-header">
 <a class="logo" href="../index.html">
@@ -137,7 +136,7 @@
 <p>
        Decoding is therefore a coordinate lookup: first character chooses the row, second chooses the column.
       </p>
-<div class="deep-rule-note">
+<div class="deep-note seo-query-summary"><strong>Trying to decode a Checkerboard cipher?</strong> Treat each ciphertext pair as a coordinate: the first symbol selects the row and the second selects the column in the keyed Polybius square. Use the <a href="#reference">Checkerboard reference</a>, follow the <a href="#decrypt">decoding walkthrough</a>, then try the <a href="../visualizers/checkerboard.html">interactive visualizer</a>.</div><div class="deep-rule-note">
 <strong>
         Competition note
        </strong>
@@ -236,9 +235,7 @@
 <div class="section-kicker">
        03 • COMPLETE REFERENCE
       </div>
-<h2>
-       Keep this beside you while solving
-      </h2>
+<h2>Checkerboard cipher Polybius square and coordinate reference</h2>
 <p class="deep-caption">
        Numeric example square; in an actual checkerboard, row/column headers may be letters from keywords.
       </p>
@@ -468,9 +465,7 @@ intersection(row R, column C) = plaintext letter
 <div class="section-kicker">
        05 • DECRYPTION
       </div>
-<h2>
-       How decryption works
-      </h2>
+<h2>How to decode a Checkerboard cipher</h2>
 <div class="deep-steps">
 <div class="deep-step">
 <div class="deep-step-num">
@@ -808,9 +803,7 @@ intersection(row R, column C) = plaintext letter
 <div class="section-kicker">
        12 • INTERACTIVE LAB
       </div>
-<h2>
-       See every transformation
-      </h2>
+<h2>Checkerboard cipher visualizer and practice</h2>
 <p>
        Use the lab to change inputs and keys, keep the relevant reference material visible, inspect each intermediate transformation, and then read the “How to reverse it” panel so encryption and decryption connect.
       </p>
@@ -825,7 +818,7 @@ intersection(row R, column C) = plaintext letter
 <iframe class="deep-visualizer-frame" loading="lazy" scrolling="yes" src="../visualizers/checkerboard.html?embed=1" title="Checkerboard Cipher interactive visualizer">
 </iframe>
 </section>
-<section aria-labelledby="related-checkerboard-title" class="deep-card seo-related-guides"><div class="section-kicker">KEEP LEARNING</div><h2 id="related-checkerboard-title">Related cipher guides and practice</h2><p>Build connected skills instead of learning this cipher in isolation.</p><div class="seo-related-grid"><a class="seo-related-link" href="nihilist.html"><strong>Nihilist Cipher</strong><span>Learn Nihilist Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="playfair.html"><strong>Playfair Cipher</strong><span>Learn Playfair Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="homophonic.html"><strong>Homophonic Cipher</strong><span>Learn Homophonic Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link seo-related-codebusters" href="../codebusters/"><strong>Science Olympiad Codebusters Practice</strong><span>Browse Codebusters-focused guides, visualizers, and generated practice.</span></a></div></section><div class="guide-end-nav">
+<section aria-labelledby="related-checkerboard-title" class="deep-card seo-related-guides"><div class="section-kicker">KEEP LEARNING</div><h2 id="related-checkerboard-title">Related cipher guides and practice</h2><p>Use the next guide when it supports the same solving skill, or switch to the visualizer and Practice when you are ready to apply this cipher.</p><div class="seo-related-grid"><a class="seo-related-link" href="nihilist.html"><strong>Nihilist Cipher</strong><span>Learn Nihilist Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="playfair.html"><strong>Playfair Cipher</strong><span>Learn Playfair Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link" href="homophonic.html"><strong>Homophonic Cipher</strong><span>Learn Homophonic Cipher with a complete reference and worked examples.</span></a><a class="seo-related-link seo-related-codebusters" href="../codebusters/"><strong>Science Olympiad Codebusters Practice</strong><span>Browse Codebusters-focused guides, visualizers, and generated practice.</span></a></div></section><div class="guide-end-nav">
 <a href="index.html">
        ← All cipher guides
       </a>
